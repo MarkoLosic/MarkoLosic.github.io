@@ -1,0 +1,13 @@
+[
+  {
+    "slug": "welcome",
+    "title": "Welcome to my blog",
+    "excerpt": "A short hello, and what you can expect to find here: notes on QA, test automation, mobile and AI testing.",
+    "tags": [
+      "intro",
+      "qa"
+    ],
+    "date": "2026-09-20",
+    "readingTime": 1
+  }
+]

@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Marko Lošić — QA Engineer · Test Automation</title>
+  <meta name="description" content="Marko Lošić — QA Engineer with 6+ years of experience in manual and automated testing of web apps, mobile apps and browser extensions. Playwright, Cypress, Maestro, AI model testing, mobile app development, Oracle APEX. Based in Banja Luka.">
+  <meta name="author" content="Marko Lošić">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Marko Lošić — QA Engineer · Test Automation">
+  <meta property="og:description" content="I make software reliable before users ever see it. Playwright, Cypress, Maestro, AI model testing.">
+  <meta property="og:image" content="https://markolosic.github.io/assets/marko.jpg">
+  <meta property="og:url" content="https://markolosic.github.io/">
+  <link rel="canonical" href="https://markolosic.github.io/">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/marko.jpg">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2307090d'/%3E%3Cpath d='M16 34l11 11 21-26' fill='none' stroke='%2334d399' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="blog/blog.css">
+  <script>
+    // Apply saved/system theme before paint to avoid a flash
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Marko Lošić",
+    "jobTitle": "QA Engineer",
+    "worksFor": { "@type": "Organization", "name": "Bravo System" },
+    "address": { "@type": "PostalAddress", "addressLocality": "Banja Luka", "addressCountry": "BA" },
+    "email": "mailto:markolosic1993@gmail.com",
+    "url": "https://markolosic.github.io/",
+    "image": "https://markolosic.github.io/assets/marko.jpg",
+    "sameAs": ["https://github.com/MarkoLosic"],
+    "knowsAbout": ["Test automation", "Playwright", "Cypress", "Maestro", "Mobile app testing", "AI model testing", "Mobile app development", "Manual testing", "Oracle APEX", "SQL", "PL/SQL"]
+  }
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="#top" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="#about" data-i18n="nav_about">About</a>
+      <a href="#skills" data-i18n="nav_skills">Skills</a>
+      <a href="#ai" data-i18n="nav_ai">AI</a>
+      <a href="#experience" data-i18n="nav_exp">Experience</a>
+      <a href="#education" data-i18n="nav_edu">Education</a>
+      <a href="blog/" data-i18n="nav_blog">Blog</a>
+      <a href="#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero wrap">
+      <div class="hero-copy">
+        <span class="status reveal"><i class="dot"></i><span data-i18n="status">QA Engineer at Bravo System · Banja Luka</span></span>
+        <h1 class="reveal">
+          <span data-i18n="h1_a">I make software</span>
+          <span class="grad" data-i18n="h1_b">reliable</span>
+          <span data-i18n="h1_c">before users ever see it.</span>
+        </h1>
+        <p class="lead reveal" data-i18n="lead">Hi, I'm <strong>Marko Lošić</strong> — a QA Engineer specialising in test automation. Six-plus years testing web apps, mobile apps and browser extensions, with Playwright, Cypress and Maestro as my daily tools. I also test AI models and build mobile apps of my own.</p>
+        <div class="cta reveal">
+          <a class="btn primary" href="#contact">
+            <span data-i18n="cta_talk">Let's talk</span>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn ghost" href="assets/Marko-Losic-CV.pdf" download>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+            <span data-i18n="cta_cv">Download CV</span>
+          </a>
+        </div>
+        <div class="socials reveal">
+          <a href="https://github.com/MarkoLosic" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.17 1.18a11 11 0 015.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.83 1.19 3.08 0 4.41-2.69 5.38-5.25 5.66.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0023.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+          </a>
+          <a href="https://linkedin.com/in/markolo%C5%A1i" target="_blank" rel="noopener" aria-label="LinkedIn" id="li-link">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+          </a>
+          <a href="mailto:markolosic1993@gmail.com" aria-label="Email">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+          </a>
+          <span class="loc"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.1 7-11.5a7 7 0 10-14 0C5 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="loc">Banja Luka, Bosnia and Herzegovina</span></span>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal">
+        <div class="photo-wrap">
+          <div class="photo-ring"></div>
+          <img class="photo" src="assets/marko.jpg" alt="Portrait of Marko Lošić" width="400" height="400" fetchpriority="high">
+          <span class="float-chip c1"><i></i>Playwright</span>
+          <span class="float-chip c2"><i></i>Cypress</span>
+          <span class="float-chip c3"><i></i>Maestro</span>
+        </div>
+        <div class="terminal" aria-label="Illustrative test run output">
+          <div class="term-bar"><i></i><i></i><i></i><span>~/tests — playwright</span></div>
+          <pre id="term" aria-live="off"></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="wrap stats reveal" aria-label="At a glance">
+      <div class="stat"><b><span data-count="6">6</span>+</b><span data-i18n="st1">Years in QA</span></div>
+      <div class="stat"><b data-count="3">3</b><span data-i18n="st2">Platforms: web, mobile, extensions</span></div>
+      <div class="stat"><b data-count="3">3</b><span data-i18n="st3">Automation tools: Playwright, Cypress, Maestro</span></div>
+      <div class="stat"><b>SQL</b><span data-i18n="st4">+ PL/SQL &amp; Oracle APEX</span></div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="wrap section">
+      <div class="sec-head reveal"><span class="eyebrow">01 — <span data-i18n="nav_about">About</span></span><h2 data-i18n="about_h">Quality is a team sport.</h2></div>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p data-i18n="about_p1">QA Engineer with 6+ years of experience in manual and automated testing of web applications, mobile applications and browser extensions. I build test suites in Playwright and Cypress, write test plans and cases, and work closely with cross-functional teams to ship reliable software.</p>
+          <p data-i18n="about_p2">I'm also an Oracle APEX developer with SQL and PL/SQL experience, I test AI models, and I create mobile applications — so I understand products from the database to the device, not only from the browser down. My route into QA went through technical support, retail and teaching, which shaped how I think about users and how clearly I communicate a defect.</p>
+        </div>
+        <ul class="highlights reveal">
+          <li><span class="hl-ic">⚡</span><div><b data-i18n="hl1_t">Automation that pays off</b><p data-i18n="hl1_d">Playwright and Cypress suites that make the QA process faster and more reliable.</p></div></li>
+          <li><span class="hl-ic">🧭</span><div><b data-i18n="hl2_t">Process from the ground up</b><p data-i18n="hl2_d">I built a team's QA process from scratch, from test strategy to regression.</p></div></li>
+          <li><span class="hl-ic">🤝</span><div><b data-i18n="hl3_t">Close to the team</b><p data-i18n="hl3_d">Requirements, test plans and feedback shared early, inside Agile and Scrum teams.</p></div></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="wrap section">
+      <div class="sec-head reveal"><span class="eyebrow">02 — <span data-i18n="nav_skills">Skills</span></span><h2 data-i18n="skills_h">The toolbox.</h2></div>
+      <div class="skill-grid">
+        <article class="card glow reveal wide">
+          <h3><span class="ic">🧪</span><span data-i18n="sk1">Testing</span></h3>
+          <p class="mini lede" data-i18n="sk1_d">Testing is my core discipline. I cover the full range, from exploratory manual checks to automated suites, across web apps, mobile apps and browser extensions.</p>
+          <div class="chips">
+            <span data-i18n="c_manual">Manual testing</span><span data-i18n="c_auto">Automated testing</span><span data-i18n="c_web">Web testing</span><span data-i18n="c_mobile">Mobile testing</span><span data-i18n="c_ext">Browser extension testing</span><span data-i18n="c_plan">Test planning</span><span data-i18n="c_strat">Test strategy</span><span data-i18n="c_case">Test case design</span><span data-i18n="c_func">Functional</span><span data-i18n="c_int">Integration</span><span data-i18n="c_reg">Regression</span>
+          </div>
+          <div class="split">
+            <div>
+              <h4 data-i18n="t1_h">Manual &amp; exploratory</h4>
+              <ul class="points">
+                <li data-i18n="t1_1">Test planning, strategy and test case design based on requirements.</li>
+                <li data-i18n="t1_2">Functional testing of new features against what they are meant to do.</li>
+                <li data-i18n="t1_3">Exploratory testing to catch what scripted tests miss.</li>
+                <li data-i18n="t1_4">Defect reports with clear steps to reproduce.</li>
+              </ul>
+            </div>
+            <div>
+              <h4 data-i18n="t2_h">Automated &amp; regression</h4>
+              <ul class="points">
+                <li data-i18n="t2_1">Integration testing to verify that components work together.</li>
+                <li data-i18n="t2_2">Regression suites automated in Playwright and Cypress and re-run for every release.</li>
+                <li data-i18n="t2_3">Coverage across web apps, mobile apps and browser extensions.</li>
+                <li data-i18n="t2_4">Built a team's QA process from the ground up.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+        <article class="card glow reveal wide">
+          <h3><span class="ic">🛠️</span><span data-i18n="sk2">Tools &amp; platforms</span></h3>
+          <p class="mini lede" data-i18n="sk2_d">The tools I use to plan, automate, track and ship.</p>
+          <div class="chips accent"><span>Playwright</span><span>Cypress</span><span>Maestro</span><span>Postman</span><span>Jenkins</span><span>Jira</span><span>Figma</span><span>Git</span><span>Bitbucket</span></div>
+          <div class="chips os"><span>Windows</span><span>Linux</span><span>macOS</span></div>
+          <div class="split">
+            <div>
+              <h4 data-i18n="o1_h">Automation &amp; API</h4>
+              <ul class="points">
+                <li data-i18n="o1_1">Playwright and Cypress for end-to-end browser tests.</li>
+                <li data-i18n="o1_2">Maestro for automating mobile app flows.</li>
+                <li data-i18n="o1_3">Postman for API testing and checking backend responses.</li>
+                <li data-i18n="o1_4">Jenkins for running test suites automatically.</li>
+              </ul>
+            </div>
+            <div>
+              <h4 data-i18n="o2_h">Collaboration &amp; environments</h4>
+              <ul class="points">
+                <li data-i18n="o2_1">Jira for tracking defects and test work in Agile teams.</li>
+                <li data-i18n="o2_2">Figma to understand designs and compare them with the implementation.</li>
+                <li data-i18n="o2_3">Git and Bitbucket for versioning test code.</li>
+                <li data-i18n="o2_4">Equally at home on Windows, Linux and macOS.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+        <article class="card glow reveal wide">
+          <h3><span class="ic">📱</span><span data-i18n="sk5">Mobile apps</span></h3>
+          <p class="mini lede" data-i18n="sk5_d">Mobile is where I work at both ends: I automate the testing of mobile apps with Maestro, and I create mobile applications of my own.</p>
+          <div class="chips accent"><span>Maestro</span></div>
+          <div class="chips"><span data-i18n="c_mobile2">Mobile app testing</span><span data-i18n="c_mdev">Mobile app development</span></div>
+          <div class="split">
+            <div>
+              <h4 data-i18n="m1_h">Testing with Maestro</h4>
+              <ul class="points">
+                <li data-i18n="m1_1">Automate end-to-end UI flows such as onboarding, login and navigation as readable, repeatable Maestro flows.</li>
+                <li data-i18n="m1_2">Re-run the same flows as regression checks before each release, so a fix on one screen doesn't quietly break another.</li>
+                <li data-i18n="m1_3">Pair automation with manual exploratory testing across different devices and screen sizes.</li>
+                <li data-i18n="m1_4">Report defects with clear steps to reproduce, so they can be fixed faster.</li>
+              </ul>
+            </div>
+            <div>
+              <h4 data-i18n="m2_h">Creating mobile apps</h4>
+              <ul class="points">
+                <li data-i18n="m2_1">Design and build mobile applications of my own, from an idea to a working app.</li>
+                <li data-i18n="m2_2">Building apps myself shows me how they are structured and where they tend to break, which makes my tests sharper.</li>
+                <li data-i18n="m2_3">I bring a tester's mindset into development: edge cases and real user flows are considered while building, not after.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+        <article class="card glow reveal wide">
+          <h3><span class="ic">🤖</span><span data-i18n="sk6">AI model testing</span></h3>
+          <p class="mini lede" data-i18n="sk6_d">Testing how AI models behave: whether their answers are correct, consistent and safe.</p>
+          <div class="chips accent2"><span data-i18n="c_ai">AI model testing</span></div>
+          <div class="chips"><span data-i18n="c_aiq">Output quality checks</span><span data-i18n="c_aie">Edge-case testing</span></div>
+          <div class="split">
+            <div>
+              <h4 data-i18n="a1_h">What I check</h4>
+              <ul class="points">
+                <li data-i18n="a1_1">Correctness: are the answers accurate and useful.</li>
+                <li data-i18n="a1_2">Consistency: does the model stay stable across similar prompts.</li>
+                <li data-i18n="a1_3">Safety: how the model reacts to unusual or problematic input.</li>
+              </ul>
+            </div>
+            <div>
+              <h4 data-i18n="a2_h">How I test</h4>
+              <ul class="points">
+                <li data-i18n="a2_1">Build prompt sets with expected behaviour, including edge cases.</li>
+                <li data-i18n="a2_2">Compare results across runs and model versions.</li>
+                <li data-i18n="a2_3">Document failures with concrete examples.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+        <article class="card glow reveal wide">
+          <h3><span class="ic">🗄️</span><span data-i18n="sk3">Development</span></h3>
+          <p class="mini lede" data-i18n="sk3_d">Alongside QA, I design and build database-driven applications in Oracle APEX, with SQL and PL/SQL as everyday tools.</p>
+          <div class="chips accent2"><span>Oracle APEX</span><span>SQL</span><span>PL/SQL</span></div>
+          <div class="split">
+            <div>
+              <h4 data-i18n="d1_h">Oracle APEX</h4>
+              <ul class="points">
+                <li data-i18n="d1_1">Designed and developed database-driven applications in Oracle APEX.</li>
+                <li data-i18n="d1_2">Worked as a QA engineer and APEX developer in the same team, at Krajina Klas.</li>
+              </ul>
+            </div>
+            <div>
+              <h4 data-i18n="d2_h">SQL &amp; PL/SQL</h4>
+              <ul class="points">
+                <li data-i18n="d2_1">SQL queries to inspect and verify data.</li>
+                <li data-i18n="d2_2">PL/SQL for logic that lives in the database.</li>
+                <li data-i18n="d2_3">Knowing the database side helps me test the data layer and trace bugs to their root cause.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+        <article class="card glow reveal wide">
+          <h3><span class="ic">🔄</span><span data-i18n="sk4">Ways of working</span></h3>
+          <p class="mini lede" data-i18n="sk4_d">Quality is built by a team. Here is how I work with the people around me.</p>
+          <div class="chips"><span>Agile</span><span>Scrum</span><span class="hl">True North program</span><span data-i18n="c_xfn">Cross-functional collaboration</span></div>
+          <div class="split">
+            <div>
+              <h4 data-i18n="w1_h">Agile &amp; Scrum</h4>
+              <ul class="points">
+                <li data-i18n="w1_1">Working inside Agile and Scrum teams.</li>
+                <li data-i18n="w1_2">Defining test requirements and writing test plans with cross-functional teams.</li>
+                <li data-i18n="w1_3">Contributing insights and suggestions during development to improve quality.</li>
+              </ul>
+            </div>
+            <div>
+              <h4 data-i18n="w2_h">Communication</h4>
+              <ul class="points">
+                <li data-i18n="w2_1">Clear written defect reports a developer can reproduce right away.</li>
+                <li data-i18n="w2_2">Early feedback, while fixes are still cheap.</li>
+                <li data-i18n="w2_3">A background in support, teaching and retail helps me explain the same issue to technical and non-technical people.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature-head">
+              <span class="badge" aria-hidden="true">🧭</span>
+              <div>
+                <h4 data-i18n="tn_h">True North program</h4>
+                <p class="mini" data-i18n="tn_sub">Completed the training · Program trainer</p>
+              </div>
+            </div>
+            <p class="feature-lede" data-i18n="tn_lede">True North is a team-coaching program built around one idea: teams should move from uncertainty to evidence. Instead of polishing opinions, teams learn to test what they believe about their customers and let real behaviour decide what happens next.</p>
+            <div class="split">
+              <div>
+                <h4 data-i18n="tn1_h">What the program means</h4>
+                <ul class="points">
+                  <li data-i18n="tn1_1">Understand the customer first: empathy interviews, then zooming in on the one problem that matters most right now.</li>
+                  <li data-i18n="tn1_2">Turn beliefs into testable assumptions, then run experiments that measure what people actually do, not what they say.</li>
+                  <li data-i18n="tn1_3">Decide from evidence, and track progress with metrics that change what the team does next.</li>
+                  <li data-i18n="tn1_4">Work in short sprints with planning, daily stand-ups and retrospectives, clear roles and open communication.</li>
+                </ul>
+              </div>
+              <div>
+                <h4 data-i18n="tn2_h">What it means for me</h4>
+                <ul class="points">
+                  <li data-i18n="tn2_1">I completed the training and then worked as a program trainer, helping others learn the method.</li>
+                  <li data-i18n="tn2_2">It sharpened how I coach and communicate with teams: asking better questions and keeping everyone focused on shared goals.</li>
+                  <li data-i18n="tn2_3">The same mindset drives my testing: assumptions are made explicit, and quality is judged by observed behaviour, not opinion.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- AI -->
+    <section id="ai" class="wrap section">
+      <div class="sec-head reveal"><span class="eyebrow">03 — <span data-i18n="nav_ai">AI</span></span><h2 data-i18n="ai_h">Working with AI, not around it.</h2></div>
+      <p class="section-lede reveal" data-i18n="ai_lede">I use AI tools every day to move faster and think wider. The rule stays the same: AI drafts, I decide. Every result is checked, run and understood before it reaches a test suite or a report.</p>
+      <div class="ai-grid">
+        <article class="card glow reveal">
+          <span class="ai-n">01</span>
+          <h4 data-i18n="ai1_t">Test design</h4>
+          <p data-i18n="ai1_d">Turning requirements into test ideas, edge cases and draft test cases, which I then review, trim and sharpen.</p>
+        </article>
+        <article class="card glow reveal">
+          <span class="ai-n">02</span>
+          <h4 data-i18n="ai2_t">Automation code</h4>
+          <p data-i18n="ai2_d">Writing, refactoring and debugging Playwright, Cypress and Maestro tests with AI assistants, so suites get built and fixed faster.</p>
+        </article>
+        <article class="card glow reveal">
+          <span class="ai-n">03</span>
+          <h4 data-i18n="ai3_t">Bug analysis &amp; reports</h4>
+          <p data-i18n="ai3_d">Making sense of logs and failures, narrowing down root causes and writing defect reports with clear steps to reproduce.</p>
+        </article>
+        <article class="card glow reveal">
+          <span class="ai-n">04</span>
+          <h4 data-i18n="ai4_t">Plans &amp; documentation</h4>
+          <p data-i18n="ai4_d">Drafting test plans, strategies and documentation, and learning new tools and domains quicker.</p>
+        </article>
+      </div>
+      <div class="ai-rules reveal">
+        <span data-i18n="ar1">✓ Verified, never trusted blindly</span>
+        <span data-i18n="ar2">✓ Human judgement on every result</span>
+        <span data-i18n="ar3">✓ Sensitive data stays out of prompts</span>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="wrap section">
+      <div class="sec-head reveal"><span class="eyebrow">04 — <span data-i18n="nav_exp">Experience</span></span><h2 data-i18n="exp_h">Where I've shipped.</h2></div>
+      <ol class="timeline">
+        <li class="job reveal">
+          <div class="when"><span>Jun 2022 – <em data-i18n="present">Present</em></span></div>
+          <div class="body card glow">
+            <h3><span data-i18n="j1_role">QA Engineer</span> <span class="at">· Bravo System</span></h3>
+            <p class="place">Banja Luka</p>
+            <ul>
+              <li data-i18n="j1_1">Manually test web applications, mobile applications and browser extensions to ensure high quality across releases.</li>
+              <li data-i18n="j1_2">Build and maintain automated tests in Playwright and Cypress, improving the efficiency and reliability of the QA process.</li>
+              <li data-i18n="j1_3">Work with cross-functional teams to define test requirements, write test plans and execute test cases.</li>
+              <li data-i18n="j1_4">Perform thorough testing and debugging to identify defects and ensure smooth functionality.</li>
+            </ul>
+            <div class="chips tiny"><span>Playwright</span><span>Cypress</span><span>Web</span><span>Mobile</span><span>Extensions</span></div>
+          </div>
+        </li>
+        <li class="job reveal">
+          <div class="when"><span>Jan 2020 – Jun 2022</span></div>
+          <div class="body card glow">
+            <h3><span data-i18n="j2_role">QA Engineer &amp; Oracle APEX Developer</span> <span class="at">· Krajina Klas</span></h3>
+            <p class="place">Banja Luka</p>
+            <ul>
+              <li data-i18n="j2_1">Built the team's QA process from the ground up.</li>
+              <li data-i18n="j2_2">Developed automated tests with Playwright and Cypress, improving the efficiency and reliability of the QA process.</li>
+              <li data-i18n="j2_3">Performed functional, integration and regression testing to ensure application reliability and stability.</li>
+              <li data-i18n="j2_4">Contributed insights and suggestions during development to improve software quality.</li>
+              <li data-i18n="j2_5">Designed and developed database-driven applications in Oracle APEX.</li>
+            </ul>
+            <div class="chips tiny"><span>Playwright</span><span>Cypress</span><span>Oracle APEX</span><span>SQL</span><span>PL/SQL</span></div>
+          </div>
+        </li>
+      </ol>
+
+      <h3 class="sub reveal" data-i18n="earlier">Earlier experience</h3>
+      <div class="earlier">
+        <article class="card glow reveal">
+          <span class="when-s">May 2019 – Jan 2020</span>
+          <h4 data-i18n="e1_role">Category Manager</h4><p class="place">Tropic · Banja Luka</p>
+          <p data-i18n="e1_d">Managed the technical and electrical product category: product selection, pricing, inventory and supplier negotiations, backed by market research.</p>
+        </article>
+        <article class="card glow reveal">
+          <span class="when-s">May 2018 – May 2019</span>
+          <h4 data-i18n="e2_role">School Teacher</h4><p class="place" data-i18n="e2_place">OŠ Grahovo · Bosansko Grahovo</p>
+          <p data-i18n="e2_d">Planned and delivered engaging lessons for first-grade students.</p>
+        </article>
+        <article class="card glow reveal">
+          <span class="when-s">May 2014 – May 2018</span>
+          <h4 data-i18n="e3_role">Technical Support Agent</h4><p class="place">Telemach · Banja Luka</p>
+          <p data-i18n="e3_d">Supported internet and EON application users with troubleshooting, and led a team of support agents.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education" class="wrap section">
+      <div class="sec-head reveal"><span class="eyebrow">05 — <span data-i18n="nav_edu">Education</span></span><h2 data-i18n="edu_h">Learning, always.</h2></div>
+      <div class="edu-grid">
+        <article class="card glow reveal">
+          <span class="when-s">2012 – 2019</span>
+          <h4>University of Banja Luka</h4>
+          <p data-i18n="edu1">Bachelor's degree, Elementary School Teacher</p>
+        </article>
+        <article class="card glow reveal">
+          <span class="when-s" data-i18n="training">Training</span>
+          <h4>True North program</h4>
+          <p data-i18n="edu2">Completed the training · Program trainer</p>
+        </article>
+        <article class="card glow reveal">
+          <span class="when-s" data-i18n="interests">Interests</span>
+          <h4 data-i18n="int_h">Off the clock</h4>
+          <div class="chips"><span data-i18n="i1">🏃 Marathon running</span><span data-i18n="i2">📷 Photography</span><span data-i18n="i3">🎸 Guitar</span><span data-i18n="i4">🥾 Hiking</span><span data-i18n="i5">⛺ Camping</span></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- BLOG (filled from posts/index.json; hidden when there are no posts) -->
+    <section id="blog" class="wrap section" hidden>
+      <div class="sec-head reveal"><span class="eyebrow">06 — <span data-i18n="nav_blog">Blog</span></span><h2 data-i18n="blog_h">Latest from the blog.</h2></div>
+      <div class="post-grid" id="latest"></div>
+      <div class="cta"><a class="btn ghost" href="blog/"><span data-i18n="blog_all">All posts</span>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="wrap section">
+      <div class="contact card glow reveal">
+        <div class="contact-copy">
+          <span class="eyebrow">07 — <span data-i18n="nav_contact">Contact</span></span>
+          <h2 data-i18n="ct_h">Have a product that needs to be rock-solid?</h2>
+          <p data-i18n="ct_p">Let's talk about quality, automation or your next release. I'm always happy to connect with fellow engineers, teams and recruiters.</p>
+          <div class="cta">
+            <a class="btn primary" href="mailto:markolosic1993@gmail.com">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+              <span data-i18n="ct_mail">Send an email</span>
+            </a>
+            <button class="btn ghost" id="copy" type="button" data-copy="markolosic1993@gmail.com">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg>
+              <span id="copy-label" data-i18n="ct_copy">Copy email</span>
+            </button>
+          </div>
+        </div>
+        <ul class="contact-list">
+          <li><span class="k" data-i18n="k_email">Email</span><a href="mailto:markolosic1993@gmail.com">markolosic1993@gmail.com</a></li>
+          <li><span class="k" data-i18n="k_phone">Phone</span><a href="tel:+38763759197">+387 63 759 197</a></li>
+          <li><span class="k">LinkedIn</span><a href="https://linkedin.com/in/markolo%C5%A1i" target="_blank" rel="noopener">linkedin.com/in/markološi</a></li>
+          <li><span class="k">GitHub</span><a href="https://github.com/MarkoLosic" target="_blank" rel="noopener">github.com/MarkoLosic</a></li>
+          <li><span class="k" data-i18n="k_loc">Location</span><span data-i18n="loc2">Banja Luka, Bosnia and Herzegovina</span></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <span class="foot-mid" data-i18n="foot">Tested with care. Shipped green. ✓</span>
+    <a href="#top" data-i18n="top">Back to top ↑</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
