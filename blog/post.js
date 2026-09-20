@@ -1,11 +1,6 @@
 (() => {
   'use strict';
-  const b = document.getElementById('share');
-  if (b) b.addEventListener('click', async () => {
-    try { await navigator.clipboard.writeText(location.href); b.textContent = 'Copied ✓'; }
-    catch (_) { b.textContent = 'Press Ctrl/Cmd+C'; }
-    setTimeout(() => { b.textContent = 'Copy link'; }, 1800);
-  });
+  // Copy-link ("#share") is wired in common.js, alongside the language switcher it needs to label the button correctly.
   document.querySelectorAll('.post-card').forEach(c => c.addEventListener('pointermove', e => {
     const r = c.getBoundingClientRect();
     c.style.setProperty('--mx', (e.clientX - r.left) + 'px');

@@ -12,7 +12,7 @@
 
   /* ---------- i18n (English lives in the HTML; Serbian is swapped in) ---------- */
   const SR = {
-    nav_about: 'O meni', nav_ai: 'AI', nav_blog: 'Blog', blog_h: 'Najnovije s bloga.', blog_all: 'Svi članci', nav_skills: 'Vještine', nav_exp: 'Iskustvo', nav_edu: 'Obrazovanje', nav_contact: 'Kontakt',
+    nav_about: 'O meni', nav_ai: 'AI', nav_blog: 'Blog', blog_h: 'Najnovije s bloga.', blog_all: 'Svi članci', nav_skills: 'Vještine', nav_exp: 'Iskustvo', nav_edu: 'Obrazovanje', nav_contact: 'Kontakt', min_read: 'min čitanja',
     status: 'QA inženjer u Bravo System-u · Banja Luka',
     h1_a: 'Pravim softver', h1_b: 'pouzdanim', h1_c: 'prije nego ga korisnici vide.',
     lead: 'Zdravo, ja sam <strong>Marko Lošić</strong> — QA inženjer specijalizovan za automatizaciju testiranja. Više od šest godina testiram web i mobilne aplikacije te ekstenzije za pretraživač, a Playwright, Cypress i Maestro su mi svakodnevni alati. Takođe testiram AI modele i pravim vlastite mobilne aplikacije.',
@@ -144,6 +144,7 @@
       ? 'Marko Lošić — QA inženjer · Automatizacija testiranja'
       : 'Marko Lošić — QA Engineer · Test Automation';
     store.set('lang', l);
+    renderLatest();
   };
   $('#lang').addEventListener('click', () => setLang(lang === 'en' ? 'sr' : 'en'));
 
@@ -263,28 +264,38 @@
   });
 
   /* ---------- Latest blog posts ---------- */
+  let renderLatest = () => {};
   (function latestPosts() {
     const wrap = $('#blog'), grid = $('#latest');
     if (!wrap || !grid) return;
     const e = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    const minRead = () => lang === 'sr' ? SR.min_read : 'min read';
+    let list = [];
+    const render = () => {
+      if (!list.length) return;
+      grid.innerHTML = list.map(p => {
+        const dt = new Date(p.date + 'T00:00:00Z');
+        const date = isNaN(dt) ? p.date : new Intl.DateTimeFormat(lang === 'sr' ? 'sr-Latn-RS' : 'en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(dt);
+        const title = (lang === 'sr' && p.titleSr) || p.title;
+        const excerpt = (lang === 'sr' && p.excerptSr) || p.excerpt || '';
+        return `<a class="post-card card glow reveal in" href="blog/${encodeURIComponent(p.slug)}/">
+            <div class="meta"><span>${e(date)}</span><span>·</span><span>${p.readingTime || 1} ${minRead()}</span></div>
+            <h2>${e(title)}</h2><p>${e(excerpt)}</p>
+            <div class="tags">${(p.tags || []).map(t => `<span>${e(t)}</span>`).join('')}</div></a>`;
+      }).join('');
+      grid.querySelectorAll('.card.glow').forEach(c => c.addEventListener('pointermove', ev => {
+        const r = c.getBoundingClientRect();
+        c.style.setProperty('--mx', (ev.clientX - r.left) + 'px');
+        c.style.setProperty('--my', (ev.clientY - r.top) + 'px');
+      }));
+    };
+    renderLatest = render;
     fetch('blog/posts.json', { cache: 'no-cache' })
       .then(r => { if (!r.ok) throw 0; return r.json(); })
       .then(d => {
-        const list = (Array.isArray(d) ? d : []).slice().sort((a, b) => (b.date || '').localeCompare(a.date || '')).slice(0, 3);
+        list = (Array.isArray(d) ? d : []).slice().sort((a, b) => (b.date || '').localeCompare(a.date || '')).slice(0, 3);
         if (!list.length) return;
-        grid.innerHTML = list.map(p => {
-          const dt = new Date(p.date + 'T00:00:00');
-          const date = isNaN(dt) ? p.date : dt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-          return `<a class="post-card card glow reveal in" href="blog/${encodeURIComponent(p.slug)}/">
-            <div class="meta"><span>${e(date)}</span><span>·</span><span>${p.readingTime || 1} min read</span></div>
-            <h2>${e(p.title)}</h2><p>${e(p.excerpt || '')}</p>
-            <div class="tags">${(p.tags || []).map(t => `<span>${e(t)}</span>`).join('')}</div></a>`;
-        }).join('');
-        grid.querySelectorAll('.card.glow').forEach(c => c.addEventListener('pointermove', ev => {
-          const r = c.getBoundingClientRect();
-          c.style.setProperty('--mx', (ev.clientX - r.left) + 'px');
-          c.style.setProperty('--my', (ev.clientY - r.top) + 'px');
-        }));
+        render();
         wrap.hidden = false;
         io.observe(wrap.querySelector('.sec-head'));
       })

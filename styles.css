@@ -53,6 +53,9 @@ ul, ol { list-style: none; }
 
 .wrap { width: min(1160px, 100% - 40px); margin-inline: auto; }
 .section { padding: 110px 0 20px; }
+/* The last anchor on the page needs enough room below it to scroll fully into view —
+   otherwise there isn't enough page left to scroll past, and #contact clicks undershoot into whatever section sits above it. */
+#contact { min-height: 100svh; display: grid; align-content: center; }
 
 /* Ambient background */
 .bg-glow { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
@@ -275,6 +278,7 @@ h3 { font-family: var(--font-head); letter-spacing: -.01em; }
   .hero-visual .terminal { position: static; transform: none; margin-top: 28px; }
   .float-chip.c1 { right: -4%; } .float-chip.c2 { left: -6%; } .float-chip.c3 { right: -4%; }
   .about-grid, .contact { grid-template-columns: 1fr; gap: 32px; }
+  #contact { min-height: 0; }
   .stats { grid-template-columns: repeat(2, 1fr); }
   .stat:nth-child(2) { border-right: 0; }
   .stat:nth-child(-n+2) { border-bottom: 1px solid var(--border); }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"><channel>
 <title>Marko Lošić — Blog</title><link>https://markolosic.github.io/blog/</link><description>Notes on QA, test automation, mobile and AI testing.</description><language>en</language>
-<item><title>Welcome to my blog</title><link>https://markolosic.github.io/blog/welcome/</link><guid>https://markolosic.github.io/blog/welcome/</guid><pubDate>Sun, 20 Sep 2026 00:00:00 GMT</pubDate><description>A short hello, and what you can expect to find here: notes on QA, test automation, mobile and AI testing.</description></item>
+<item><title>Why Maestro Deserves a Spot in Your Web Testing Toolkit</title><link>https://markolosic.github.io/blog/maestro-for-web-testing/</link><guid>https://markolosic.github.io/blog/maestro-for-web-testing/</guid><pubDate>Mon, 21 Sep 2026 00:00:00 GMT</pubDate><description>Maestro is known as a mobile UI testing tool, but its browser support quietly closes the gap with web testing. Here's why I reach for it, and how to write your first flow.</description></item>
 </channel></rss>

@@ -19,4 +19,13 @@ draft: true              (opciono; sakriva članak dok ne obrišeš ovu liniju)
 4. Slike stavi u `assets/blog/`.
 5. Objava: `git add . && git commit -m "Novi članak" && git push` — GitHub Action sam napravi stranicu, sitemap i RSS.
 
+## Srpski prevod (opciono)
+
+Cijeli blog (kao i naslovna strana) ima EN/SR prekidač. Ako želiš da članak ima i srpsku verziju:
+
+1. Dodaj `title_sr` i `excerpt_sr` u front matter (ispod `title` i `excerpt`).
+2. Na kraju engleskog teksta članka stavi liniju `<!--sr-->` samu za sebe, pa ispod nje napiši cijeli tekst na srpskom.
+
+Ako `title_sr`/`excerpt_sr` ili `<!--sr-->` blok izostave, taj dio članka jednostavno ostaje na engleskom kad neko prebaci sajt na SR — ništa se ne lomi.
+
 Pregled lokalno: `node scripts/build-blog.mjs`, pa `python3 -m http.server` i otvori http://localhost:8000/blog/

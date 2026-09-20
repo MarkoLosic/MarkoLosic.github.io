@@ -1,13 +1,16 @@
 [
   {
-    "slug": "welcome",
-    "title": "Welcome to my blog",
-    "excerpt": "A short hello, and what you can expect to find here: notes on QA, test automation, mobile and AI testing.",
+    "slug": "maestro-for-web-testing",
+    "title": "Why Maestro Deserves a Spot in Your Web Testing Toolkit",
+    "titleSr": "Zašto Maestro zaslužuje mjesto u vašem alatu za testiranje web aplikacija",
+    "excerpt": "Maestro is known as a mobile UI testing tool, but its browser support quietly closes the gap with web testing. Here's why I reach for it, and how to write your first flow.",
+    "excerptSr": "Maestro je poznat kao alat za testiranje mobilnih aplikacija, ali podrška za pretraživač tiho zatvara jaz prema web testiranju. Evo zašto ga koristim, i kako napisati svoj prvi tok.",
     "tags": [
-      "intro",
-      "qa"
+      "testing",
+      "automation",
+      "maestro"
     ],
-    "date": "2026-09-20",
-    "readingTime": 1
+    "date": "2026-09-21",
+    "readingTime": 4
   }
 ]

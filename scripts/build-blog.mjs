@@ -10,14 +10,22 @@
    Each post is one file, e.g. content/posts/my-first-post.md (the file name becomes the URL):
      ---
      title: My first post
+     title_sr: Moj prvi članak       (optional, Serbian nav pill on the site)
      date: 2026-09-20
      updated: 2026-09-25        (optional)
      tags: [qa, playwright]
      excerpt: One or two sentences, used as the Google description.
+     excerpt_sr: ...             (optional)
      image: assets/blog/cover.jpg   (optional, used for link previews)
      draft: true                (optional, hides the post)
      ---
-     Markdown body...
+     English markdown body...
+
+     <!--sr-->
+
+     Serbian markdown body (optional; on its own line "<!--sr-->" splits the two).
+     Whatever isn't translated (title_sr, excerpt_sr, or the whole body) just falls
+     back to English when a reader switches the site to SR — nothing breaks.
 */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -60,7 +68,12 @@ function loadPosts() {
     if (!meta.title) throw new Error(`${f}: "title" is required`);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(meta.date || '')) throw new Error(`${f}: "date" is required as YYYY-MM-DD`);
     const tags = (meta.tags || '').replace(/^\[|\]$/g, '').split(',').map(t => t.trim().toLowerCase()).filter(Boolean);
-    out.push({ slug, title: meta.title, excerpt: meta.excerpt, image: meta.image, body, tags, published_at: meta.date, updated_at: /^\d{4}-\d{2}-\d{2}/.test(meta.updated || '') ? meta.updated : meta.date });
+    const [bodyEn, bodySr] = body.split(/\n<!--\s*sr\s*-->\n/);
+    out.push({
+      slug, title: meta.title, title_sr: meta.title_sr, excerpt: meta.excerpt, excerpt_sr: meta.excerpt_sr,
+      image: meta.image, body: bodyEn.trim(), body_sr: bodySr ? bodySr.trim() : null,
+      tags, published_at: meta.date, updated_at: /^\d{4}-\d{2}-\d{2}/.test(meta.updated || '') ? meta.updated : meta.date
+    });
   }
   return out;
 }
@@ -124,13 +137,16 @@ function shell({ depth, title, description, canonical, type = 'website', image =
       <span class="brand-name">Marko&nbsp;Lošić</span>
     </a>
     <nav class="links" id="links" aria-label="Primary">
-      <a href="${root}#about">About</a>
-      <a href="${root}#skills">Skills</a>
-      <a href="${root}#experience">Experience</a>
-      <a href="${root}blog/" class="active">Blog</a>
-      <a href="${root}#contact">Contact</a>
+      <a href="${root}#about" data-i18n="nav_about">About</a>
+      <a href="${root}#skills" data-i18n="nav_skills">Skills</a>
+      <a href="${root}#experience" data-i18n="nav_exp">Experience</a>
+      <a href="${root}blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="${root}#contact" data-i18n="nav_contact">Contact</a>
     </nav>
     <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
       <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
         <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
         <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
@@ -143,8 +159,8 @@ function shell({ depth, title, description, canonical, type = 'website', image =
 ${body}
   <footer class="footer wrap">
     <span>© <span id="year">${new Date().getFullYear()}</span> ${AUTHOR}</span>
-    <a href="${root}#contact">Get in touch</a>
-    <a href="${root}">Back to home ↑</a>
+    <a href="${root}#contact" data-i18n="contact_cta">Get in touch</a>
+    <a href="${root}" data-i18n="back_home">Back to home ↑</a>
   </footer>
   <script src="${root}blog/common.js"></script>
   ${scripts}
@@ -157,13 +173,18 @@ const tagSpans = tags => (tags || []).map(t => `<span>${esc(t)}</span>`).join(''
 const clock = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 
 /* ---------- build ---------- */
-const posts = loadPosts().map(p => ({
-  ...p,
-  tags: p.tags || [],
-  excerpt: p.excerpt || clip(plain(p.body || ''), 160),
-  reading_time: MD.readingTime(p.body),
-  updated_at: p.updated_at || p.published_at
-}));
+const posts = loadPosts().map(p => {
+  const excerpt = p.excerpt || clip(plain(p.body || ''), 160);
+  return {
+    ...p,
+    tags: p.tags || [],
+    excerpt,
+    title_sr: p.title_sr || p.title,
+    excerpt_sr: p.excerpt_sr || excerpt,
+    reading_time: MD.readingTime(p.body),
+    updated_at: p.updated_at || p.published_at
+  };
+});
 posts.sort((a, b) => String(b.published_at).localeCompare(String(a.published_at)));
 
 // clean previously generated post folders
@@ -174,27 +195,27 @@ for (const entry of fs.readdirSync(rel('blog'), { withFileTypes: true })) {
 /* list page */
 const allTags = [...new Set(posts.flatMap(p => p.tags))].sort();
 const cards = posts.map((p, i) => `
-      <a class="post-card card glow${i === 0 ? ' featured' : ''}" href="${p.slug}/" data-search="${esc((p.title + ' ' + p.excerpt + ' ' + p.tags.join(' ')).toLowerCase())}" data-tags="${esc(p.tags.join('|'))}">
-        <div class="meta"><time datetime="${p.published_at}">${fmtShort(p.published_at)}</time><span>·</span><span>${p.reading_time} min read</span></div>
+      <a class="post-card card glow${i === 0 ? ' featured' : ''}" href="${p.slug}/" data-search="${esc((p.title + ' ' + p.title_sr + ' ' + p.excerpt + ' ' + p.excerpt_sr + ' ' + p.tags.join(' ')).toLowerCase())}" data-tags="${esc(p.tags.join('|'))}" data-title-sr="${esc(p.title_sr)}" data-excerpt-sr="${esc(p.excerpt_sr)}">
+        <div class="meta"><time datetime="${p.published_at}" data-fmt="short">${fmtShort(p.published_at)}</time><span>·</span><span>${p.reading_time} <span data-i18n="min_read">min read</span></span></div>
         <h2>${esc(p.title)}</h2>
         <p>${esc(p.excerpt)}</p>
         <div class="tags">${tagSpans(p.tags)}</div>
-        <span class="more">Read post ${clock}</span>
+        <span class="more"><span data-i18n="read_post">Read post</span> ${clock}</span>
       </a>`).join('');
 
 const listBody = `
   <main class="wrap blog-wrap">
     <section class="blog-hero">
       <span class="eyebrow">Blog</span>
-      <h1 class="blog-title">Notes from the <span class="grad">test bench</span>.</h1>
-      <p class="lead">Writing about QA, test automation, mobile and AI testing, and what I learn while building software.</p>
+      <h1 class="blog-title" data-i18n="blog_h1">Notes from the <span class="grad">test bench</span>.</h1>
+      <p class="lead" data-i18n="blog_lead">Writing about QA, test automation, mobile and AI testing, and what I learn while building software.</p>
     </section>
     <div class="blog-tools">
-      <label class="search"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q" type="search" placeholder="Search posts…" aria-label="Search posts" autocomplete="off"></label>
-      <div class="tag-row" id="tags" aria-label="Filter by tag">${allTags.length ? ['', ...allTags].map(t => `<button type="button" class="tag${t ? '' : ' on'}" data-t="${esc(t)}">${t ? esc(t) : 'All'}</button>`).join('') : ''}</div>
+      <label class="search"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q" type="search" data-i18n-placeholder="search_ph" placeholder="Search posts…" aria-label="Search posts" autocomplete="off"></label>
+      <div class="tag-row" id="tags" aria-label="Filter by tag">${allTags.length ? ['', ...allTags].map(t => `<button type="button" class="tag${t ? '' : ' on'}" data-t="${esc(t)}"${t ? '' : ' data-i18n="tag_all"'}>${t ? esc(t) : 'All'}</button>`).join('') : ''}</div>
     </div>
-    <div class="post-grid" id="posts">${cards || '<p class="state">No posts yet — check back soon.</p>'}
-    <p class="state" id="none" hidden>No posts match your search.</p></div>
+    <div class="post-grid" id="posts">${cards || '<p class="state" data-i18n="no_posts">No posts yet — check back soon.</p>'}
+    <p class="state" id="none" hidden data-i18n="no_match">No posts match your search.</p></div>
   </main>`;
 
 write(rel('blog/index.html'), shell({
@@ -215,27 +236,30 @@ write(rel('blog/index.html'), shell({
 for (const p of posts) {
   const url = `${SITE}/blog/${p.slug}/`;
   const html = MD.render(p.body, '../../');
+  const htmlSr = p.body_sr ? MD.render(p.body_sr, '../../') : null;
   const firstImg = p.image || (html.match(/<img src="([^"]+)"/) || [])[1];
   const image = firstImg ? (/^https?:/.test(firstImg) ? firstImg : `${SITE}/${firstImg.replace(/^(\.\.\/)+/, '')}`) : OG_IMAGE;
   const more = posts.filter(o => o.slug !== p.slug).slice(0, 3);
+  const moreCard = o => `
+      <a class="post-card card glow" href="../${o.slug}/" data-title-sr="${esc(o.title_sr)}" data-excerpt-sr="${esc(o.excerpt_sr)}"><div class="meta"><time datetime="${o.published_at}" data-fmt="short">${fmtShort(o.published_at)}</time><span>·</span><span>${o.reading_time} <span data-i18n="min_read">min read</span></span></div><h2>${esc(o.title)}</h2><p>${esc(o.excerpt)}</p></a>`;
   const body = `
   <main class="wrap post-wrap">
-    <a class="back" href="../">${clock.replace('M5 12h14M13 6l6 6-6 6', 'M19 12H5M11 6l-6 6 6 6')} All posts</a>
+    <a class="back" href="../">${clock.replace('M5 12h14M13 6l6 6-6 6', 'M19 12H5M11 6l-6 6 6 6')} <span data-i18n="all_posts">All posts</span></a>
     <article>
       <header class="post-head">
-        <div class="meta"><time datetime="${p.published_at}">${fmtLong(p.published_at)}</time><span>·</span><span>${p.reading_time} min read</span></div>
-        <h1>${esc(p.title)}</h1>
-        ${p.excerpt ? `<p class="lead">${esc(p.excerpt)}</p>` : ''}
+        <div class="meta"><time datetime="${p.published_at}" data-fmt="long">${fmtLong(p.published_at)}</time><span>·</span><span>${p.reading_time} <span data-i18n="min_read">min read</span></span></div>
+        <h1 data-title-sr="${esc(p.title_sr)}">${esc(p.title)}</h1>
+        ${p.excerpt ? `<p class="lead" data-excerpt-sr="${esc(p.excerpt_sr)}">${esc(p.excerpt)}</p>` : ''}
         <div class="tags">${tagSpans(p.tags)}</div>
       </header>
       <div class="prose">${html}</div>
+      ${htmlSr ? `<template id="prose-sr">${htmlSr}</template>` : ''}
     </article>
     <div class="post-end">
-      <button class="btn ghost" id="share" type="button">Copy link</button>
-      <a class="btn primary" href="../../#contact">Get in touch</a>
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
     </div>
-    ${more.length ? `<section class="more-posts"><h2>More posts</h2><div class="post-grid">${more.map(o => `
-      <a class="post-card card glow" href="../${o.slug}/"><div class="meta"><time datetime="${o.published_at}">${fmtShort(o.published_at)}</time><span>·</span><span>${o.reading_time} min read</span></div><h2>${esc(o.title)}</h2><p>${esc(o.excerpt)}</p></a>`).join('')}</div></section>` : ''}
+    ${more.length ? `<section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">${more.map(moreCard).join('')}</div></section>` : ''}
   </main>`;
   write(rel('blog', p.slug, 'index.html'), shell({
     depth: 2,
@@ -259,7 +283,7 @@ for (const p of posts) {
 }
 
 /* posts.json (home page + client use) */
-write(rel('blog/posts.json'), JSON.stringify(posts.map(({ slug, title, excerpt, tags, published_at, reading_time }) => ({ slug, title, excerpt, tags, date: published_at, readingTime: reading_time })), null, 2));
+write(rel('blog/posts.json'), JSON.stringify(posts.map(({ slug, title, title_sr, excerpt, excerpt_sr, tags, published_at, reading_time }) => ({ slug, title, titleSr: title_sr, excerpt, excerptSr: excerpt_sr, tags, date: published_at, readingTime: reading_time })), null, 2));
 
 /* sitemap, rss, robots */
 const urls = [
