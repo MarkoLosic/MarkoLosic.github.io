@@ -1,5 +1,20 @@
 [
   {
+    "slug": "asserting-too-early-flaky-playwright-tests",
+    "title": "Asserting Too Early: The Quiet Source of Flaky Playwright Tests",
+    "titleSr": "Prerana provjera: tihi izvor nestabilnih Playwright testova",
+    "excerpt": "Many flaky Playwright tests aren't slow, they check too early. How instant checks and missing awaits cause false failures and false passes.",
+    "excerptSr": "Mnogi nestabilni Playwright testovi nisu spori, nego provjeravaju prerano. Kako trenutne provjere i zaboravljeni await uzrokuju lažne padove i lažne prolaze.",
+    "tags": [
+      "qa",
+      "test-automation",
+      "playwright",
+      "flaky-tests"
+    ],
+    "date": "2026-09-21",
+    "readingTime": 5
+  },
+  {
     "slug": "maestro-for-web-testing",
     "title": "Why Maestro Deserves a Spot in Your Web Testing Toolkit",
     "titleSr": "Zašto Maestro zaslužuje mjesto u vašem alatu za testiranje web aplikacija",

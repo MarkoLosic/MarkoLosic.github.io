@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Asserting Too Early: The Quiet Source of Flaky Playwright Tests — Marko Lošić</title>
+  <meta name="description" content="Many flaky Playwright tests aren't slow, they check too early. How instant checks and missing awaits cause false failures and false passes.">
+  <link rel="canonical" href="https://markolosic.github.io/blog/asserting-too-early-flaky-playwright-tests/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Asserting Too Early: The Quiet Source of Flaky Playwright Tests — Marko Lošić">
+  <meta property="og:description" content="Many flaky Playwright tests aren't slow, they check too early. How instant checks and missing awaits cause false failures and false passes.">
+  <meta property="og:url" content="https://markolosic.github.io/blog/asserting-too-early-flaky-playwright-tests/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/marko.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Asserting Too Early: The Quiet Source of Flaky Playwright Tests — Marko Lošić">
+  <meta name="twitter:description" content="Many flaky Playwright tests aren't slow, they check too early. How instant checks and missing awaits cause false failures and false passes.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/marko.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Asserting Too Early: The Quiet Source of Flaky Playwright Tests","description":"Many flaky Playwright tests aren't slow, they check too early. How instant checks and missing awaits cause false failures and false passes.","image":"https://markolosic.github.io/assets/marko.jpg","url":"https://markolosic.github.io/blog/asserting-too-early-flaky-playwright-tests/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/asserting-too-early-flaky-playwright-tests/"},"datePublished":"2026-09-21","dateModified":"2026-09-21T00:00:00.000Z","keywords":"qa, test-automation, playwright, flaky-tests","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
+  <meta property="article:published_time" content="2026-09-21">
+  <meta property="article:modified_time" content="2026-09-21T00:00:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2307090d'/%3E%3Cpath d='M16 34l11 11 21-26' fill='none' stroke='%2334d399' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#about" data-i18n="nav_about">About</a>
+      <a href="../../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../../blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> <span data-i18n="all_posts">All posts</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-09-21" data-fmt="long">21 September 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div>
+        <h1 data-title-sr="Prerana provjera: tihi izvor nestabilnih Playwright testova">Asserting Too Early: The Quiet Source of Flaky Playwright Tests</h1>
+        <p class="lead" data-excerpt-sr="Mnogi nestabilni Playwright testovi nisu spori, nego provjeravaju prerano. Kako trenutne provjere i zaboravljeni await uzrokuju lažne padove i lažne prolaze.">Many flaky Playwright tests aren't slow, they check too early. How instant checks and missing awaits cause false failures and false passes.</p>
+        <div class="tags"><span>qa</span><span>test-automation</span><span>playwright</span><span>flaky-tests</span></div>
+      </header>
+      <div class="prose"><p>When a Playwright test fails one run in twenty, the usual advice is to add a wait. But the deeper problem is often different: the test looks at the page at the wrong moment. It checks the application once, right now, instead of checking until the application settles. That single habit produces two kinds of flakiness, and the second one is much harder to spot.</p>
+<h2 id="the-problem-a-test-that-looks-once">The problem: a test that looks once</h2>
+<p>Playwright locators wait for elements to be ready before they act on them. Assertions written the right way retry until the expected state appears. Assertions written the wrong way do not.</p>
+<p>Methods such as <code>isVisible()</code> return immediately instead of waiting, so a check built on them never gives the page a second to catch up. The Playwright best-practices guide recommends web-first assertions like <code>toBeVisible()</code> because they wait and retry until the condition is met.</p>
+<p>Here is an illustrative scenario: a team tests a promo code on the cart page.</p>
+<pre><code class="lang-ts">test('applies promo code', async ({ page }) =&gt; {
+  await page.goto('/cart');
+  await page.getByLabel('Promo code').fill('SAVE10');
+  await page.getByRole('button', { name: 'Apply' }).click();
+
+  // Reads the page once, at this exact instant
+  expect(await page.getByText('Discount applied').isVisible()).toBe(true);
+  expect(await page.getByTestId('spinner').isVisible()).toBe(false);
+});</code></pre>
+<p>The first check fails whenever the server answers a little slowly. That is the familiar kind of flakiness: a false failure, and a loud one.</p>
+<h2 id="the-quiet-failure-the-false-pass">The quiet failure: the false pass</h2>
+<p>Look at the second line. If the spinner has not rendered yet when the test reads the page, <code>isVisible()</code> returns <code>false</code> and the assertion passes. The test is green because it looked before anything had happened. It says nothing about whether the app finished the work.</p>
+<p>A false pass is worse than a false failure. Nobody investigates a green test, so the gap stays in the suite until a real bug slips through it.</p>
+<h2 id="the-fix-wait-for-a-positive-signal">The fix: wait for a positive signal</h2>
+<pre><code class="lang-ts">await page.getByRole('button', { name: 'Apply' }).click();
+
+// 1. A positive signal that the operation completed
+await expect(page.getByText('Discount applied')).toBeVisible();
+
+// 2. Only now is &quot;no spinner&quot; a meaningful statement
+await expect(page.getByTestId('spinner')).toBeHidden();
+await expect(page.getByTestId('order-total')).toHaveText('$90.00');</code></pre>
+<p>The rule behind this: a negative assertion (&quot;this is not there&quot;) is only trustworthy after a positive one (&quot;the operation finished&quot;). Otherwise it can pass before the app has even started.</p>
+<p>When the UI gives no reliable visible signal, wait on the network instead. Create the promise before the click so the response cannot slip past:</p>
+<pre><code class="lang-ts">const applied = page.waitForResponse(
+  (r) =&gt; r.url().includes('/api/promo') &amp;&amp; r.ok()
+);
+await page.getByRole('button', { name: 'Apply' }).click();
+await applied;</code></pre>
+<p>BrowserStack's guide on Playwright waits suggests choosing the wait that matches what the app needs next, such as a visible element, a changed URL, or a completed API response, and replacing hard waits with checks for the final user-facing state. A fixed <code>waitForTimeout(3000)</code> does the opposite: it is too short on a slow CI machine and wasteful on a fast one.</p>
+<h2 id="two-more-ways-to-check-too-early">Two more ways to check too early</h2>
+<p><strong>A missing await.</strong> Write <code>expect(locator).toBeVisible()</code> without <code>await</code>, and the test can finish before the assertion resolves. It passes without ever checking anything. The Playwright docs recommend the <code>@typescript-eslint/no-floating-promises</code> lint rule to catch this, along with <code>tsc --noEmit</code> on CI.</p>
+<p><strong>Unstable dependencies.</strong> If a test depends on a third-party service, its timing is not yours to control. The docs advise testing only what you control and using the network API to guarantee the response you need, for example with <code>page.route()</code>.</p>
+<h2 id="pitfalls-and-limits">Pitfalls and limits</h2>
+<ul><li><strong>Web-first assertions do not fix everything.</strong> Auto-waiting does not mean every timing problem is solved by default. A test can still wait on the wrong signal.</li><li><strong>Do not raise timeouts as a first response.</strong> A longer timeout hides a slow or racy app instead of explaining it. Expect assertions retry for a limited time (five seconds by default), so raising it should be a deliberate decision.</li><li><strong>Do not lean on retries.</strong> Retries keep the pipeline green, but they also hide real problems. Use them to collect evidence, not to cover for a flaky test.</li><li><strong>Some flakiness is a product bug.</strong> If a test fails only when two requests finish in a certain order, the test may be right and the app wrong. Check before you &quot;stabilize&quot; it.</li><li><strong>How common is this?</strong> One vendor guide claims that asynchronous timing and wait issues cause roughly 45% of flaky tests. It is a vendor figure, so treat it as a rough indicator, not a benchmark.</li></ul>
+<h2 id="what-to-do-next">What to do next</h2>
+<ol><li>Search your suite for <code>isVisible()</code>, <code>isChecked()</code> and <code>textContent()</code> used inside <code>expect(...)</code>, and for <code>waitForTimeout</code>. Each hit is a candidate for a web-first assertion.</li><li>Turn on the <code>no-floating-promises</code> rule so a missing <code>await</code> fails the lint step instead of silently passing.</li><li>Pair every negative assertion with a positive one that proves the operation finished.</li><li>Keep traces on failure paths. The docs suggest recording a trace on the first retry in CI rather than for every test, because tracing everything is heavy. In <code>playwright.config.ts</code>, set <code>use: { trace: 'on-first-retry' }</code>, then open the trace to see what the page looked like at the moment of failure.</li></ol>
+<h2 id="sources">Sources</h2>
+<ul><li>Best Practices | Playwright</li><li>Playwright Waits: Auto-Waiting, Assertions, and Best Practices | BrowserStack</li><li>How to Detect and Avoid Playwright Flaky Tests | BrowserStack</li></ul></div>
+      <template id="prose-sr"><p>Kad Playwright test padne jednom u dvadeset pokretanja, uobičajeni savjet je da se doda čekanje. Ali dublji problem je često drugačiji: test gleda stranicu u pogrešnom trenutku. Aplikaciju provjeri jednom, odmah, umjesto da provjerava sve dok se aplikacija ne smiri. Ta jedna navika proizvodi dvije vrste nestabilnosti, a drugu je mnogo teže uočiti.</p>
+<h2 id="problem-test-koji-pogleda-samo-jednom">Problem: test koji pogleda samo jednom</h2>
+<p>Playwright lokatori čekaju da element bude spreman prije nego što s njim nešto urade. Provjere napisane na pravi način ponavljaju se dok se očekivano stanje ne pojavi. Provjere napisane na pogrešan način ne rade to.</p>
+<p>Metode poput <code>isVisible()</code> vraćaju rezultat odmah umjesto da čekaju, pa provjera zasnovana na njima stranici nikad ne da ni sekundu da stigne. Playwright vodič za najbolje prakse preporučuje &quot;web-first&quot; provjere poput <code>toBeVisible()</code>, jer čekaju i ponavljaju se dok uslov nije ispunjen.</p>
+<p>Evo ilustrativnog scenarija: tim testira promo kod na stranici korpe.</p>
+<pre><code class="lang-ts">test('applies promo code', async ({ page }) =&gt; {
+  await page.goto('/cart');
+  await page.getByLabel('Promo code').fill('SAVE10');
+  await page.getByRole('button', { name: 'Apply' }).click();
+
+  // Reads the page once, at this exact instant
+  expect(await page.getByText('Discount applied').isVisible()).toBe(true);
+  expect(await page.getByTestId('spinner').isVisible()).toBe(false);
+});</code></pre>
+<p>Prva provjera padne kad god server odgovori malo sporije. To je poznata vrsta nestabilnosti: lažan pad, i to glasan.</p>
+<h2 id="tihi-kvar-lažan-prolaz">Tihi kvar: lažan prolaz</h2>
+<p>Pogledajte drugu liniju. Ako spinner još nije iscrtan u trenutku kad test pročita stranicu, <code>isVisible()</code> vraća <code>false</code> i provjera prolazi. Test je zelen jer je pogledao prije nego što se bilo šta desilo. Ne govori ništa o tome da li je aplikacija završila posao.</p>
+<p>Lažan prolaz je gori od lažnog pada. Niko ne istražuje zelen test, pa rupa ostaje u skupu testova dok kroz nju ne promakne pravi bug.</p>
+<h2 id="rješenje-sačekajte-pozitivan-signal">Rješenje: sačekajte pozitivan signal</h2>
+<pre><code class="lang-ts">await page.getByRole('button', { name: 'Apply' }).click();
+
+// 1. A positive signal that the operation completed
+await expect(page.getByText('Discount applied')).toBeVisible();
+
+// 2. Only now is &quot;no spinner&quot; a meaningful statement
+await expect(page.getByTestId('spinner')).toBeHidden();
+await expect(page.getByTestId('order-total')).toHaveText('$90.00');</code></pre>
+<p>Pravilo iza ovoga: negativnoj provjeri (&quot;ovoga nema&quot;) može se vjerovati tek nakon pozitivne (&quot;operacija je završena&quot;). Inače može proći i prije nego što je aplikacija uopšte počela.</p>
+<p>Kad korisnički interfejs ne daje pouzdan vidljiv signal, čekajte na mrežu. Promise napravite prije klika, da odgovor ne može proći neopaženo:</p>
+<pre><code class="lang-ts">const applied = page.waitForResponse(
+  (r) =&gt; r.url().includes('/api/promo') &amp;&amp; r.ok()
+);
+await page.getByRole('button', { name: 'Apply' }).click();
+await applied;</code></pre>
+<p>BrowserStack-ov vodič o Playwright čekanjima predlaže da izaberete čekanje koje odgovara onome što aplikaciji treba sljedeće, poput vidljivog elementa, promijenjenog URL-a ili završenog API odgovora, i da čvrsta čekanja zamijenite provjerama krajnjeg stanja koje korisnik vidi. Fiksni <code>waitForTimeout(3000)</code> radi suprotno: prekratak je na sporoj CI mašini, a rasipnički na brzoj.</p>
+<h2 id="još-dva-načina-da-se-provjeri-prerano">Još dva načina da se provjeri prerano</h2>
+<p><strong>Zaboravljen await.</strong> Napišete li <code>expect(locator).toBeVisible()</code> bez <code>await</code>, test može završiti prije nego što se provjera razriješi. Prolazi, a ništa nije provjerio. Playwright dokumentacija preporučuje lint pravilo <code>@typescript-eslint/no-floating-promises</code> da to uhvati, uz <code>tsc --noEmit</code> na CI-ju.</p>
+<p><strong>Nestabilne zavisnosti.</strong> Ako test zavisi od servisa treće strane, njegov tajming nije pod vašom kontrolom. Dokumentacija savjetuje da testirate samo ono što kontrolišete i da mrežni API koristite da osigurate odgovor koji vam treba, na primjer pomoću <code>page.route()</code>.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<ul><li><strong>Web-first provjere ne rješavaju sve.</strong> Auto-čekanje ne znači da je svaki problem s tajmingom podrazumijevano riješen. Test i dalje može čekati pogrešan signal.</li><li><strong>Ne povećavajte timeout kao prvi potez.</strong> Duži timeout krije sporu ili nestabilnu aplikaciju umjesto da je objasni. Expect provjere ponavljaju se ograničeno vrijeme (podrazumijevano pet sekundi), pa povećanje treba da bude promišljena odluka.</li><li><strong>Ne oslanjajte se na ponovne pokušaje (retries).</strong> Oni održavaju pipeline zelenim, ali kriju i prave probleme. Koristite ih za prikupljanje dokaza, a ne da pokrijete nestabilan test.</li><li><strong>Neka nestabilnost je bug u proizvodu.</strong> Ako test pada samo kad se dva zahtjeva završe određenim redoslijedom, možda je test u pravu, a aplikacija nije. Provjerite prije nego što ga &quot;stabilizujete&quot;.</li><li><strong>Koliko je ovo često?</strong> Jedan vendorski vodič tvrdi da problemi s asinhronim tajmingom i čekanjem uzrokuju otprilike 45% nestabilnih testova. To je brojka proizvođača, pa je uzmite kao okvirni pokazatelj, a ne kao mjerilo.</li></ul>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ol><li>Pretražite svoj skup testova za <code>isVisible()</code>, <code>isChecked()</code> i <code>textContent()</code> upotrijebljene unutar <code>expect(...)</code>, kao i za <code>waitForTimeout</code>. Svaki pogodak je kandidat za web-first provjeru.</li><li>Uključite pravilo <code>no-floating-promises</code> da zaboravljen <code>await</code> obori lint korak umjesto da tiho prođe.</li><li>Uz svaku negativnu provjeru stavite pozitivnu koja dokazuje da je operacija završena.</li><li>Zadržite trace za putanje s greškom. Dokumentacija predlaže snimanje trace-a pri prvom ponovnom pokušaju na CI-ju, a ne za svaki test, jer je snimanje svega zahtjevno. U <code>playwright.config.ts</code> postavite <code>use: { trace: 'on-first-retry' }</code>, pa otvorite trace da vidite kako je stranica izgledala u trenutku pada.</li></ol>
+<h2 id="izvori">Izvori</h2>
+<ul><li>Best Practices | Playwright</li><li>Playwright Waits: Auto-Waiting, Assertions, and Best Practices | BrowserStack</li><li>How to Detect and Avoid Playwright Flaky Tests | BrowserStack</li></ul></template>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    </div>
+    <section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../maestro-for-web-testing/" data-title-sr="Zašto Maestro zaslužuje mjesto u vašem alatu za testiranje web aplikacija" data-excerpt-sr="Maestro je poznat kao alat za testiranje mobilnih aplikacija, ali podrška za pretraživač tiho zatvara jaz prema web testiranju. Evo zašto ga koristim, i kako napisati svoj prvi tok."><div class="meta"><time datetime="2026-09-21" data-fmt="short">21 Sept 2026</time><span>·</span><span>4 <span data-i18n="min_read">min read</span></span></div><h2>Why Maestro Deserves a Spot in Your Web Testing Toolkit</h2><p>Maestro is known as a mobile UI testing tool, but its browser support quietly closes the gap with web testing. Here's why I reach for it, and how to write your first flow.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <a href="../../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../../blog/common.js"></script>
+  <script src="../post.js"></script>
+</body>
+</html>
