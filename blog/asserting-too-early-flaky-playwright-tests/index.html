@@ -14,13 +14,15 @@
   <meta property="og:title" content="Asserting Too Early: The Quiet Source of Flaky Playwright Tests — Marko Lošić">
   <meta property="og:description" content="Many flaky Playwright tests aren't slow, they check too early. How instant checks and missing awaits cause false failures and false passes.">
   <meta property="og:url" content="https://markolosic.github.io/blog/asserting-too-early-flaky-playwright-tests/">
-  <meta property="og:image" content="https://markolosic.github.io/assets/marko.jpg">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/asserting-too-early-flaky-playwright-tests.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Asserting Too Early: The Quiet Source of Flaky Playwright Tests — Marko Lošić">
   <meta name="twitter:description" content="Many flaky Playwright tests aren't slow, they check too early. How instant checks and missing awaits cause false failures and false passes.">
-  <meta name="twitter:image" content="https://markolosic.github.io/assets/marko.jpg">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/asserting-too-early-flaky-playwright-tests.png">
   <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Asserting Too Early: The Quiet Source of Flaky Playwright Tests","description":"Many flaky Playwright tests aren't slow, they check too early. How instant checks and missing awaits cause false failures and false passes.","image":"https://markolosic.github.io/assets/marko.jpg","url":"https://markolosic.github.io/blog/asserting-too-early-flaky-playwright-tests/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/asserting-too-early-flaky-playwright-tests/"},"datePublished":"2026-09-21","dateModified":"2026-09-21T00:00:00.000Z","keywords":"qa, test-automation, playwright, flaky-tests","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Asserting Too Early: The Quiet Source of Flaky Playwright Tests","description":"Many flaky Playwright tests aren't slow, they check too early. How instant checks and missing awaits cause false failures and false passes.","image":"https://markolosic.github.io/assets/blog/asserting-too-early-flaky-playwright-tests.png","url":"https://markolosic.github.io/blog/asserting-too-early-flaky-playwright-tests/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/asserting-too-early-flaky-playwright-tests/"},"datePublished":"2026-09-21","dateModified":"2026-09-21T00:00:00.000Z","keywords":"qa, test-automation, playwright, flaky-tests","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
   <meta property="article:published_time" content="2026-09-21">
   <meta property="article:modified_time" content="2026-09-21T00:00:00.000Z">
   <meta name="goatcounter-code" content="markolosic">
@@ -96,6 +98,34 @@
 <h2 id="the-quiet-failure-the-false-pass">The quiet failure: the false pass</h2>
 <p>Look at the second line. If the spinner has not rendered yet when the test reads the page, <code>isVisible()</code> returns <code>false</code> and the assertion passes. The test is green because it looked before anything had happened. It says nothing about whether the app finished the work.</p>
 <p>A false pass is worse than a false failure. Nobody investigates a green test, so the gap stays in the suite until a real bug slips through it.</p>
+<div class="callout-grid">
+<div class="callout warn"><span class="ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span><div><h4>False failure &mdash; loud</h4><p>The test turns red because the server answered a little slower than usual. Annoying, but easy to notice and investigate.</p></div></div>
+<div class="callout bad"><span class="ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><h4>False pass &mdash; quiet</h4><p>The test turns green because it looked before the app did anything. Nobody investigates a green test, so the gap stays hidden.</p></div></div>
+</div>
+<figure class="diagram" role="img" aria-label="Timeline showing a naive check reading the page too early, producing both a false failure and a false pass, compared with a correct check that waits for a positive signal.">
+<svg viewBox="0 0 720 200" xmlns="http://www.w3.org/2000/svg">
+<line x1="40" y1="120" x2="680" y2="120" stroke="var(--border-strong)" stroke-width="2"/>
+<line x1="150" y1="18" x2="150" y2="120" stroke="var(--danger)" stroke-width="1.6" stroke-dasharray="4 4"/>
+<circle cx="150" cy="120" r="4" fill="var(--danger)"/>
+<text x="150" y="12" text-anchor="middle" font-weight="600" font-size="12" fill="var(--danger)">Naive check reads here</text>
+<text x="150" y="178" text-anchor="middle" font-family="var(--font-mono)" font-size="11" fill="var(--danger)">&#10005; discount &rarr; false FAIL</text>
+<text x="150" y="194" text-anchor="middle" font-family="var(--font-mono)" font-size="11" fill="var(--danger)">&#10003; spinner &rarr; false PASS</text>
+<line x1="620" y1="18" x2="620" y2="120" stroke="var(--accent)" stroke-width="1.6" stroke-dasharray="4 4"/>
+<circle cx="620" cy="120" r="4" fill="var(--accent)"/>
+<text x="620" y="12" text-anchor="middle" font-weight="600" font-size="12" fill="var(--accent)">Correct check waits here</text>
+<text x="620" y="178" text-anchor="middle" font-family="var(--font-mono)" font-size="11" fill="var(--accent)">&#10003; waits for the real signal</text>
+<circle cx="90" cy="120" r="5" fill="var(--muted)"/>
+<text x="90" y="145" text-anchor="middle" font-size="11.5" fill="var(--text)">Click Apply</text>
+<text x="90" y="160" text-anchor="middle" font-family="var(--font-mono)" font-size="10" fill="var(--muted)">0ms</text>
+<circle cx="230" cy="120" r="5" fill="var(--muted)"/>
+<text x="230" y="145" text-anchor="middle" font-size="11.5" fill="var(--text)">Spinner shows</text>
+<text x="230" y="160" text-anchor="middle" font-family="var(--font-mono)" font-size="10" fill="var(--muted)">~40ms</text>
+<circle cx="580" cy="120" r="5" fill="var(--accent)"/>
+<text x="580" y="145" text-anchor="middle" font-size="11.5" fill="var(--text)">Spinner hides, discount shown</text>
+<text x="580" y="160" text-anchor="middle" font-family="var(--font-mono)" font-size="10" fill="var(--muted)">~820ms</text>
+</svg>
+<figcaption class="diagram-caption">The naive check reads the page before anything happened; the correct check waits for a positive signal.</figcaption>
+</figure>
 <h2 id="the-fix-wait-for-a-positive-signal">The fix: wait for a positive signal</h2>
 <pre><code class="lang-ts">await page.getByRole('button', { name: 'Apply' }).click();
 
@@ -140,6 +170,34 @@ await applied;</code></pre>
 <h2 id="tihi-kvar-lažan-prolaz">Tihi kvar: lažan prolaz</h2>
 <p>Pogledajte drugu liniju. Ako spinner još nije iscrtan u trenutku kad test pročita stranicu, <code>isVisible()</code> vraća <code>false</code> i provjera prolazi. Test je zelen jer je pogledao prije nego što se bilo šta desilo. Ne govori ništa o tome da li je aplikacija završila posao.</p>
 <p>Lažan prolaz je gori od lažnog pada. Niko ne istražuje zelen test, pa rupa ostaje u skupu testova dok kroz nju ne promakne pravi bug.</p>
+<div class="callout-grid">
+<div class="callout warn"><span class="ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span><div><h4>Lažan pad &mdash; glasan</h4><p>Test postane crven jer je server odgovorio malo sporije nego obično. Neugodno, ali lako se primijeti i istraži.</p></div></div>
+<div class="callout bad"><span class="ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><h4>Lažan prolaz &mdash; tih</h4><p>Test postane zelen jer je pogledao prije nego što se aplikacija bilo šta desila. Niko ne istražuje zelen test, pa rupa ostaje skrivena.</p></div></div>
+</div>
+<figure class="diagram" role="img" aria-label="Vremenska linija koja prikazuje naivnu provjeru koja čita stranicu prerano, uzrokujući i lažan pad i lažan prolaz, naspram ispravne provjere koja čeka pozitivan signal.">
+<svg viewBox="0 0 720 200" xmlns="http://www.w3.org/2000/svg">
+<line x1="40" y1="120" x2="680" y2="120" stroke="var(--border-strong)" stroke-width="2"/>
+<line x1="150" y1="18" x2="150" y2="120" stroke="var(--danger)" stroke-width="1.6" stroke-dasharray="4 4"/>
+<circle cx="150" cy="120" r="4" fill="var(--danger)"/>
+<text x="150" y="12" text-anchor="middle" font-weight="600" font-size="12" fill="var(--danger)">Naivna provjera čita ovdje</text>
+<text x="150" y="178" text-anchor="middle" font-family="var(--font-mono)" font-size="11" fill="var(--danger)">&#10005; discount &rarr; lažan pad</text>
+<text x="150" y="194" text-anchor="middle" font-family="var(--font-mono)" font-size="11" fill="var(--danger)">&#10003; spinner &rarr; lažan prolaz</text>
+<line x1="620" y1="18" x2="620" y2="120" stroke="var(--accent)" stroke-width="1.6" stroke-dasharray="4 4"/>
+<circle cx="620" cy="120" r="4" fill="var(--accent)"/>
+<text x="620" y="12" text-anchor="middle" font-weight="600" font-size="12" fill="var(--accent)">Ispravna provjera čeka ovdje</text>
+<text x="620" y="178" text-anchor="middle" font-family="var(--font-mono)" font-size="11" fill="var(--accent)">&#10003; čeka pravi signal</text>
+<circle cx="90" cy="120" r="5" fill="var(--muted)"/>
+<text x="90" y="145" text-anchor="middle" font-size="11.5" fill="var(--text)">Klik na Apply</text>
+<text x="90" y="160" text-anchor="middle" font-family="var(--font-mono)" font-size="10" fill="var(--muted)">0ms</text>
+<circle cx="230" cy="120" r="5" fill="var(--muted)"/>
+<text x="230" y="145" text-anchor="middle" font-size="11.5" fill="var(--text)">Spinner se pojavi</text>
+<text x="230" y="160" text-anchor="middle" font-family="var(--font-mono)" font-size="10" fill="var(--muted)">~40ms</text>
+<circle cx="580" cy="120" r="5" fill="var(--accent)"/>
+<text x="580" y="145" text-anchor="middle" font-size="11.5" fill="var(--text)">Spinner nestane, discount prikazan</text>
+<text x="580" y="160" text-anchor="middle" font-family="var(--font-mono)" font-size="10" fill="var(--muted)">~820ms</text>
+</svg>
+<figcaption class="diagram-caption">Naivna provjera čita stranicu prije nego što se bilo šta desilo; ispravna provjera čeka pozitivan signal.</figcaption>
+</figure>
 <h2 id="rješenje-sačekajte-pozitivan-signal">Rješenje: sačekajte pozitivan signal</h2>
 <pre><code class="lang-ts">await page.getByRole('button', { name: 'Apply' }).click();
 
