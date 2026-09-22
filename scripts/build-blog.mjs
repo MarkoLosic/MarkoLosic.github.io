@@ -41,6 +41,9 @@ const rel = (...p) => path.join(ROOT, ...p);
 const SITE = (process.env.SITE_URL || 'https://markolosic.github.io').replace(/\/+$/, '');
 const AUTHOR = 'Marko Lošić';
 const OG_IMAGE = `${SITE}/assets/marko.jpg`;
+// Free analytics/view-counter service (goatcounter.com). Sign up (no card needed), then set this
+// to your site code (the "X" in https://X.goatcounter.com), either here or via GOATCOUNTER_CODE.
+const GOATCOUNTER = process.env.GOATCOUNTER_CODE || 'markolosic';
 const esc = MD.esc;
 
 /* ---------- data ---------- */
@@ -113,6 +116,8 @@ function shell({ depth, title, description, canonical, type = 'website', image =
   <meta name="twitter:image" content="${image}">
   <link rel="alternate" type="application/rss+xml" title="${AUTHOR} — Blog" href="${SITE}/rss.xml">
   ${head}
+  <meta name="goatcounter-code" content="${GOATCOUNTER}">
+  <script data-goatcounter="https://${GOATCOUNTER}.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2307090d'/%3E%3Cpath d='M16 34l11 11 21-26' fill='none' stroke='%2334d399' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -247,7 +252,7 @@ for (const p of posts) {
     <a class="back" href="../">${clock.replace('M5 12h14M13 6l6 6-6 6', 'M19 12H5M11 6l-6 6 6 6')} <span data-i18n="all_posts">All posts</span></a>
     <article>
       <header class="post-head">
-        <div class="meta"><time datetime="${p.published_at}" data-fmt="long">${fmtLong(p.published_at)}</time><span>·</span><span>${p.reading_time} <span data-i18n="min_read">min read</span></span></div>
+        <div class="meta"><time datetime="${p.published_at}" data-fmt="long">${fmtLong(p.published_at)}</time><span>·</span><span>${p.reading_time} <span data-i18n="min_read">min read</span></span><span>·</span><span class="views" id="views" hidden><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg><span id="views-num"></span></span></div>
         <h1 data-title-sr="${esc(p.title_sr)}">${esc(p.title)}</h1>
         ${p.excerpt ? `<p class="lead" data-excerpt-sr="${esc(p.excerpt_sr)}">${esc(p.excerpt)}</p>` : ''}
         <div class="tags">${tagSpans(p.tags)}</div>
