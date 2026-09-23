@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Self-Healing Tests: What They Actually Fix, and What They Quietly Break — Marko Lošić</title>
+  <meta name="description" content="Self-healing test tools patch broken selectors automatically, but they can also hide the very defects your suite exists to catch. Here's how to use them safely.">
+  <link rel="canonical" href="https://markolosic.github.io/blog/self-healing-tests-hidden-risk/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Self-Healing Tests: What They Actually Fix, and What They Quietly Break — Marko Lošić">
+  <meta property="og:description" content="Self-healing test tools patch broken selectors automatically, but they can also hide the very defects your suite exists to catch. Here's how to use them safely.">
+  <meta property="og:url" content="https://markolosic.github.io/blog/self-healing-tests-hidden-risk/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/self-healing-tests-hidden-risk.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Self-Healing Tests: What They Actually Fix, and What They Quietly Break — Marko Lošić">
+  <meta name="twitter:description" content="Self-healing test tools patch broken selectors automatically, but they can also hide the very defects your suite exists to catch. Here's how to use them safely.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/self-healing-tests-hidden-risk.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Self-Healing Tests: What They Actually Fix, and What They Quietly Break","description":"Self-healing test tools patch broken selectors automatically, but they can also hide the very defects your suite exists to catch. Here's how to use them safely.","image":"https://markolosic.github.io/assets/blog/self-healing-tests-hidden-risk.jpg","url":"https://markolosic.github.io/blog/self-healing-tests-hidden-risk/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/self-healing-tests-hidden-risk/"},"datePublished":"2026-09-23","dateModified":"2026-09-23T00:00:00.000Z","keywords":"qa, ai-in-qa, test-automation, self-healing-tests","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
+  <meta property="article:published_time" content="2026-09-23">
+  <meta property="article:modified_time" content="2026-09-23T00:00:00.000Z">
+  <meta name="goatcounter-code" content="markolosic">
+  <script data-goatcounter="https://markolosic.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2307090d'/%3E%3Cpath d='M16 34l11 11 21-26' fill='none' stroke='%2334d399' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#about" data-i18n="nav_about">About</a>
+      <a href="../../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../../blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> <span data-i18n="all_posts">All posts</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-09-23" data-fmt="long">23 September 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span><span>·</span><span class="views" id="views" hidden><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg><span id="views-num"></span></span></div>
+        <h1 data-title-sr="Samoispravljajući testovi: šta zaista rješavaju, a šta tiho pokvare">Self-Healing Tests: What They Actually Fix, and What They Quietly Break</h1>
+        <p class="lead" data-excerpt-sr="Alati za samoispravljanje testova automatski krpe pokvarene selektore, ali mogu i sakriti baš one greške koje vaš skup testova treba da uhvati. Evo kako ih koristiti na siguran način.">Self-healing test tools patch broken selectors automatically, but they can also hide the very defects your suite exists to catch. Here's how to use them safely.</p>
+        <div class="tags"><span>qa</span><span>ai-in-qa</span><span>test-automation</span><span>self-healing-tests</span></div>
+      </header>
+      <div class="prose"><p>A button's <code>id</code> changes during a routine refactor, a dozen end-to-end tests go red, and someone on the team spends an afternoon updating selectors that have nothing to do with the actual feature being tested. This is the maintenance tax that &quot;self-healing&quot; test tools promise to eliminate: when a locator breaks, the tool finds the element some other way and keeps the test running. It's a real time-saver, but it also changes what a passing test means, and that shift is easy to miss until it costs you a production incident.</p>
+<h2 id="what-self-healing-tools-actually-do">What self-healing tools actually do</h2>
+<p>&quot;Self-healing&quot; is not one technique. Most tools on the market combine several narrower mechanisms, each aimed at a different class of failure:</p>
+<ul><li><strong>Selector healing</strong> – when the DOM changes, the tool diffs the page structure and picks a new locator (a different attribute, a nearby anchor element, updated text) instead of failing outright.</li><li><strong>Timing healing</strong> – instead of a hardcoded <code>wait(2000)</code>, the tool watches network calls and DOM mutations and waits for the page to actually settle.</li><li><strong>Data healing</strong> – expired sessions, stale tokens, or outdated fixtures get refreshed automatically before the test fails on something unrelated to the feature under test.</li><li><strong>Visual and interaction healing</strong> – comparing rendered output while ignoring irrelevant pixel noise, or inserting a missing step (like expanding a collapsed menu) that the original script didn't anticipate.</li></ul>
+<p>Selector changes get the most attention because they're the most visible failure mode, but in practice they account for a minority of total test breakage — industry breakdowns from vendors in this space put selector-related failures at under a third of all flaky or broken runs, with timing issues making up a comparable or larger share. That matters, because a tool that only heals selectors is solving less of your maintenance problem than the marketing implies.</p>
+<p>Here's a simplified example of what a &quot;healing&quot; locator strategy looks like in practice, using a fallback chain rather than a single brittle selector:</p>
+<pre><code class="lang-javascript">// Instead of a single point of failure:
+await page.locator('#submit-btn-v2').click();
+
+// A resilient (and healable) approach tries multiple signals:
+const submitButton = page.locator(
+  '#submit-btn-v2, [data-testid=&quot;submit&quot;], button:has-text(&quot;Submit&quot;)'
+);
+await submitButton.first().click();</code></pre>
+<p>A self-healing tool automates the process of discovering that second or third option after the first one breaks, and then — depending on the tool — either patches the test script or just logs that healing occurred and keeps running.</p>
+<h2 id="the-part-vendors-don-t-lead-with">The part vendors don't lead with</h2>
+<p>The risk isn't that self-healing tools make mistakes occasionally. It's that they can't tell the difference between &quot;the button moved because of a harmless refactor&quot; and &quot;the button moved because someone shipped a bug.&quot; Both look identical to a locator-matching algorithm: an expected element isn't where the test expects it. If the tool's job is to keep the test green, it will happily paper over both cases the same way — one team researching this problem called it &quot;silent coverage erosion.&quot;</p>
+<p>A governance-focused case study covering roughly a year of production use at a financial services company illustrates the trade-off concretely. Running a static test suite with no self-healing cost around 180 maintenance hours a month and still let 12 defects slip through undetected. Turning on self-healing without any oversight cut maintenance to about 99 hours a month, but the number of masked defects roughly quadrupled compared to the static baseline. Adding a governance layer — human review gates for changes touching critical flows, and a required log of every accepted or rejected auto-fix — brought maintenance down to about 58 hours a month while intercepting the large majority of false positives before they reached production.</p>
+<p><img src="../../assets/blog/self-healing-tests-hidden-risk.jpg" alt="Comparison of unmonitored self-healing versus a governed self-healing workflow with human review gates, showing maintenance hours dropping in both cases but masked defects rising sharply without oversight" loading="lazy"></p>
+<p>The lesson isn't &quot;don't use self-healing,&quot; it's that unmonitored self-healing trades visible maintenance work for invisible quality risk, and the invisible kind is much more expensive when it surfaces.</p>
+<h2 id="pitfalls-and-limits">Pitfalls and limits</h2>
+<p>Self-healing test tools are not a substitute for good locator hygiene, and they have real limits worth knowing before you adopt one:</p>
+<p>They only address symptoms your suite already produces. If your tests weren't covering a flow before, healing won't add coverage — it just keeps the existing, possibly thin, coverage running longer without maintenance.</p>
+<p>They struggle most exactly where it matters most: in regulated or high-stakes flows (payments, account changes, compliance-sensitive steps), an automatically &quot;fixed&quot; test that silently stops verifying the right thing is worse than a test that fails loudly, because nobody investigates a green pipeline.</p>
+<p>They can create a false sense of security around flakiness. A test that keeps passing because the tool keeps finding <em>something</em> to click isn't necessarily testing the right thing anymore — it may be clicking the wrong element that happens to also be clickable.</p>
+<p>They need auditing, not just adoption. Most teams that get burned by this skip the step of periodically reviewing what got auto-healed and why, treating &quot;still green&quot; as sufficient evidence that everything is fine.</p>
+<h2 id="what-to-do-next">What to do next</h2>
+<p>Turn on healing selectively, not suite-wide, starting with low-risk, high-churn UI areas where selector drift is frequent and the cost of a missed regression is low.</p>
+<p>Require your tool (or a wrapper around it) to log every auto-fix with a diff of what changed, and review that log weekly rather than only when something breaks in production.</p>
+<p>Keep human-approval gates on anything touching payment, auth, or compliance-critical flows — let the tool suggest a fix, but don't let it merge the fix unattended for those tests.</p>
+<p>Track &quot;tests auto-healed per week&quot; as its own metric alongside pass rate. A rising healing count on the same tests is often a sign of an underlying instability that deserves a real fix, not more patching.</p>
+<h2 id="sources">Sources</h2>
+<ul><li>The 6 Types of AI Self-Healing in Test Automation | QA Wolf</li><li>The Hidden Risk in Self-Healing Test Automation: A Governance Blueprint for Digital Banking | SD Times</li><li>What is self-healing test automation? A guide | Tricentis</li></ul></div>
+      <template id="prose-sr"><p><code>id</code> dugmeta se promijeni tokom rutinskog refaktorisanja, desetak end-to-end testova pocrveni, i neko u timu provede popodne mijenjajući selektore koji nemaju nikakve veze sa funkcionalnošću koja se zapravo testira. To je &quot;porez na održavanje&quot; koji alati za &quot;samoispravljanje&quot; (self-healing) testova obećavaju da će ukinuti: kad se lokator pokvari, alat pronađe element na neki drugi način i test nastavlja da radi. To zaista štedi vrijeme, ali mijenja i šta prolazak testa uopšte znači, a tu promjenu je lako previdjeti dok vas ne košta produkcionog incidenta.</p>
+<h2 id="šta-alati-za-samoispravljanje-zapravo-rade">Šta alati za samoispravljanje zapravo rade</h2>
+<p>&quot;Self-healing&quot; nije jedna tehnika. Većina alata na tržištu kombinuje nekoliko užih mehanizama, od kojih je svaki usmjeren na drugu vrstu kvara:</p>
+<ul><li><strong>Ispravljanje selektora</strong> – kad se DOM promijeni, alat upoređuje strukturu stranice i bira novi lokator (drugi atribut, obližnji sidreni element, izmijenjen tekst) umjesto da odmah padne.</li><li><strong>Ispravljanje tajminga</strong> – umjesto fiksnog <code>wait(2000)</code>, alat prati mrežne pozive i DOM promjene i čeka da se stranica zaista smiri.</li><li><strong>Ispravljanje podataka</strong> – istekle sesije, zastarjeli tokeni ili neažurni fixture-i se automatski osvježe prije nego što test padne zbog nečega što nema veze sa funkcionalnošću koja se testira.</li><li><strong>Vizuelno ispravljanje i ispravljanje interakcije</strong> – poređenje prikazanog rezultata uz ignorisanje nebitnog piksel-šuma, ili ubacivanje koraka koji nedostaje (npr. otvaranje skupljenog menija) koji originalna skripta nije predvidjela.</li></ul>
+<p>Promjene selektora dobijaju najviše pažnje jer su najvidljiviji tip kvara, ali u praksi čine manjinu ukupnih kvarova testova — pregledi iz industrije, od dobavljača u ovoj oblasti, procjenjuju da kvarovi vezani za selektore čine manje od trećine svih nestabilnih ili pokvarenih pokretanja, dok problemi s tajmingom čine sličan ili veći udio. To je bitno, jer alat koji ispravlja samo selektore rješava manji dio vašeg problema s održavanjem nego što marketing sugeriše.</p>
+<p>Evo pojednostavljenog primjera kako &quot;ispravljajuća&quot; (healing) strategija za lokatore izgleda u praksi, korišćenjem lanca rezervnih opcija umjesto jednog krhkog selektora:</p>
+<pre><code class="lang-javascript">// Instead of a single point of failure:
+await page.locator('#submit-btn-v2').click();
+
+// A resilient (and healable) approach tries multiple signals:
+const submitButton = page.locator(
+  '#submit-btn-v2, [data-testid=&quot;submit&quot;], button:has-text(&quot;Submit&quot;)'
+);
+await submitButton.first().click();</code></pre>
+<p>Alat za samoispravljanje automatizuje proces pronalaženja te druge ili treće opcije nakon što prva otkaže, a zatim — zavisno od alata — ili sam izmijeni skriptu testa ili samo zabilježi da je do ispravljanja došlo i nastavi dalje.</p>
+<h2 id="dio-koji-dobavljači-ne-ističu">Dio koji dobavljači ne ističu</h2>
+<p>Rizik nije u tome što alati za samoispravljanje povremeno pogriješe. Rizik je u tome što ne mogu da razlikuju &quot;dugme se pomjerilo zbog bezopasnog refaktorisanja&quot; od &quot;dugme se pomjerilo jer je neko ubacio bug&quot;. Oba slučaja izgledaju identično algoritmu za poklapanje lokatora: očekivani element nije tamo gdje test očekuje. Ako je posao alata da test ostane zelen, on će podjednako rado prekriti oba slučaja — jedan tim koji istražuje ovaj problem to je nazvao &quot;tihim erozijom pokrivenosti&quot; (silent coverage erosion).</p>
+<p>Studija slučaja fokusirana na upravljanje (governance), koja pokriva otprilike godinu dana produkcione upotrebe u jednoj finansijskoj kompaniji, konkretno ilustruje taj kompromis. Statički skup testova bez samoispravljanja koštao je oko 180 sati održavanja mjesečno, a i dalje je propustio 12 grešaka neotkriveno. Uključivanje samoispravljanja bez ikakvog nadzora smanjilo je održavanje na oko 99 sati mjesečno, ali se broj prikrivenih grešaka otprilike učetvorostručio u poređenju sa statičkim skupom. Dodavanje sloja upravljanja — kapija za ljudski pregled promjena koje dotiču kritične tokove, i obavezan zapis svakog prihvaćenog ili odbijenog automatskog ispravka — spustilo je održavanje na oko 58 sati mjesečno, uz presretanje velike većine lažnih pozitivnih rezultata prije nego što bi stigli do produkcije.</p>
+<p><img src="../../assets/blog/self-healing-tests-hidden-risk.jpg" alt="Poređenje nenadgledanog samoispravljanja i nadgledanog samoispravljanja sa kapijama za ljudski pregled, koje pokazuje pad sati održavanja u oba slučaja, ali oštar rast prikrivenih grešaka bez nadzora" loading="lazy"></p>
+<p>Pouka nije &quot;nemojte koristiti samoispravljanje&quot;, nego da nenadgledano samoispravljanje mijenja vidljiv posao održavanja za nevidljiv kvalitetni rizik, a ta nevidljiva vrsta je mnogo skuplja kad izađe na vidjelo.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Alati za samoispravljanje testova nisu zamjena za dobru higijenu lokatora, i imaju stvarna ograničenja koja vrijedi znati prije nego što ih usvojite:</p>
+<p>Rješavaju samo simptome koje vaš skup testova već proizvodi. Ako vaši testovi ranije nisu pokrivali neki tok, samoispravljanje neće dodati pokrivenost — samo će produžiti život postojećoj, možda tankoj, pokrivenosti bez održavanja.</p>
+<p>Najviše se muče baš tamo gdje je to najbitnije: u regulisanim ili visokorizičnim tokovima (plaćanja, promjene naloga, koraci osjetljivi na usklađenost), automatski &quot;ispravljen&quot; test koji tiho prestane da provjerava pravu stvar gori je od testa koji glasno padne, jer niko ne istražuje zelen pipeline.</p>
+<p>Mogu stvoriti lažan osjećaj sigurnosti oko nestabilnosti. Test koji i dalje prolazi zato što alat stalno pronalazi <em>nešto</em> za klik nije nužno više testirao pravu stvar — možda klikće na pogrešan element koji je i sam slučajno klikljiv.</p>
+<p>Zahtijevaju reviziju, ne samo usvajanje. Većina timova koji na ovome nastradaju preskoči korak periodičnog pregleda šta je automatski ispravljeno i zašto, tretirajući &quot;i dalje zeleno&quot; kao dovoljan dokaz da je sve u redu.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<p>Uključite samoispravljanje selektivno, ne za cio skup testova odjednom, počevši od nisko-rizičnih dijelova UI-ja sa čestim promjenama, gdje je pomjeranje selektora učestalo, a cijena propuštene regresije niska.</p>
+<p>Zahtijevajte da vaš alat (ili omotač oko njega) bilježi svaki automatski ispravak sa diff-om onoga što je promijenjeno, i pregledajte taj zapis nedeljno, a ne samo kad nešto pukne u produkciji.</p>
+<p>Zadržite kapije za ljudsko odobrenje na svemu što dotiče plaćanje, autentikaciju ili tokove kritične za usklađenost — neka alat predloži ispravak, ali neka ga ne spaja bez nadzora za te testove.</p>
+<p>Pratite &quot;broj automatski ispravljenih testova nedeljno&quot; kao zasebnu metriku uz stopu prolaska. Rastući broj ispravki na istim testovima često je znak osnovne nestabilnosti koja zaslužuje pravo rješenje, a ne još zakrpa.</p>
+<h2 id="izvori">Izvori</h2>
+<ul><li>The 6 Types of AI Self-Healing in Test Automation | QA Wolf</li><li>The Hidden Risk in Self-Healing Test Automation: A Governance Blueprint for Digital Banking | SD Times</li><li>What is self-healing test automation? A guide | Tricentis</li></ul></template>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    </div>
+    <section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../asserting-too-early-flaky-playwright-tests/" data-title-sr="Prerana provjera: tihi izvor nestabilnih Playwright testova" data-excerpt-sr="Mnogi nestabilni Playwright testovi nisu spori, nego provjeravaju prerano. Kako trenutne provjere i zaboravljeni await uzrokuju lažne padove i lažne prolaze."><div class="meta"><time datetime="2026-09-21" data-fmt="short">21 Sept 2026</time><span>·</span><span>7 <span data-i18n="min_read">min read</span></span></div><h2>Asserting Too Early: The Quiet Source of Flaky Playwright Tests</h2><p>Many flaky Playwright tests aren't slow, they check too early. How instant checks and missing awaits cause false failures and false passes.</p></a>
+      <a class="post-card card glow" href="../maestro-for-web-testing/" data-title-sr="Zašto Maestro zaslužuje mjesto u vašem alatu za testiranje web aplikacija" data-excerpt-sr="Maestro je poznat kao alat za testiranje mobilnih aplikacija, ali podrška za pretraživač tiho zatvara jaz prema web testiranju. Evo zašto ga koristim, i kako napisati svoj prvi tok."><div class="meta"><time datetime="2026-09-21" data-fmt="short">21 Sept 2026</time><span>·</span><span>4 <span data-i18n="min_read">min read</span></span></div><h2>Why Maestro Deserves a Spot in Your Web Testing Toolkit</h2><p>Maestro is known as a mobile UI testing tool, but its browser support quietly closes the gap with web testing. Here's why I reach for it, and how to write your first flow.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <a href="../../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../../blog/common.js"></script>
+  <script src="../post.js"></script>
+</body>
+</html>

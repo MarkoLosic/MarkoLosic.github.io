@@ -5,6 +5,7 @@ date: 2026-09-21
 tags: [qa, test-automation, playwright, flaky-tests]
 excerpt: Many flaky Playwright tests aren't slow, they check too early. How instant checks and missing awaits cause false failures and false passes.
 excerpt_sr: Mnogi nestabilni Playwright testovi nisu spori, nego provjeravaju prerano. Kako trenutne provjere i zaboravljeni await uzrokuju lažne padove i lažne prolaze.
+image: assets/blog/asserting-too-early-flaky-playwright-tests.png
 ---
 When a Playwright test fails one run in twenty, the usual advice is to add a wait. But the deeper problem is often different: the test looks at the page at the wrong moment. It checks the application once, right now, instead of checking until the application settles. That single habit produces two kinds of flakiness, and the second one is much harder to spot.
 
@@ -35,6 +36,37 @@ The first check fails whenever the server answers a little slowly. That is the f
 Look at the second line. If the spinner has not rendered yet when the test reads the page, `isVisible()` returns `false` and the assertion passes. The test is green because it looked before anything had happened. It says nothing about whether the app finished the work.
 
 A false pass is worse than a false failure. Nobody investigates a green test, so the gap stays in the suite until a real bug slips through it.
+
+<!--html-->
+<div class="callout-grid">
+<div class="callout warn"><span class="ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span><div><h4>False failure &mdash; loud</h4><p>The test turns red because the server answered a little slower than usual. Annoying, but easy to notice and investigate.</p></div></div>
+<div class="callout bad"><span class="ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><h4>False pass &mdash; quiet</h4><p>The test turns green because it looked before the app did anything. Nobody investigates a green test, so the gap stays hidden.</p></div></div>
+</div>
+<figure class="diagram" role="img" aria-label="Timeline showing a naive check reading the page too early, producing both a false failure and a false pass, compared with a correct check that waits for a positive signal.">
+<svg viewBox="0 0 720 200" xmlns="http://www.w3.org/2000/svg">
+<line x1="40" y1="120" x2="680" y2="120" stroke="var(--border-strong)" stroke-width="2"/>
+<line x1="150" y1="18" x2="150" y2="120" stroke="var(--danger)" stroke-width="1.6" stroke-dasharray="4 4"/>
+<circle cx="150" cy="120" r="4" fill="var(--danger)"/>
+<text x="150" y="12" text-anchor="middle" font-weight="600" font-size="12" fill="var(--danger)">Naive check reads here</text>
+<text x="150" y="178" text-anchor="middle" font-family="var(--font-mono)" font-size="11" fill="var(--danger)">&#10005; discount &rarr; false FAIL</text>
+<text x="150" y="194" text-anchor="middle" font-family="var(--font-mono)" font-size="11" fill="var(--danger)">&#10003; spinner &rarr; false PASS</text>
+<line x1="620" y1="18" x2="620" y2="120" stroke="var(--accent)" stroke-width="1.6" stroke-dasharray="4 4"/>
+<circle cx="620" cy="120" r="4" fill="var(--accent)"/>
+<text x="620" y="12" text-anchor="middle" font-weight="600" font-size="12" fill="var(--accent)">Correct check waits here</text>
+<text x="620" y="178" text-anchor="middle" font-family="var(--font-mono)" font-size="11" fill="var(--accent)">&#10003; waits for the real signal</text>
+<circle cx="90" cy="120" r="5" fill="var(--muted)"/>
+<text x="90" y="145" text-anchor="middle" font-size="11.5" fill="var(--text)">Click Apply</text>
+<text x="90" y="160" text-anchor="middle" font-family="var(--font-mono)" font-size="10" fill="var(--muted)">0ms</text>
+<circle cx="230" cy="120" r="5" fill="var(--muted)"/>
+<text x="230" y="145" text-anchor="middle" font-size="11.5" fill="var(--text)">Spinner shows</text>
+<text x="230" y="160" text-anchor="middle" font-family="var(--font-mono)" font-size="10" fill="var(--muted)">~40ms</text>
+<circle cx="580" cy="120" r="5" fill="var(--accent)"/>
+<text x="580" y="145" text-anchor="middle" font-size="11.5" fill="var(--text)">Spinner hides, discount shown</text>
+<text x="580" y="160" text-anchor="middle" font-family="var(--font-mono)" font-size="10" fill="var(--muted)">~820ms</text>
+</svg>
+<figcaption class="diagram-caption">The naive check reads the page before anything happened; the correct check waits for a positive signal.</figcaption>
+</figure>
+<!--/html-->
 
 ## The fix: wait for a positive signal
 
@@ -119,6 +151,37 @@ Prva provjera padne kad god server odgovori malo sporije. To je poznata vrsta ne
 Pogledajte drugu liniju. Ako spinner još nije iscrtan u trenutku kad test pročita stranicu, `isVisible()` vraća `false` i provjera prolazi. Test je zelen jer je pogledao prije nego što se bilo šta desilo. Ne govori ništa o tome da li je aplikacija završila posao.
 
 Lažan prolaz je gori od lažnog pada. Niko ne istražuje zelen test, pa rupa ostaje u skupu testova dok kroz nju ne promakne pravi bug.
+
+<!--html-->
+<div class="callout-grid">
+<div class="callout warn"><span class="ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span><div><h4>Lažan pad &mdash; glasan</h4><p>Test postane crven jer je server odgovorio malo sporije nego obično. Neugodno, ali lako se primijeti i istraži.</p></div></div>
+<div class="callout bad"><span class="ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><h4>Lažan prolaz &mdash; tih</h4><p>Test postane zelen jer je pogledao prije nego što se aplikacija bilo šta desila. Niko ne istražuje zelen test, pa rupa ostaje skrivena.</p></div></div>
+</div>
+<figure class="diagram" role="img" aria-label="Vremenska linija koja prikazuje naivnu provjeru koja čita stranicu prerano, uzrokujući i lažan pad i lažan prolaz, naspram ispravne provjere koja čeka pozitivan signal.">
+<svg viewBox="0 0 720 200" xmlns="http://www.w3.org/2000/svg">
+<line x1="40" y1="120" x2="680" y2="120" stroke="var(--border-strong)" stroke-width="2"/>
+<line x1="150" y1="18" x2="150" y2="120" stroke="var(--danger)" stroke-width="1.6" stroke-dasharray="4 4"/>
+<circle cx="150" cy="120" r="4" fill="var(--danger)"/>
+<text x="150" y="12" text-anchor="middle" font-weight="600" font-size="12" fill="var(--danger)">Naivna provjera čita ovdje</text>
+<text x="150" y="178" text-anchor="middle" font-family="var(--font-mono)" font-size="11" fill="var(--danger)">&#10005; discount &rarr; lažan pad</text>
+<text x="150" y="194" text-anchor="middle" font-family="var(--font-mono)" font-size="11" fill="var(--danger)">&#10003; spinner &rarr; lažan prolaz</text>
+<line x1="620" y1="18" x2="620" y2="120" stroke="var(--accent)" stroke-width="1.6" stroke-dasharray="4 4"/>
+<circle cx="620" cy="120" r="4" fill="var(--accent)"/>
+<text x="620" y="12" text-anchor="middle" font-weight="600" font-size="12" fill="var(--accent)">Ispravna provjera čeka ovdje</text>
+<text x="620" y="178" text-anchor="middle" font-family="var(--font-mono)" font-size="11" fill="var(--accent)">&#10003; čeka pravi signal</text>
+<circle cx="90" cy="120" r="5" fill="var(--muted)"/>
+<text x="90" y="145" text-anchor="middle" font-size="11.5" fill="var(--text)">Klik na Apply</text>
+<text x="90" y="160" text-anchor="middle" font-family="var(--font-mono)" font-size="10" fill="var(--muted)">0ms</text>
+<circle cx="230" cy="120" r="5" fill="var(--muted)"/>
+<text x="230" y="145" text-anchor="middle" font-size="11.5" fill="var(--text)">Spinner se pojavi</text>
+<text x="230" y="160" text-anchor="middle" font-family="var(--font-mono)" font-size="10" fill="var(--muted)">~40ms</text>
+<circle cx="580" cy="120" r="5" fill="var(--accent)"/>
+<text x="580" y="145" text-anchor="middle" font-size="11.5" fill="var(--text)">Spinner nestane, discount prikazan</text>
+<text x="580" y="160" text-anchor="middle" font-family="var(--font-mono)" font-size="10" fill="var(--muted)">~820ms</text>
+</svg>
+<figcaption class="diagram-caption">Naivna provjera čita stranicu prije nego što se bilo šta desilo; ispravna provjera čeka pozitivan signal.</figcaption>
+</figure>
+<!--/html-->
 
 ## Rješenje: sačekajte pozitivan signal
 

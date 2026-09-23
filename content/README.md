@@ -17,7 +17,8 @@ draft: true              (opciono; sakriva članak dok ne obrišeš ovu liniju)
 
 3. Ispod ide tekst u Markdown-u (## naslovi, **podebljano**, - liste, > citat, ``` kod ```, [link](https://...), ![opis slike](assets/blog/slika.jpg)).
 4. Slike stavi u `assets/blog/`.
-5. Objava: `git add . && git commit -m "Novi članak" && git push` — GitHub Action sam napravi stranicu, sitemap i RSS.
+5. Za custom HTML (npr. callout kutije ili ručno crtan SVG dijagram) koji Markdown ne pokriva, stavi ga između `<!--html-->` i `<!--/html-->` na svojim linijama — taj blok se ubacuje u stranicu bez izmjena, umjesto da bude eskejpovan kao tekst. Piši ga direktno u `.md` fajl (ne u generisani `blog/.../index.html`), inače nestane kod sljedećeg builda.
+6. Objava: `git add . && git commit -m "Novi članak" && git push` — GitHub Action sam napravi stranicu, sitemap i RSS.
 
 ## Srpski prevod (opciono)
 
