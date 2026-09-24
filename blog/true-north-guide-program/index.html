@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What the True North Guide Program Actually Is, and What It Can Do for a Company — Marko Lošić</title>
+  <meta name="description" content="Inside the True North guide-led training model: what it teaches, how the team guide role works, and the real business case for companies.">
+  <link rel="canonical" href="https://markolosic.github.io/blog/true-north-guide-program/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="What the True North Guide Program Actually Is, and What It Can Do for a Company — Marko Lošić">
+  <meta property="og:description" content="Inside the True North guide-led training model: what it teaches, how the team guide role works, and the real business case for companies.">
+  <meta property="og:url" content="https://markolosic.github.io/blog/true-north-guide-program/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/true-north-guide-program.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="What the True North Guide Program Actually Is, and What It Can Do for a Company — Marko Lošić">
+  <meta name="twitter:description" content="Inside the True North guide-led training model: what it teaches, how the team guide role works, and the real business case for companies.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/true-north-guide-program.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"What the True North Guide Program Actually Is, and What It Can Do for a Company","description":"Inside the True North guide-led training model: what it teaches, how the team guide role works, and the real business case for companies.","image":"https://markolosic.github.io/assets/blog/true-north-guide-program.jpg","url":"https://markolosic.github.io/blog/true-north-guide-program/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/true-north-guide-program/"},"datePublished":"2026-09-25","dateModified":"2026-09-25T00:00:00.000Z","keywords":"true-north, mentorship, career-development, qa, software-development","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
+  <meta property="article:published_time" content="2026-09-25">
+  <meta property="article:modified_time" content="2026-09-25T00:00:00.000Z">
+  <meta name="goatcounter-code" content="markolosic">
+  <script data-goatcounter="https://markolosic.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2307090d'/%3E%3Cpath d='M16 34l11 11 21-26' fill='none' stroke='%2334d399' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#about" data-i18n="nav_about">About</a>
+      <a href="../../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../../blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> <span data-i18n="all_posts">All posts</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-09-25" data-fmt="long">25 September 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span><span>·</span><span class="views" id="views" hidden><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg><span id="views-num"></span></span></div>
+        <h1 data-title-sr="Šta je zapravo True North Guide program i šta može da donese kompaniji">What the True North Guide Program Actually Is, and What It Can Do for a Company</h1>
+        <p class="lead" data-excerpt-sr="Iznutra o True North modelu obuke koju vode guide-ovi: šta uči, kako funkcioniše uloga team guide-a i kakva je stvarna korist za kompanije.">Inside the True North guide-led training model: what it teaches, how the team guide role works, and the real business case for companies.</p>
+        <div class="tags"><span>true-north</span><span>mentorship</span><span>career-development</span><span>qa</span><span>software-development</span></div>
+      </header>
+      <div class="prose"><p>A lot of professional development programs promise to change how you work and then hand you a certificate that changes nothing. True North is one of the few I've been through where the effect was visible almost immediately — not because of the certificate, but because of the format: you're trained by someone doing the job in front of you, and later you do the same for someone else. I went through the program as a participant in Athens, and some time later held a workshop in Zagreb together with Jeremiah, where I was in the role of team guide. That second experience is where I actually understood what the program is built to do.</p>
+<p><img src="../../assets/blog/true-north-guide-program.jpg" alt="Isometric illustration of the True North path: an active learner in a workshop, internalizing practices, getting certified to guide, and then as a team guide sharing knowledge and strengthening local culture in a recurring loop" loading="lazy"></p>
+<h2 id="what-true-north-actually-is">What True North actually is</h2>
+<p>True North is a structured software development methodology, delivered through short, intensive, project-based workshops rather than lectures. Instead of a fixed roster of professional trainers, sessions are run by people who recently went through the program themselves as participants and were then certified to guide a team through it — the &quot;Guide&quot; role. Participants work in small groups on something close to a real end-to-end problem instead of isolated exercises, with a guide steering the team through the process hands-on rather than explaining it from the front of a room.</p>
+<p>The part that matters most for a company evaluating this isn't a specific tool or curriculum — it's that structure. A team guide isn't a professional instructor parachuted in for the week; they're someone who was recently a participant themselves and still remembers exactly where the confusing parts are.</p>
+<h2 id="the-guide-model-from-the-inside">The Guide model, from the inside</h2>
+<p>Becoming a team guide isn't a one-time credential you collect and move on from. You go through the program first as a participant, and only later — once you've internalized how it runs — are you asked to guide a team through it yourself, often somewhere else, for a different group of people. I trained in Athens; later, I held a workshop in Zagreb together with Jeremiah, where my role was team guide. That gap between attending and leading is intentional, and it's the mechanism that makes the whole thing self-sustaining: it doesn't depend on external trainers, it depends on people who were recently in the room as learners.</p>
+<p>Being on the other side of it changes what you pay attention to. As a participant, I came away with a habit that shaped how I do QA work afterward: keep the actual person who'll use whatever you're building in view, at every stage, not just at the end when there's a UI to click through. As a team guide in Zagreb, my job — alongside Jeremiah — was to get a room of people who'd never met each other to internalize that same habit in a few days, through problems they had to work through themselves rather than a slide explaining the concept. You learn quickly which explanations actually land and which ones just sound good in the moment — a different kind of skill from doing the work yourself, and one that made me better at explaining testing decisions to developers back on my own team.</p>
+<h2 id="what-this-is-actually-worth-to-a-company">What this is actually worth to a company</h2>
+<p>The direct, easiest-to-see benefit is the training itself: people come back with concrete habits — clearer requirements discipline, a sharper sense of who the end user actually is, structured testing habits — that they apply on real project work immediately afterward. That part is true of most decent training programs, though, and isn't specific to this model.</p>
+<p>The part that's harder to replicate any other way is what the team guide structure does to retention and internal culture. Sending someone through a program once is a line item. Building a pipeline where your best people go through it, then come back qualified to guide the next round, turns training into a recurring source of internal growth rather than a one-off expense — people get a visible next step (participant to team guide) that doesn't require a title change or a different job. It also quietly standardizes how people on a team explain their own work, because leading a session forces you to articulate practices you'd otherwise just apply on autopilot. A QA engineer who has had to explain &quot;why we test this way&quot; to a room of strangers explains it more clearly to a developer on their own team afterward too.</p>
+<p>There's a network effect as well, though it's less tangible: people who've guided a workshop, whatever company or city they come from, end up having gone through the same core experience, which makes cross-company conversations about process — testing standards, how a team handles onboarding, what &quot;done&quot; actually means — start from more shared ground than they otherwise would.</p>
+<h2 id="where-this-doesn-t-help-and-where-it-s-a-bad-fit">Where this doesn't help, and where it's a bad fit</h2>
+<p>None of this replaces a company's own engineering culture or process discipline. A team can send people through a program like this and see no change at all if nobody applies what they learned once they're back at their desk with the usual deadlines — the habit has to be reinforced locally, not just picked up once in a workshop. It's also a slow return: the guide-to-participant pipeline compounds over several cycles, not the first one, so a company evaluating it purely on a single cohort's output will likely be underwhelmed. And it works better for teams that already have some appetite for mentorship internally; dropping someone into a team guide role who's never wanted to teach anyone anything is unlikely to go well, credential or not.</p>
+<h2 id="what-to-do-next">What to do next</h2>
+<p>If you're considering something like this for your team, start small: send one or two people who already informally mentor others, not your most senior engineer by title. Ask what they'd actually change about how your team onboards or tests before and after — that's the real signal, not the certificate. Build in time for them to apply what they learned on a real piece of work within the first few weeks, while it's still fresh. And if the program offers a path to becoming a team guide, treat that as the actual long-term investment, not an optional extra — that's the step that turns a one-time course into something your team keeps getting value from.</p></div>
+      <template id="prose-sr"><p>Mnogi programi profesionalnog razvoja obećavaju da će promijeniti način na koji radite, a onda vam uruče sertifikat koji ne mijenja ništa. True North je jedan od rijetkih kroz koje sam prošao gdje je efekat bio vidljiv skoro odmah — ne zbog sertifikata, nego zbog formata: obučava vas neko ko taj posao radi pred vama, a kasnije vi isto radite za nekog drugog. Kroz program sam prošao kao učesnik u Atini, a nešto kasnije sam zajedno sa Jeremiahom održao radionicu u Zagrebu, gdje sam bio u ulozi team guide-a. Tek kroz to drugo iskustvo sam zaista shvatio čemu je program namijenjen.</p>
+<p><img src="../../assets/blog/true-north-guide-program.jpg" alt="Izometrijska ilustracija True North puta: aktivni učesnik na radionici, usvajanje praksi, sertifikacija za guide-a, a zatim, kao team guide, dijeljenje znanja i jačanje lokalne kulture u ciklusu koji se ponavlja" loading="lazy"></p>
+<h2 id="šta-je-zapravo-true-north">Šta je zapravo True North</h2>
+<p>True North je strukturisana metodologija razvoja softvera koja se prenosi kroz kratke, intenzivne radionice zasnovane na projektima, a ne kroz predavanja. Umjesto stalnog tima profesionalnih trenera, sesije vode ljudi koji su nedavno i sami prošli program kao učesnici, a zatim dobili sertifikat da kroz njega vode tim — to je uloga „Guide&quot;. Učesnici rade u malim grupama na nečemu što je blisko stvarnom problemu od početka do kraja, umjesto na izolovanim vježbama, a guide usmjerava tim kroz proces direktno, u praksi, umjesto da ga objašnjava ispred table.</p>
+<p>Za kompaniju koja razmatra ovakav program, najbitniji nije neki konkretan alat ili nastavni plan — nego upravo ta struktura. Team guide nije profesionalni instruktor koga su doveli na nedjelju dana; to je neko ko je nedavno i sam bio učesnik i još se tačno sjeća gdje su dijelovi koji zbunjuju.</p>
+<h2 id="guide-model-iznutra">Guide model iznutra</h2>
+<p>Postati team guide nije jednokratno zvanje koje dobijete i idete dalje. Prvo prođete program kao učesnik, a tek kasnije — kada usvojite kako funkcioniše — dobijete poziv da sami vodite tim kroz njega, često na drugom mjestu i sa drugom grupom ljudi. Ja sam obuku prošao u Atini; kasnije sam zajedno sa Jeremiahom održao radionicu u Zagrebu, gdje sam bio team guide. Taj razmak između učestvovanja i vođenja je namjeran i upravo je to mehanizam koji cijelu stvar čini samoodrživom: ne zavisi od spoljnih trenera, nego od ljudi koji su nedavno i sami sjedjeli u sali kao učesnici.</p>
+<p>Kada ste s druge strane, mijenja se ono na šta obraćate pažnju. Kao učesnik, ponio sam naviku koja je oblikovala kako sam kasnije radio QA: da stvarnu osobu koja će koristiti ono što pravite držite u vidu u svakoj fazi, a ne samo na kraju kada postoji interfejs po kojem se može klikati. Kao team guide u Zagrebu, moj posao — zajedno sa Jeremiahom — bio je da grupa ljudi koji se nikada ranije nisu sreli usvoji tu istu naviku za nekoliko dana, kroz probleme koje su morali sami da riješe, a ne kroz slajd koji objašnjava koncept. Brzo naučite koja objašnjenja zaista dopiru do ljudi, a koja samo zvuče dobro u tom trenutku — to je drugačija vještina od samog rada, i zahvaljujući njoj danas bolje objašnjavam odluke o testiranju developerima u sopstvenom timu.</p>
+<h2 id="koliko-ovo-zapravo-vrijedi-kompaniji">Koliko ovo zapravo vrijedi kompaniji</h2>
+<p>Najdirektnija korist, i ona koju je najlakše uočiti, jeste sama obuka: ljudi se vraćaju sa konkretnim navikama — jasnijom disciplinom oko zahtjeva, boljim osjećajem ko je zapravo krajnji korisnik, strukturisanim navikama testiranja — koje odmah zatim primjenjuju na stvarnim projektima. Ali to važi za većinu pristojnih programa obuke i nije specifično za ovaj model.</p>
+<p>Ono što je teže postići na bilo koji drugi način jeste uticaj team guide strukture na zadržavanje ljudi i internu kulturu. Poslati nekoga jednom na program je stavka u budžetu. Izgraditi tok u kojem vaši najbolji ljudi prođu program, a zatim se vrate osposobljeni da vode sljedeću rundu, pretvara obuku u stalni izvor internog rasta umjesto jednokratnog troška — ljudi dobijaju vidljiv sljedeći korak (od učesnika do team guide-a) koji ne zahtijeva novu titulu ili drugi posao. To takođe nenametljivo ujednačava način na koji ljudi u timu objašnjavaju sopstveni rad, jer vas vođenje sesije tjera da jasno izrazite prakse koje biste inače primjenjivali na autopilotu. QA inženjer koji je morao da objasni „zašto testiramo na ovaj način&quot; sali punoj nepoznatih ljudi, kasnije to jasnije objašnjava i developeru iz sopstvenog tima.</p>
+<p>Postoji i mrežni efekat, iako je manje opipljiv: ljudi koji su vodili radionicu, iz koje god kompanije ili grada dolazili, prošli su kroz isto osnovno iskustvo, pa razgovori o procesima između kompanija — standardi testiranja, kako tim uvodi nove ljude, šta zapravo znači „gotovo&quot; — kreću sa više zajedničke osnove nego inače.</p>
+<h2 id="gdje-ovo-ne-pomaže-i-kada-nije-dobar-izbor">Gdje ovo ne pomaže i kada nije dobar izbor</h2>
+<p>Ništa od ovoga ne zamjenjuje sopstvenu inženjersku kulturu kompanije ni disciplinu u procesima. Tim može poslati ljude na ovakav program i ne vidjeti nikakvu promjenu ako niko ne primijeni ono što je naučio kada se vrati za svoj sto i uobičajene rokove — navika mora da se učvršćuje lokalno, a ne samo da se jednom pokupi na radionici. Povrat je i spor: tok od učesnika do guide-a donosi rezultate kroz nekoliko ciklusa, ne kroz prvi, pa će kompanija koja ga procjenjuje isključivo po rezultatima jedne generacije vjerovatno biti razočarana. I bolje funkcioniše u timovima koji već imaju neku sklonost ka internom mentorstvu; postaviti u ulogu team guide-a nekoga ko nikada nije želio ništa nikoga da uči vjerovatno se neće dobro završiti, sa sertifikatom ili bez njega.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<p>Ako razmišljate o nečemu ovakvom za svoj tim, počnite malo: pošaljite jednu ili dvije osobe koje već neformalno mentorišu druge, a ne najiskusnijeg inženjera po tituli. Pitajte ih šta bi zapravo promijenili u tome kako vaš tim uvodi nove ljude ili testira, prije i poslije — to je pravi signal, a ne sertifikat. Predvidite vrijeme da naučeno primijene na stvarnom zadatku u prvih nekoliko nedjelja, dok je još svježe. A ako program nudi put do uloge team guide-a, tretirajte to kao stvarnu dugoročnu investiciju, a ne kao opcioni dodatak — upravo je to korak koji jednokratni kurs pretvara u nešto od čega vaš tim ima korist iznova i iznova.</p></template>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    </div>
+    <section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../quality-starts-before-testing/" data-title-sr="Kvalitet počinje prije prve linije koda: kako pristupam QA-u" data-excerpt-sr="Zašto QA koji počinje već kod zahtjeva, kombinuje različite vrste testiranja i zatvara krug nakon objavljivanja gradi stvaran kvalitet proizvoda."><div class="meta"><time datetime="2026-09-24" data-fmt="short">24 Sept 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Quality Starts Before the First Line of Code: How I Approach QA</h2><p>Why QA that begins at requirements, blends testing types, and closes the loop after release builds real product quality.</p></a>
+      <a class="post-card card glow" href="../self-healing-tests-hidden-risk/" data-title-sr="Samoispravljajući testovi: šta zaista rješavaju, a šta tiho pokvare" data-excerpt-sr="Alati za samoispravljanje testova automatski krpe pokvarene selektore, ali mogu i sakriti baš one greške koje vaš skup testova treba da uhvati. Evo kako ih koristiti na siguran način."><div class="meta"><time datetime="2026-09-23" data-fmt="short">23 Sept 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div><h2>Self-Healing Tests: What They Actually Fix, and What They Quietly Break</h2><p>Self-healing test tools patch broken selectors automatically, but they can also hide the very defects your suite exists to catch. Here's how to use them safely.</p></a>
+      <a class="post-card card glow" href="../asserting-too-early-flaky-playwright-tests/" data-title-sr="Prerana provjera: tihi izvor nestabilnih Playwright testova" data-excerpt-sr="Mnogi nestabilni Playwright testovi nisu spori, nego provjeravaju prerano. Kako trenutne provjere i zaboravljeni await uzrokuju lažne padove i lažne prolaze."><div class="meta"><time datetime="2026-09-21" data-fmt="short">21 Sept 2026</time><span>·</span><span>7 <span data-i18n="min_read">min read</span></span></div><h2>Asserting Too Early: The Quiet Source of Flaky Playwright Tests</h2><p>Many flaky Playwright tests aren't slow, they check too early. How instant checks and missing awaits cause false failures and false passes.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <a href="../../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../../blog/common.js"></script>
+  <script src="../post.js"></script>
+</body>
+</html>
