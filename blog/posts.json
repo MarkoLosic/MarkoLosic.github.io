@@ -1,10 +1,10 @@
 [
   {
     "slug": "true-north-guide-program",
-    "title": "What the True North Guide Program Actually Is, and What It Can Do for a Company",
-    "titleSr": "Šta je zapravo True North Guide program i šta može da donese kompaniji",
-    "excerpt": "Inside the True North guide-led training model: what it teaches, how the team guide role works, and the real business case for companies.",
-    "excerptSr": "Iznutra o True North modelu obuke koju vode guide-ovi: šta uči, kako funkcioniše uloga team guide-a i kakva je stvarna korist za kompanije.",
+    "title": "What the TrueNorth Program Actually Is, and What It Can Do for a Company",
+    "titleSr": "Šta je zapravo TrueNorth program i šta može da donese kompaniji",
+    "excerpt": "Inside the TrueNorth guide-led training model: what it teaches, how the team guide role works, and the real business case for companies.",
+    "excerptSr": "Iznutra o TrueNorth modelu obuke koju vode guide-ovi: šta uči, kako funkcioniše uloga team guide-a i kakva je stvarna korist za kompanije.",
     "tags": [
       "true-north",
       "mentorship",
@@ -13,7 +13,7 @@
       "software-development"
     ],
     "date": "2026-09-25",
-    "readingTime": 5
+    "readingTime": 6
   },
   {
     "slug": "quality-starts-before-testing",
