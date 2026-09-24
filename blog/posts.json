@@ -1,5 +1,21 @@
 [
   {
+    "slug": "quality-starts-before-testing",
+    "title": "Quality Starts Before the First Line of Code: How I Approach QA",
+    "titleSr": "Kvalitet počinje prije prve linije koda: kako pristupam QA-u",
+    "excerpt": "Why QA that begins at requirements, blends testing types, and closes the loop after release builds real product quality.",
+    "excerptSr": "Zašto QA koji počinje već kod zahtjeva, kombinuje različite vrste testiranja i zatvara krug nakon objavljivanja gradi stvaran kvalitet proizvoda.",
+    "tags": [
+      "qa",
+      "testing-philosophy",
+      "test-automation",
+      "cypress",
+      "playwright"
+    ],
+    "date": "2026-09-24",
+    "readingTime": 6
+  },
+  {
     "slug": "self-healing-tests-hidden-risk",
     "title": "Self-Healing Tests: What They Actually Fix, and What They Quietly Break",
     "titleSr": "Samoispravljajući testovi: šta zaista rješavaju, a šta tiho pokvare",
