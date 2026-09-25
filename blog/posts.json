@@ -1,5 +1,21 @@
 [
   {
+    "slug": "testing-checkout-retry-race-conditions",
+    "title": "Testing the Retry Button: Catching Duplicate-Charge Race Conditions Before Customers Do",
+    "titleSr": "Testiranje dugmeta za ponovni pokušaj: kako uhvatiti duple naplate prije kupaca",
+    "excerpt": "Why sequential idempotency tests miss checkout double-charge bugs, and how to design a test that exposes the real race.",
+    "excerptSr": "Zašto sekvencijalni testovi idempotentnosti propuštaju duple naplate na checkout-u i kako napisati test koji otkriva stvarni race condition.",
+    "tags": [
+      "qa",
+      "api-testing",
+      "test-automation",
+      "fintech",
+      "race-conditions"
+    ],
+    "date": "2026-09-25",
+    "readingTime": 6
+  },
+  {
     "slug": "true-north-guide-program",
     "title": "What the TrueNorth Program Actually Is, and What It Can Do for a Company",
     "titleSr": "Šta je zapravo TrueNorth program i šta može da donese kompaniji",

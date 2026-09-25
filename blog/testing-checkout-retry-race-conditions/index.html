@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Testing the Retry Button: Catching Duplicate-Charge Race Conditions Before Customers Do — Marko Lošić</title>
+  <meta name="description" content="Why sequential idempotency tests miss checkout double-charge bugs, and how to design a test that exposes the real race.">
+  <link rel="canonical" href="https://markolosic.github.io/blog/testing-checkout-retry-race-conditions/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Testing the Retry Button: Catching Duplicate-Charge Race Conditions Before Customers Do — Marko Lošić">
+  <meta property="og:description" content="Why sequential idempotency tests miss checkout double-charge bugs, and how to design a test that exposes the real race.">
+  <meta property="og:url" content="https://markolosic.github.io/blog/testing-checkout-retry-race-conditions/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/testing-checkout-retry-race-conditions.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Testing the Retry Button: Catching Duplicate-Charge Race Conditions Before Customers Do — Marko Lošić">
+  <meta name="twitter:description" content="Why sequential idempotency tests miss checkout double-charge bugs, and how to design a test that exposes the real race.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/testing-checkout-retry-race-conditions.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Testing the Retry Button: Catching Duplicate-Charge Race Conditions Before Customers Do","description":"Why sequential idempotency tests miss checkout double-charge bugs, and how to design a test that exposes the real race.","image":"https://markolosic.github.io/assets/blog/testing-checkout-retry-race-conditions.jpg","url":"https://markolosic.github.io/blog/testing-checkout-retry-race-conditions/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/testing-checkout-retry-race-conditions/"},"datePublished":"2026-09-25","dateModified":"2026-09-25T00:00:00.000Z","keywords":"qa, api-testing, test-automation, fintech, race-conditions","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
+  <meta property="article:published_time" content="2026-09-25">
+  <meta property="article:modified_time" content="2026-09-25T00:00:00.000Z">
+  <meta name="goatcounter-code" content="markolosic">
+  <script data-goatcounter="https://markolosic.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2307090d'/%3E%3Cpath d='M16 34l11 11 21-26' fill='none' stroke='%2334d399' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#about" data-i18n="nav_about">About</a>
+      <a href="../../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../../blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> <span data-i18n="all_posts">All posts</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-09-25" data-fmt="long">25 September 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span><span>·</span><span class="views" id="views" hidden><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg><span id="views-num"></span></span></div>
+        <h1 data-title-sr="Testiranje dugmeta za ponovni pokušaj: kako uhvatiti duple naplate prije kupaca">Testing the Retry Button: Catching Duplicate-Charge Race Conditions Before Customers Do</h1>
+        <p class="lead" data-excerpt-sr="Zašto sekvencijalni testovi idempotentnosti propuštaju duple naplate na checkout-u i kako napisati test koji otkriva stvarni race condition.">Why sequential idempotency tests miss checkout double-charge bugs, and how to design a test that exposes the real race.</p>
+        <div class="tags"><span>qa</span><span>api-testing</span><span>test-automation</span><span>fintech</span><span>race-conditions</span></div>
+      </header>
+      <div class="prose"><p>A customer taps &quot;Place order,&quot; the screen spins for a few seconds too long, and they tap it again. Nothing unusual happens from their side — until two charges show up on their card instead of one. This is one of the most common ways payment bugs reach production, and it's also one of the easiest to miss in QA, because the tests that are supposed to catch it often pass for the wrong reason. The following walkthrough is illustrative: imagine a team shipping a checkout flow that looked well covered, only to find its idempotency protection had a hole that only concurrency could reveal.</p>
+<p><img src="../../assets/blog/testing-checkout-retry-race-conditions.jpg" alt="Isometric illustration of a checkout screen with a Place Order button sending parallel request streams past a retry and idempotency key validation step, ending in duplicate charges, error warnings and QA checkpoints" loading="lazy"></p>
+<h2 id="the-scenario">The scenario</h2>
+<p>The checkout service accepted an <code>Idempotency-Key</code> header on order creation, following the same pattern used by Stripe, PayPal, and other payment platforms: the client generates a key per checkout attempt, and the server is supposed to guarantee that repeated requests with that key produce at most one order and one charge. On a slow or flaky connection — a dropped connection, a mobile network hiccup, a load balancer timing out mid-request — the client has no way to know whether the original request actually failed or just never got a response back. The safe move for the client is to retry with the same key. The server's job is to make that retry a no-op if the original request already went through.</p>
+<p>The team had a test for this. It sent a request, waited for the response, sent the exact same request again, and asserted that both responses contained the same order ID. It passed reliably in CI. What it didn't test was two requests arriving at the server close enough together that both could see the idempotency key as &quot;not yet used&quot; before either one had a chance to record it.</p>
+<h2 id="why-the-passing-test-wasn-t-proving-what-it-looked-like-it-proved">Why the passing test wasn't proving what it looked like it proved</h2>
+<p>Sequential retries and concurrent retries exercise completely different code paths. A sequential test — request, wait, retry — only ever hits the server after the first request has already committed and stored its result. It will pass even if the server has no locking or coordination at all around the &quot;check key, then write&quot; step, because there's never a moment where two requests are mid-flight on the same key at once. That's exactly the moment a double-tap, an auto-retry on a slow network, or a client-side double-submit produces: two requests that both read &quot;key not seen yet&quot; from the database before either one writes its result. Both proceed. Both charge the card.</p>
+<h2 id="designing-a-test-that-actually-forces-the-race">Designing a test that actually forces the race</h2>
+<p>Catching this requires deliberately creating the overlap instead of hoping timing happens to produce it. A concurrent black-box test fires a batch of identical requests at the same endpoint with the same idempotency key and inspects the resulting state, not just the HTTP responses:</p>
+<pre><code class="lang-typescript">const key = crypto.randomUUID();
+const attempts = Array.from({ length: 10 }, () =&gt;
+  request.post('/v1/orders', {
+    headers: { 'Idempotency-Key': key },
+    data: orderPayload,
+  })
+);
+
+const responses = await Promise.all(attempts);
+
+// The real assertion isn't on the HTTP responses —
+// it's on what actually got committed.
+const orders = await db.query(
+  'select id from orders where idempotency_key = $1',
+  [key]
+);
+expect(orders.length).toBe(1);</code></pre>
+<p>Two details matter here. First, the requests are fired together with <code>Promise.all</code>, not one after another — a loop that awaits each response before sending the next one is just a slower version of the sequential test that already missed the bug. Second, the assertion checks the authoritative source — the orders table, or a payment ledger — rather than comparing the HTTP response bodies. Two workers can create two separate rows in the database and still both return a response that looks identical to a test that only checks status codes, so the check has to look at what was actually persisted, not just what was returned.</p>
+<p>Running this kind of test against the checkout service in the earlier example turned up exactly the failure mode described: instead of one order ID repeated ten times, the ledger showed several distinct orders, each with its own charge, all created from requests sharing the same key. The check-then-write logic wasn't wrapped in anything that prevented two requests from both passing the check before either one finished the write.</p>
+<h2 id="pitfalls-and-limits">Pitfalls and limits</h2>
+<p>Concurrent testing like this is noisier and more environment-sensitive than ordinary functional tests. A shared staging database, request queuing at a load balancer, or a rate limiter can all absorb the burst before it reaches the code path you're trying to stress, producing a false pass that says nothing about production behavior under real concurrency. Forcing genuine overlap sometimes requires a test hook that pauses execution at the exact point right before the key is claimed, which means adding test-only code to production paths — a trade-off that needs sign-off from the team, not something QA should sneak in unilaterally. It's also worth resisting the urge to add a client-side lock (disabling the button after one click) and calling the problem solved: that helps the honest double-tap case, but does nothing for the client that legitimately retries after a genuine timeout, which is the case idempotency keys exist for in the first place. Finally, this kind of test is expensive to run on every commit; it belongs in a targeted suite that runs against payment and order-creation endpoints specifically, not as a blanket pattern applied everywhere state gets written.</p>
+<h2 id="what-to-do-next">What to do next</h2>
+<p>Audit which of your idempotency or duplicate-prevention tests are actually sequential retries in disguise, and rewrite the ones that matter — payment, order creation, anything with a side effect that costs money to reverse — as concurrent burst tests using <code>Promise.all</code> or an equivalent in your stack. Assert against the database or ledger state, not the HTTP response, since that's where a race actually shows up. Add a test case for a changed payload reusing the same key, since a correct implementation should reject that rather than silently processing it. And if your API doesn't document what a duplicate concurrent request is supposed to return — the stored result, a 409, something else — get that written down before writing more tests against it, because right now the test would just be guessing at the contract too.</p>
+<h2 id="sources">Sources</h2>
+<ul><li><a href="https://oneuptime.com/blog/post/2026-08-24-test-idempotency-key-concurrent-requests/view" target="_blank" rel="noopener noreferrer">Testing Idempotency Keys Under Concurrent Requests</a></li><li><a href="https://dev.to/jay_stride/sequential-retries-pass-concurrent-duplicates-fail-black-box-testing-for-idempotency-key-races-3f0j" target="_blank" rel="noopener noreferrer">Sequential Retries Pass, Concurrent Duplicates Fail: Black-Box Testing for Idempotency-Key Races</a></li><li><a href="https://dev.to/mangeshmandlik/the-bug-where-a-customer-got-charged-twice-for-nothing-they-did-wrong-gn" target="_blank" rel="noopener noreferrer">The Bug Where a Customer Got Charged Twice for Nothing They Did Wrong</a></li></ul></div>
+      <template id="prose-sr"><p>Kupac dodirne „Place order&quot;, ekran se vrti nekoliko sekundi predugo, pa dodirne ponovo. S njegove strane se ne dešava ništa neobično — sve dok mu se na kartici ne pojave dvije naplate umjesto jedne. Ovo je jedan od najčešćih načina na koje greške u plaćanju stignu do produkcije, a ujedno i jedan od najlakših za propustiti u QA-u, jer testovi koji bi trebalo da ga uhvate često prolaze iz pogrešnog razloga. Primjer koji slijedi je ilustrativan: zamislite tim koji objavljuje checkout tok koji je izgledao dobro pokriven testovima, da bi se ispostavilo da zaštita idempotentnosti ima rupu koju može otkriti samo istovremenost.</p>
+<p><img src="../../assets/blog/testing-checkout-retry-race-conditions.jpg" alt="Izometrijska ilustracija checkout ekrana na kojem dugme Place Order šalje paralelne tokove zahtjeva kroz korak ponovnog pokušaja i validacije idempotency ključa, koji se završavaju duplim naplatama, upozorenjima o greškama i QA kontrolnim tačkama" loading="lazy"></p>
+<h2 id="scenario">Scenario</h2>
+<p>Checkout servis je prilikom kreiranja narudžbe prihvatao <code>Idempotency-Key</code> zaglavlje, po istom obrascu koji koriste Stripe, PayPal i druge platforme za plaćanje: klijent generiše ključ za svaki pokušaj plaćanja, a server bi trebalo da garantuje da ponovljeni zahtjevi sa tim ključem proizvedu najviše jednu narudžbu i jednu naplatu. Na sporoj ili nestabilnoj vezi — prekinuta konekcija, zastoj mobilne mreže, load balancer kojem istekne vrijeme usred zahtjeva — klijent nikako ne može znati da li je originalni zahtjev zaista pao ili samo odgovor nikada nije stigao nazad. Bezbjedan potez za klijenta je da pokuša ponovo sa istim ključem. Posao servera je da taj ponovni pokušaj ne uradi ništa ako je originalni zahtjev već prošao.</p>
+<p>Tim je imao test za ovo. Test je slao zahtjev, čekao odgovor, slao potpuno isti zahtjev ponovo i provjeravao da oba odgovora sadrže isti ID narudžbe. Pouzdano je prolazio na CI-ju. Ono što nije testirao jesu dva zahtjeva koja stignu na server toliko blizu jedan drugom da oba vide idempotency ključ kao „još neiskorišćen&quot; prije nego što bilo koji od njih stigne da ga zabilježi.</p>
+<h2 id="zašto-test-koji-prolazi-nije-dokazivao-ono-što-je-izgledalo-da-dokazuje">Zašto test koji prolazi nije dokazivao ono što je izgledalo da dokazuje</h2>
+<p>Sekvencijalni i istovremeni ponovni pokušaji prolaze kroz potpuno različite putanje u kodu. Sekvencijalni test — zahtjev, čekanje, ponovni pokušaj — uvijek pogodi server tek nakon što je prvi zahtjev već završio i sačuvao svoj rezultat. Proći će čak i ako server uopšte nema zaključavanje ni koordinaciju oko koraka „provjeri ključ, pa upiši&quot;, jer nikada ne postoji trenutak u kojem su dva zahtjeva sa istim ključem istovremeno u obradi. A upravo taj trenutak proizvodi dupli dodir, automatski ponovni pokušaj na sporoj mreži ili dvostruko slanje forme na klijentu: dva zahtjeva koja oba iz baze pročitaju „ključ još nije viđen&quot; prije nego što bilo koji od njih upiše svoj rezultat. Oba nastavljaju. Oba naplate karticu.</p>
+<h2 id="kako-napisati-test-koji-zaista-izaziva-race-condition">Kako napisati test koji zaista izaziva race condition</h2>
+<p>Da biste ovo uhvatili, preklapanje morate namjerno izazvati, umjesto da se nadate da će ga tajming sam proizvesti. Istovremeni black-box test ispali grupu identičnih zahtjeva na isti endpoint sa istim idempotency ključem i provjerava stanje koje je nastalo, a ne samo HTTP odgovore:</p>
+<pre><code class="lang-typescript">const key = crypto.randomUUID();
+const attempts = Array.from({ length: 10 }, () =&gt;
+  request.post('/v1/orders', {
+    headers: { 'Idempotency-Key': key },
+    data: orderPayload,
+  })
+);
+
+const responses = await Promise.all(attempts);
+
+// Prava provjera nije nad HTTP odgovorima —
+// nego nad onim što je zaista upisano.
+const orders = await db.query(
+  'select id from orders where idempotency_key = $1',
+  [key]
+);
+expect(orders.length).toBe(1);</code></pre>
+<p>Ovdje su bitna dva detalja. Prvo, zahtjevi se šalju zajedno pomoću <code>Promise.all</code>, a ne jedan za drugim — petlja koja čeka svaki odgovor prije slanja sljedećeg zahtjeva samo je sporija verzija sekvencijalnog testa koji je grešku već propustio. Drugo, provjera gleda mjerodavni izvor — tabelu narudžbi ili knjigu plaćanja (ledger) — umjesto da poredi tijela HTTP odgovora. Dva workera mogu napraviti dva odvojena reda u bazi, a da oba i dalje vrate odgovor koji izgleda identično testu koji provjerava samo statusne kodove, pa provjera mora gledati šta je zaista sačuvano, a ne samo šta je vraćeno.</p>
+<p>Pokretanje ovakvog testa nad checkout servisom iz prethodnog primjera otkrilo je upravo opisani problem: umjesto jednog ID-a narudžbe ponovljenog deset puta, ledger je pokazao nekoliko različitih narudžbi, svaku sa sopstvenom naplatom, a sve su nastale iz zahtjeva sa istim ključem. Logika „provjeri, pa upiši&quot; nije bila zaštićena ničim što bi spriječilo da dva zahtjeva oba prođu provjeru prije nego što bilo koji od njih završi upis.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Ovakvo istovremeno testiranje je bučnije i osjetljivije na okruženje od običnih funkcionalnih testova. Dijeljena staging baza, redovi zahtjeva na load balanceru ili rate limiter mogu upiti nalet zahtjeva prije nego što stigne do putanje koju pokušavate da opteretite, pa dobijete lažni prolaz koji ne govori ništa o ponašanju u produkciji pod stvarnom istovremenošću. Da biste izazvali pravo preklapanje, ponekad vam treba test hook koji pauzira izvršavanje tačno prije trenutka kada se ključ zauzme, što znači dodavanje koda samo za testiranje u produkcione putanje — kompromis za koji je potrebna saglasnost tima, a ne nešto što QA treba da ubaci na svoju ruku. Vrijedi i odoljeti porivu da se doda zaključavanje na klijentu (onemogućavanje dugmeta nakon jednog klika) i da se problem proglasi riješenim: to pomaže u slučaju slučajnog duplog dodira, ali ne radi ništa za klijenta koji legitimno pokušava ponovo nakon stvarnog isteka vremena — a upravo zbog tog slučaja idempotency ključevi i postoje. Na kraju, ovakav test je skup za pokretanje na svakom commitu; mjesto mu je u ciljanom skupu testova koji se pokreće baš nad endpointima za plaćanje i kreiranje narudžbi, a ne kao šablon koji se primjenjuje svuda gdje se upisuje stanje.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<p>Provjerite koji su vaši testovi idempotentnosti ili zaštite od duplikata zapravo prerušeni sekvencijalni ponovni pokušaji, i one bitne — plaćanje, kreiranje narudžbi, sve što ima posljedicu čije poništavanje košta novca — prepišite kao testove istovremenog naleta pomoću <code>Promise.all</code> ili ekvivalenta u vašem stacku. Provjeravajte stanje baze ili ledgera, a ne HTTP odgovor, jer se race condition tu zaista pokaže. Dodajte test slučaj u kojem se isti ključ ponovo koristi sa izmijenjenim payloadom, jer bi ispravna implementacija to trebalo da odbije, a ne da tiho obradi. A ako vaš API ne dokumentuje šta bi dupli istovremeni zahtjev trebalo da vrati — sačuvani rezultat, 409 ili nešto treće — prvo to zapišite, pa tek onda pišite nove testove, jer bi u suprotnom i test samo nagađao kakav je ugovor.</p>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://oneuptime.com/blog/post/2026-08-24-test-idempotency-key-concurrent-requests/view" target="_blank" rel="noopener noreferrer">Testing Idempotency Keys Under Concurrent Requests</a></li><li><a href="https://dev.to/jay_stride/sequential-retries-pass-concurrent-duplicates-fail-black-box-testing-for-idempotency-key-races-3f0j" target="_blank" rel="noopener noreferrer">Sequential Retries Pass, Concurrent Duplicates Fail: Black-Box Testing for Idempotency-Key Races</a></li><li><a href="https://dev.to/mangeshmandlik/the-bug-where-a-customer-got-charged-twice-for-nothing-they-did-wrong-gn" target="_blank" rel="noopener noreferrer">The Bug Where a Customer Got Charged Twice for Nothing They Did Wrong</a></li></ul></template>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    </div>
+    <section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../true-north-guide-program/" data-title-sr="Šta je zapravo TrueNorth program i šta može da donese kompaniji" data-excerpt-sr="Iznutra o TrueNorth modelu obuke koju vode guide-ovi: šta uči, kako funkcioniše uloga team guide-a i kakva je stvarna korist za kompanije."><div class="meta"><time datetime="2026-09-25" data-fmt="short">25 Sept 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>What the TrueNorth Program Actually Is, and What It Can Do for a Company</h2><p>Inside the TrueNorth guide-led training model: what it teaches, how the team guide role works, and the real business case for companies.</p></a>
+      <a class="post-card card glow" href="../quality-starts-before-testing/" data-title-sr="Kvalitet počinje prije prve linije koda: kako pristupam QA-u" data-excerpt-sr="Zašto QA koji počinje već kod zahtjeva, kombinuje različite vrste testiranja i zatvara krug nakon objavljivanja gradi stvaran kvalitet proizvoda."><div class="meta"><time datetime="2026-09-24" data-fmt="short">24 Sept 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Quality Starts Before the First Line of Code: How I Approach QA</h2><p>Why QA that begins at requirements, blends testing types, and closes the loop after release builds real product quality.</p></a>
+      <a class="post-card card glow" href="../self-healing-tests-hidden-risk/" data-title-sr="Samoispravljajući testovi: šta zaista rješavaju, a šta tiho pokvare" data-excerpt-sr="Alati za samoispravljanje testova automatski krpe pokvarene selektore, ali mogu i sakriti baš one greške koje vaš skup testova treba da uhvati. Evo kako ih koristiti na siguran način."><div class="meta"><time datetime="2026-09-23" data-fmt="short">23 Sept 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div><h2>Self-Healing Tests: What They Actually Fix, and What They Quietly Break</h2><p>Self-healing test tools patch broken selectors automatically, but they can also hide the very defects your suite exists to catch. Here's how to use them safely.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <a href="../../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../../blog/common.js"></script>
+  <script src="../post.js"></script>
+</body>
+</html>
