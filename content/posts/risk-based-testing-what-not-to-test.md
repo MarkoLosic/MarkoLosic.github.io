@@ -2,6 +2,7 @@
 title: "Risk-Based Testing: How to Decide What Not to Test Before a Deadline"
 title_sr: "Testiranje zasnovano na riziku: kako odlučiti šta nećete testirati pred rok"
 date: 2026-09-28
+time: 18:30
 tags: [qa, test-automation, methodology, risk-based-testing]
 excerpt: A practical guide to prioritizing QA coverage by risk when there isn't time to test everything before a release.
 excerpt_sr: Praktičan vodič za određivanje prioriteta QA pokrivenosti prema riziku kada nema vremena da se prije objave testira sve.

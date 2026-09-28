@@ -1,5 +1,20 @@
 [
   {
+    "slug": "risk-based-testing-what-not-to-test",
+    "title": "Risk-Based Testing: How to Decide What Not to Test Before a Deadline",
+    "titleSr": "Testiranje zasnovano na riziku: kako odlučiti šta nećete testirati pred rok",
+    "excerpt": "A practical guide to prioritizing QA coverage by risk when there isn't time to test everything before a release.",
+    "excerptSr": "Praktičan vodič za određivanje prioriteta QA pokrivenosti prema riziku kada nema vremena da se prije objave testira sve.",
+    "tags": [
+      "qa",
+      "test-automation",
+      "methodology",
+      "risk-based-testing"
+    ],
+    "date": "2026-09-28",
+    "readingTime": 5
+  },
+  {
     "slug": "emulator-testing-misconceptions",
     "title": "Emulator and Simulator Testing for Mobile Apps: What They Actually Catch, and What They Quietly Miss",
     "titleSr": "Testiranje mobilnih aplikacija na emulatorima i simulatorima: šta zaista hvataju, a šta tiho propuštaju",
@@ -14,21 +29,6 @@
     ],
     "date": "2026-09-28",
     "readingTime": 6
-  },
-  {
-    "slug": "risk-based-testing-what-not-to-test",
-    "title": "Risk-Based Testing: How to Decide What Not to Test Before a Deadline",
-    "titleSr": "Testiranje zasnovano na riziku: kako odlučiti šta nećete testirati pred rok",
-    "excerpt": "A practical guide to prioritizing QA coverage by risk when there isn't time to test everything before a release.",
-    "excerptSr": "Praktičan vodič za određivanje prioriteta QA pokrivenosti prema riziku kada nema vremena da se prije objave testira sve.",
-    "tags": [
-      "qa",
-      "test-automation",
-      "methodology",
-      "risk-based-testing"
-    ],
-    "date": "2026-09-28",
-    "readingTime": 5
   },
   {
     "slug": "testing-idempotency-duplicate-charges",

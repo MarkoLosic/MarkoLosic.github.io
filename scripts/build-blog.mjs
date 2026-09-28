@@ -12,6 +12,7 @@
      title: My first post
      title_sr: Moj prvi članak       (optional, Serbian nav pill on the site)
      date: 2026-09-20
+     time: 18:30                (optional, HH:MM; orders posts published on the same day)
      updated: 2026-09-25        (optional)
      tags: [qa, playwright]
      excerpt: One or two sentences, used as the Google description.
@@ -70,12 +71,13 @@ function loadPosts() {
     if (String(meta.draft).toLowerCase() === 'true') continue;
     if (!meta.title) throw new Error(`${f}: "title" is required`);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(meta.date || '')) throw new Error(`${f}: "date" is required as YYYY-MM-DD`);
+    if (meta.time && !/^\d{2}:\d{2}$/.test(meta.time)) throw new Error(`${f}: "time" must be HH:MM`);
     const tags = (meta.tags || '').replace(/^\[|\]$/g, '').split(',').map(t => t.trim().toLowerCase()).filter(Boolean);
     const [bodyEn, bodySr] = body.split(/\n<!--\s*sr\s*-->\n/);
     out.push({
       slug, title: meta.title, title_sr: meta.title_sr, excerpt: meta.excerpt, excerpt_sr: meta.excerpt_sr,
       image: meta.image, body: bodyEn.trim(), body_sr: bodySr ? bodySr.trim() : null,
-      tags, published_at: meta.date, updated_at: /^\d{4}-\d{2}-\d{2}/.test(meta.updated || '') ? meta.updated : meta.date
+      tags, published_at: meta.date, published_time: meta.time || '00:00', updated_at: /^\d{4}-\d{2}-\d{2}/.test(meta.updated || '') ? meta.updated : meta.date
     });
   }
   return out;
@@ -190,7 +192,7 @@ const posts = loadPosts().map(p => {
     updated_at: p.updated_at || p.published_at
   };
 });
-posts.sort((a, b) => String(b.published_at).localeCompare(String(a.published_at)));
+posts.sort((a, b) => `${b.published_at}T${b.published_time}`.localeCompare(`${a.published_at}T${a.published_time}`));
 
 // clean previously generated post folders
 for (const entry of fs.readdirSync(rel('blog'), { withFileTypes: true })) {
@@ -297,7 +299,7 @@ const urls = [
   ...posts.map(p => ({ loc: `${SITE}/blog/${p.slug}/`, lastmod: String(p.updated_at).slice(0, 10) }))
 ];
 write(rel('sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u => `  <url><loc>${u.loc}</loc>${u.lastmod ? `<lastmod>${u.lastmod}</lastmod>` : ''}</url>`).join('\n')}\n</urlset>\n`);
-write(rel('rss.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel>\n<title>${AUTHOR} — Blog</title><link>${SITE}/blog/</link><description>Notes on QA, test automation, mobile and AI testing.</description><language>en</language>\n${posts.map(p => `<item><title>${esc(p.title)}</title><link>${SITE}/blog/${p.slug}/</link><guid>${SITE}/blog/${p.slug}/</guid><pubDate>${new Date(p.published_at + 'T00:00:00Z').toUTCString()}</pubDate><description>${esc(p.excerpt)}</description></item>`).join('\n')}\n</channel></rss>\n`);
+write(rel('rss.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel>\n<title>${AUTHOR} — Blog</title><link>${SITE}/blog/</link><description>Notes on QA, test automation, mobile and AI testing.</description><language>en</language>\n${posts.map(p => `<item><title>${esc(p.title)}</title><link>${SITE}/blog/${p.slug}/</link><guid>${SITE}/blog/${p.slug}/</guid><pubDate>${new Date(`${p.published_at}T${p.published_time}:00Z`).toUTCString()}</pubDate><description>${esc(p.excerpt)}</description></item>`).join('\n')}\n</channel></rss>\n`);
 write(rel('robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`);
 
 console.log(`Built ${posts.length} post(s) for ${SITE}`);

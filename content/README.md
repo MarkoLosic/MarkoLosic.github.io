@@ -7,6 +7,7 @@
 ---
 title: Naslov članka
 date: 2026-09-20
+time: 18:30              (opciono; redoslijed kad je više članaka istog dana — noviji ide prvi)
 updated: 2026-09-25      (opciono)
 tags: [qa, playwright]
 excerpt: Jedna do dvije rečenice; ovo je opis u Google rezultatima.
