@@ -1,5 +1,21 @@
 [
   {
+    "slug": "emulator-testing-misconceptions",
+    "title": "Emulator and Simulator Testing for Mobile Apps: What They Actually Catch, and What They Quietly Miss",
+    "titleSr": "Testiranje mobilnih aplikacija na emulatorima i simulatorima: šta zaista hvataju, a šta tiho propuštaju",
+    "excerpt": "A practical look at testing mobile apps on Android emulators and iOS Simulators, and the common misconceptions that let real bugs through.",
+    "excerptSr": "Praktičan pogled na testiranje mobilnih aplikacija na Android emulatorima i iOS Simulatoru, i na česte zablude zbog kojih stvarne greške prođu.",
+    "tags": [
+      "qa",
+      "mobile-testing",
+      "test-automation",
+      "android",
+      "ios"
+    ],
+    "date": "2026-09-28",
+    "readingTime": 6
+  },
+  {
     "slug": "testing-idempotency-duplicate-charges",
     "title": "Testing Idempotency: How to Catch Duplicate-Charge Bugs Before Your Users Do",
     "titleSr": "Testiranje idempotentnosti: kako uhvatiti duple naplate prije korisnika",

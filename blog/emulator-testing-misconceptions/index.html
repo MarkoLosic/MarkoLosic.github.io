@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Emulator and Simulator Testing for Mobile Apps: What They Actually Catch, and What They Quietly Miss — Marko Lošić</title>
+  <meta name="description" content="A practical look at testing mobile apps on Android emulators and iOS Simulators, and the common misconceptions that let real bugs through.">
+  <link rel="canonical" href="https://markolosic.github.io/blog/emulator-testing-misconceptions/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Emulator and Simulator Testing for Mobile Apps: What They Actually Catch, and What They Quietly Miss — Marko Lošić">
+  <meta property="og:description" content="A practical look at testing mobile apps on Android emulators and iOS Simulators, and the common misconceptions that let real bugs through.">
+  <meta property="og:url" content="https://markolosic.github.io/blog/emulator-testing-misconceptions/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/emulator-testing-misconceptions.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Emulator and Simulator Testing for Mobile Apps: What They Actually Catch, and What They Quietly Miss — Marko Lošić">
+  <meta name="twitter:description" content="A practical look at testing mobile apps on Android emulators and iOS Simulators, and the common misconceptions that let real bugs through.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/emulator-testing-misconceptions.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Emulator and Simulator Testing for Mobile Apps: What They Actually Catch, and What They Quietly Miss","description":"A practical look at testing mobile apps on Android emulators and iOS Simulators, and the common misconceptions that let real bugs through.","image":"https://markolosic.github.io/assets/blog/emulator-testing-misconceptions.jpg","url":"https://markolosic.github.io/blog/emulator-testing-misconceptions/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/emulator-testing-misconceptions/"},"datePublished":"2026-09-28","dateModified":"2026-09-28T00:00:00.000Z","keywords":"qa, mobile-testing, test-automation, android, ios","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
+  <meta property="article:published_time" content="2026-09-28">
+  <meta property="article:modified_time" content="2026-09-28T00:00:00.000Z">
+  <meta name="goatcounter-code" content="markolosic">
+  <script data-goatcounter="https://markolosic.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2307090d'/%3E%3Cpath d='M16 34l11 11 21-26' fill='none' stroke='%2334d399' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#about" data-i18n="nav_about">About</a>
+      <a href="../../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../../blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> <span data-i18n="all_posts">All posts</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-09-28" data-fmt="long">28 September 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span><span>·</span><span class="views" id="views" hidden><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg><span id="views-num"></span></span></div>
+        <h1 data-title-sr="Testiranje mobilnih aplikacija na emulatorima i simulatorima: šta zaista hvataju, a šta tiho propuštaju">Emulator and Simulator Testing for Mobile Apps: What They Actually Catch, and What They Quietly Miss</h1>
+        <p class="lead" data-excerpt-sr="Praktičan pogled na testiranje mobilnih aplikacija na Android emulatorima i iOS Simulatoru, i na česte zablude zbog kojih stvarne greške prođu.">A practical look at testing mobile apps on Android emulators and iOS Simulators, and the common misconceptions that let real bugs through.</p>
+        <div class="tags"><span>qa</span><span>mobile-testing</span><span>test-automation</span><span>android</span><span>ios</span></div>
+      </header>
+      <div class="prose"><p>A team ships a build after a full regression pass on the Android emulator and the iOS Simulator, everything green, and within a day gets reports of crashes on real phones, a broken camera flow, and a push notification that never arrives. Nothing was skipped in the test plan. The problem is that &quot;tested&quot; and &quot;tested on an emulator&quot; are not the same claim, and the gap between them is wider — and more specific — than most QA processes account for.</p>
+<p><img src="../../assets/blog/emulator-testing-misconceptions.jpg" alt="Split illustration: on the left, an Android emulator and iOS Simulator on desktop monitors passing UI, navigation, form validation and business logic checks against mock services; on the right, real phones testing live camera capture, Face ID, biometric unlock, push notification delivery and battery drain through a device cloud, with the hardware gap between the two sides" loading="lazy"></p>
+<h2 id="emulator-and-simulator-are-not-the-same-kind-of-thing">Emulator and simulator are not the same kind of thing</h2>
+<p>The words get used interchangeably, but the Android emulator and the iOS Simulator work on fundamentally different principles, and that difference has direct testing consequences. The Android emulator genuinely emulates hardware: it creates a virtual ARM (or x86) processor and translates instructions for it in real time, which is why it can be configured with a specific RAM ceiling or CPU core count that behaves somewhat like a real constrained device, at the cost of being slower than the phone it's modeling.</p>
+<p>The iOS Simulator does not emulate hardware at all. It runs your app's code compiled directly for your Mac's own processor, inside a simulated iOS software environment. That's why it's fast — there's no instruction translation happening — but it's also why it is structurally unable to tell you anything about how your app performs on Apple's actual silicon, thermal throttling, or memory pressure under iOS's real memory management. A simulator build passing a performance check is not evidence of anything; it's testing your Mac, not an iPhone.</p>
+<h2 id="misconception-if-it-passes-on-the-emulator-it-ll-pass-on-the-device">Misconception: &quot;if it passes on the emulator, it'll pass on the device&quot;</h2>
+<p>This is the most expensive misconception because it's usually right often enough to feel safe. Emulators and simulators can't reproduce carrier network behavior, real Wi-Fi handoff, background app kill policies on manufacturer-customized Android builds, or actual battery and thermal behavior. A scroll that feels smooth in the emulator because the host machine's GPU is doing the work can visibly stutter on a two-year-old mid-range Android phone. None of this shows up until a real device — ideally a spread of real, sometimes older, devices — runs the same build.</p>
+<h2 id="misconception-the-simulator-can-test-everything-except-raw-speed">Misconception: &quot;the simulator can test everything except raw speed&quot;</h2>
+<p>QA teams often treat the iOS Simulator as functionally complete and only performance-incomplete. It isn't. The Simulator cannot access a live camera feed (you can only feed it a photo from the library, not test the actual capture pipeline), it can't produce real motion sensor data from an accelerometer or gyroscope, and it cannot receive genuine push notifications through APNs the way a device does — you can simulate a payload locally, but you're not exercising the real delivery path. Face ID and Touch ID exist in the Simulator only as a menu toggle you trigger yourself; the actual biometric matching logic never runs. Any app with a camera step, a motion-based interaction, real push delivery, or a biometric login flow has a meaningful slice of its behavior that a simulator-only test plan simply cannot see.</p>
+<h2 id="a-concrete-way-to-split-the-test-plan">A concrete way to split the test plan</h2>
+<p>Rather than treating &quot;run it on the emulator&quot; as a single test phase, it helps to explicitly assign test types to the environment that can actually validate them:</p>
+<pre><code class="lang-text">Emulator / Simulator (fast, cheap, every commit)
+  - UI layout across screen sizes and OS versions
+  - Business logic, navigation, form validation
+  - API contract and mocked network responses
+  - Basic accessibility checks (labels, contrast)
+
+Real device / device cloud (before merge to release branch)
+  - Camera capture, biometric login, real push notifications
+  - Battery, memory, and thermal behavior under load
+  - Performance on a low/mid-range device, not just flagship
+  - Anything the app itself may behave differently under
+    (see security note below)</code></pre>
+<p>Services like Firebase Test Lab, BrowserStack App Live, and AWS Device Farm exist specifically to make the second column affordable without a physical device shelf, and are worth budgeting for even on a small team.</p>
+<h2 id="the-overlooked-angle-apps-behave-differently-when-they-detect-an-emulator">The overlooked angle: apps behave differently when they detect an emulator</h2>
+<p>This one catches security-conscious teams off guard. Many apps — anything with fraud prevention, anti-tamper protection, or an ad SDK — actively detect when they're running on an emulator and change their own behavior in response: disabling a feature, refusing to load, or silently degrading. That means a bug you can't reproduce in the emulator might be entirely real on a device, and a feature that &quot;works fine&quot; in the emulator might be running a different code path than the one real users hit. Emulators also typically can't install a build the way users actually get it — through the app store — so the artifact under test isn't always the artifact that ships.</p>
+<h2 id="pitfalls-and-limits">Pitfalls and limits</h2>
+<p>None of this is an argument to abandon emulators and simulators — they're genuinely the right tool for fast iteration, layout checks across many screen sizes, and most business-logic testing, and running everything on real devices for every commit is slow and expensive. The risk is treating emulator-passing as equivalent to device-passing for the categories above. It's also worth remembering that &quot;real device&quot; testing has its own blind spot: a device farm gives you a specific phone, OS version, and region, not the full fragmentation your actual user base has, so it narrows the gap without closing it.</p>
+<h2 id="what-to-do-next">What to do next</h2>
+<p>Split your test suite explicitly, as above, and mark which suites are allowed to run emulator-only and which require a real device gate before release. Add camera, biometric, push notification, and low-end performance checks to the real-device list if they aren't already there. If your app has fraud detection, anti-tamper, or ad SDKs, explicitly test on a real device to confirm you're not getting false results from anti-emulation behavior. Finally, if budget allows, get at least one low/mid-range real Android device and one older iPhone into rotation — flagship-only device labs miss the exact performance problems your emulator's fast host GPU is already hiding from you.</p>
+<h2 id="sources">Sources</h2>
+<ul><li><a href="https://www.browserstack.com/guide/testing-on-emulators-simulators-real-devices-comparison" target="_blank" rel="noopener noreferrer">Emulators vs Simulators vs Real Device for Testing — BrowserStack</a></li><li><a href="https://mobterest.medium.com/emulators-vs-simulators-finally-understanding-the-difference-fd12a2f7a4ad" target="_blank" rel="noopener noreferrer">Emulators vs Simulators: Finally Understanding the Difference — Mobterest Studio</a></li><li><a href="https://www.nowsecure.com/blog/2026/04/15/emulator-vs-real-device-testing-in-mobile-app-security-closing-critical-coverage-gaps/" target="_blank" rel="noopener noreferrer">Emulator vs Real Device Testing in Mobile App Security: Closing Critical Coverage Gaps — NowSecure</a></li></ul></div>
+      <template id="prose-sr"><p>Tim objavi build nakon kompletnog regresionog testiranja na Android emulatoru i iOS Simulatoru, sve zeleno, a u roku od jednog dana stignu prijave o padovima aplikacije na stvarnim telefonima, pokvarenom toku kamere i push notifikaciji koja nikada ne stigne. Ništa iz test plana nije preskočeno. Problem je u tome što „testirano&quot; i „testirano na emulatoru&quot; nisu ista tvrdnja, a jaz između njih je širi — i konkretniji — nego što većina QA procesa uzima u obzir.</p>
+<p><img src="../../assets/blog/emulator-testing-misconceptions.jpg" alt="Podijeljena ilustracija: lijevo Android emulator i iOS Simulator na monitorima prolaze provjere UI-a, navigacije, validacije formi i poslovne logike nad mock servisima; desno stvarni telefoni kroz device cloud testiraju snimanje kamerom uživo, Face ID, biometrijsko otključavanje, isporuku push notifikacija i potrošnju baterije, a između dvije strane je hardverski jaz" loading="lazy"></p>
+<h2 id="emulator-i-simulator-nisu-ista-stvar">Emulator i simulator nisu ista stvar</h2>
+<p>Ovi izrazi se koriste kao sinonimi, ali Android emulator i iOS Simulator rade na suštinski različitim principima, i ta razlika ima direktne posljedice po testiranje. Android emulator zaista emulira hardver: pravi virtuelni ARM (ili x86) procesor i u realnom vremenu prevodi instrukcije za njega. Zato se može podesiti sa tačno određenim ograničenjem RAM-a ili brojem jezgara procesora, pa se donekle ponaša kao stvaran uređaj sa ograničenim resursima — po cijenu toga da je sporiji od telefona koji oponaša.</p>
+<p>iOS Simulator uopšte ne emulira hardver. Pokreće kod vaše aplikacije kompajliran direktno za procesor vašeg Mac-a, unutar simuliranog iOS softverskog okruženja. Zato je brz — nema prevođenja instrukcija — ali je zato i strukturno nesposoban da vam kaže bilo šta o tome kako se aplikacija ponaša na Apple-ovom stvarnom čipu, pri termalnom usporavanju ili pod pritiskom na memoriju u stvarnom iOS upravljanju memorijom. To što build na simulatoru prođe test performansi ne dokazuje ništa; testirate svoj Mac, a ne iPhone.</p>
+<h2 id="zabluda-ako-prođe-na-emulatoru-proći-će-i-na-uređaju">Zabluda: „ako prođe na emulatoru, proći će i na uređaju&quot;</h2>
+<p>Ovo je najskuplja zabluda, jer je obično tačna dovoljno često da djeluje sigurno. Emulatori i simulatori ne mogu reprodukovati ponašanje mreže mobilnog operatera, stvarno prebacivanje između Wi-Fi mreža, politike gašenja aplikacija u pozadini na Android verzijama koje su proizvođači prilagodili, niti stvarno ponašanje baterije i temperature. Skrolovanje koje na emulatoru djeluje glatko zato što posao radi GPU host računara može vidno da šteka na Android telefonu srednje klase starom dvije godine. Ništa od ovoga se ne pokaže dok isti build ne pokrene stvaran uređaj — idealno niz stvarnih, ponekad i starijih uređaja.</p>
+<h2 id="zabluda-simulator-može-da-testira-sve-osim-sirove-brzine">Zabluda: „simulator može da testira sve osim sirove brzine&quot;</h2>
+<p>QA timovi često tretiraju iOS Simulator kao funkcionalno kompletan, a nepotpun samo po pitanju performansi. Nije tako. Simulator ne može da pristupi kameri uživo (možete mu dati samo fotografiju iz galerije, a ne testirati stvarni tok snimanja), ne može da proizvede stvarne podatke senzora pokreta iz akcelerometra ili žiroskopa, i ne može da primi prave push notifikacije preko APNs-a na način na koji ih prima uređaj — payload možete simulirati lokalno, ali ne prolazite kroz stvarnu putanju isporuke. Face ID i Touch ID u Simulatoru postoje samo kao opcija u meniju koju sami aktivirate; stvarna logika biometrijskog poređenja se nikada ne izvrši. Svaka aplikacija sa korakom kamere, interakcijom zasnovanom na pokretu, stvarnom isporukom push notifikacija ili biometrijskom prijavom ima značajan dio ponašanja koji test plan zasnovan samo na simulatoru jednostavno ne može da vidi.</p>
+<h2 id="konkretan-način-da-podijelite-test-plan">Konkretan način da podijelite test plan</h2>
+<p>Umjesto da „pokreni na emulatoru&quot; tretirate kao jednu fazu testiranja, korisno je vrste testova eksplicitno dodijeliti okruženju koje ih zaista može potvrditi:</p>
+<pre><code class="lang-text">Emulator / Simulator (brzo, jeftino, na svakom commitu)
+  - UI raspored na različitim veličinama ekrana i verzijama OS-a
+  - Poslovna logika, navigacija, validacija formi
+  - API ugovor i mockovani mrežni odgovori
+  - Osnovne provjere pristupačnosti (labele, kontrast)
+
+Stvaran uređaj / device cloud (prije merge-a u release granu)
+  - Snimanje kamerom, biometrijska prijava, prave push notifikacije
+  - Ponašanje baterije, memorije i temperature pod opterećenjem
+  - Performanse na uređaju niže/srednje klase, ne samo na flagship-u
+  - Sve pod čim se sama aplikacija može ponašati drugačije
+    (vidi napomenu o bezbjednosti ispod)</code></pre>
+<p>Servisi poput Firebase Test Lab-a, BrowserStack App Live-a i AWS Device Farm-a postoje upravo zato da druga kolona bude pristupačna bez fizičke police sa uređajima, i vrijedi ih uključiti u budžet čak i u malom timu.</p>
+<h2 id="zanemaren-ugao-aplikacije-se-ponašaju-drugačije-kada-otkriju-emulator">Zanemaren ugao: aplikacije se ponašaju drugačije kada otkriju emulator</h2>
+<p>Ovo iznenadi čak i timove koji vode računa o bezbjednosti. Mnoge aplikacije — sve koje imaju zaštitu od prevara, zaštitu od neovlašćenih izmjena (anti-tamper) ili SDK za oglase — aktivno otkrivaju kada rade na emulatoru i u skladu s tim mijenjaju sopstveno ponašanje: isključuju neku funkciju, odbijaju da se učitaju ili tiho rade slabije. To znači da greška koju ne možete reprodukovati na emulatoru može biti sasvim stvarna na uređaju, a funkcija koja na emulatoru „radi sasvim dobro&quot; možda izvršava drugu putanju u kodu od one kojom idu stvarni korisnici. Emulatori obično ne mogu ni da instaliraju build na način na koji ga korisnici zaista dobijaju — preko prodavnice aplikacija — pa ono što se testira nije uvijek ono što se objavljuje.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Ništa od ovoga nije argument da se odustane od emulatora i simulatora — oni su zaista pravi alat za brzu iteraciju, provjeru rasporeda na mnogo veličina ekrana i većinu testiranja poslovne logike, a pokretanje svega na stvarnim uređajima na svakom commitu je sporo i skupo. Rizik je u tome da se prolaz na emulatoru za gore navedene kategorije tretira kao jednak prolazu na uređaju. Vrijedi imati na umu i da testiranje na „stvarnom uređaju&quot; ima sopstvenu slijepu tačku: device farm vam daje određeni telefon, verziju OS-a i region, a ne punu fragmentaciju koju ima vaša stvarna baza korisnika, pa jaz sužava, ali ga ne zatvara.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<p>Eksplicitno podijelite svoj skup testova, kao gore, i označite koji skupovi smiju da se pokreću samo na emulatoru, a koji prije objave moraju proći kroz provjeru na stvarnom uređaju. Dodajte provjere kamere, biometrije, push notifikacija i performansi na slabijim uređajima na listu za stvarne uređaje ako već nisu tamo. Ako vaša aplikacija ima detekciju prevara, anti-tamper zaštitu ili SDK-ove za oglase, eksplicitno testirajte na stvarnom uređaju kako biste potvrdili da ne dobijate lažne rezultate zbog ponašanja protiv emulacije. Na kraju, ako budžet dozvoljava, uvedite u rotaciju bar jedan stvaran Android uređaj niže/srednje klase i jedan stariji iPhone — laboratorije sa samo flagship uređajima propuštaju upravo one probleme sa performansama koje brzi GPU host računara vašeg emulatora već krije od vas.</p>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://www.browserstack.com/guide/testing-on-emulators-simulators-real-devices-comparison" target="_blank" rel="noopener noreferrer">Emulators vs Simulators vs Real Device for Testing — BrowserStack</a></li><li><a href="https://mobterest.medium.com/emulators-vs-simulators-finally-understanding-the-difference-fd12a2f7a4ad" target="_blank" rel="noopener noreferrer">Emulators vs Simulators: Finally Understanding the Difference — Mobterest Studio</a></li><li><a href="https://www.nowsecure.com/blog/2026/04/15/emulator-vs-real-device-testing-in-mobile-app-security-closing-critical-coverage-gaps/" target="_blank" rel="noopener noreferrer">Emulator vs Real Device Testing in Mobile App Security: Closing Critical Coverage Gaps — NowSecure</a></li></ul></template>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    </div>
+    <section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../testing-idempotency-duplicate-charges/" data-title-sr="Testiranje idempotentnosti: kako uhvatiti duple naplate prije korisnika" data-excerpt-sr="Praktičan vodič kroz testiranje idempotency ključeva u tokovima plaćanja i checkout-a, sa konkretnim test slučajevima za hvatanje duplih naplata."><div class="meta"><time datetime="2026-09-28" data-fmt="short">28 Sept 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Testing Idempotency: How to Catch Duplicate-Charge Bugs Before Your Users Do</h2><p>A practical walkthrough of testing idempotency keys in payment and checkout flows, with concrete test cases for catching duplicate charges.</p></a>
+      <a class="post-card card glow" href="../testing-checkout-retry-race-conditions/" data-title-sr="Testiranje dugmeta za ponovni pokušaj: kako uhvatiti duple naplate prije kupaca" data-excerpt-sr="Zašto sekvencijalni testovi idempotentnosti propuštaju duple naplate na checkout-u i kako napisati test koji otkriva stvarni race condition."><div class="meta"><time datetime="2026-09-25" data-fmt="short">25 Sept 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Testing the Retry Button: Catching Duplicate-Charge Race Conditions Before Customers Do</h2><p>Why sequential idempotency tests miss checkout double-charge bugs, and how to design a test that exposes the real race.</p></a>
+      <a class="post-card card glow" href="../true-north-guide-program/" data-title-sr="Šta je zapravo TrueNorth program i šta može da donese kompaniji" data-excerpt-sr="Iznutra o TrueNorth modelu obuke koju vode guide-ovi: šta uči, kako funkcioniše uloga team guide-a i kakva je stvarna korist za kompanije."><div class="meta"><time datetime="2026-09-25" data-fmt="short">25 Sept 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>What the TrueNorth Program Actually Is, and What It Can Do for a Company</h2><p>Inside the TrueNorth guide-led training model: what it teaches, how the team guide role works, and the real business case for companies.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <a href="../../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../../blog/common.js"></script>
+  <script src="../post.js"></script>
+</body>
+</html>
