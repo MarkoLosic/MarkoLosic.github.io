@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Risk-Based Testing: How to Decide What Not to Test Before a Deadline — Marko Lošić</title>
+  <meta name="description" content="A practical guide to prioritizing QA coverage by risk when there isn't time to test everything before a release.">
+  <link rel="canonical" href="https://markolosic.github.io/blog/risk-based-testing-what-not-to-test/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Risk-Based Testing: How to Decide What Not to Test Before a Deadline — Marko Lošić">
+  <meta property="og:description" content="A practical guide to prioritizing QA coverage by risk when there isn't time to test everything before a release.">
+  <meta property="og:url" content="https://markolosic.github.io/blog/risk-based-testing-what-not-to-test/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/risk-based-testing-what-not-to-test.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Risk-Based Testing: How to Decide What Not to Test Before a Deadline — Marko Lošić">
+  <meta name="twitter:description" content="A practical guide to prioritizing QA coverage by risk when there isn't time to test everything before a release.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/risk-based-testing-what-not-to-test.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Risk-Based Testing: How to Decide What Not to Test Before a Deadline","description":"A practical guide to prioritizing QA coverage by risk when there isn't time to test everything before a release.","image":"https://markolosic.github.io/assets/blog/risk-based-testing-what-not-to-test.jpg","url":"https://markolosic.github.io/blog/risk-based-testing-what-not-to-test/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/risk-based-testing-what-not-to-test/"},"datePublished":"2026-09-28","dateModified":"2026-09-28T00:00:00.000Z","keywords":"qa, test-automation, methodology, risk-based-testing","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
+  <meta property="article:published_time" content="2026-09-28">
+  <meta property="article:modified_time" content="2026-09-28T00:00:00.000Z">
+  <meta name="goatcounter-code" content="markolosic">
+  <script data-goatcounter="https://markolosic.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2307090d'/%3E%3Cpath d='M16 34l11 11 21-26' fill='none' stroke='%2334d399' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#about" data-i18n="nav_about">About</a>
+      <a href="../../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../../blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> <span data-i18n="all_posts">All posts</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-09-28" data-fmt="long">28 September 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span><span>·</span><span class="views" id="views" hidden><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg><span id="views-num"></span></span></div>
+        <h1 data-title-sr="Testiranje zasnovano na riziku: kako odlučiti šta nećete testirati pred rok">Risk-Based Testing: How to Decide What Not to Test Before a Deadline</h1>
+        <p class="lead" data-excerpt-sr="Praktičan vodič za određivanje prioriteta QA pokrivenosti prema riziku kada nema vremena da se prije objave testira sve.">A practical guide to prioritizing QA coverage by risk when there isn't time to test everything before a release.</p>
+        <div class="tags"><span>qa</span><span>test-automation</span><span>methodology</span><span>risk-based-testing</span></div>
+      </header>
+      <div class="prose"><p>Every QA team eventually hits the same wall: the release is scoped, the deadline is fixed, and there is more surface area to test than there is time to test it in. The instinctive response is to test faster — cut corners evenly across the board. The better response is to test unevenly on purpose. Risk-based testing is the discipline of deciding, deliberately and in advance, which parts of the system deserve deep scrutiny and which can get a lighter pass, so that when time runs out, it's the low-consequence areas that go untested rather than the ones that would hurt the most.</p>
+<p><img src="../../assets/blog/risk-based-testing-what-not-to-test.jpg" alt="Illustration of a deadline clock at 11:59 next to code windows, a magnifying glass, and a 3×3 risk heatmap scoring likelihood against impact, with high-priority cells in red and orange and low-risk or skipped cells in blue and yellow" loading="lazy"></p>
+<h2 id="what-risk-based-testing-actually-means">What risk-based testing actually means</h2>
+<p>The ISTQB defines risk-based testing as an approach that uses identified risks to guide the test process — selecting techniques, prioritizing tests, and determining the extent of testing based on the likelihood and impact of things going wrong. Ministry of Testing's glossary puts it more plainly: it's a methodology that prioritizes test cases based on the potential impact and likelihood of failure, so that finite testing resources get allocated to the areas that matter most rather than spread evenly across everything.</p>
+<p>That splits into two dimensions worth scoring separately:</p>
+<ul><li><strong>Likelihood</strong> — how probable is a defect here? New or recently changed code, complex logic, third-party integrations, and areas with a history of bugs all push likelihood up.</li><li><strong>Impact</strong> — how bad is it if this breaks? Revenue-critical paths, data integrity, security, and compliance-relevant features carry the highest impact, regardless of how &quot;likely&quot; a bug there feels.</li></ul>
+<p>Multiply (or combine) the two, and you get a risk score you can rank features by. The value isn't the precision of the number — it's that the ranking forces an honest conversation about where your limited hours should go.</p>
+<h2 id="a-worked-example">A worked example</h2>
+<p>Imagine a team migrating to a new payment processor two weeks before a release, alongside a handful of smaller changes: a redesigned profile page, an updated email footer, and a new sort option on a search results page. There is not enough time to fully regression-test all of it, so the team runs a short risk-scoring exercise with QA, engineering, and product together, scoring likelihood and impact from 1 (low) to 3 (high):</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Area</th><th>Likelihood</th><th>Impact</th><th>Risk score</th><th>Test depth</th></tr></thead>
+<tbody>
+<tr><td>Checkout / payment processor</td><td class="num">3</td><td class="num">3</td><td class="num"><span class="score hi">9</span></td><td>Full functional + edge cases + automated regression</td></tr>
+<tr><td>Order confirmation emails</td><td class="num">2</td><td class="num">3</td><td class="num"><span class="score hi">6</span></td><td>Functional pass, key templates only</td></tr>
+<tr><td>Search sort option</td><td class="num">2</td><td class="num">2</td><td class="num"><span class="score mid">4</span></td><td>Smoke test + one exploratory session</td></tr>
+<tr><td>Profile page redesign</td><td class="num">1</td><td class="num">1</td><td class="num"><span class="score lo">1</span></td><td>Visual check only</td></tr>
+</tbody>
+</table>
+</div>
+<p>The payment migration gets the team's best testers, a battery of edge cases (declined cards, expired sessions, currency rounding, webhook retries), and automation that will run on every future deploy. The profile redesign — cosmetic, easily reversible, and not on a critical path — gets a quick look and ships. That's the entire point: not &quot;test everything a little,&quot; but &quot;test the checkout flow like the business depends on it, because it does, and accept lighter coverage where a miss is cheap to fix after the fact.&quot;</p>
+<h2 id="where-this-goes-wrong">Where this goes wrong</h2>
+<p>Risk-based testing is not a way to avoid hard conversations about coverage — it just makes the trade-offs visible instead of accidental. A few ways teams misuse it:</p>
+<p><strong>Scoring becomes political, not analytical.</strong> If risk scores are assigned by whoever's loudest in the room rather than by data (bug history, code churn, past incidents), the matrix just launders existing biases with a number.</p>
+<p><strong>Risk isn't reassessed as the release evolves.</strong> A module scored &quot;low risk&quot; on day one can become high risk after a last-minute refactor. Risk-based testing needs to be a living exercise revisited when scope changes, not a one-time ritual at kickoff.</p>
+<p><strong>It gets used to justify skipping compliance-required coverage.</strong> In regulated domains — healthcare, finance, aviation — certain areas require full traceability and testing regardless of how &quot;low risk&quot; they score. Risk-based prioritization tunes where you go deep; it doesn't override a regulatory testing obligation.</p>
+<p><strong>It can create false confidence.</strong> A high risk score doesn't guarantee your tests actually cover the failure modes that matter — it's still possible to write thorough-looking tests for the wrong scenarios. Risk-based testing tells you where to look harder, not what you'll find when you do.</p>
+<p><strong>It doesn't replace exploratory testing.</strong> A risk matrix is built from what the team already knows to worry about. The defects that hurt most are often the ones nobody thought to score, which is why even &quot;low risk&quot; areas benefit from someone poking around rather than being skipped entirely.</p>
+<h2 id="what-to-do-next">What to do next</h2>
+<ul><li><strong>Run a short risk-scoring session before your next release</strong>, not a lengthy process — 30 minutes with QA, engineering, and product, scoring each major change area on a simple likelihood-and-impact scale, is enough to reshape how the remaining test time gets spent.</li><li><strong>Write the scores down alongside the test plan.</strong> A risk register that lists what got deep coverage and what got a light pass, and why, turns &quot;we didn't have time to test that&quot; from an excuse into a documented, defensible decision.</li><li><strong>Automate regression for your highest-risk areas first.</strong> They're the ones you'll retest on every future release, so that's where automation pays back fastest.</li><li><strong>Revisit the scores when scope changes mid-cycle.</strong> If a &quot;low risk&quot; area gets touched by a late refactor, re-score it before assuming the original test plan still holds.</li></ul>
+<h2 id="sources">Sources</h2>
+<ul><li><a href="https://glossary.istqb.org/en_US/term/risk-based-testing" target="_blank" rel="noopener noreferrer">ISTQB Glossary: risk-based testing</a></li><li><a href="https://www.ministryoftesting.com/software-testing-glossary/risk-based-testing" target="_blank" rel="noopener noreferrer">Ministry of Testing: Risk-based testing</a></li><li><a href="https://en.wikipedia.org/wiki/Risk-based_testing" target="_blank" rel="noopener noreferrer">Wikipedia: Risk-based testing</a></li></ul></div>
+      <template id="prose-sr"><p>Svaki QA tim prije ili kasnije udari u isti zid: obim objave je definisan, rok je fiksan, a za testiranje ima više površine nego vremena. Instinktivna reakcija je da se testira brže — da se ravnomjerno skrati na svemu. Bolja reakcija je da se namjerno testira neravnomjerno. Testiranje zasnovano na riziku je disciplina svjesnog i unaprijed donesenog odlučivanja o tome koji dijelovi sistema zaslužuju detaljnu provjeru, a koji mogu proći sa lakšim pregledom — tako da, kada vrijeme istekne, netestirani ostanu dijelovi sa malim posljedicama, a ne oni koji bi najviše zaboljeli.</p>
+<p><img src="../../assets/blog/risk-based-testing-what-not-to-test.jpg" alt="Ilustracija sata koji pokazuje 11:59 pored prozora sa kodom, lupe i 3×3 toplotne mape rizika koja upoređuje vjerovatnoću i uticaj, sa poljima visokog prioriteta u crvenoj i narandžastoj boji i poljima niskog rizika ili preskočenim poljima u plavoj i žutoj" loading="lazy"></p>
+<h2 id="šta-testiranje-zasnovano-na-riziku-zaista-znači">Šta testiranje zasnovano na riziku zaista znači</h2>
+<p>ISTQB definiše testiranje zasnovano na riziku kao pristup koji koristi identifikovane rizike da usmjeri proces testiranja — izbor tehnika, određivanje prioriteta testova i obima testiranja na osnovu vjerovatnoće i uticaja da nešto pođe po zlu. Rječnik Ministry of Testing-a to kaže jednostavnije: to je metodologija koja određuje prioritete test slučajeva prema potencijalnom uticaju i vjerovatnoći greške, kako bi se ograničeni resursi za testiranje usmjerili na oblasti koje su najvažnije, umjesto da se ravnomjerno rasporede na sve.</p>
+<p>To se dijeli na dvije dimenzije koje vrijedi ocjenjivati odvojeno:</p>
+<ul><li><strong>Vjerovatnoća</strong> — koliko je vjerovatno da ovdje postoji greška? Nov ili nedavno mijenjan kod, složena logika, integracije sa trećim stranama i oblasti sa istorijom grešaka povećavaju vjerovatnoću.</li><li><strong>Uticaj</strong> — koliko je loše ako se ovo pokvari? Tokovi ključni za prihod, integritet podataka, bezbjednost i funkcije vezane za regulatornu usklađenost imaju najveći uticaj, bez obzira na to koliko greška tu djeluje „vjerovatno&quot;.</li></ul>
+<p>Pomnožite (ili kombinujte) ove dvije vrijednosti i dobićete ocjenu rizika po kojoj možete rangirati funkcionalnosti. Vrijednost nije u preciznosti broja — već u tome što rangiranje tjera na iskren razgovor o tome gdje treba da odu vaši ograničeni sati.</p>
+<h2 id="primjer-iz-prakse">Primjer iz prakse</h2>
+<p>Zamislite tim koji dvije sedmice prije objave prelazi na novog procesora plaćanja, uz nekoliko manjih izmjena: redizajniranu stranicu profila, ažurirano podnožje emaila i novu opciju sortiranja na stranici rezultata pretrage. Nema dovoljno vremena za kompletno regresiono testiranje svega, pa tim — QA, inženjeri i product zajedno — sprovede kratku vježbu ocjenjivanja rizika, dajući vjerovatnoći i uticaju ocjene od 1 (nisko) do 3 (visoko):</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Oblast</th><th>Vjerovatnoća</th><th>Uticaj</th><th>Ocjena rizika</th><th>Dubina testiranja</th></tr></thead>
+<tbody>
+<tr><td>Checkout / procesor plaćanja</td><td class="num">3</td><td class="num">3</td><td class="num"><span class="score hi">9</span></td><td>Kompletno funkcionalno + granični slučajevi + automatizovana regresija</td></tr>
+<tr><td>Emailovi sa potvrdom narudžbe</td><td class="num">2</td><td class="num">3</td><td class="num"><span class="score hi">6</span></td><td>Funkcionalni prolaz, samo ključni šabloni</td></tr>
+<tr><td>Opcija sortiranja u pretrazi</td><td class="num">2</td><td class="num">2</td><td class="num"><span class="score mid">4</span></td><td>Smoke test + jedna istraživačka sesija</td></tr>
+<tr><td>Redizajn stranice profila</td><td class="num">1</td><td class="num">1</td><td class="num"><span class="score lo">1</span></td><td>Samo vizuelna provjera</td></tr>
+</tbody>
+</table>
+</div>
+<p>Migracija plaćanja dobija najbolje testere u timu, niz graničnih slučajeva (odbijene kartice, istekle sesije, zaokruživanje valuta, ponovni pokušaji webhook-ova) i automatizaciju koja će se pokretati na svakom budućem deploy-u. Redizajn profila — kozmetički, lako povratan i van kritične putanje — dobija brz pregled i ide u produkciju. U tome je cijela poenta: ne „testiraj sve pomalo&quot;, već „testiraj checkout kao da posao zavisi od njega, jer zavisi, i prihvati lakšu pokrivenost tamo gdje je propust jeftino ispraviti naknadno&quot;.</p>
+<h2 id="gdje-ovo-pođe-po-zlu">Gdje ovo pođe po zlu</h2>
+<p>Testiranje zasnovano na riziku nije način da se izbjegnu teški razgovori o pokrivenosti — ono samo čini kompromise vidljivim umjesto slučajnim. Nekoliko načina na koje ga timovi pogrešno koriste:</p>
+<p><strong>Ocjenjivanje postaje političko, a ne analitičko.</strong> Ako ocjene rizika dodjeljuje onaj ko je najglasniji u prostoriji, a ne podaci (istorija grešaka, učestalost izmjena koda, ranji incidenti), matrica samo pretvara postojeće predrasude u broj.</p>
+<p><strong>Rizik se ne preispituje kako objava napreduje.</strong> Modul ocijenjen kao „nizak rizik&quot; prvog dana može postati visokorizičan nakon refaktorisanja u posljednjem trenutku. Testiranje zasnovano na riziku mora biti živa vježba kojoj se vraćate kada se obim promijeni, a ne jednokratni ritual na početku.</p>
+<p><strong>Koristi se kao opravdanje za preskakanje pokrivenosti koju zahtijevaju propisi.</strong> U regulisanim oblastima — zdravstvu, finansijama, avijaciji — određeni dijelovi zahtijevaju punu sljedivost i testiranje bez obzira na to koliko „nizak rizik&quot; imaju. Određivanje prioriteta prema riziku podešava gdje idete u dubinu; ne poništava regulatornu obavezu testiranja.</p>
+<p><strong>Može da stvori lažan osjećaj sigurnosti.</strong> Visoka ocjena rizika ne garantuje da vaši testovi zaista pokrivaju načine otkaza koji su bitni — i dalje je moguće napisati testove koji izgledaju temeljno, ali za pogrešne scenarije. Testiranje zasnovano na riziku vam kaže gdje da gledate pažljivije, a ne šta ćete tamo pronaći.</p>
+<p><strong>Ne zamjenjuje istraživačko testiranje.</strong> Matrica rizika se gradi od onoga za šta tim već zna da treba da brine. Greške koje najviše bole često su upravo one koje niko nije ni pomislio da ocijeni, zbog čega i oblasti „niskog rizika&quot; imaju koristi od toga da neko malo pročačka po njima, umjesto da budu potpuno preskočene.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ul><li><strong>Prije sljedeće objave održite kratku sesiju ocjenjivanja rizika</strong>, a ne dugačak proces — 30 minuta sa QA-om, inženjerima i product-om, uz ocjenjivanje svake veće izmjene na jednostavnoj skali vjerovatnoće i uticaja, dovoljno je da promijeni kako se troši preostalo vrijeme za testiranje.</li><li><strong>Zapišite ocjene uz test plan.</strong> Registar rizika koji navodi šta je dobilo detaljnu pokrivenost, a šta lakši prolaz, i zašto, pretvara „nismo imali vremena da to testiramo&quot; iz izgovora u dokumentovanu odluku koju možete odbraniti.</li><li><strong>Prvo automatizujte regresiju za oblasti najvećeg rizika.</strong> Njih ćete ponovo testirati na svakoj budućoj objavi, pa se tu automatizacija najbrže isplati.</li><li><strong>Vratite se ocjenama kada se obim promijeni usred ciklusa.</strong> Ako kasno refaktorisanje dotakne oblast „niskog rizika&quot;, ponovo je ocijenite prije nego što pretpostavite da originalni test plan i dalje važi.</li></ul>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://glossary.istqb.org/en_US/term/risk-based-testing" target="_blank" rel="noopener noreferrer">ISTQB Glossary: risk-based testing</a></li><li><a href="https://www.ministryoftesting.com/software-testing-glossary/risk-based-testing" target="_blank" rel="noopener noreferrer">Ministry of Testing: Risk-based testing</a></li><li><a href="https://en.wikipedia.org/wiki/Risk-based_testing" target="_blank" rel="noopener noreferrer">Wikipedia: Risk-based testing</a></li></ul></template>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    </div>
+    <section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../emulator-testing-misconceptions/" data-title-sr="Testiranje mobilnih aplikacija na emulatorima i simulatorima: šta zaista hvataju, a šta tiho propuštaju" data-excerpt-sr="Praktičan pogled na testiranje mobilnih aplikacija na Android emulatorima i iOS Simulatoru, i na česte zablude zbog kojih stvarne greške prođu."><div class="meta"><time datetime="2026-09-28" data-fmt="short">28 Sept 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Emulator and Simulator Testing for Mobile Apps: What They Actually Catch, and What They Quietly Miss</h2><p>A practical look at testing mobile apps on Android emulators and iOS Simulators, and the common misconceptions that let real bugs through.</p></a>
+      <a class="post-card card glow" href="../testing-idempotency-duplicate-charges/" data-title-sr="Testiranje idempotentnosti: kako uhvatiti duple naplate prije korisnika" data-excerpt-sr="Praktičan vodič kroz testiranje idempotency ključeva u tokovima plaćanja i checkout-a, sa konkretnim test slučajevima za hvatanje duplih naplata."><div class="meta"><time datetime="2026-09-28" data-fmt="short">28 Sept 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Testing Idempotency: How to Catch Duplicate-Charge Bugs Before Your Users Do</h2><p>A practical walkthrough of testing idempotency keys in payment and checkout flows, with concrete test cases for catching duplicate charges.</p></a>
+      <a class="post-card card glow" href="../testing-checkout-retry-race-conditions/" data-title-sr="Testiranje dugmeta za ponovni pokušaj: kako uhvatiti duple naplate prije kupaca" data-excerpt-sr="Zašto sekvencijalni testovi idempotentnosti propuštaju duple naplate na checkout-u i kako napisati test koji otkriva stvarni race condition."><div class="meta"><time datetime="2026-09-25" data-fmt="short">25 Sept 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Testing the Retry Button: Catching Duplicate-Charge Race Conditions Before Customers Do</h2><p>Why sequential idempotency tests miss checkout double-charge bugs, and how to design a test that exposes the real race.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <a href="../../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../../blog/common.js"></script>
+  <script src="../post.js"></script>
+</body>
+</html>
