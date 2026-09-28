@@ -1,5 +1,20 @@
 [
   {
+    "slug": "testing-idempotency-duplicate-charges",
+    "title": "Testing Idempotency: How to Catch Duplicate-Charge Bugs Before Your Users Do",
+    "titleSr": "Testiranje idempotentnosti: kako uhvatiti duple naplate prije korisnika",
+    "excerpt": "A practical walkthrough of testing idempotency keys in payment and checkout flows, with concrete test cases for catching duplicate charges.",
+    "excerptSr": "Praktičan vodič kroz testiranje idempotency ključeva u tokovima plaćanja i checkout-a, sa konkretnim test slučajevima za hvatanje duplih naplata.",
+    "tags": [
+      "qa",
+      "real-world-testing",
+      "fintech",
+      "api-testing"
+    ],
+    "date": "2026-09-28",
+    "readingTime": 6
+  },
+  {
     "slug": "testing-checkout-retry-race-conditions",
     "title": "Testing the Retry Button: Catching Duplicate-Charge Race Conditions Before Customers Do",
     "titleSr": "Testiranje dugmeta za ponovni pokušaj: kako uhvatiti duple naplate prije kupaca",

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Testing Idempotency: How to Catch Duplicate-Charge Bugs Before Your Users Do — Marko Lošić</title>
+  <meta name="description" content="A practical walkthrough of testing idempotency keys in payment and checkout flows, with concrete test cases for catching duplicate charges.">
+  <link rel="canonical" href="https://markolosic.github.io/blog/testing-idempotency-duplicate-charges/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Testing Idempotency: How to Catch Duplicate-Charge Bugs Before Your Users Do — Marko Lošić">
+  <meta property="og:description" content="A practical walkthrough of testing idempotency keys in payment and checkout flows, with concrete test cases for catching duplicate charges.">
+  <meta property="og:url" content="https://markolosic.github.io/blog/testing-idempotency-duplicate-charges/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/testing-idempotency-duplicate-charges.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Testing Idempotency: How to Catch Duplicate-Charge Bugs Before Your Users Do — Marko Lošić">
+  <meta name="twitter:description" content="A practical walkthrough of testing idempotency keys in payment and checkout flows, with concrete test cases for catching duplicate charges.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/testing-idempotency-duplicate-charges.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Testing Idempotency: How to Catch Duplicate-Charge Bugs Before Your Users Do","description":"A practical walkthrough of testing idempotency keys in payment and checkout flows, with concrete test cases for catching duplicate charges.","image":"https://markolosic.github.io/assets/blog/testing-idempotency-duplicate-charges.jpg","url":"https://markolosic.github.io/blog/testing-idempotency-duplicate-charges/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/testing-idempotency-duplicate-charges/"},"datePublished":"2026-09-28","dateModified":"2026-09-28T00:00:00.000Z","keywords":"qa, real-world-testing, fintech, api-testing","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
+  <meta property="article:published_time" content="2026-09-28">
+  <meta property="article:modified_time" content="2026-09-28T00:00:00.000Z">
+  <meta name="goatcounter-code" content="markolosic">
+  <script data-goatcounter="https://markolosic.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2307090d'/%3E%3Cpath d='M16 34l11 11 21-26' fill='none' stroke='%2334d399' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#about" data-i18n="nav_about">About</a>
+      <a href="../../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../../blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> <span data-i18n="all_posts">All posts</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-09-28" data-fmt="long">28 September 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span><span>·</span><span class="views" id="views" hidden><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg><span id="views-num"></span></span></div>
+        <h1 data-title-sr="Testiranje idempotentnosti: kako uhvatiti duple naplate prije korisnika">Testing Idempotency: How to Catch Duplicate-Charge Bugs Before Your Users Do</h1>
+        <p class="lead" data-excerpt-sr="Praktičan vodič kroz testiranje idempotency ključeva u tokovima plaćanja i checkout-a, sa konkretnim test slučajevima za hvatanje duplih naplata.">A practical walkthrough of testing idempotency keys in payment and checkout flows, with concrete test cases for catching duplicate charges.</p>
+        <div class="tags"><span>qa</span><span>real-world-testing</span><span>fintech</span><span>api-testing</span></div>
+      </header>
+      <div class="prose"><p>A customer's mobile connection drops for two seconds during checkout. Their app, doing the right thing, retries the payment request. Somewhere on the server, the first request actually went through just fine — it was only the response that got lost. Now two charges exist for one order. This is one of the most common ways fintech and e-commerce systems lose customer trust, and it's rarely caused by a broken payment gateway. It's caused by retry logic that was never tested against the failure modes it was built for.</p>
+<p><img src="../../assets/blog/testing-idempotency-duplicate-charges.jpg" alt="Illustration of a checkout screen losing connection and sending two payment requests with the same idempotency key through an idempotency gateway, which lets only a single charge reach the server and the database ledger" loading="lazy"></p>
+<p>Idempotency is the mechanism meant to prevent exactly this, and it's a good example of a control that looks solid in a design doc and falls apart the first time someone actually tries to break it in QA.</p>
+<h2 id="what-idempotency-is-supposed-to-guarantee">What idempotency is supposed to guarantee</h2>
+<p>The pattern is simple on paper: the client generates a unique idempotency key and sends it with a state-changing request (charge a card, create an order, issue a refund). If the same request needs to be retried — because the client timed out, lost connectivity, or the server crashed mid-response — it's sent again with the <em>same</em> key. The server is supposed to recognize the key, skip reprocessing, and return the original result instead of creating a second charge or a second order.</p>
+<p>Stripe's engineering write-up on the pattern is a good reference for the underlying problem: a network failure can happen before the server receives a request, while it's processing, or after it finishes but before the response reaches the client. From the client's point of view, all three look identical — a timeout — so a retry is often the only reasonable action. The idempotency key is what lets the server tell &quot;this is a genuine retry of a call I already handled&quot; apart from &quot;this is a new, separate request.&quot;</p>
+<p>That sounds like a solved problem. In practice, teams under-test three things: what happens when a retry arrives <em>while the first request is still in flight</em>, what happens when a key is reused with different data, and what happens if the key's storage expires or gets evicted before a slow retry shows up.</p>
+<h2 id="a-concrete-scenario">A concrete scenario</h2>
+<p>Imagine a checkout service for an online store. A customer submits payment, the mobile client sets a 5-second timeout, and the request takes 6 seconds to complete on a loaded day. The client retries automatically with the same idempotency key. If the server only checks &quot;does this key exist in my cache of <em>completed</em> requests,&quot; it will miss the case where the first request is still mid-processing, and both requests will race to charge the card. This is exactly the &quot;in-flight conflict&quot; case that's easy to leave untested because it only shows up under load or latency, not in a quiet staging environment where every call finishes in 50ms.</p>
+<p>A useful way to test this deliberately, instead of hoping load testing stumbles into it, is to fire two identical requests concurrently and inspect the full system state afterward, not just the HTTP response:</p>
+<pre><code class="lang-python">import concurrent.futures
+import requests
+
+idem_key = &quot;test-order-8841&quot;
+payload = {&quot;order_id&quot;: &quot;8841&quot;, &quot;amount_cents&quot;: 4999}
+headers = {&quot;Idempotency-Key&quot;: idem_key}
+
+def send():
+    return requests.post(
+        &quot;https://api.example.com/v1/charges&quot;,
+        json=payload, headers=headers, timeout=10,
+    )
+
+with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
+    r1, r2 = [f.result() for f in
+              [pool.submit(send), pool.submit(send)]]
+
+# Both calls should return the SAME charge id
+assert r1.json()[&quot;charge_id&quot;] == r2.json()[&quot;charge_id&quot;]
+
+# And the ledger should show exactly one charge for this order
+charges = requests.get(
+    f&quot;https://api.example.com/v1/orders/8841/charges&quot;
+).json()
+assert len(charges) == 1</code></pre>
+<p>The assertion on the charge ledger, not just the two HTTP responses, is the part teams skip most often. Two identical 200 responses can still hide two separate database rows if the race condition lands in the wrong place — the API layer can look idempotent while the accounting layer isn't.</p>
+<p>Worth testing alongside the happy-path retry: reusing the same key with a <em>different</em> payload (should be rejected, not silently processed with the new data), sending the key with the amount changed by a cent to catch weak matching logic, letting the key expire before a legitimately slow retry arrives, and killing the server process mid-request to simulate the &quot;completed but response lost&quot; case that pure timeout testing won't reproduce.</p>
+<h2 id="where-this-approach-falls-short">Where this approach falls short</h2>
+<p>Idempotency testing has real limits. Concurrency bugs are timing-dependent, so a test that passes once doesn't prove the race is fixed — it proves you didn't hit the window that time. Running the concurrent-request test repeatedly, or under artificial load, catches more than a single run does, but it's still probabilistic, not a proof.</p>
+<p>It's also not a universal fix. Idempotency keys protect against retries of the <em>same logical operation</em>; they don't protect against a user double-clicking &quot;pay&quot; and generating two different keys for what is, to them, one action — that has to be solved at the UI layer (disabling the button, debouncing) as well as the API layer. And an idempotency layer built on a cache with a short TTL can quietly stop working the moment a retry arrives slower than expected, which is a production incident that looks nothing like a functional bug — it looks like an intermittent, low-frequency double charge that's hard to reproduce on demand.</p>
+<p>Finally, this kind of testing has a real cost. Concurrent test harnesses and process-kill simulations take more setup than a straightforward request/response test, and it's tempting to skip them under deadline pressure. That's usually the wrong trade for anything that touches money.</p>
+<h2 id="what-to-do-next">What to do next</h2>
+<p>Start by listing every state-changing endpoint in your system that involves money, inventory, or account state, and confirm which ones currently support idempotency keys at all — many teams find gaps here immediately. For the ones that do, write a concurrent-duplicate-request test like the one above and check the downstream ledger, not just the response code. Add a test for key reuse with a changed payload, since silent overwrites are a common and dangerous bug. Finally, put at least one of these tests in your regression suite permanently — idempotency protections are exactly the kind of thing a routine refactor, cache change, or new message queue can quietly break months later.</p>
+<h2 id="sources">Sources</h2>
+<ul><li><a href="https://stripe.com/blog/idempotency" target="_blank" rel="noopener noreferrer">Designing robust and predictable APIs with idempotency — Stripe Engineering</a></li><li><a href="https://www.softwaretestingmagazine.com/knowledge/how-to-check-idempotency-and-duplicates-of-requests-in-web-applications/" target="_blank" rel="noopener noreferrer">How to Check Idempotency and Duplicates of Requests in Web Applications — Software Testing Magazine</a></li><li><a href="https://www.ietf.org/archive/id/draft-ietf-httpapi-idempotency-key-header-07.html" target="_blank" rel="noopener noreferrer">The Idempotency-Key HTTP Header Field — IETF Internet-Draft</a></li></ul></div>
+      <template id="prose-sr"><p>Kupcu tokom checkout-a na dvije sekunde pukne mobilna veza. Aplikacija, sasvim ispravno, ponovo šalje zahtjev za plaćanje. Negdje na serveru prvi zahtjev je zapravo prošao bez problema — izgubio se samo odgovor. Sada za jednu narudžbu postoje dvije naplate. Ovo je jedan od najčešćih načina na koje fintech i e-commerce sistemi gube povjerenje kupaca, a rijetko ga uzrokuje neispravan payment gateway. Uzrokuje ga logika ponovnih pokušaja koja nikada nije testirana protiv upravo onih kvarova zbog kojih je napravljena.</p>
+<p><img src="../../assets/blog/testing-idempotency-duplicate-charges.jpg" alt="Ilustracija checkout ekrana kojem pukne veza i koji šalje dva zahtjeva za plaćanje sa istim idempotency ključem kroz idempotency gateway, koji do servera i knjige transakcija u bazi propušta samo jednu naplatu" loading="lazy"></p>
+<p>Idempotentnost je mehanizam koji treba da spriječi baš ovo, i dobar je primjer kontrole koja u dizajn dokumentu izgleda čvrsto, a raspadne se čim neko u QA-u zaista pokuša da je slomi.</p>
+<h2 id="šta-idempotentnost-treba-da-garantuje">Šta idempotentnost treba da garantuje</h2>
+<p>Obrazac je na papiru jednostavan: klijent generiše jedinstven idempotency ključ i šalje ga uz zahtjev koji mijenja stanje (naplata kartice, kreiranje narudžbe, povraćaj novca). Ako isti zahtjev treba ponoviti — jer je klijentu isteklo vrijeme, izgubio je vezu ili je server pao usred odgovora — šalje se ponovo sa <em>istim</em> ključem. Server bi trebalo da prepozna ključ, preskoči ponovnu obradu i vrati originalni rezultat, umjesto da napravi drugu naplatu ili drugu narudžbu.</p>
+<p>Stripe-ov inženjerski tekst o ovom obrascu je dobra referenca za osnovni problem: mrežni kvar se može desiti prije nego što server primi zahtjev, dok ga obrađuje, ili nakon što ga završi, a prije nego što odgovor stigne do klijenta. Iz ugla klijenta sva tri slučaja izgledaju isto — kao istek vremena — pa je ponovni pokušaj često jedini razuman potez. Idempotency ključ je ono što serveru omogućava da razlikuje „ovo je stvarni ponovni pokušaj poziva koji sam već obradio&quot; od „ovo je novi, zaseban zahtjev&quot;.</p>
+<p>Zvuči kao riješen problem. U praksi timovi nedovoljno testiraju tri stvari: šta se dešava kada ponovni pokušaj stigne <em>dok je prvi zahtjev još u obradi</em>, šta se dešava kada se ključ ponovo iskoristi sa drugačijim podacima, i šta se dešava ako zapis ključa istekne ili bude izbačen iz keša prije nego što stigne spor ponovni pokušaj.</p>
+<h2 id="konkretan-scenario">Konkretan scenario</h2>
+<p>Zamislite checkout servis online prodavnice. Kupac potvrdi plaćanje, mobilni klijent ima timeout od 5 sekundi, a zahtjevu u danu sa velikim opterećenjem treba 6 sekundi da se završi. Klijent automatski pokušava ponovo sa istim idempotency ključem. Ako server provjerava samo „da li ovaj ključ postoji u mom kešu <em>završenih</em> zahtjeva&quot;, propustiće slučaj u kojem je prvi zahtjev još u obradi, i oba zahtjeva će se utrkivati da naplate karticu. Ovo je upravo slučaj „konflikta u toku obrade&quot; koji je lako ostaviti netestiranim, jer se pojavljuje samo pod opterećenjem ili kašnjenjem, a ne u mirnom staging okruženju gdje se svaki poziv završi za 50ms.</p>
+<p>Koristan način da se ovo namjerno testira, umjesto da se nadate da će load testiranje slučajno naići na problem, jeste da istovremeno pošaljete dva identična zahtjeva i nakon toga provjerite kompletno stanje sistema, a ne samo HTTP odgovor:</p>
+<pre><code class="lang-python">import concurrent.futures
+import requests
+
+idem_key = &quot;test-order-8841&quot;
+payload = {&quot;order_id&quot;: &quot;8841&quot;, &quot;amount_cents&quot;: 4999}
+headers = {&quot;Idempotency-Key&quot;: idem_key}
+
+def send():
+    return requests.post(
+        &quot;https://api.example.com/v1/charges&quot;,
+        json=payload, headers=headers, timeout=10,
+    )
+
+with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
+    r1, r2 = [f.result() for f in
+              [pool.submit(send), pool.submit(send)]]
+
+# Oba poziva treba da vrate ISTI charge id
+assert r1.json()[&quot;charge_id&quot;] == r2.json()[&quot;charge_id&quot;]
+
+# I ledger treba da pokaže tačno jednu naplatu za ovu narudžbu
+charges = requests.get(
+    f&quot;https://api.example.com/v1/orders/8841/charges&quot;
+).json()
+assert len(charges) == 1</code></pre>
+<p>Provjera nad knjigom naplata (ledger), a ne samo nad dva HTTP odgovora, je dio koji timovi najčešće preskoče. Dva identična odgovora 200 i dalje mogu skrivati dva odvojena reda u bazi ako race condition pogodi pogrešno mjesto — API sloj može izgledati idempotentno, dok računovodstveni sloj to nije.</p>
+<p>Pored ponovnog pokušaja na „srećnom putu&quot;, vrijedi testirati i: ponovnu upotrebu istog ključa sa <em>drugačijim</em> payloadom (treba da bude odbijena, a ne tiho obrađena sa novim podacima), slanje ključa sa iznosom promijenjenim za jedan cent kako bi se uhvatila slaba logika poređenja, puštanje da ključ istekne prije nego što stigne legitimno spor ponovni pokušaj, i gašenje serverskog procesa usred zahtjeva kako bi se simulirao slučaj „završeno, ali odgovor izgubljen&quot; koji čisto testiranje timeout-a neće reprodukovati.</p>
+<h2 id="gdje-ovaj-pristup-ne-dostiže">Gdje ovaj pristup ne dostiže</h2>
+<p>Testiranje idempotentnosti ima stvarna ograničenja. Greške istovremenosti zavise od tajminga, pa test koji jednom prođe ne dokazuje da je race condition popravljen — dokazuje samo da taj put niste pogodili prozor. Višestruko pokretanje testa sa istovremenim zahtjevima, ili pod vještačkim opterećenjem, uhvati više od jednog pokretanja, ali je i dalje stvar vjerovatnoće, a ne dokaz.</p>
+<p>Ni ovo nije univerzalno rješenje. Idempotency ključevi štite od ponovnih pokušaja <em>iste logičke operacije</em>; ne štite od korisnika koji dvaput klikne „plati&quot; i tako generiše dva različita ključa za ono što je, za njega, jedna radnja — to mora da se riješi na UI sloju (onemogućavanje dugmeta, debouncing) kao i na API sloju. A idempotency sloj izgrađen na kešu sa kratkim TTL-om može tiho da prestane da radi onog trenutka kada ponovni pokušaj stigne sporije nego što se očekivalo, što je incident u produkciji koji nimalo ne liči na funkcionalnu grešku — liči na povremenu, rijetku duplu naplatu koju je teško reprodukovati na zahtjev.</p>
+<p>Na kraju, ovakvo testiranje ima stvaran trošak. Test okruženja za istovremene zahtjeve i simulacije gašenja procesa traže više pripreme od običnog testa zahtjev/odgovor, i primamljivo ih je preskočiti pod pritiskom rokova. Za sve što dira novac to je obično pogrešan kompromis.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<p>Počnite tako što ćete popisati svaki endpoint u sistemu koji mijenja stanje, a tiče se novca, zaliha ili stanja naloga, i provjerite koji od njih uopšte podržavaju idempotency ključeve — mnogi timovi tu odmah nađu rupe. Za one koji ih podržavaju, napišite test sa istovremenim duplim zahtjevima poput gornjeg i provjerite ledger nizvodno, a ne samo statusni kod. Dodajte test za ponovnu upotrebu ključa sa izmijenjenim payloadom, jer je tiho prepisivanje česta i opasna greška. Na kraju, stavite bar jedan od ovih testova trajno u regresioni skup — zaštite idempotentnosti su upravo ona vrsta stvari koju rutinski refaktoring, izmjena keša ili novi message queue mogu tiho da pokvare mjesecima kasnije.</p>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://stripe.com/blog/idempotency" target="_blank" rel="noopener noreferrer">Designing robust and predictable APIs with idempotency — Stripe Engineering</a></li><li><a href="https://www.softwaretestingmagazine.com/knowledge/how-to-check-idempotency-and-duplicates-of-requests-in-web-applications/" target="_blank" rel="noopener noreferrer">How to Check Idempotency and Duplicates of Requests in Web Applications — Software Testing Magazine</a></li><li><a href="https://www.ietf.org/archive/id/draft-ietf-httpapi-idempotency-key-header-07.html" target="_blank" rel="noopener noreferrer">The Idempotency-Key HTTP Header Field — IETF Internet-Draft</a></li></ul></template>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    </div>
+    <section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../testing-checkout-retry-race-conditions/" data-title-sr="Testiranje dugmeta za ponovni pokušaj: kako uhvatiti duple naplate prije kupaca" data-excerpt-sr="Zašto sekvencijalni testovi idempotentnosti propuštaju duple naplate na checkout-u i kako napisati test koji otkriva stvarni race condition."><div class="meta"><time datetime="2026-09-25" data-fmt="short">25 Sept 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Testing the Retry Button: Catching Duplicate-Charge Race Conditions Before Customers Do</h2><p>Why sequential idempotency tests miss checkout double-charge bugs, and how to design a test that exposes the real race.</p></a>
+      <a class="post-card card glow" href="../true-north-guide-program/" data-title-sr="Šta je zapravo TrueNorth program i šta može da donese kompaniji" data-excerpt-sr="Iznutra o TrueNorth modelu obuke koju vode guide-ovi: šta uči, kako funkcioniše uloga team guide-a i kakva je stvarna korist za kompanije."><div class="meta"><time datetime="2026-09-25" data-fmt="short">25 Sept 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>What the TrueNorth Program Actually Is, and What It Can Do for a Company</h2><p>Inside the TrueNorth guide-led training model: what it teaches, how the team guide role works, and the real business case for companies.</p></a>
+      <a class="post-card card glow" href="../quality-starts-before-testing/" data-title-sr="Kvalitet počinje prije prve linije koda: kako pristupam QA-u" data-excerpt-sr="Zašto QA koji počinje već kod zahtjeva, kombinuje različite vrste testiranja i zatvara krug nakon objavljivanja gradi stvaran kvalitet proizvoda."><div class="meta"><time datetime="2026-09-24" data-fmt="short">24 Sept 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Quality Starts Before the First Line of Code: How I Approach QA</h2><p>Why QA that begins at requirements, blends testing types, and closes the loop after release builds real product quality.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <a href="../../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../../blog/common.js"></script>
+  <script src="../post.js"></script>
+</body>
+</html>
