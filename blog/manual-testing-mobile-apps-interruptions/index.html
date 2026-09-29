@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manual Testing for Mobile Apps: Why Interruptions Matter More Than Happy-Path Clicks — Marko Lošić</title>
+  <meta name="description" content="A practical guide to manually testing how mobile apps handle backgrounding, calls, low battery, and dropped connections.">
+  <link rel="canonical" href="https://markolosic.github.io/blog/manual-testing-mobile-apps-interruptions/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Manual Testing for Mobile Apps: Why Interruptions Matter More Than Happy-Path Clicks — Marko Lošić">
+  <meta property="og:description" content="A practical guide to manually testing how mobile apps handle backgrounding, calls, low battery, and dropped connections.">
+  <meta property="og:url" content="https://markolosic.github.io/blog/manual-testing-mobile-apps-interruptions/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/manual-testing-mobile-apps-interruptions.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Manual Testing for Mobile Apps: Why Interruptions Matter More Than Happy-Path Clicks — Marko Lošić">
+  <meta name="twitter:description" content="A practical guide to manually testing how mobile apps handle backgrounding, calls, low battery, and dropped connections.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/manual-testing-mobile-apps-interruptions.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Manual Testing for Mobile Apps: Why Interruptions Matter More Than Happy-Path Clicks","description":"A practical guide to manually testing how mobile apps handle backgrounding, calls, low battery, and dropped connections.","image":"https://markolosic.github.io/assets/blog/manual-testing-mobile-apps-interruptions.jpg","url":"https://markolosic.github.io/blog/manual-testing-mobile-apps-interruptions/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/manual-testing-mobile-apps-interruptions/"},"datePublished":"2026-09-29","dateModified":"2026-09-29T00:00:00.000Z","keywords":"qa, manual-testing, mobile, methodology","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
+  <meta property="article:published_time" content="2026-09-29">
+  <meta property="article:modified_time" content="2026-09-29T00:00:00.000Z">
+  <meta name="goatcounter-code" content="markolosic">
+  <script data-goatcounter="https://markolosic.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2307090d'/%3E%3Cpath d='M16 34l11 11 21-26' fill='none' stroke='%2334d399' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#about" data-i18n="nav_about">About</a>
+      <a href="../../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../../blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> <span data-i18n="all_posts">All posts</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-09-29" data-fmt="long">29 September 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span><span>·</span><span class="views" id="views" hidden><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg><span id="views-num"></span></span></div>
+        <h1 data-title-sr="Ručno testiranje mobilnih aplikacija: zašto su prekidi važniji od klikanja po srećnom scenariju">Manual Testing for Mobile Apps: Why Interruptions Matter More Than Happy-Path Clicks</h1>
+        <p class="lead" data-excerpt-sr="Praktičan vodič za ručno testiranje toga kako se mobilne aplikacije nose sa prelaskom u pozadinu, pozivima, slabom baterijom i prekinutom konekcijom.">A practical guide to manually testing how mobile apps handle backgrounding, calls, low battery, and dropped connections.</p>
+        <div class="tags"><span>qa</span><span>manual-testing</span><span>mobile</span><span>methodology</span></div>
+      </header>
+      <div class="prose"><p>A mobile app rarely fails in the quiet, uninterrupted lab conditions most manual test scripts assume. It fails when a phone call interrupts checkout, when the OS kills the app in the background to reclaim memory, when the connection drops mid-upload on a train, or when the user locks the screen halfway through filling out a form. Clicking through every screen on a plugged-in emulator confirms the app works when nothing goes wrong — which is exactly the condition real users are least often in.</p>
+<p><img src="../../assets/blog/manual-testing-mobile-apps-interruptions.jpg" alt="Illustration of a hand holding a phone with a sign-in screen, surrounded by an incoming call dialog, a low battery icon, crossed-out Wi-Fi and airplane icons, and an app lifecycle flow from active to background, suspended and terminated" loading="lazy"></p>
+<h2 id="the-states-your-app-actually-lives-in">The states your app actually lives in</h2>
+<p>An iOS app moves through five distinct states worth testing separately: active (in full use), background (still running a task like a location update or download), suspended (in memory but doing nothing), inactive (a brief transition during an interruption like an incoming call), and not running (terminated, requiring a fresh launch). Ministry of Testing's overview of iOS lifecycle testing frames the risk plainly: apps that don't handle these transitions correctly produce data loss, crashes, and behavior that looks fine in a demo and falls apart in the field.</p>
+<p>Android has its own version of this problem, enforced more aggressively by the OS itself. Google's own documentation on background work restrictions describes how the system can flag an app for excessive background activity — holding a wake lock for over an hour with the screen off, or running too many background services — and once flagged, that app loses the ability to run jobs, trigger alarms, or use the network outside the foreground. An app that assumes it can finish a background sync whenever it wants can simply be cut off mid-task by the platform, and the only way to see that is to put the app in exactly that situation and watch what happens.</p>
+<h2 id="simulating-interruptions-on-a-real-device">Simulating interruptions on a real device</h2>
+<p>The manual test that actually catches these bugs isn't &quot;open the app and check the screen&quot; — it's &quot;start an action, interrupt it deliberately, and check what the app remembers.&quot; A concrete session looks like this:</p>
+<ul><li>Start filling out a multi-field form (an order, a profile, a support ticket), then background the app by switching to another app or hitting the home button. Return after a minute and confirm the in-progress data is still there, not silently discarded.</li><li>Begin a file upload or a checkout submission, then toggle airplane mode on and back off mid-request. Confirm the app either resumes, retries, or shows a clear failure state — not a spinner that never resolves and never tells the user anything.</li><li>Trigger a real interruption on a physical device — an incoming call, a calendar alert, a low-battery warning — while a critical flow like payment or login is in progress, then confirm the app resumes correctly (or in the case of low-battery warnings, doesn't silently lose state if the OS suspends it).</li><li>Force-kill the app from the task switcher, then relaunch it cold. This is a different test than background-and-return: confirm the user is still logged in, the last screen or an appropriate default loads, and no crash-on-launch happens from stale cached state.</li></ul>
+<p>On Android, you can force some of these background conditions directly instead of waiting for the OS to trigger them naturally:</p>
+<pre><code class="lang-bash"># Simulate the OS restricting the app's background activity
+adb shell cmd appops set &lt;package_name&gt; RUN_IN_BACKGROUND ignore
+
+# Confirm the app degrades gracefully: no crash, a clear
+# &quot;reconnecting&quot; or &quot;paused&quot; state instead of a silent hang
+
+# Restore normal background behavior once the check is done
+adb shell cmd appops set &lt;package_name&gt; RUN_IN_BACKGROUND allow</code></pre>
+<p>A short matrix makes the coverage explicit instead of ad hoc:</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>App state / trigger</th><th>Manual action</th><th>What to verify</th></tr></thead>
+<tbody>
+<tr><td>Backgrounded mid-form</td><td>Switch apps, wait, return</td><td>Entered data is preserved</td></tr>
+<tr><td>Backgrounded mid-network-call</td><td>Toggle airplane mode during the request</td><td>Clear retry or failure state, no infinite spinner</td></tr>
+<tr><td>Real interruption (call, alert)</td><td>Trigger during a critical flow on a physical device</td><td>Flow resumes correctly after the interruption clears</td></tr>
+<tr><td>Force-killed, then relaunched</td><td>Kill from task switcher, cold-start</td><td>Session/login persists; no crash-on-launch</td></tr>
+<tr><td>Low memory / background restriction</td><td><code>adb shell cmd appops set ... ignore</code> (Android)</td><td>App degrades gracefully instead of silently failing</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="pitfalls-and-limits">Pitfalls and limits</h2>
+<p>Interruption testing is slower than a straight click-through, and it doesn't scale to every OS version, device, and interruption combination — so it needs to be prioritized by where a failure actually costs something: payment, authentication, and anything that captures user input the user would be angry to lose. Emulators make a reasonable first pass but can't fully substitute for a real device: real incoming calls, genuine low-battery states, and the specific way a mid-range or older phone reclaims memory under pressure are hard to simulate accurately in a virtual environment, and state-restoration bugs disproportionately show up on exactly the low-end devices many teams don't keep in their test pool. It's also easy to test backgrounding and forget the separate case of force-kill-and-relaunch — the two produce different bugs, and passing one doesn't mean the other works. None of this replaces automated regression for logic that changes often; manual interruption testing is best treated as a periodic, risk-prioritized pass on critical flows, not the only net catching state bugs before release.</p>
+<h2 id="what-to-do-next">What to do next</h2>
+<ul><li>Build a short interruption matrix (like the one above) for each critical user flow — payment, login, and anything with a multi-step form — and run it as a standard part of pre-release testing, not an occasional spot check.</li><li>Keep at least one real, non-flagship device in rotation for this kind of testing; low-memory conditions and real interruptions behave differently than they do on a simulator or a high-end phone.</li><li>Test force-kill-and-relaunch as its own case, separate from simple backgrounding — they exercise different code paths and fail differently.</li><li>On Android, use <code>adb shell cmd appops set &lt;package&gt; RUN_IN_BACKGROUND ignore</code> to force a background restriction on demand instead of waiting for the OS to trigger one naturally during a test session.</li></ul>
+<h2 id="sources">Sources</h2>
+<ul><li><a href="https://www.ministryoftesting.com/articles/10-ways-to-test-ios-apps-across-different-states-and-lifecycle-stages" target="_blank" rel="noopener noreferrer">Ministry of Testing: 10 ways to test iOS apps across different states and lifecycle stages</a></li><li><a href="https://developer.android.com/develop/background-work/background-tasks/bg-work-restrictions" target="_blank" rel="noopener noreferrer">Android Developers: System restrictions on background tasks</a></li></ul></div>
+      <template id="prose-sr"><p>Mobilna aplikacija rijetko otkaže u mirnim, neometanim laboratorijskim uslovima koje pretpostavlja većina scenarija za ručno testiranje. Otkaže kada telefonski poziv prekine checkout, kada operativni sistem ugasi aplikaciju u pozadini da oslobodi memoriju, kada konekcija pukne usred otpremanja fajla u vozu, ili kada korisnik zaključa ekran na pola popunjavanja forme. Klikanje kroz svaki ekran na emulatoru priključenom na struju potvrđuje da aplikacija radi kada ništa ne pođe po zlu — a upravo u tom stanju su stvarni korisnici najrjeđe.</p>
+<p><img src="../../assets/blog/manual-testing-mobile-apps-interruptions.jpg" alt="Ilustracija ruke koja drži telefon sa ekranom za prijavu, okružen dijalogom dolaznog poziva, ikonom prazne baterije, precrtanim Wi-Fi i avionskim ikonama, i tokom životnog ciklusa aplikacije od aktivnog stanja preko pozadine i suspendovanog stanja do prekida rada" loading="lazy"></p>
+<h2 id="stanja-u-kojima-vaša-aplikacija-zaista-živi">Stanja u kojima vaša aplikacija zaista živi</h2>
+<p>iOS aplikacija prolazi kroz pet različitih stanja koja vrijedi testirati zasebno: active (aktivno korišćenje), background (i dalje izvršava zadatak, npr. ažuriranje lokacije ili preuzimanje), suspended (u memoriji, ali ne radi ništa), inactive (kratak prelaz tokom prekida kao što je dolazni poziv) i not running (ugašena, zahtijeva novo pokretanje). Pregled Ministry of Testing-a o testiranju životnog ciklusa iOS aplikacija jasno opisuje rizik: aplikacije koje ne obrađuju ove prelaze ispravno dovode do gubitka podataka, padova i ponašanja koje u demo prikazu izgleda dobro, a u stvarnoj upotrebi se raspada.</p>
+<p>Android ima svoju verziju ovog problema, koju sam operativni sistem sprovodi još agresivnije. Google-ova dokumentacija o ograničenjima rada u pozadini opisuje kako sistem može da označi aplikaciju zbog prekomjerne aktivnosti u pozadini — držanja wake lock-a duže od sat vremena sa ugašenim ekranom ili pokretanja previše pozadinskih servisa — a kada je označena, aplikacija gubi mogućnost da pokreće poslove, aktivira alarme ili koristi mrežu van prvog plana. Aplikacija koja pretpostavlja da može da završi sinhronizaciju u pozadini kad god hoće može jednostavno biti prekinuta od strane platforme usred zadatka, a jedini način da to vidite je da aplikaciju stavite upravo u tu situaciju i posmatrate šta se dešava.</p>
+<h2 id="simuliranje-prekida-na-stvarnom-uređaju">Simuliranje prekida na stvarnom uređaju</h2>
+<p>Ručni test koji zaista hvata ove greške nije „otvori aplikaciju i provjeri ekran&quot; — već „pokreni akciju, namjerno je prekini i provjeri šta aplikacija pamti&quot;. Konkretna sesija izgleda ovako:</p>
+<ul><li>Počnite da popunjavate formu sa više polja (narudžbu, profil, tiket za podršku), pa pošaljite aplikaciju u pozadinu prelaskom na drugu aplikaciju ili pritiskom na home dugme. Vratite se nakon minut i potvrdite da su uneseni podaci i dalje tu, a ne tiho odbačeni.</li><li>Započnite otpremanje fajla ili slanje checkout-a, pa usred zahtjeva uključite i ponovo isključite avionski režim. Potvrdite da aplikacija ili nastavlja, ili pokušava ponovo, ili prikazuje jasno stanje greške — a ne spinner koji se nikad ne završi i korisniku ništa ne kaže.</li><li>Izazovite stvaran prekid na fizičkom uređaju — dolazni poziv, obavještenje iz kalendara, upozorenje o slaboj bateriji — dok je u toku kritičan tok kao što je plaćanje ili prijava, pa potvrdite da se aplikacija ispravno nastavlja (odnosno, kod upozorenja o slaboj bateriji, da tiho ne izgubi stanje ako je OS suspenduje).</li><li>Prinudno ugasite aplikaciju iz prebacivača zadataka, pa je pokrenite ispočetka (cold start). Ovo je drugačiji test od odlaska u pozadinu i povratka: potvrdite da je korisnik i dalje prijavljen, da se učitava posljednji ekran ili odgovarajući podrazumijevani, i da nema pada pri pokretanju zbog zastarjelog keširanog stanja.</li></ul>
+<p>Na Android-u neke od ovih pozadinskih uslova možete izazvati direktno, umjesto da čekate da ih OS prirodno pokrene:</p>
+<pre><code class="lang-bash"># Simulirajte da OS ograničava aktivnost aplikacije u pozadini
+adb shell cmd appops set &lt;package_name&gt; RUN_IN_BACKGROUND ignore
+
+# Potvrdite da aplikacija elegantno degradira: bez pada, sa jasnim
+# stanjem &quot;ponovno povezivanje&quot; ili &quot;pauzirano&quot; umjesto tihog zastoja
+
+# Vratite normalno ponašanje u pozadini kada završite provjeru
+adb shell cmd appops set &lt;package_name&gt; RUN_IN_BACKGROUND allow</code></pre>
+<p>Kratka matrica čini pokrivenost eksplicitnom umjesto improvizovanom:</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Stanje aplikacije / okidač</th><th>Ručna akcija</th><th>Šta provjeriti</th></tr></thead>
+<tbody>
+<tr><td>U pozadini usred forme</td><td>Prebacite se na drugu aplikaciju, sačekajte, vratite se</td><td>Uneseni podaci su sačuvani</td></tr>
+<tr><td>U pozadini usred mrežnog poziva</td><td>Uključite/isključite avionski režim tokom zahtjeva</td><td>Jasno stanje ponovnog pokušaja ili greške, bez beskonačnog spinnera</td></tr>
+<tr><td>Stvaran prekid (poziv, obavještenje)</td><td>Izazovite ga tokom kritičnog toka na fizičkom uređaju</td><td>Tok se ispravno nastavlja nakon što prekid prođe</td></tr>
+<tr><td>Prinudno ugašena, pa ponovo pokrenuta</td><td>Ugasite iz prebacivača zadataka, cold start</td><td>Sesija/prijava ostaje; nema pada pri pokretanju</td></tr>
+<tr><td>Malo memorije / ograničenje rada u pozadini</td><td><code>adb shell cmd appops set ... ignore</code> (Android)</td><td>Aplikacija elegantno degradira umjesto da tiho otkaže</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Testiranje prekida je sporije od običnog prolaska klikanjem i ne skalira se na svaku kombinaciju verzije OS-a, uređaja i vrste prekida — zato mu prioritet treba odrediti prema tome gdje greška zaista nešto košta: plaćanje, autentifikacija i sve što prikuplja korisnički unos za čijim bi gubitkom korisnik bio ljut. Emulatori su razuman prvi prolaz, ali ne mogu u potpunosti zamijeniti stvaran uređaj: stvarne dolazne pozive, pravo stanje slabe baterije i specifičan način na koji telefon srednje klase ili stariji telefon oslobađa memoriju pod pritiskom teško je precizno simulirati u virtuelnom okruženju, a greške u vraćanju stanja se nesrazmjerno često javljaju upravo na slabijim uređajima koje mnogi timovi nemaju u svom skupu za testiranje. Takođe je lako testirati odlazak u pozadinu i zaboraviti poseban slučaj prinudnog gašenja i ponovnog pokretanja — ta dva scenarija proizvode različite greške, i to što jedan prolazi ne znači da drugi radi. Ništa od ovoga ne zamjenjuje automatizovanu regresiju za logiku koja se često mijenja; ručno testiranje prekida najbolje je tretirati kao periodičan prolaz kroz kritične tokove, sa prioritetom prema riziku, a ne kao jedinu mrežu koja hvata greške u stanju prije objave.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ul><li>Napravite kratku matricu prekida (kao ova iznad) za svaki kritičan korisnički tok — plaćanje, prijavu i sve što ima formu u više koraka — i pokrećite je kao standardan dio testiranja prije objave, a ne kao povremenu provjeru.</li><li>Držite bar jedan stvaran uređaj koji nije flagship u rotaciji za ovakvo testiranje; uslovi sa malo memorije i stvarni prekidi ponašaju se drugačije nego na simulatoru ili skupom telefonu.</li><li>Testirajte prinudno gašenje i ponovno pokretanje kao zaseban slučaj, odvojeno od običnog odlaska u pozadinu — prolaze kroz različite dijelove koda i otkazuju na različite načine.</li><li>Na Android-u koristite <code>adb shell cmd appops set &lt;package&gt; RUN_IN_BACKGROUND ignore</code> da po potrebi izazovete ograničenje rada u pozadini, umjesto da čekate da ga OS prirodno pokrene tokom test sesije.</li></ul>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://www.ministryoftesting.com/articles/10-ways-to-test-ios-apps-across-different-states-and-lifecycle-stages" target="_blank" rel="noopener noreferrer">Ministry of Testing: 10 ways to test iOS apps across different states and lifecycle stages</a></li><li><a href="https://developer.android.com/develop/background-work/background-tasks/bg-work-restrictions" target="_blank" rel="noopener noreferrer">Android Developers: System restrictions on background tasks</a></li></ul></template>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    </div>
+    <section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../manually-testing-chrome-edge-extensions/" data-title-sr="Ručno testiranje Chrome i Edge ekstenzija: gdje uobičajeni pristup prestaje da radi" data-excerpt-sr="Zašto ručno testiranje ekstenzija za pretraživač traži drugačiju čeklistu od testiranja web sajta, i šta provjeriti na Chrome-u i Edge-u."><div class="meta"><time datetime="2026-09-29" data-fmt="short">29 Sept 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Manually Testing Chrome and Edge Extensions: Where the Usual Playbook Breaks Down</h2><p>Why manual testing of browser extensions needs a different checklist than testing a website, and what to check on Chrome and Edge.</p></a>
+      <a class="post-card card glow" href="../risk-based-testing-what-not-to-test/" data-title-sr="Testiranje zasnovano na riziku: kako odlučiti šta nećete testirati pred rok" data-excerpt-sr="Praktičan vodič za određivanje prioriteta QA pokrivenosti prema riziku kada nema vremena da se prije objave testira sve."><div class="meta"><time datetime="2026-09-28" data-fmt="short">28 Sept 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div><h2>Risk-Based Testing: How to Decide What Not to Test Before a Deadline</h2><p>A practical guide to prioritizing QA coverage by risk when there isn't time to test everything before a release.</p></a>
+      <a class="post-card card glow" href="../emulator-testing-misconceptions/" data-title-sr="Testiranje mobilnih aplikacija na emulatorima i simulatorima: šta zaista hvataju, a šta tiho propuštaju" data-excerpt-sr="Praktičan pogled na testiranje mobilnih aplikacija na Android emulatorima i iOS Simulatoru, i na česte zablude zbog kojih stvarne greške prođu."><div class="meta"><time datetime="2026-09-28" data-fmt="short">28 Sept 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Emulator and Simulator Testing for Mobile Apps: What They Actually Catch, and What They Quietly Miss</h2><p>A practical look at testing mobile apps on Android emulators and iOS Simulators, and the common misconceptions that let real bugs through.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <a href="../../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../../blog/common.js"></script>
+  <script src="../post.js"></script>
+</body>
+</html>

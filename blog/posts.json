@@ -1,5 +1,20 @@
 [
   {
+    "slug": "manual-testing-mobile-apps-interruptions",
+    "title": "Manual Testing for Mobile Apps: Why Interruptions Matter More Than Happy-Path Clicks",
+    "titleSr": "Ručno testiranje mobilnih aplikacija: zašto su prekidi važniji od klikanja po srećnom scenariju",
+    "excerpt": "A practical guide to manually testing how mobile apps handle backgrounding, calls, low battery, and dropped connections.",
+    "excerptSr": "Praktičan vodič za ručno testiranje toga kako se mobilne aplikacije nose sa prelaskom u pozadinu, pozivima, slabom baterijom i prekinutom konekcijom.",
+    "tags": [
+      "qa",
+      "manual-testing",
+      "mobile",
+      "methodology"
+    ],
+    "date": "2026-09-29",
+    "readingTime": 6
+  },
+  {
     "slug": "manually-testing-chrome-edge-extensions",
     "title": "Manually Testing Chrome and Edge Extensions: Where the Usual Playbook Breaks Down",
     "titleSr": "Ručno testiranje Chrome i Edge ekstenzija: gdje uobičajeni pristup prestaje da radi",
