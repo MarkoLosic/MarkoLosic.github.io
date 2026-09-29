@@ -1,5 +1,20 @@
 [
   {
+    "slug": "manually-testing-chrome-edge-extensions",
+    "title": "Manually Testing Chrome and Edge Extensions: Where the Usual Playbook Breaks Down",
+    "titleSr": "Ručno testiranje Chrome i Edge ekstenzija: gdje uobičajeni pristup prestaje da radi",
+    "excerpt": "Why manual testing of browser extensions needs a different checklist than testing a website, and what to check on Chrome and Edge.",
+    "excerptSr": "Zašto ručno testiranje ekstenzija za pretraživač traži drugačiju čeklistu od testiranja web sajta, i šta provjeriti na Chrome-u i Edge-u.",
+    "tags": [
+      "qa",
+      "manual-testing",
+      "browser-extensions",
+      "methodology"
+    ],
+    "date": "2026-09-29",
+    "readingTime": 6
+  },
+  {
     "slug": "risk-based-testing-what-not-to-test",
     "title": "Risk-Based Testing: How to Decide What Not to Test Before a Deadline",
     "titleSr": "Testiranje zasnovano na riziku: kako odlučiti šta nećete testirati pred rok",
