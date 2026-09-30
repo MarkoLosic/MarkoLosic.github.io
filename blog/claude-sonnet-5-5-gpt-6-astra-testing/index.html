@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What Claude Sonnet 5.5 and GPT-6 Astra Actually Change for Test Automation — Marko Lošić</title>
+  <meta name="description" content="The newest Anthropic and OpenAI models bring cheaper agentic coding and direct GUI control — here's what that means for QA, and what it doesn't.">
+  <link rel="canonical" href="https://markolosic.github.io/blog/claude-sonnet-5-5-gpt-6-astra-testing/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="What Claude Sonnet 5.5 and GPT-6 Astra Actually Change for Test Automation — Marko Lošić">
+  <meta property="og:description" content="The newest Anthropic and OpenAI models bring cheaper agentic coding and direct GUI control — here's what that means for QA, and what it doesn't.">
+  <meta property="og:url" content="https://markolosic.github.io/blog/claude-sonnet-5-5-gpt-6-astra-testing/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/claude-sonnet-5-5-gpt-6-astra-testing.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="What Claude Sonnet 5.5 and GPT-6 Astra Actually Change for Test Automation — Marko Lošić">
+  <meta name="twitter:description" content="The newest Anthropic and OpenAI models bring cheaper agentic coding and direct GUI control — here's what that means for QA, and what it doesn't.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/claude-sonnet-5-5-gpt-6-astra-testing.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"What Claude Sonnet 5.5 and GPT-6 Astra Actually Change for Test Automation","description":"The newest Anthropic and OpenAI models bring cheaper agentic coding and direct GUI control — here's what that means for QA, and what it doesn't.","image":"https://markolosic.github.io/assets/blog/claude-sonnet-5-5-gpt-6-astra-testing.jpg","url":"https://markolosic.github.io/blog/claude-sonnet-5-5-gpt-6-astra-testing/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/claude-sonnet-5-5-gpt-6-astra-testing/"},"datePublished":"2026-09-30","dateModified":"2026-09-30T00:00:00.000Z","keywords":"qa, ai-in-qa, test-automation, llm-models","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
+  <meta property="article:published_time" content="2026-09-30">
+  <meta property="article:modified_time" content="2026-09-30T00:00:00.000Z">
+  <meta name="goatcounter-code" content="markolosic">
+  <script data-goatcounter="https://markolosic.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2307090d'/%3E%3Cpath d='M16 34l11 11 21-26' fill='none' stroke='%2334d399' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#about" data-i18n="nav_about">About</a>
+      <a href="../../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../../blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> <span data-i18n="all_posts">All posts</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-09-30" data-fmt="long">30 September 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span><span>·</span><span class="views" id="views" hidden><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg><span id="views-num"></span></span></div>
+        <h1 data-title-sr="Šta Claude Sonnet 5.5 i GPT-6 Astra zaista mijenjaju u automatizaciji testiranja">What Claude Sonnet 5.5 and GPT-6 Astra Actually Change for Test Automation</h1>
+        <p class="lead" data-excerpt-sr="Najnoviji modeli kompanija Anthropic i OpenAI donose jeftinije agentsko kodiranje i direktnu kontrolu grafičkog interfejsa — evo šta to znači za QA, a šta ne.">The newest Anthropic and OpenAI models bring cheaper agentic coding and direct GUI control — here's what that means for QA, and what it doesn't.</p>
+        <div class="tags"><span>qa</span><span>ai-in-qa</span><span>test-automation</span><span>llm-models</span></div>
+      </header>
+      <div class="prose"><p>Two new frontier models shipped in the same month: Anthropic's Claude Sonnet 5.5 and OpenAI's GPT-6 Astra. Neither was built for QA specifically, but both change what's practical to automate, in two different directions — one makes agentic coding and test generation meaningfully cheaper, the other gives agents the ability to operate a graphical interface directly instead of only reading and writing code. For a team deciding where to spend automation effort next, that distinction matters more than either model's marketing name.</p>
+<p><img src="../../assets/blog/claude-sonnet-5-5-gpt-6-astra-testing.jpg" alt="Illustration split by a lightning bolt: on the left, an AI brain and robotic hand beside a code editor with labels for agentic coding, cheaper and faster generation, flaky-test triage and automated unit tests; on the right, a robotic hand operating a checkout UI with a computer agent panel, a status dashboard and labels for exploratory testing, resilience to UI changes and exporting a Playwright script" loading="lazy"></p>
+<h2 id="two-different-upgrades-not-one">Two different upgrades, not one</h2>
+<p>Sonnet 5.5's headline change is efficiency, not a new capability. On Anthropic's own agentic coding benchmarks it jumps from roughly 10% to over 70% on Terminal-Bench 4.0 compared to the previous Sonnet 5, and early adopters report it needing a third fewer tool calls and about half the shell commands to finish the same task. Output generates over 30% faster, and per-task cost drops by a similar margin at the same per-token price. For testing workflows, that mostly shows up as a cost and speed change: generating a test suite, triaging a flaky-test report, or running an agentic code-review pass on a PR gets noticeably cheaper and faster to iterate on, without changing what kind of testing is newly possible.</p>
+<p>GPT-6 Astra is a different kind of upgrade. Its standout capability is computer use — operating software through the same graphical interface a person would, rather than through code or an API. OpenAI reports it scoring 72.6% on OSWorld 2.0, a benchmark for completing multi-step tasks inside real software environments, up from 65.7% for the prior GPT-5.6 model. In Codex, it also gained the ability to keep working notes across context windows on long tasks, rather than relying only on compacting old context away — useful for a session that spans requirement lookup, implementation, and test execution without losing track of what was already checked. That combination — GUI control plus longer working memory — is the part actually new for testing, because it points at agents that can drive a browser or desktop app through a test scenario the way exploratory testers do, instead of only writing scripts against a DOM.</p>
+<h2 id="what-that-looks-like-for-a-test-flow">What that looks like for a test flow</h2>
+<p>The practical shift is from &quot;generate a Playwright script&quot; to &quot;describe the scenario and let the agent operate the app directly,&quot; with the option to have it produce a reusable script afterward. A rough shape of that workflow:</p>
+<pre><code class="lang-python"># Illustrative — not a specific product's API
+agent = ComputerUseAgent(model=&quot;gpt-6-astra&quot;)
+
+result = agent.run_scenario(
+    goal=&quot;&quot;&quot;
+    Add two items to the cart, apply a single valid discount code,
+    complete checkout with a saved card, and confirm the order total
+    matches subtotal minus the discount. Then attempt to apply a
+    second discount code and confirm it is rejected, not stacked.
+    &quot;&quot;&quot;,
+    app_url=&quot;https://staging.example.com&quot;,
+    max_steps=40,
+)
+
+assert result.status == &quot;goal_verified&quot;
+assert result.evidence.get(&quot;stacking_rejected&quot;) is True
+# Ask the agent to emit a deterministic script from the successful run
+script = agent.export_as_playwright(result.trace)</code></pre>
+<p>The interesting part isn't that the agent can click through a checkout flow — locator-based automation has done that for years. It's that the agent is interpreting the screen the way a person does, so a layout change that would break a brittle CSS selector doesn't necessarily break the scenario, and the same natural-language goal can be pointed at a redesigned UI without rewriting selectors. The <code>export_as_playwright</code> step matters just as much as the run itself: an exploratory run like this is not something you want to keep re-running with an agent in CI, both for cost and for the same oracle problem raised by any AI-authored test — it needs to be turned into something deterministic and reviewed before it becomes a gate.</p>
+<h2 id="pitfalls-and-limits">Pitfalls and limits</h2>
+<p>None of the benchmark numbers above are QA-specific; OSWorld, Terminal-Bench, and SWE-Bench Pro measure general coding and computer-operation competence, not test quality, so a high score doesn't tell you whether the agent asserts the right thing when it says a goal was &quot;verified.&quot; The same oracle problem that affects AI-generated unit tests applies here — an agent can decide a checkout scenario &quot;worked&quot; based on a confirmation screen appearing, without correctly checking that the total was calculated right. Computer-use agents are also non-deterministic run to run, which makes them a poor fit for a CI gate that needs to reliably pass or fail on the same input; they're better suited to exploratory and regression-discovery sessions than to blocking merges. Cost is real too — an agentic run that takes dozens of steps against a live app is considerably more expensive than a scripted test, so running one on every pull request doesn't make sense yet. And GPT-6 Astra specifically shipped with OpenAI classifying it as a model with &quot;critical&quot; cyber capability under their preparedness framework, which is a signal to be deliberate about what tool access and credentials any testing agent built on it actually gets, rather than granting broad environment access by default.</p>
+<h2 id="what-to-do-next">What to do next</h2>
+<p>Pick one exploratory or regression-discovery task your team currently does by hand — a pre-release smoke pass, or checking a flow after a redesign — and pilot a computer-use agent on it rather than trying to replace scripted CI tests outright. Keep your deterministic, locator- or API-based tests as the actual CI gate, and treat agent runs as a way to generate candidate scenarios and scripts, not as the gate itself. Track token and run cost per agentic test session for a few weeks before deciding how often it's worth running. And before giving any testing agent credentials or broad tool access, check the model provider's system card or safety documentation for that specific model — the capability class of GPT-6 Astra is a reason to scope access deliberately, not a reason to avoid the tool.</p>
+<h2 id="sources">Sources</h2>
+<ul><li><a href="https://www.anthropic.com/claude-sonnet-5-5" target="_blank" rel="noopener noreferrer">Introducing Claude Sonnet 5.5 (Anthropic)</a></li><li><a href="https://www.helpnetsecurity.com/2026/09/29/anthropic-claude-sonnet-5-5/" target="_blank" rel="noopener noreferrer">Anthropic Claude Sonnet 5.5 gets faster without a price hike (Help Net Security)</a></li><li><a href="https://siliconangle.com/2026/09/28/anthropic-debuts-claude-sonnet-5-5-running-30-faster-than-the-previous-generation-ai-model/" target="_blank" rel="noopener noreferrer">Anthropic debuts Claude Sonnet 5.5 running 30% faster (SiliconANGLE)</a></li><li><a href="https://www.infoq.com/news/2026/09/openai-gpt6-astra/" target="_blank" rel="noopener noreferrer">OpenAI Releases GPT-6 Astra for Coding and Computer Use (InfoQ)</a></li><li><a href="https://deploymentsafety.openai.com/gpt-6-astra" target="_blank" rel="noopener noreferrer">GPT-6 Astra System Card (OpenAI Deployment Safety Hub)</a></li></ul></div>
+      <template id="prose-sr"><p>Dva nova vodeća modela izašla su u istom mjesecu: Claude Sonnet 5.5 kompanije Anthropic i GPT-6 Astra kompanije OpenAI. Nijedan nije napravljen posebno za QA, ali oba mijenjaju ono što je praktično automatizovati, i to u dva različita pravca — jedan čini agentsko kodiranje i generisanje testova znatno jeftinijim, a drugi daje agentima mogućnost da direktno upravljaju grafičkim interfejsom, umjesto da samo čitaju i pišu kod. Za tim koji odlučuje gdje da uloži sljedeći napor u automatizaciju, ta razlika je bitnija od marketinškog imena bilo kog od ta dva modela.</p>
+<p><img src="../../assets/blog/claude-sonnet-5-5-gpt-6-astra-testing.jpg" alt="Ilustracija podijeljena munjom: lijevo AI mozak i robotska ruka pored editora koda, sa oznakama za agentsko kodiranje, jeftinije i brže generisanje, trijažu nestabilnih testova i automatizovane unit testove; desno robotska ruka koja upravlja checkout interfejsom, sa panelom računarskog agenta, statusnom tablom i oznakama za istraživačko testiranje, otpornost na promjene UI-ja i izvoz Playwright skripte" loading="lazy"></p>
+<h2 id="dva-različita-unapređenja-ne-jedno">Dva različita unapređenja, ne jedno</h2>
+<p>Glavna promjena kod Sonnet 5.5 je efikasnost, a ne nova sposobnost. Na Anthropic-ovim benchmarkovima za agentsko kodiranje skače sa otprilike 10% na preko 70% na Terminal-Bench 4.0 u poređenju sa prethodnim Sonnet 5, a prvi korisnici navode da mu treba trećina manje poziva alata i otprilike upola manje shell komandi da završi isti zadatak. Izlaz se generiše preko 30% brže, a cijena po zadatku pada za sličan procenat, uz istu cijenu po tokenu. U QA procesima to se uglavnom vidi kao promjena u cijeni i brzini: generisanje skupa testova, trijaža izvještaja o nestabilnim testovima ili agentski code review na PR-u postaju primjetno jeftiniji i brži za iteriranje, ali se ne mijenja vrsta testiranja koja je sada moguća.</p>
+<p>GPT-6 Astra je drugačija vrsta unapređenja. Njegova najistaknutija sposobnost je upravljanje računarom (computer use) — rad sa softverom kroz isti grafički interfejs koji bi koristila osoba, umjesto kroz kod ili API. OpenAI navodi rezultat od 72,6% na OSWorld 2.0, benchmarku za izvršavanje višekoračnih zadataka u stvarnim softverskim okruženjima, u odnosu na 65,7% prethodnog modela GPT-5.6. U Codex-u je dobio i mogućnost da vodi radne bilješke kroz više kontekstnih prozora na dugim zadacima, umjesto da se oslanja samo na sažimanje starog konteksta — korisno za sesiju koja obuhvata pregled zahtjeva, implementaciju i izvršavanje testova, a da se ne izgubi trag o tome šta je već provjereno. Ta kombinacija — kontrola GUI-ja plus duža radna memorija — ono je što je zaista novo za testiranje, jer upućuje na agente koji mogu da provedu pretraživač ili desktop aplikaciju kroz testni scenario onako kako to rade istraživački testeri, umjesto da samo pišu skripte nad DOM-om.</p>
+<h2 id="kako-to-izgleda-u-jednom-testnom-toku">Kako to izgleda u jednom testnom toku</h2>
+<p>Praktična promjena je prelazak sa &quot;generiši Playwright skriptu&quot; na &quot;opiši scenario i pusti agenta da direktno upravlja aplikacijom&quot;, uz mogućnost da nakon toga napravi skriptu za ponovnu upotrebu. Grubi oblik takvog toka rada:</p>
+<pre><code class="lang-python"># Illustrative — not a specific product's API
+agent = ComputerUseAgent(model=&quot;gpt-6-astra&quot;)
+
+result = agent.run_scenario(
+    goal=&quot;&quot;&quot;
+    Add two items to the cart, apply a single valid discount code,
+    complete checkout with a saved card, and confirm the order total
+    matches subtotal minus the discount. Then attempt to apply a
+    second discount code and confirm it is rejected, not stacked.
+    &quot;&quot;&quot;,
+    app_url=&quot;https://staging.example.com&quot;,
+    max_steps=40,
+)
+
+assert result.status == &quot;goal_verified&quot;
+assert result.evidence.get(&quot;stacking_rejected&quot;) is True
+# Ask the agent to emit a deterministic script from the successful run
+script = agent.export_as_playwright(result.trace)</code></pre>
+<p>Zanimljivo nije to što agent može da prokliče kroz checkout — automatizacija zasnovana na lokatorima to radi godinama. Zanimljivo je to što agent tumači ekran onako kako to radi čovjek, pa promjena rasporeda koja bi pokvarila krhki CSS selektor ne mora nužno da pokvari scenario, a isti cilj opisan prirodnim jezikom može se usmjeriti na redizajniran UI bez prepravljanja selektora. Korak <code>export_as_playwright</code> bitan je koliko i samo pokretanje: ovakvo istraživačko pokretanje nije nešto što želite stalno da ponavljate sa agentom u CI-ju, i zbog cijene i zbog istog problema &quot;orakla&quot; koji ima svaki test napisan uz pomoć AI-ja — mora se pretvoriti u nešto determinističko i pregledati prije nego što postane kapija.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Nijedan od gore navedenih rezultata nije specifičan za QA; OSWorld, Terminal-Bench i SWE-Bench Pro mjere opštu kompetenciju u kodiranju i upravljanju računarom, a ne kvalitet testova, tako da visok rezultat ne govori da li agent provjerava pravu stvar kada kaže da je cilj &quot;verifikovan&quot;. Isti problem orakla koji pogađa unit testove generisane AI-jem važi i ovdje — agent može zaključiti da je checkout scenario &quot;prošao&quot; samo zato što se pojavio ekran s potvrdom, bez ispravne provjere da je ukupan iznos dobro izračunat. Agenti za upravljanje računarom su i nedeterministički od pokretanja do pokretanja, što ih čini lošim izborom za CI kapiju koja mora pouzdano da prođe ili padne za isti ulaz; bolje odgovaraju sesijama istraživačkog testiranja i otkrivanja regresija nego blokiranju merge-a. Cijena je takođe stvarna — agentsko pokretanje od više desetina koraka nad živom aplikacijom znatno je skuplje od skriptovanog testa, pa pokretanje na svakom pull requestu za sada nema smisla. A GPT-6 Astra je izašao uz to da ga OpenAI u okviru svog preparedness okvira klasifikuje kao model sa &quot;kritičnim&quot; sajber sposobnostima, što je signal da treba pažljivo odlučiti koji pristup alatima i koje kredencijale dobija bilo koji testni agent zasnovan na njemu, umjesto da mu se podrazumijevano da širok pristup okruženju.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<p>Izaberite jedan zadatak istraživačkog testiranja ili otkrivanja regresija koji vaš tim trenutno radi ručno — smoke prolaz prije izdanja ili provjeru toka nakon redizajna — i na njemu isprobajte agenta za upravljanje računarom, umjesto da odmah pokušavate da zamijenite skriptovane CI testove. Zadržite svoje determinističke testove, zasnovane na lokatorima ili API-ju, kao stvarnu CI kapiju, a agentska pokretanja tretirajte kao način da dobijete kandidate za scenarije i skripte, ne kao samu kapiju. Nekoliko nedelja pratite trošak tokena i pokretanja po agentskoj testnoj sesiji prije nego što odlučite koliko često se isplati pokretati je. I prije nego što bilo kom testnom agentu date kredencijale ili širok pristup alatima, provjerite system card ili bezbjednosnu dokumentaciju dobavljača za taj konkretan model — klasa sposobnosti modela GPT-6 Astra razlog je da pristup ograničite promišljeno, a ne razlog da izbjegavate alat.</p>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://www.anthropic.com/claude-sonnet-5-5" target="_blank" rel="noopener noreferrer">Introducing Claude Sonnet 5.5 (Anthropic)</a></li><li><a href="https://www.helpnetsecurity.com/2026/09/29/anthropic-claude-sonnet-5-5/" target="_blank" rel="noopener noreferrer">Anthropic Claude Sonnet 5.5 gets faster without a price hike (Help Net Security)</a></li><li><a href="https://siliconangle.com/2026/09/28/anthropic-debuts-claude-sonnet-5-5-running-30-faster-than-the-previous-generation-ai-model/" target="_blank" rel="noopener noreferrer">Anthropic debuts Claude Sonnet 5.5 running 30% faster (SiliconANGLE)</a></li><li><a href="https://www.infoq.com/news/2026/09/openai-gpt6-astra/" target="_blank" rel="noopener noreferrer">OpenAI Releases GPT-6 Astra for Coding and Computer Use (InfoQ)</a></li><li><a href="https://deploymentsafety.openai.com/gpt-6-astra" target="_blank" rel="noopener noreferrer">GPT-6 Astra System Card (OpenAI Deployment Safety Hub)</a></li></ul></template>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    </div>
+    <section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../manual-testing-mobile-apps-interruptions/" data-title-sr="Ručno testiranje mobilnih aplikacija: zašto su prekidi važniji od klikanja po srećnom scenariju" data-excerpt-sr="Praktičan vodič za ručno testiranje toga kako se mobilne aplikacije nose sa prelaskom u pozadinu, pozivima, slabom baterijom i prekinutom konekcijom."><div class="meta"><time datetime="2026-09-29" data-fmt="short">29 Sept 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Manual Testing for Mobile Apps: Why Interruptions Matter More Than Happy-Path Clicks</h2><p>A practical guide to manually testing how mobile apps handle backgrounding, calls, low battery, and dropped connections.</p></a>
+      <a class="post-card card glow" href="../manually-testing-chrome-edge-extensions/" data-title-sr="Ručno testiranje Chrome i Edge ekstenzija: gdje uobičajeni pristup prestaje da radi" data-excerpt-sr="Zašto ručno testiranje ekstenzija za pretraživač traži drugačiju čeklistu od testiranja web sajta, i šta provjeriti na Chrome-u i Edge-u."><div class="meta"><time datetime="2026-09-29" data-fmt="short">29 Sept 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Manually Testing Chrome and Edge Extensions: Where the Usual Playbook Breaks Down</h2><p>Why manual testing of browser extensions needs a different checklist than testing a website, and what to check on Chrome and Edge.</p></a>
+      <a class="post-card card glow" href="../risk-based-testing-what-not-to-test/" data-title-sr="Testiranje zasnovano na riziku: kako odlučiti šta nećete testirati pred rok" data-excerpt-sr="Praktičan vodič za određivanje prioriteta QA pokrivenosti prema riziku kada nema vremena da se prije objave testira sve."><div class="meta"><time datetime="2026-09-28" data-fmt="short">28 Sept 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div><h2>Risk-Based Testing: How to Decide What Not to Test Before a Deadline</h2><p>A practical guide to prioritizing QA coverage by risk when there isn't time to test everything before a release.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <a href="../../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../../blog/common.js"></script>
+  <script src="../post.js"></script>
+</body>
+</html>

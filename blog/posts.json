@@ -1,5 +1,20 @@
 [
   {
+    "slug": "claude-sonnet-5-5-gpt-6-astra-testing",
+    "title": "What Claude Sonnet 5.5 and GPT-6 Astra Actually Change for Test Automation",
+    "titleSr": "Šta Claude Sonnet 5.5 i GPT-6 Astra zaista mijenjaju u automatizaciji testiranja",
+    "excerpt": "The newest Anthropic and OpenAI models bring cheaper agentic coding and direct GUI control — here's what that means for QA, and what it doesn't.",
+    "excerptSr": "Najnoviji modeli kompanija Anthropic i OpenAI donose jeftinije agentsko kodiranje i direktnu kontrolu grafičkog interfejsa — evo šta to znači za QA, a šta ne.",
+    "tags": [
+      "qa",
+      "ai-in-qa",
+      "test-automation",
+      "llm-models"
+    ],
+    "date": "2026-09-30",
+    "readingTime": 6
+  },
+  {
     "slug": "manual-testing-mobile-apps-interruptions",
     "title": "Manual Testing for Mobile Apps: Why Interruptions Matter More Than Happy-Path Clicks",
     "titleSr": "Ručno testiranje mobilnih aplikacija: zašto su prekidi važniji od klikanja po srećnom scenariju",
