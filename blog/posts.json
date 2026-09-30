@@ -1,5 +1,20 @@
 [
   {
+    "slug": "omarchy-linux-agentic-qa",
+    "title": "Omarchy Linux, Explained: What It Is, Why It's Worth Trying, and a Real Agentic-QA Use Case",
+    "titleSr": "Omarchy Linux ukratko: šta je, zašto vrijedi probati i jedan stvaran primjer agentskog QA-ja",
+    "excerpt": "What Omarchy Linux actually is, why developers and testers like it, and how its own release process uses fleets of AI agents in VMs as a QA pattern worth stealing.",
+    "excerptSr": "Šta je zapravo Omarchy Linux, zašto ga developeri i testeri vole i kako njegov proces izdavanja koristi flote AI agenata u virtuelnim mašinama — QA obrazac koji vrijedi preuzeti.",
+    "tags": [
+      "qa",
+      "tools",
+      "linux",
+      "ai-in-qa"
+    ],
+    "date": "2026-09-30",
+    "readingTime": 6
+  },
+  {
     "slug": "claude-sonnet-5-5-gpt-6-astra-testing",
     "title": "What Claude Sonnet 5.5 and GPT-6 Astra Actually Change for Test Automation",
     "titleSr": "Šta Claude Sonnet 5.5 i GPT-6 Astra zaista mijenjaju u automatizaciji testiranja",
