@@ -1,20 +1,5 @@
 [
   {
-    "slug": "self-healing-tests-what-they-fix-and-hide",
-    "title": "Self-Healing Test Automation: What It Actually Fixes, and What It Quietly Hides",
-    "titleSr": "Samoispravljajuća automatizacija testova: šta zaista popravlja, a šta tiho sakriva",
-    "excerpt": "A practical look at AI self-healing test tools: what they really repair, where they mask real bugs, and how to add guardrails.",
-    "excerptSr": "Praktičan pogled na AI alate za samoispravljanje testova: šta zaista popravljaju, gdje prikrivaju stvarne greške i kako uvesti zaštitne mehanizme.",
-    "tags": [
-      "qa",
-      "ai-in-qa",
-      "test-automation",
-      "self-healing-tests"
-    ],
-    "date": "2026-09-30",
-    "readingTime": 5
-  },
-  {
     "slug": "manual-testing-mobile-apps-interruptions",
     "title": "Manual Testing for Mobile Apps: Why Interruptions Matter More Than Happy-Path Clicks",
     "titleSr": "Ručno testiranje mobilnih aplikacija: zašto su prekidi važniji od klikanja po srećnom scenariju",

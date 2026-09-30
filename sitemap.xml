@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://markolosic.github.io/</loc><lastmod>2026-09-30</lastmod></url>
-  <url><loc>https://markolosic.github.io/blog/</loc><lastmod>2026-09-30</lastmod></url>
-  <url><loc>https://markolosic.github.io/blog/self-healing-tests-what-they-fix-and-hide/</loc><lastmod>2026-09-30</lastmod></url>
+  <url><loc>https://markolosic.github.io/</loc><lastmod>2026-09-29</lastmod></url>
+  <url><loc>https://markolosic.github.io/blog/</loc><lastmod>2026-09-29</lastmod></url>
   <url><loc>https://markolosic.github.io/blog/manual-testing-mobile-apps-interruptions/</loc><lastmod>2026-09-29</lastmod></url>
   <url><loc>https://markolosic.github.io/blog/manually-testing-chrome-edge-extensions/</loc><lastmod>2026-09-29</lastmod></url>
   <url><loc>https://markolosic.github.io/blog/risk-based-testing-what-not-to-test/</loc><lastmod>2026-09-28</lastmod></url>
