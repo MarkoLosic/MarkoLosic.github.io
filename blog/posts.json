@@ -1,5 +1,20 @@
 [
   {
+    "slug": "api-contract-testing-breaking-changes",
+    "title": "Catching Breaking API Changes Before They Reach Production With Contract Testing",
+    "titleSr": "Kako ugovorno testiranje hvata promjene koje lome API prije nego što stignu do produkcije",
+    "excerpt": "How consumer-driven contract testing catches breaking API changes between services before they hit production, with a concrete example.",
+    "excerptSr": "Kako ugovorno testiranje vođeno potrošačem hvata promjene koje lome API između servisa prije nego što stignu do produkcije, uz konkretan primjer.",
+    "tags": [
+      "qa",
+      "api-testing",
+      "contract-testing",
+      "microservices"
+    ],
+    "date": "2026-10-02",
+    "readingTime": 5
+  },
+  {
     "slug": "omarchy-linux-agentic-qa",
     "title": "Omarchy Linux, Explained: What It Is, Why It's Worth Trying, and a Real Agentic-QA Use Case",
     "titleSr": "Omarchy Linux ukratko: šta je, zašto vrijedi probati i jedan stvaran primjer agentskog QA-ja",
