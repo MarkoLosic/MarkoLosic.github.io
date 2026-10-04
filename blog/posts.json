@@ -14,6 +14,21 @@
     "readingTime": 6
   },
   {
+    "slug": "petlink-claude-code-gemini-ai-workflow",
+    "title": "Building PetLink: AI as Architect, Coder and Reviewer",
+    "titleSr": "Kako sam gradio PetLink: AI kao arhitekta, pisac koda i recenzent",
+    "excerpt": "The story behind PetLink, an all-in-one app for pet owners, and how I split the work between Claude Code for planning, Gemini for coding and Claude Code again for code review.",
+    "excerptSr": "Priča o razvoju PetLink-a, all-in-one aplikacije za vlasnike kućnih ljubimaca, i o tome kako sam podijelio posao između Claude Code-a za planiranje, Gemini-ja za pisanje koda i ponovo Claude Code-a za code review.",
+    "tags": [
+      "product-development",
+      "ai-assistants",
+      "claude-code",
+      "react-native"
+    ],
+    "date": "2026-10-02",
+    "readingTime": 6
+  },
+  {
     "slug": "api-contract-testing-breaking-changes",
     "title": "Catching Breaking API Changes Before They Reach Production With Contract Testing",
     "titleSr": "Kako ugovorno testiranje hvata promjene koje lome API prije nego što stignu do produkcije",
