@@ -1,5 +1,19 @@
 [
   {
+    "slug": "risk-based-testing-prioritization",
+    "title": "Risk-Based Testing: How to Decide What to Test First When You Can't Test Everything",
+    "titleSr": "Testiranje zasnovano na riziku: kako odlučiti šta testirati prvo kada ne možete testirati sve",
+    "excerpt": "A practical walkthrough of risk-based testing: how to score features by likelihood and impact, and use that to decide what gets tested before a deadline.",
+    "excerptSr": "Praktičan vodič kroz testiranje zasnovano na riziku: kako ocijeniti funkcionalnosti po vjerovatnoći i uticaju i na osnovu toga odlučiti šta se testira prije roka.",
+    "tags": [
+      "qa",
+      "risk-based-testing",
+      "test-strategy"
+    ],
+    "date": "2026-10-04",
+    "readingTime": 6
+  },
+  {
     "slug": "api-contract-testing-breaking-changes",
     "title": "Catching Breaking API Changes Before They Reach Production With Contract Testing",
     "titleSr": "Kako ugovorno testiranje hvata promjene koje lome API prije nego što stignu do produkcije",
