@@ -1,5 +1,20 @@
 [
   {
+    "slug": "writing-bug-reports-that-get-fixed",
+    "title": "The Bug Report Developers Actually Want: A Field Guide",
+    "titleSr": "Prijava greške kakvu developeri zaista žele: praktični vodič",
+    "excerpt": "A practical structure for bug reports a developer can reproduce and fix on the first read, with a before/after example.",
+    "excerptSr": "Praktična struktura prijave greške koju developer može da reprodukuje i popravi već iz prvog čitanja, uz primjer „prije i poslije\".",
+    "tags": [
+      "qa",
+      "manual-testing",
+      "bug-reports",
+      "methodology"
+    ],
+    "date": "2026-10-05",
+    "readingTime": 5
+  },
+  {
     "slug": "risk-based-testing-prioritization",
     "title": "Risk-Based Testing: How to Decide What to Test First When You Can't Test Everything",
     "titleSr": "Testiranje zasnovano na riziku: kako odlučiti šta testirati prvo kada ne možete testirati sve",
