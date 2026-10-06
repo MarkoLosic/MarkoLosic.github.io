@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Writing Reliable Mobile Test Automation with Maestro: A Practical Guide — Marko Lošić</title>
+  <meta name="description" content="How Maestro's YAML flows simplify mobile E2E testing, with a working login flow example and the best practices that keep it maintainable.">
+  <link rel="canonical" href="https://markolosic.github.io/blog/maestro-mobile-test-automation/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Writing Reliable Mobile Test Automation with Maestro: A Practical Guide — Marko Lošić">
+  <meta property="og:description" content="How Maestro's YAML flows simplify mobile E2E testing, with a working login flow example and the best practices that keep it maintainable.">
+  <meta property="og:url" content="https://markolosic.github.io/blog/maestro-mobile-test-automation/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/maestro-mobile-test-automation.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Writing Reliable Mobile Test Automation with Maestro: A Practical Guide — Marko Lošić">
+  <meta name="twitter:description" content="How Maestro's YAML flows simplify mobile E2E testing, with a working login flow example and the best practices that keep it maintainable.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/maestro-mobile-test-automation.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Writing Reliable Mobile Test Automation with Maestro: A Practical Guide","description":"How Maestro's YAML flows simplify mobile E2E testing, with a working login flow example and the best practices that keep it maintainable.","image":"https://markolosic.github.io/assets/blog/maestro-mobile-test-automation.jpg","url":"https://markolosic.github.io/blog/maestro-mobile-test-automation/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/maestro-mobile-test-automation/"},"datePublished":"2026-10-06","dateModified":"2026-10-06T00:00:00.000Z","keywords":"qa, test-automation, mobile, maestro","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
+  <meta property="article:published_time" content="2026-10-06">
+  <meta property="article:modified_time" content="2026-10-06T00:00:00.000Z">
+  <meta name="goatcounter-code" content="markolosic">
+  <script data-goatcounter="https://markolosic.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2307090d'/%3E%3Cpath d='M16 34l11 11 21-26' fill='none' stroke='%2334d399' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#about" data-i18n="nav_about">About</a>
+      <a href="../../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../../blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> <span data-i18n="all_posts">All posts</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-10-06" data-fmt="long">6 October 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span><span>·</span><span class="views" id="views" hidden><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg><span id="views-num"></span></span></div>
+        <h1 data-title-sr="Pouzdana automatizacija testiranja mobilnih aplikacija uz Maestro: praktični vodič">Writing Reliable Mobile Test Automation with Maestro: A Practical Guide</h1>
+        <p class="lead" data-excerpt-sr="Kako Maestro YAML tokovi pojednostavljuju E2E testiranje mobilnih aplikacija, uz radni primjer login toka i dobre prakse koje ga čine održivim.">How Maestro's YAML flows simplify mobile E2E testing, with a working login flow example and the best practices that keep it maintainable.</p>
+        <div class="tags"><span>qa</span><span>test-automation</span><span>mobile</span><span>maestro</span></div>
+      </header>
+      <div class="prose"><p>Mobile end-to-end testing has a reputation problem. Appium needs a server process plus platform-specific drivers for Android and iOS, Espresso only covers Android, XCUITest only covers iOS, and all three traditionally mean writing and maintaining code in a language the QA team may not use day to day. Maestro, an open-source framework released in 2022, takes a different approach: tests are plain YAML files, there's no separate server or driver stack to run, and a single CLI binary drives both platforms. For teams drowning in mobile test maintenance, that's a meaningful shift — but it comes with trade-offs worth understanding before committing a suite to it.</p>
+<p><img src="../../assets/blog/maestro-mobile-test-automation.jpg" alt="Illustration of a smartphone running a &quot;ShopApp&quot; login screen with highlighted, checked-off input fields next to a Maestro YAML flow for a login test, while a conductor's hand directs an iPhone and an Android phone" loading="lazy"></p>
+<h2 id="what-actually-makes-maestro-different">What actually makes Maestro different</h2>
+<p>The core technical difference isn't the YAML syntax, it's what happens underneath it. Traditional frameworks like Appium and raw Espresso/XCUITest tests often need explicit waits sprinkled through the code to handle animations, network delays, and slow-loading screens, because the test driver has no built-in tolerance for the app not being instantly ready. Maestro bakes that tolerance into every command: tapping, asserting, and typing all retry automatically for a short window before failing, so a login screen that takes an extra 300ms to render doesn't need a hand-tuned sleep to pass reliably.</p>
+<p>Operationally, Maestro also strips out the moving parts. Appium requires a server process and platform-specific drivers (UiAutomator2 for Android, the XCUITest driver for iOS) in addition to a client test framework — more pieces that can drift out of sync in CI. Maestro replaces that stack with one CLI binary, which is a large part of why teams report a shorter ramp-up time, even for QA engineers who've never written Kotlin, Swift, or Java.</p>
+<h2 id="a-working-example">A working example</h2>
+<p>Here's a login flow that covers a realistic case: entering credentials, submitting, and asserting the result.</p>
+<pre><code class="lang-yaml">appId: com.example.shopapp
+name: &quot;Login with valid credentials&quot;
+tags: [smoke, auth]
+---
+- launchApp
+- assertVisible: &quot;Log in&quot;
+- tapOn:
+    id: &quot;login_email_field&quot;
+- inputText: &quot;qa-test@example.com&quot;
+- tapOn:
+    id: &quot;login_password_field&quot;
+- inputText: &quot;correct-horse-battery&quot;
+- tapOn: &quot;Log in&quot;
+- assertVisible:
+    text: &quot;Welcome back&quot;
+    timeout: 8000
+- assertNotVisible: &quot;Log in&quot;</code></pre>
+<p>Note the mix of selector styles: <code>id</code> targets a resource ID or accessibility identifier directly, while the plain string form (<code>tapOn: &quot;Log in&quot;</code>) matches visible text. Preferring <code>id</code> for inputs that may be localized, and text for buttons whose copy is stable and meaningful to a reader reviewing the test, tends to produce flows that are both robust and legible months later.</p>
+<h2 id="best-practices-worth-adopting-from-day-one">Best practices worth adopting from day one</h2>
+<p><strong>Keep flows modular.</strong> A single 200-line YAML file that logs in, navigates three screens, and checks a receipt is hard to debug when it fails on step 140. Break shared setup — login, navigating past an onboarding carousel, granting permissions — into their own files and pull them in with <code>runFlow: login_flow.yaml</code>. This also means fixing a broken login selector once instead of in every test file that logs in.</p>
+<p><strong>Prefer stable identifiers over visible text where you can.</strong> Text content is the most readable selector but the most fragile — a copywriter renaming a button breaks the test even though nothing about the feature changed. Resource IDs and accessibility identifiers are more durable and, as a side benefit, improve the app's actual accessibility since someone has to set them intentionally.</p>
+<p><strong>Handle platform differences explicitly rather than duplicating flows.</strong> Maestro supports <code>when: platform: iOS</code> (and <code>Android</code>) conditionals inside a single flow, which keeps one source of truth for a user journey instead of two YAML files that quietly drift apart over time.</p>
+<p><strong>Use the CI-friendly output.</strong> <code>maestro test --format junit</code> produces native JUnit-XML, which most CI dashboards already know how to render — no custom parsing step needed, unlike Appium where report generation depends entirely on whichever client library you're using.</p>
+<h2 id="pitfalls-and-limits">Pitfalls and limits</h2>
+<p>Maestro is young relative to the alternatives — it shipped in 2022, against Appium's 2013 debut — and that maturity gap shows up as a thinner plugin ecosystem and noticeably less Stack Overflow and blog coverage when something obscure goes wrong. Teams with unusual native components or unusual device/OS combinations may hit a wall that an Appium-based setup, for all its ceremony, has already had a plugin written for.</p>
+<p>The YAML-first design is also a ceiling, not just a convenience. Complex conditional logic, multi-step data-driven loops, or anything that feels like real programming gets awkward in pure YAML; Maestro offers a JavaScript escape hatch for these cases, but leaning on it heavily undercuts the main selling point of having tests a non-engineer can read and review.</p>
+<p>Auto-retrying commands reduce one category of flakiness but don't eliminate flakiness caused by the app itself — a backend that occasionally returns stale data, or a race condition in the app's own state management, will still produce an intermittent failure no matter how patient the test driver is. And Maestro is an end-to-end tool: it's not a substitute for fast, isolated unit and component tests lower in the test pyramid, which should still catch the majority of regressions before an E2E suite ever runs.</p>
+<h2 id="what-to-do-next">What to do next</h2>
+<p>Install the Maestro CLI and point it at an existing debug build rather than starting with a brand-new app — you'll learn the selector quirks of your real screens faster than with a toy example. Write one smoke flow for your most business-critical path (typically login or checkout) before trying to cover edge cases. Wire <code>maestro test --format junit</code> into your existing CI pipeline so failures show up where the team already looks, instead of in a separate dashboard nobody checks. Once the smoke flow is stable for a week, extract its shared steps into a <code>runFlow</code> file before writing the next ten flows, so the suite stays maintainable rather than copy-pasted.</p>
+<h2 id="sources">Sources</h2>
+<ul><li><a href="https://maestro.dev/insights/how-to-write-yaml-test-scripts-for-mobile-apps" target="_blank" rel="noopener noreferrer">How to Write YAML Test Scripts for Mobile Apps — Maestro</a></li><li><a href="https://maestro.dev/" target="_blank" rel="noopener noreferrer">Maestro — official site</a></li><li><a href="https://qualflare.com/blog/appium-vs-espresso-vs-xcuitest-vs-maestro/" target="_blank" rel="noopener noreferrer">Appium vs Espresso vs XCUITest vs Maestro: Mobile Test Framework Comparison — Qualflare</a></li></ul></div>
+      <template id="prose-sr"><p>End-to-end testiranje mobilnih aplikacija ima problem sa reputacijom. Appium traži serverski proces i drajvere specifične za platformu, posebno za Android i za iOS, Espresso pokriva samo Android, XCUITest samo iOS, a sva tri tradicionalno znače pisanje i održavanje koda u jeziku koji QA tim možda ne koristi svakodnevno. Maestro, open-source framework objavljen 2022. godine, pristupa drugačije: testovi su obični YAML fajlovi, nema zasebnog servera niti skupa drajvera koje treba pokretati, a jedan CLI program upravlja objema platformama. Za timove koji se dave u održavanju mobilnih testova, to je značajna promjena — ali dolazi sa kompromisima koje vrijedi razumjeti prije nego što na njemu izgradite cijeli set testova.</p>
+<p><img src="../../assets/blog/maestro-mobile-test-automation.jpg" alt="Ilustracija pametnog telefona sa login ekranom aplikacije „ShopApp&quot; i označenim, štikliranim poljima za unos, pored Maestro YAML toka za login test, dok ruka dirigenta upravlja iPhone i Android telefonom" loading="lazy"></p>
+<h2 id="šta-maestro-zaista-čini-drugačijim">Šta Maestro zaista čini drugačijim</h2>
+<p>Suštinska tehnička razlika nije YAML sintaksa, nego ono što se dešava ispod nje. Tradicionalni framework-ovi poput Appium-a i „čistih&quot; Espresso/XCUITest testova često zahtijevaju eksplicitna čekanja razbacana po kodu kako bi se izborili sa animacijama, kašnjenjem mreže i ekranima koji se sporo učitavaju, jer test drajver nema ugrađenu toleranciju na to da aplikacija nije odmah spremna. Maestro tu toleranciju ugrađuje u svaku komandu: tapovanje, provjere i unos teksta automatski se ponavljaju tokom kratkog vremenskog prozora prije nego što test padne, pa login ekranu kojem treba dodatnih 300 ms da se iscrta nije potreban ručno podešen <code>sleep</code> da bi test pouzdano prolazio.</p>
+<p>Operativno, Maestro uklanja i pokretne dijelove. Appium zahtijeva serverski proces i drajvere specifične za platformu (UiAutomator2 za Android, XCUITest drajver za iOS), uz klijentski test framework — više dijelova koji u CI-ju mogu da se raziđu po verzijama. Maestro taj cijeli skup zamjenjuje jednim CLI programom, što je velikim dijelom razlog zašto timovi prijavljuju kraće vrijeme uhodavanja, čak i za QA inženjere koji nikada nisu pisali Kotlin, Swift ili Javu.</p>
+<h2 id="radni-primjer">Radni primjer</h2>
+<p>Evo login toka koji pokriva realan slučaj: unos kredencijala, slanje forme i provjera rezultata.</p>
+<pre><code class="lang-yaml">appId: com.example.shopapp
+name: &quot;Login with valid credentials&quot;
+tags: [smoke, auth]
+---
+- launchApp
+- assertVisible: &quot;Log in&quot;
+- tapOn:
+    id: &quot;login_email_field&quot;
+- inputText: &quot;qa-test@example.com&quot;
+- tapOn:
+    id: &quot;login_password_field&quot;
+- inputText: &quot;correct-horse-battery&quot;
+- tapOn: &quot;Log in&quot;
+- assertVisible:
+    text: &quot;Welcome back&quot;
+    timeout: 8000
+- assertNotVisible: &quot;Log in&quot;</code></pre>
+<p>Obratite pažnju na kombinaciju stilova selektora: <code>id</code> direktno cilja resource ID ili accessibility identifikator, dok obična string forma (<code>tapOn: &quot;Log in&quot;</code>) traži vidljivi tekst. Davanje prednosti <code>id</code>-u za polja koja mogu biti lokalizovana, a tekstu za dugmad čiji je natpis stabilan i smislen onome ko čita test, obično daje tokove koji su i robusni i čitljivi i mjesecima kasnije.</p>
+<h2 id="dobre-prakse-koje-vrijedi-usvojiti-od-prvog-dana">Dobre prakse koje vrijedi usvojiti od prvog dana</h2>
+<p><strong>Neka tokovi budu modularni.</strong> Jedan YAML fajl od 200 linija koji se prijavljuje, prolazi kroz tri ekrana i provjerava račun teško je debagovati kada padne na koraku 140. Zajedničke pripremne korake — login, preskakanje onboarding karusela, davanje dozvola — izdvojite u zasebne fajlove i uključite ih sa <code>runFlow: login_flow.yaml</code>. To takođe znači da pokvaren login selektor popravljate jednom, umjesto u svakom test fajlu koji se prijavljuje.</p>
+<p><strong>Gdje god možete, birajte stabilne identifikatore umjesto vidljivog teksta.</strong> Tekst je najčitljiviji selektor, ali i najkrhkiji — copywriter koji preimenuje dugme obori test iako se u samoj funkcionalnosti ništa nije promijenilo. Resource ID-jevi i accessibility identifikatori su trajniji i, kao usputna korist, poboljšavaju stvarnu pristupačnost aplikacije, jer neko mora namjerno da ih postavi.</p>
+<p><strong>Razlike između platformi rješavajte eksplicitno, umjesto dupliranja tokova.</strong> Maestro podržava uslove <code>when: platform: iOS</code> (i <code>Android</code>) unutar jednog toka, čime se čuva jedan izvor istine za korisničko putovanje, umjesto dva YAML fajla koja se s vremenom tiho razilaze.</p>
+<p><strong>Koristite izlaz prilagođen CI-ju.</strong> <code>maestro test --format junit</code> generiše izvorni JUnit-XML, koji većina CI dashboard-a već zna da prikaže — bez potrebe za dodatnim korakom parsiranja, za razliku od Appium-a, gdje generisanje izvještaja u potpunosti zavisi od klijentske biblioteke koju koristite.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Maestro je mlad u odnosu na alternative — objavljen je 2022, naspram Appium-ovog debija 2013. godine — i ta razlika u zrelosti vidi se kroz skromniji ekosistem plugin-ova i primjetno manje odgovora na Stack Overflow-u i blogovima kada pođe po zlu nešto neobično. Timovi sa neuobičajenim nativnim komponentama ili neobičnim kombinacijama uređaja i operativnih sistema mogu da udare u zid za koji je, kod rješenja zasnovanog na Appium-u, uz svu njegovu ceremoniju, plugin već napisan.</p>
+<p>YAML-first dizajn je i plafon, a ne samo pogodnost. Složena uslovna logika, petlje vođene podacima kroz više koraka ili bilo šta što liči na pravo programiranje postaje nezgrapno u čistom YAML-u; Maestro za takve slučajeve nudi JavaScript kao izlaz u nuždi, ali pretjerano oslanjanje na njega potkopava glavnu prednost — testove koje i neko ko nije inženjer može da pročita i pregleda.</p>
+<p>Komande sa automatskim ponavljanjem smanjuju jednu kategoriju nestabilnosti (flakiness), ali ne uklanjaju nestabilnost koju izaziva sama aplikacija — backend koji povremeno vrati zastarjele podatke ili race condition u upravljanju stanjem aplikacije i dalje će proizvesti povremeni pad, bez obzira na to koliko je test drajver strpljiv. I Maestro je end-to-end alat: nije zamjena za brze, izolovane unit i komponentne testove niže u piramidi testiranja, koji i dalje treba da uhvate većinu regresija prije nego što se E2E set testova uopšte pokrene.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<p>Instalirajte Maestro CLI i usmjerite ga na postojeći debug build, umjesto da počinjete sa potpuno novom aplikacijom — specifičnosti selektora na vašim stvarnim ekranima naučićete brže nego na nekom primjeru za igru. Napišite jedan smoke tok za poslovno najkritičniju putanju (obično login ili checkout) prije nego što pokušate da pokrijete granične slučajeve. Povežite <code>maestro test --format junit</code> sa postojećim CI pipeline-om, kako bi se padovi prikazivali tamo gdje tim već gleda, a ne na zasebnom dashboard-u koji niko ne provjerava. Kada smoke tok bude stabilan nedjelju dana, izdvojite njegove zajedničke korake u <code>runFlow</code> fajl prije nego što napišete sljedećih deset tokova, kako bi set testova ostao održiv, a ne kopiran i nalijepljen.</p>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://maestro.dev/insights/how-to-write-yaml-test-scripts-for-mobile-apps" target="_blank" rel="noopener noreferrer">How to Write YAML Test Scripts for Mobile Apps — Maestro</a></li><li><a href="https://maestro.dev/" target="_blank" rel="noopener noreferrer">Maestro — official site</a></li><li><a href="https://qualflare.com/blog/appium-vs-espresso-vs-xcuitest-vs-maestro/" target="_blank" rel="noopener noreferrer">Appium vs Espresso vs XCUITest vs Maestro: Mobile Test Framework Comparison — Qualflare</a></li></ul></template>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    </div>
+    <section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../writing-bug-reports-that-get-fixed/" data-title-sr="Prijava greške kakvu developeri zaista žele: praktični vodič" data-excerpt-sr="Praktična struktura prijave greške koju developer može da reprodukuje i popravi već iz prvog čitanja, uz primjer „prije i poslije&quot;."><div class="meta"><time datetime="2026-10-05" data-fmt="short">5 Oct 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div><h2>The Bug Report Developers Actually Want: A Field Guide</h2><p>A practical structure for bug reports a developer can reproduce and fix on the first read, with a before/after example.</p></a>
+      <a class="post-card card glow" href="../risk-based-testing-prioritization/" data-title-sr="Testiranje zasnovano na riziku: kako odlučiti šta testirati prvo kada ne možete testirati sve" data-excerpt-sr="Praktičan vodič kroz testiranje zasnovano na riziku: kako ocijeniti funkcionalnosti po vjerovatnoći i uticaju i na osnovu toga odlučiti šta se testira prije roka."><div class="meta"><time datetime="2026-10-04" data-fmt="short">4 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Risk-Based Testing: How to Decide What to Test First When You Can't Test Everything</h2><p>A practical walkthrough of risk-based testing: how to score features by likelihood and impact, and use that to decide what gets tested before a deadline.</p></a>
+      <a class="post-card card glow" href="../petlink-claude-code-gemini-ai-workflow/" data-title-sr="Kako sam gradio PetLink: AI kao arhitekta, pisac koda i recenzent" data-excerpt-sr="Priča o razvoju PetLink-a, all-in-one aplikacije za vlasnike kućnih ljubimaca, i o tome kako sam podijelio posao između Claude Code-a za planiranje, Gemini-ja za pisanje koda i ponovo Claude Code-a za code review."><div class="meta"><time datetime="2026-10-02" data-fmt="short">2 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Building PetLink: AI as Architect, Coder and Reviewer</h2><p>The story behind PetLink, an all-in-one app for pet owners, and how I split the work between Claude Code for planning, Gemini for coding and Claude Code again for code review.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <a href="../../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../../blog/common.js"></script>
+  <script src="../post.js"></script>
+</body>
+</html>

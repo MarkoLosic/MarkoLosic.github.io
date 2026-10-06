@@ -1,5 +1,20 @@
 [
   {
+    "slug": "maestro-mobile-test-automation",
+    "title": "Writing Reliable Mobile Test Automation with Maestro: A Practical Guide",
+    "titleSr": "Pouzdana automatizacija testiranja mobilnih aplikacija uz Maestro: praktični vodič",
+    "excerpt": "How Maestro's YAML flows simplify mobile E2E testing, with a working login flow example and the best practices that keep it maintainable.",
+    "excerptSr": "Kako Maestro YAML tokovi pojednostavljuju E2E testiranje mobilnih aplikacija, uz radni primjer login toka i dobre prakse koje ga čine održivim.",
+    "tags": [
+      "qa",
+      "test-automation",
+      "mobile",
+      "maestro"
+    ],
+    "date": "2026-10-06",
+    "readingTime": 5
+  },
+  {
     "slug": "writing-bug-reports-that-get-fixed",
     "title": "The Bug Report Developers Actually Want: A Field Guide",
     "titleSr": "Prijava greške kakvu developeri zaista žele: praktični vodič",
