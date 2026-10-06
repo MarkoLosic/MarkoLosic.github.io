@@ -1,6 +1,6 @@
 # Marko Lošić
 
-> QA Engineer based in Banja Luka, Bosnia and Herzegovina, with 6+ years in manual and automated testing of web apps, mobile apps and browser extensions. Currently Senior QA Engineer at Bravo System (Playwright, Maestro, TypeScript, JavaScript, LLM testing); previously QA Engineer & Oracle APEX Developer at Krajina Klas (Cypress).
+> QA Engineer based in Banja Luka, Bosnia and Herzegovina, with 6+ years in manual and automated testing of web apps, mobile apps and browser extensions. Currently QA Engineer at Bravo System (Playwright, Maestro, TypeScript, JavaScript, LLM testing); previously QA Engineer & Oracle APEX Developer at Krajina Klas (Cypress).
 
 Highlights: cut regression testing on the Biolink platform from a full day to about 30 minutes; 1000+ releases tested, 500+ automated tests, 50+ products covered; tests local LLMs with an automated suite of 100 prompts plus manual testing.
 

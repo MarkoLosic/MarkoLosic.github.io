@@ -1,6 +1,6 @@
 # Marko Lošić
 
-Senior QA Engineer · Test Automation
+QA Engineer · Test Automation
 Banja Luka, Bosnia and Herzegovina
 
 - Email: markolosic1993@gmail.com
@@ -22,7 +22,7 @@ QA Engineer with 6+ years of experience in manual and automated testing of web a
 
 ## Experience
 
-### Senior QA Engineer, Bravo System, Banja Luka
+### QA Engineer, Bravo System, Banja Luka
 Jun 2022 – Present
 
 - Cut regression testing on the Biolink platform from a full day to about 30 minutes by building and maintaining an automated Playwright suite (TypeScript, Page Object Model) that runs in Docker on every pull request via GitHub Actions; on other projects, suites run in Jenkins pipelines.

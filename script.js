@@ -13,7 +13,7 @@
   /* ---------- i18n (English lives in the HTML; Serbian is swapped in) ---------- */
   const SR = {
     nav_about: 'O meni', nav_ai: 'AI', nav_blog: 'Blog', blog_h: 'Najnovije s bloga.', blog_all: 'Svi članci', nav_skills: 'Vještine', nav_exp: 'Iskustvo', nav_edu: 'Obrazovanje', nav_contact: 'Kontakt', min_read: 'min čitanja',
-    status: 'Senior QA inženjer u Bravo System-u · Banja Luka',
+    status: 'QA inženjer u Bravo System-u · Banja Luka',
     h1_a: 'Pravim softver', h1_b: 'pouzdanim', h1_c: 'prije nego ga korisnici vide.',
     lead: 'Zdravo, ja sam <strong>Marko Lošić</strong> — QA inženjer specijalizovan za automatizaciju testiranja. Više od šest godina testiram web i mobilne aplikacije te ekstenzije za pretraživač, a Playwright i Maestro su mi svakodnevni alati, uz Cypress iskustvo sa ranijih projekata. Takođe testiram AI modele i pravim vlastite mobilne aplikacije.',
     cta_talk: 'Hajde da pričamo', cta_cv: 'Preuzmi CV', loc: 'Banja Luka, Bosna i Hercegovina', loc2: 'Banja Luka, Bosna i Hercegovina',
@@ -99,7 +99,7 @@
     tn_lede: 'Program treniranja timova koji ih vodi od mišljenja do dokaza: uvjerenja se pretvaraju u provjerljive pretpostavke, a odluke donose na osnovu onoga što korisnici zaista rade. Završio sam obuku, a zatim radio kao trener programa. Isti način razmišljanja vodi moje testiranje.',
     tn_more: 'Pročitaj više →',
     exp_h: 'Gdje sam isporučivao.', present: 'danas',
-    j1_role: 'Senior QA inženjer',
+    j1_role: 'QA inženjer',
     j1_5: 'Testiram lokalne LLM-ove koji analiziraju analitičke podatke na dva projekta, kombinujući automatizovani skup od 100 upita i ručno testiranje.',
     j1_1: 'Ručno testiram web aplikacije, mobilne aplikacije i ekstenzije za pretraživač kako bi kvalitet bio visok u svakom izdanju.',
     j1_2: 'Skratio sam regresiono testiranje Biolink platforme sa cijelog dana na oko 30 minuta izgradnjom i održavanjem automatizovanog Playwright suite-a (TypeScript, Page Object Model) koji se u Docker kontejneru pokreće na svaki pull request kroz GitHub Actions; na ostalim projektima suite-ovi se pokreću u Jenkins pipeline-ovima.',
@@ -173,7 +173,8 @@
   });
   const closeMenu = () => { links.classList.remove('open'); menu.setAttribute('aria-expanded', 'false'); };
   linkEls.forEach(a => a.addEventListener('click', closeMenu));
-  document.addEventListener('click', e => { if (!nav.contains(e.target)) closeMenu(); });
+  // pointerdown, not click: iOS Safari/WebKit fire no click when tapping non-interactive elements
+  document.addEventListener('pointerdown', e => { if (!nav.contains(e.target)) closeMenu(); });
 
   /* ---------- Reveal on scroll ---------- */
   const io = new IntersectionObserver(entries => {
