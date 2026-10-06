@@ -1,0 +1,23 @@
+# Marko Lošić
+
+> QA Engineer based in Banja Luka, Bosnia and Herzegovina, with 6+ years in manual and automated testing of web apps, mobile apps and browser extensions. Currently Mid-level QA Engineer at Bravo System (Playwright, Maestro, TypeScript, LLM testing); previously QA Engineer & Oracle APEX Developer at Krajina Klas (Cypress).
+
+Highlights: cut regression testing on the Biolink platform from a full day to about 30 minutes; 1000+ releases tested, 500+ automated tests, 50+ products covered; tests local LLMs with an automated suite of 100 prompts plus manual testing.
+
+Contact: markolosic1993@gmail.com · +387 63 759 197
+
+## CV
+
+- [CV (plain text)](https://markolosic.github.io/cv.txt): full CV in clean text, same content as the website and PDF
+- [CV (PDF)](https://markolosic.github.io/assets/Marko-Losic-CV.pdf): one-page A4 CV
+
+## Profiles
+
+- [Website](https://markolosic.github.io/): portfolio, skills and experience
+- [LinkedIn](https://www.linkedin.com/in/markološić/)
+- [GitHub](https://github.com/MarkoLosic)
+
+## Optional
+
+- [Blog](https://markolosic.github.io/blog/): articles on QA, test automation, mobile and AI testing
+- [RSS](https://markolosic.github.io/rss.xml)

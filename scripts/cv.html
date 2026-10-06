@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<!-- Source for assets/Marko-Losic-CV.pdf. Keep in sync with index.html and cv.txt.
+     Render: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --no-pdf-header-footer \
+             --print-to-pdf=assets/Marko-Losic-CV.pdf scripts/cv.html -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Marko Lošić — CV</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --ink: #1d1d1b; --muted: #5d5d58; --accent: #2f6b4f; --rule: #dcdbd4; --side: #efeee9; --paper: #fbfaf6; }
+  html, body { width: 210mm; height: 297mm; }
+  body { display: grid; grid-template-columns: 62mm 1fr; font: 400 8.5pt/1.36 "Avenir Next", "Helvetica Neue", sans-serif; color: var(--ink); background: var(--paper); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  aside { background: var(--side); padding: 10mm 7mm 8mm 9mm; }
+  main { padding: 10mm 10mm 8mm 10mm; }
+  .photo { width: 30mm; height: 30mm; object-fit: cover; border-radius: 3mm; display: block; margin-bottom: 5mm; }
+  h1 { font: 700 30pt/1 Charter, Georgia, serif; letter-spacing: -.01em; }
+  .role { margin: 2.5mm 0 4mm; font-weight: 600; font-size: 9.4pt; letter-spacing: 0; color: var(--accent); }
+  h2, .role { font-family: "Helvetica Neue", Helvetica, sans-serif; }
+  h2 { font-weight: 600; font-size: 8.8pt; letter-spacing: 0; color: var(--accent); margin: 4.2mm 0 1.6mm; }
+  main h2 { border-bottom: 1px solid var(--rule); padding-bottom: 1.2mm; }
+  aside h2:first-of-type { margin-top: 0; }
+  aside h2 { margin-top: 3.6mm; }
+  aside h3 { margin-top: 1.4mm; }
+  h3 { font-weight: 600; font-size: 8.4pt; color: var(--muted); margin: 2mm 0 .5mm; }
+  aside p, aside li { list-style: none; margin-bottom: .6mm; }
+  aside a { color: inherit; text-decoration: none; }
+  .summary { color: #33332f; }
+  .nums { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2mm; margin-top: 3.5mm; }
+  .nums div { border: 1px solid var(--rule); border-radius: 2mm; padding: 1.8mm 2.2mm; }
+  .nums b { display: block; font: 700 13pt/1.1 Charter, Georgia, serif; color: var(--accent); }
+  .nums span { font-size: 7.6pt; color: var(--muted); }
+  .job { margin-bottom: 2.6mm; }
+  .job-head { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; }
+  .job-head h4 { font: 700 12pt/1.2 Charter, Georgia, serif; }
+  .when { color: var(--muted); white-space: nowrap; }
+  .org { color: var(--accent); font-weight: 500; margin: .4mm 0 1.2mm; }
+  ul.b { padding-left: 4mm; }
+  ul.b li { margin-bottom: .5mm; }
+  .tools { margin-top: 1mm; color: var(--muted); font-size: 8.2pt; }
+  .early { margin-bottom: 2mm; }
+  .early .job-head { font-size: 8.9pt; }
+  .early .job-head b { font-weight: 600; }
+  .early .job-head span.org2 { color: var(--muted); }
+</style>
+</head>
+<body>
+<aside>
+  <img class="photo" src="../assets/marko.jpg" alt="Marko Lošić">
+
+  <h2>CONTACT</h2>
+  <ul>
+    <li>Banja Luka, Bosnia and Herzegovina</li>
+    <li>+387 63 759 197</li>
+    <li><a href="mailto:markolosic1993@gmail.com">markolosic1993@gmail.com</a></li>
+    <li><a href="https://markolosic.github.io/">markolosic.github.io</a></li>
+    <li><a href="https://www.linkedin.com/in/markolo%C5%A1i%C4%87/">linkedin.com/in/markološić</a></li>
+    <li><a href="https://github.com/MarkoLosic">github.com/MarkoLosic</a></li>
+  </ul>
+
+  <h2>SKILLS</h2>
+  <h3>Testing</h3>
+  <ul>
+    <li>Manual and automated testing</li>
+    <li>Web, mobile and browser extension testing</li>
+    <li>Test planning, strategy and case design</li>
+    <li>Functional, integration and regression testing</li>
+    <li>REST API testing</li>
+  </ul>
+  <h3>Automation</h3>
+  <p>Playwright, Maestro, Cypress, TypeScript, Page Object Model, Postman</p>
+  <h3>CI/CD and tooling</h3>
+  <p>Jenkins, GitHub Actions, Docker, Git, Bitbucket</p>
+  <h3>AI</h3>
+  <p>LLM testing, automated prompt suites, AI-assisted test design</p>
+  <h3>Collaboration</h3>
+  <p>Jira, Figma, Agile, Scrum</p>
+  <h3>Development</h3>
+  <p>Oracle APEX, SQL, PL/SQL</p>
+  <h3>Platforms</h3>
+  <p>Windows, Linux, macOS</p>
+
+  <h2>EDUCATION</h2>
+  <p><b>University of Banja Luka</b></p>
+  <p>Bachelor's degree, Elementary School Teacher</p>
+  <p style="color:var(--muted)">2012 – 2019</p>
+
+  <h2>TRAINING</h2>
+  <p><b>True North program</b></p>
+  <p>Completed the training · Program trainer</p>
+
+  <h2>LANGUAGES</h2>
+  <p><b>English</b> · C1 (Advanced), used daily</p>
+
+</aside>
+
+<main>
+  <h1>Marko Lošić</h1>
+  <p class="role">MID-LEVEL QA ENGINEER · TEST AUTOMATION</p>
+  <p class="summary">QA Engineer with 6+ years of experience in manual and automated testing of web applications, mobile applications and browser extensions. Automates web tests in Playwright (TypeScript, Page Object Model) and mobile flows in Maestro, with earlier Cypress experience, and runs suites in Jenkins and GitHub Actions CI/CD pipelines. Also tests local LLMs and develops database-driven applications in Oracle APEX with SQL and PL/SQL.</p>
+  <div class="nums">
+    <div><b>6+</b><span>Years in QA</span></div>
+    <div><b>1000+</b><span>Releases tested</span></div>
+    <div><b>500+</b><span>Automated tests</span></div>
+    <div><b>50+</b><span>Products covered</span></div>
+  </div>
+
+  <h2>EXPERIENCE</h2>
+  <div class="job">
+    <div class="job-head"><h4>Mid-level QA Engineer</h4><span class="when">Jun 2022 – Present</span></div>
+    <p class="org">Bravo System · Banja Luka</p>
+    <ul class="b">
+      <li>Cut regression testing on the Biolink platform from a full day to about 30 minutes by building and maintaining an automated Playwright suite.</li>
+      <li>Automate mobile app flows with Maestro across several projects, including the Biolink platform.</li>
+      <li>Test local LLMs that analyse analytics data on two projects, combining an automated suite of 100 prompts with manual testing.</li>
+      <li>Manually test web applications, mobile applications and browser extensions to ensure high quality across releases.</li>
+      <li>Work with cross-functional teams to define test requirements, write test plans and execute test cases.</li>
+      <li>Perform thorough testing and debugging to identify defects and ensure smooth functionality.</li>
+    </ul>
+    <p class="tools">Playwright · Maestro · TypeScript · LLM testing</p>
+  </div>
+  <div class="job">
+    <div class="job-head"><h4>QA Engineer &amp; Oracle APEX Developer</h4><span class="when">Jan 2020 – Jun 2022</span></div>
+    <p class="org">Krajina Klas · Banja Luka</p>
+    <ul class="b">
+      <li>Built the team's QA process from the ground up.</li>
+      <li>Introduced test automation to the team with Cypress, moving repetitive regression checks from manual runs to automated suites.</li>
+      <li>Performed functional, integration and regression testing to ensure application reliability and stability.</li>
+      <li>Contributed insights and suggestions during development to improve software quality.</li>
+      <li>Designed and developed database-driven applications in Oracle APEX.</li>
+    </ul>
+    <p class="tools">Cypress · Oracle APEX · SQL · PL/SQL</p>
+  </div>
+
+  <h2>EARLIER EXPERIENCE</h2>
+  <div class="early">
+    <div class="job-head"><span><b>Category Manager</b> <span class="org2">· Tropic, Banja Luka</span></span><span class="when">May 2019 – Jan 2020</span></div>
+    <p>Managed the technical and electrical product category: product selection, pricing, inventory and supplier negotiations, backed by market research.</p>
+  </div>
+  <div class="early">
+    <div class="job-head"><span><b>School Teacher</b> <span class="org2">· OŠ Grahovo, Bosansko Grahovo</span></span><span class="when">May 2018 – May 2019</span></div>
+    <p>Planned and delivered engaging lessons for first-grade students.</p>
+  </div>
+  <div class="early">
+    <div class="job-head"><span><b>Technical Support Agent</b> <span class="org2">· Telemach, Banja Luka</span></span><span class="when">May 2014 – May 2018</span></div>
+    <p>Supported internet and EON application users with troubleshooting, and led a team of support agents.</p>
+  </div>
+
+  <h2>INTERESTS</h2>
+  <p>Marathon running, photography, guitar, hiking and camping.</p>
+</main>
+</body>
+</html>

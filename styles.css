@@ -218,6 +218,8 @@ h3 { font-family: var(--font-head); letter-spacing: -.01em; }
 .feature-head .mini { margin: 2px 0 0; font-size: 13.5px; }
 .badge { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: var(--surface-2); font-size: 22px; }
 .feature-lede { max-width: 800px; color: var(--muted); font-size: 16px; }
+.feature-more { color: var(--accent); font-weight: 500; white-space: nowrap; }
+.feature-more:hover { text-decoration: underline; }
 .feature .split { border-top: 0; margin-top: 18px; padding-top: 0; }
 .chips span.hl { border-color: color-mix(in srgb, var(--accent) 45%, transparent); background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); }
 
@@ -250,6 +252,7 @@ h3 { font-family: var(--font-head); letter-spacing: -.01em; }
 .card > p { color: var(--muted); font-size: 15px; margin-top: 10px; }
 .card > .place { margin: 4px 0 0; }
 .card > .place + p { margin-top: 14px; }
+.edu-grid { grid-template-columns: repeat(2, 1fr); }
 .edu-grid .chips { margin-top: 16px; }
 .edu-grid .chips span { font-size: 13px; }
 
