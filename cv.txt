@@ -1,6 +1,6 @@
 # Marko Lošić
 
-Mid-level QA Engineer · Test Automation
+Senior QA Engineer · Test Automation
 Banja Luka, Bosnia and Herzegovina
 
 - Email: markolosic1993@gmail.com
@@ -22,15 +22,13 @@ QA Engineer with 6+ years of experience in manual and automated testing of web a
 
 ## Experience
 
-### Mid-level QA Engineer, Bravo System, Banja Luka
+### Senior QA Engineer, Bravo System, Banja Luka
 Jun 2022 – Present
 
-- Cut regression testing on the Biolink platform from a full day to about 30 minutes by building and maintaining an automated Playwright suite.
+- Cut regression testing on the Biolink platform from a full day to about 30 minutes by building and maintaining an automated Playwright suite (TypeScript, Page Object Model) that runs in Docker on every pull request via GitHub Actions; on other projects, suites run in Jenkins pipelines.
 - Automate mobile app flows with Maestro across several projects, including the Biolink platform.
 - Test local LLMs that analyse analytics data on two projects, combining an automated suite of 100 prompts with manual testing.
 - Manually test web applications, mobile applications and browser extensions to ensure high quality across releases.
-- Work with cross-functional teams to define test requirements, write test plans and execute test cases.
-- Perform thorough testing and debugging to identify defects and ensure smooth functionality.
 
 Tools: Playwright, Maestro, TypeScript, JavaScript
 
@@ -50,6 +48,14 @@ Tools: Cypress, Oracle APEX, SQL, PL/SQL
 - Category Manager, Tropic, Banja Luka (May 2019 – Jan 2020): managed the technical and electrical product category: product selection, pricing, inventory and supplier negotiations, backed by market research.
 - School Teacher, OŠ Grahovo, Bosansko Grahovo (May 2018 – May 2019): planned and delivered engaging lessons for first-grade students.
 - Technical Support Agent, Telemach, Banja Luka (May 2014 – May 2018): supported internet and EON application users with troubleshooting, and led a team of support agents.
+
+## Writing
+
+Writes about test automation and QA at https://markolosic.github.io/blog/ (15+ articles). Selected posts:
+
+- Asserting Too Early: The Quiet Source of Flaky Playwright Tests: https://markolosic.github.io/blog/asserting-too-early-flaky-playwright-tests/
+- Testing Idempotency: How to Catch Duplicate-Charge Bugs Before Your Users Do: https://markolosic.github.io/blog/testing-idempotency-duplicate-charges/
+- Risk-Based Testing: How to Decide What to Test First When You Can't Test Everything: https://markolosic.github.io/blog/risk-based-testing-prioritization/
 
 ## Skills
 

@@ -1,6 +1,6 @@
 # Marko Lošić
 
-> QA Engineer based in Banja Luka, Bosnia and Herzegovina, with 6+ years in manual and automated testing of web apps, mobile apps and browser extensions. Currently Mid-level QA Engineer at Bravo System (Playwright, Maestro, TypeScript, JavaScript, LLM testing); previously QA Engineer & Oracle APEX Developer at Krajina Klas (Cypress).
+> QA Engineer based in Banja Luka, Bosnia and Herzegovina, with 6+ years in manual and automated testing of web apps, mobile apps and browser extensions. Currently Senior QA Engineer at Bravo System (Playwright, Maestro, TypeScript, JavaScript, LLM testing); previously QA Engineer & Oracle APEX Developer at Krajina Klas (Cypress).
 
 Highlights: cut regression testing on the Biolink platform from a full day to about 30 minutes; 1000+ releases tested, 500+ automated tests, 50+ products covered; tests local LLMs with an automated suite of 100 prompts plus manual testing.
 
@@ -19,5 +19,8 @@ Contact: markolosic1993@gmail.com · +387 63 759 197
 
 ## Optional
 
-- [Blog](https://markolosic.github.io/blog/): articles on QA, test automation, mobile and AI testing
+- [Blog](https://markolosic.github.io/blog/): 15+ articles on QA, test automation, mobile and AI testing
+- [Asserting Too Early: The Quiet Source of Flaky Playwright Tests](https://markolosic.github.io/blog/asserting-too-early-flaky-playwright-tests/)
+- [Testing Idempotency: How to Catch Duplicate-Charge Bugs Before Your Users Do](https://markolosic.github.io/blog/testing-idempotency-duplicate-charges/)
+- [Risk-Based Testing: How to Decide What to Test First When You Can't Test Everything](https://markolosic.github.io/blog/risk-based-testing-prioritization/)
 - [RSS](https://markolosic.github.io/rss.xml)
