@@ -104,6 +104,6 @@
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
   menu.addEventListener('click', () => menu.setAttribute('aria-expanded', links.classList.toggle('open')));
-  document.addEventListener('click', e => { if (!nav.contains(e.target)) links.classList.remove('open'); });
+  document.addEventListener('click', e => { if (!nav.contains(e.target)) { links.classList.remove('open'); menu.setAttribute('aria-expanded', 'false'); } });
   $('#year').textContent = new Date().getFullYear();
 })();

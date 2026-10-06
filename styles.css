@@ -164,6 +164,9 @@ h1 span { display: inline; }
 
 /* Section heads */
 .sec-head { margin-bottom: 44px; }
+main { counter-reset: sec; }
+main > section.section:not([hidden]) { counter-increment: sec; }
+.sec-num::before { content: counter(sec, decimal-leading-zero) " — "; }
 .eyebrow { display: inline-block; margin-bottom: 14px; font: 500 13px var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
 h2 { font: 700 clamp(30px, 4.4vw, 50px)/1.1 var(--font-head); letter-spacing: -.03em; max-width: 780px; }
 h3 { font-family: var(--font-head); letter-spacing: -.01em; }

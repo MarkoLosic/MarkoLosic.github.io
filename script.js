@@ -176,8 +176,9 @@
     const open = links.classList.toggle('open');
     menu.setAttribute('aria-expanded', open);
   });
-  linkEls.forEach(a => a.addEventListener('click', () => { links.classList.remove('open'); menu.setAttribute('aria-expanded', 'false'); }));
-  document.addEventListener('click', e => { if (!nav.contains(e.target)) links.classList.remove('open'); });
+  const closeMenu = () => { links.classList.remove('open'); menu.setAttribute('aria-expanded', 'false'); };
+  linkEls.forEach(a => a.addEventListener('click', closeMenu));
+  document.addEventListener('click', e => { if (!nav.contains(e.target)) closeMenu(); });
 
   /* ---------- Reveal on scroll ---------- */
   const io = new IntersectionObserver(entries => {
