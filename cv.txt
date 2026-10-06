@@ -11,7 +11,7 @@ Banja Luka, Bosnia and Herzegovina
 
 ## Summary
 
-QA Engineer with 6+ years of experience in manual and automated testing of web applications, mobile applications and browser extensions. Automates web tests in Playwright (TypeScript, Page Object Model) and mobile flows in Maestro, with earlier Cypress experience, and runs suites in Jenkins and GitHub Actions CI/CD pipelines. Also tests local LLMs and develops database-driven applications in Oracle APEX with SQL and PL/SQL.
+QA Engineer with 6+ years of experience in manual and automated testing of web applications, mobile applications and browser extensions. Automates web tests in Playwright (TypeScript, JavaScript, Page Object Model) and mobile flows in Maestro, with earlier Cypress experience, and runs suites in Jenkins and GitHub Actions CI/CD pipelines. Also tests local LLMs and develops database-driven applications in Oracle APEX with SQL and PL/SQL.
 
 ## Key numbers
 
@@ -32,7 +32,7 @@ Jun 2022 – Present
 - Work with cross-functional teams to define test requirements, write test plans and execute test cases.
 - Perform thorough testing and debugging to identify defects and ensure smooth functionality.
 
-Tools: Playwright, Maestro, TypeScript
+Tools: Playwright, Maestro, TypeScript, JavaScript
 
 ### QA Engineer & Oracle APEX Developer, Krajina Klas, Banja Luka
 Jan 2020 – Jun 2022
@@ -54,7 +54,7 @@ Tools: Cypress, Oracle APEX, SQL, PL/SQL
 ## Skills
 
 - Testing: manual and automated testing; web, mobile and browser extension testing; test planning, strategy and test case design; functional, integration and regression testing; exploratory testing; REST API testing
-- Automation: Playwright, Maestro, Cypress, TypeScript, Page Object Model, Postman
+- Automation: Playwright, Maestro, Cypress, TypeScript, JavaScript, Page Object Model, Postman
 - CI/CD and tooling: Jenkins, GitHub Actions, Docker, Git, Bitbucket
 - AI: LLM testing (correctness, consistency, safety), automated prompt suites, AI-assisted test design and automation
 - Collaboration: Jira, Figma, Agile, Scrum

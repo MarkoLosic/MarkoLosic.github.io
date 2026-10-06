@@ -59,7 +59,7 @@
     sk2_d: 'Alati kojima planiram, automatizujem, pratim i isporučujem.',
     o1_h: 'Automatizacija i API',
     o2_h: 'Saradnja i okruženja',
-    o1_1: 'Playwright i Cypress end-to-end testovi u pretraživaču, pisani u TypeScript-u i organizovani po Page Object Model obrascu.',
+    o1_1: 'Playwright i Cypress end-to-end testovi u pretraživaču, pisani u TypeScript-u i JavaScript-u i organizovani po Page Object Model obrascu.',
     o1_2: 'Maestro za automatizaciju tokova u mobilnim aplikacijama.',
     o1_3: 'Postman za testiranje REST API-ja i provjeru odgovora backenda.',
     o1_4: 'Jenkins i GitHub Actions CI/CD pipeline-ovi za automatsko pokretanje testnih skupova.',
