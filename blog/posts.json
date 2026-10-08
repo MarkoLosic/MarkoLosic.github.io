@@ -1,5 +1,21 @@
 [
   {
+    "slug": "sharding-tests-github-actions",
+    "title": "Splitting a Slow Test Suite Across GitHub Actions Without Losing Signal",
+    "titleSr": "Kako podijeliti spor skup testova na GitHub Actions, a ne izgubiti signal",
+    "excerpt": "How matrix-based test sharding in GitHub Actions actually works, a real-world speedup example, and the specific ways it can quietly hide failures.",
+    "excerptSr": "Kako sharding testova preko matrice u GitHub Actions zapravo radi, primjer ubrzanja iz prakse, i konkretni načini na koje može tiho da sakrije padove.",
+    "tags": [
+      "qa",
+      "test-automation",
+      "ci-cd",
+      "github-actions",
+      "playwright"
+    ],
+    "date": "2026-10-08",
+    "readingTime": 5
+  },
+  {
     "slug": "maestro-mobile-test-automation",
     "title": "Writing Reliable Mobile Test Automation with Maestro: A Practical Guide",
     "titleSr": "Pouzdana automatizacija testiranja mobilnih aplikacija uz Maestro: praktični vodič",
