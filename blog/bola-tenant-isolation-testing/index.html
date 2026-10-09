@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Testing for Broken Object-Level Authorization: The Access Check Most Test Suites Never Try — Marko Lošić</title>
+  <meta name="description" content="Why functional tests routinely miss the authorization bug that lets one customer see or change another's data, and how to test for it deliberately.">
+  <link rel="canonical" href="https://markolosic.github.io/blog/bola-tenant-isolation-testing/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Testing for Broken Object-Level Authorization: The Access Check Most Test Suites Never Try — Marko Lošić">
+  <meta property="og:description" content="Why functional tests routinely miss the authorization bug that lets one customer see or change another's data, and how to test for it deliberately.">
+  <meta property="og:url" content="https://markolosic.github.io/blog/bola-tenant-isolation-testing/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/bola-tenant-isolation-testing.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Testing for Broken Object-Level Authorization: The Access Check Most Test Suites Never Try — Marko Lošić">
+  <meta name="twitter:description" content="Why functional tests routinely miss the authorization bug that lets one customer see or change another's data, and how to test for it deliberately.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/bola-tenant-isolation-testing.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Testing for Broken Object-Level Authorization: The Access Check Most Test Suites Never Try","description":"Why functional tests routinely miss the authorization bug that lets one customer see or change another's data, and how to test for it deliberately.","image":"https://markolosic.github.io/assets/blog/bola-tenant-isolation-testing.jpg","url":"https://markolosic.github.io/blog/bola-tenant-isolation-testing/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/bola-tenant-isolation-testing/"},"datePublished":"2026-10-09","dateModified":"2026-10-09T00:00:00.000Z","keywords":"qa, api-testing, security-testing, multi-tenant","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
+  <meta property="article:published_time" content="2026-10-09">
+  <meta property="article:modified_time" content="2026-10-09T00:00:00.000Z">
+  <meta name="goatcounter-code" content="markolosic">
+  <script data-goatcounter="https://markolosic.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2307090d'/%3E%3Cpath d='M16 34l11 11 21-26' fill='none' stroke='%2334d399' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#about" data-i18n="nav_about">About</a>
+      <a href="../../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../../blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> <span data-i18n="all_posts">All posts</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-10-09" data-fmt="long">9 October 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span><span>·</span><span class="views" id="views" hidden><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg><span id="views-num"></span></span></div>
+        <h1 data-title-sr="Testiranje Broken Object-Level Authorization: provjera pristupa koju većina test skupova nikad ne proba">Testing for Broken Object-Level Authorization: The Access Check Most Test Suites Never Try</h1>
+        <p class="lead" data-excerpt-sr="Zašto funkcionalni testovi redovno propuštaju bug u autorizaciji koji jednom korisniku dozvoljava da vidi ili mijenja tuđe podatke, i kako ga namjerno testirati.">Why functional tests routinely miss the authorization bug that lets one customer see or change another's data, and how to test for it deliberately.</p>
+        <div class="tags"><span>qa</span><span>api-testing</span><span>security-testing</span><span>multi-tenant</span></div>
+      </header>
+      <div class="prose"><p>Most functional test suites for a multi-tenant application only ever log in as one account at a time. Every test confirms that a user can see their own projects, their own invoices, their own messages. What almost none of them confirm is that the same user <em>cannot</em> see someone else's — and that gap is exactly where one of the most common, most damaging API bugs lives.</p>
+<p><img src="../../assets/blog/bola-tenant-isolation-testing.jpg" alt="Illustration of a multi-tenant API: User A successfully reads their own task with GET /api/tasks/4821, while User B sends GET and DELETE requests for the same task and breaks through a cracked tenant-isolation wall flagged as a BOLA vulnerability" loading="lazy"></p>
+<p>The bug has a name: Broken Object Level Authorization, or BOLA (also called Insecure Direct Object Reference, or IDOR). It sits at the top of the OWASP API Security Top 10, and it happens whenever a server checks that a request is authenticated but not that the caller actually owns the object being requested. The fix sounds trivial once you say it out loud — &quot;check ownership before returning the object&quot; — which is exactly why it keeps shipping anyway: nothing in a normal functional test run ever exercises the failure.</p>
+<h2 id="what-this-looks-like-in-practice">What this looks like in practice</h2>
+<p>Imagine a team building a project-management SaaS product. A task lives at an endpoint like <code>GET /api/tasks/4821</code>. The endpoint correctly requires a valid session token, so an anonymous request is rejected. QA's test suite logs in as a test user, creates a task, fetches it back, edits it, deletes it — every one of those tests passes, and the feature ships. Nobody wrote a test that logs in as a <em>second</em> user and requests task <code>4821</code> by ID. If the endpoint pulls the task straight from the database by its ID without also checking that the task's tenant matches the caller's tenant, that second user gets someone else's task back, in full, with a 200 response.</p>
+<p>This isn't a hypothetical failure mode. Research from APIsec Labs that reviewed 84 confirmed BOLA reports submitted through HackerOne between 2021 and 2026 found that direct object reference bugs like this one, plus a related pattern where an attacker performs a state-changing action on someone else's object, together accounted for nearly four out of five of the cases studied. The same research found that mutating requests — edits, deletes, state changes — made up close to half of all reported cases, which matters because a read-only test suite (the kind most teams have) only ever exercises the smaller half of the problem. Real incidents follow the same shape: a Nextcloud API for setting out-of-office status returned another user's private data when the username in the request was swapped, and a Mozilla account-deletion endpoint accepted a victim's email address under the attacker's own valid session because the session was never bound to the account being deleted.</p>
+<h2 id="a-test-that-actually-checks-this">A test that actually checks this</h2>
+<p>The fix for testing BOLA isn't a new tool — it's a second account. Any test that reads, writes, or deletes an object identified by an ID should run once as the object's owner (expected to succeed) and once as a different, unrelated account (expected to fail with a 403 or 404, never a 200).</p>
+<pre><code class="lang-python">def test_cannot_read_another_tenants_task(owner_client, other_client):
+    task = owner_client.post(&quot;/api/tasks&quot;, json={&quot;title&quot;: &quot;Renew contract&quot;}).json()
+    task_id = task[&quot;id&quot;]
+
+    # Owner can read their own task.
+    assert owner_client.get(f&quot;/api/tasks/{task_id}&quot;).status_code == 200
+
+    # A different, authenticated user must not be able to.
+    resp = other_client.get(f&quot;/api/tasks/{task_id}&quot;)
+    assert resp.status_code in (403, 404)
+
+def test_cannot_delete_another_tenants_task(owner_client, other_client):
+    task = owner_client.post(&quot;/api/tasks&quot;, json={&quot;title&quot;: &quot;Renew contract&quot;}).json()
+    task_id = task[&quot;id&quot;]
+
+    resp = other_client.delete(f&quot;/api/tasks/{task_id}&quot;)
+    assert resp.status_code in (403, 404)
+
+    # The task must still exist for its actual owner.
+    assert owner_client.get(f&quot;/api/tasks/{task_id}&quot;).status_code == 200</code></pre>
+<p>A useful way to scale this without writing it by hand for every endpoint is to build a small matrix: every endpoint that takes an object ID, crossed with read, update, and delete, crossed with &quot;same owner&quot; and &quot;different owner.&quot; Generate the cross-account cases from the same fixtures you already use for the happy-path tests, so the ownership check gets exercised everywhere the object ID appears, including secondary routes like <code>/api/projects/{id}/tasks/{task_id}</code> that are easy to forget when the main <code>/api/tasks/{id}</code> route is already covered.</p>
+<h2 id="pitfalls-and-limits">Pitfalls and limits</h2>
+<p>A couple of habits create false confidence here. Switching from sequential numeric IDs to UUIDs feels like it fixes the problem, but it only removes the easy enumeration path — it does nothing if the ID is still returned to the user anywhere (a URL, an export file, a webhook payload) and the server still skips the ownership check. The APIsec research is explicit that this is a mitigation, not a fix.</p>
+<p>Testing only the &quot;obvious&quot; owning user and the clearly unrelated attacker also misses a real slice of cases. In the same dataset, roughly one in eight confirmed BOLA bugs were vertical rather than horizontal — a standard user acting on an admin-owned object, as happened when a Nextcloud user with normal privileges was able to delete an admin's storage configuration. A test matrix built only around &quot;two peer users&quot; won't catch that; it needs a role dimension too.</p>
+<p>Automated security scanners are a weaker safety net here than most teams assume, because object ownership is a business-logic concept, not a pattern a generic scanner can infer from the API's shape — it has to be encoded into the test as &quot;this ID belongs to this account,&quot; which only a team that understands the data model can write. And object lifecycle states are easy to skip: an object that's been archived, soft-deleted, or deactivated sometimes loses its authorization check along with its visible status, which is its own gap worth testing deliberately rather than assuming the same check still applies.</p>
+<h2 id="what-to-do-next">What to do next</h2>
+<p>Pick your three or four highest-traffic endpoints that return an object by ID, and add the paired same-owner/different-owner test to each one this week — both a read and a mutating request, not just a read. Extend your test fixtures so every suite that creates a test user also creates a second, unrelated one by default, so cross-account testing is cheap to add everywhere else. Add at least one vertical case (a standard-role user attempting an admin-owned object) alongside the horizontal ones. Finally, check how your object IDs leak: if any of them show up in exported files, webhook payloads, or shareable links, treat that as a reason to test the ownership check there too, not a reason to assume UUIDs already cover it.</p>
+<h2 id="sources">Sources</h2>
+<ul><li><a href="https://labs.apisec.ai/research/articles/bola-object-level-auth-analysis" target="_blank" rel="noopener noreferrer">What 100+ BOLA Reports Taught Us About Where Object-Level Authorization Actually Fails</a>, APIsec Labs</li><li><a href="http://www.indusface.com/learning/owasp-api-top-10-broken-object-level-authorization/" target="_blank" rel="noopener noreferrer">OWASP API Top 10: Broken Object Level Authorization</a>, Indusface</li></ul></div>
+      <template id="prose-sr"><p>Većina funkcionalnih test skupova za multi-tenant aplikaciju se uvijek prijavljuje kao samo jedan nalog. Svaki test potvrđuje da korisnik vidi svoje projekte, svoje fakture, svoje poruke. Ono što skoro nijedan ne potvrđuje jeste da taj isti korisnik <em>ne može</em> da vidi tuđe — a upravo u toj rupi živi jedan od najčešćih i najštetnijih API bugova.</p>
+<p><img src="../../assets/blog/bola-tenant-isolation-testing.jpg" alt="Ilustracija multi-tenant API-ja: User A uspješno čita svoj task preko GET /api/tasks/4821, dok User B šalje GET i DELETE zahtjeve za isti task i probija napukli zid izolacije tenanta, označen kao BOLA ranjivost" loading="lazy"></p>
+<p>Taj bug ima ime: Broken Object Level Authorization, ili BOLA (poznat i kao Insecure Direct Object Reference, ili IDOR). Nalazi se na vrhu OWASP API Security Top 10 liste, a javlja se kad god server provjeri da je zahtjev autentifikovan, ali ne i da onaj ko ga šalje zaista posjeduje traženi objekat. Rješenje zvuči trivijalno kad se izgovori naglas — &quot;provjeri vlasništvo prije nego što vratiš objekat&quot; — i upravo zato i dalje stiže u produkciju: ništa u uobičajenom funkcionalnom testiranju nikad ne izazove taj otkaz.</p>
+<h2 id="kako-to-izgleda-u-praksi">Kako to izgleda u praksi</h2>
+<p>Zamislite tim koji pravi SaaS proizvod za upravljanje projektima. Task se nalazi na endpoint-u poput <code>GET /api/tasks/4821</code>. Endpoint ispravno zahtijeva validan session token, pa se anonimni zahtjev odbija. QA test skup se prijavi kao test korisnik, kreira task, učita ga, izmijeni ga, obriše ga — svaki od tih testova prolazi i funkcionalnost ide u produkciju. Niko nije napisao test koji se prijavi kao <em>drugi</em> korisnik i zatraži task <code>4821</code> po ID-ju. Ako endpoint povuče task direktno iz baze po ID-ju, a ne provjeri i da li se tenant tog taska poklapa sa tenantom pozivaoca, taj drugi korisnik dobije tuđi task, kompletan, sa odgovorom 200.</p>
+<p>Ovo nije hipotetički scenario. Istraživanje APIsec Labs-a, koje je analiziralo 84 potvrđene BOLA prijave podnesene preko HackerOne-a između 2021. i 2026. godine, pokazalo je da su bugovi direktne reference na objekat poput ovog, zajedno sa srodnim obrascem u kojem napadač izvrši akciju koja mijenja stanje tuđeg objekta, činili skoro četiri od pet analiziranih slučajeva. Isto istraživanje je pokazalo da su zahtjevi koji mijenjaju podatke — izmjene, brisanja, promjene stanja — činili skoro polovinu svih prijavljenih slučajeva. To je važno, jer test skup koji samo čita podatke (a takav ima većina timova) pokriva samo manju polovinu problema. Stvarni incidenti imaju isti oblik: Nextcloud API za postavljanje statusa odsutnosti vraćao je privatne podatke drugog korisnika kad se u zahtjevu zamijeni korisničko ime, a Mozilla endpoint za brisanje naloga prihvatao je email adresu žrtve u okviru napadačeve validne sesije, jer sesija nikad nije bila vezana za nalog koji se briše.</p>
+<h2 id="test-koji-ovo-zaista-provjerava">Test koji ovo zaista provjerava</h2>
+<p>Za testiranje BOLA-e ne treba novi alat — treba drugi nalog. Svaki test koji čita, mijenja ili briše objekat identifikovan ID-jem treba da se pokrene jednom kao vlasnik objekta (očekuje se uspjeh) i jednom kao drugi, nepovezan nalog (očekuje se odbijanje sa 403 ili 404, nikad 200).</p>
+<pre><code class="lang-python">def test_cannot_read_another_tenants_task(owner_client, other_client):
+    task = owner_client.post(&quot;/api/tasks&quot;, json={&quot;title&quot;: &quot;Renew contract&quot;}).json()
+    task_id = task[&quot;id&quot;]
+
+    # Vlasnik može da pročita svoj task.
+    assert owner_client.get(f&quot;/api/tasks/{task_id}&quot;).status_code == 200
+
+    # Drugi, autentifikovani korisnik ne smije.
+    resp = other_client.get(f&quot;/api/tasks/{task_id}&quot;)
+    assert resp.status_code in (403, 404)
+
+def test_cannot_delete_another_tenants_task(owner_client, other_client):
+    task = owner_client.post(&quot;/api/tasks&quot;, json={&quot;title&quot;: &quot;Renew contract&quot;}).json()
+    task_id = task[&quot;id&quot;]
+
+    resp = other_client.delete(f&quot;/api/tasks/{task_id}&quot;)
+    assert resp.status_code in (403, 404)
+
+    # Task mora i dalje da postoji za svog stvarnog vlasnika.
+    assert owner_client.get(f&quot;/api/tasks/{task_id}&quot;).status_code == 200</code></pre>
+<p>Koristan način da se ovo skalira, bez ručnog pisanja za svaki endpoint, jeste mala matrica: svaki endpoint koji prima ID objekta, ukršten sa čitanjem, izmjenom i brisanjem, ukršten sa &quot;isti vlasnik&quot; i &quot;drugi vlasnik&quot;. Generišite slučajeve između naloga iz istih fixture-a koje već koristite za happy-path testove, tako da se provjera vlasništva izvrši svuda gdje se ID objekta pojavljuje — uključujući sporedne rute poput <code>/api/projects/{id}/tasks/{task_id}</code>, koje je lako zaboraviti kad je glavna ruta <code>/api/tasks/{id}</code> već pokrivena.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Par navika ovdje stvara lažnu sigurnost. Prelazak sa sekvencijalnih numeričkih ID-jeva na UUID-jeve djeluje kao da rješava problem, ali samo uklanja lak put za nabrajanje (enumeration) — ne pomaže ništa ako se ID i dalje negdje vraća korisniku (u URL-u, export fajlu, webhook payload-u), a server i dalje preskače provjeru vlasništva. APIsec istraživanje eksplicitno kaže da je to ublažavanje, a ne rješenje.</p>
+<p>Testiranje samo &quot;očiglednog&quot; vlasnika i jasno nepovezanog napadača takođe propušta stvaran dio slučajeva. U istom skupu podataka, otprilike jedan od osam potvrđenih BOLA bugova bio je vertikalan, a ne horizontalan — običan korisnik koji djeluje nad objektom koji pripada adminu, kao kad je Nextcloud korisnik sa običnim privilegijama mogao da obriše adminovu konfiguraciju storage-a. Matrica testova napravljena samo oko &quot;dva ravnopravna korisnika&quot; to neće uhvatiti; potrebna joj je i dimenzija uloga.</p>
+<p>Automatski sigurnosni skeneri su ovdje slabija zaštitna mreža nego što većina timova misli, jer je vlasništvo nad objektom koncept poslovne logike, a ne obrazac koji generički skener može da zaključi iz oblika API-ja — mora se upisati u test kao &quot;ovaj ID pripada ovom nalogu&quot;, a to može da napiše samo tim koji razumije model podataka. Lako je preskočiti i stanja životnog ciklusa objekta: objekat koji je arhiviran, soft-delete-ovan ili deaktiviran ponekad izgubi provjeru autorizacije zajedno sa svojim vidljivim statusom, što je posebna rupa koju vrijedi namjerno testirati umjesto pretpostavke da ista provjera i dalje važi.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<p>Izaberite tri ili četiri endpoint-a sa najviše saobraćaja koji vraćaju objekat po ID-ju i ove sedmice svakom dodajte par testova isti vlasnik/drugi vlasnik — i za čitanje i za zahtjev koji mijenja podatke, ne samo za čitanje. Proširite test fixture-e tako da svaki skup koji kreira test korisnika po defaultu kreira i drugog, nepovezanog, kako bi testiranje između naloga bilo jeftino dodati svuda. Pored horizontalnih, dodajte barem jedan vertikalni slučaj (korisnik sa običnom ulogom pokušava pristup objektu koji pripada adminu). I na kraju, provjerite kuda vam cure ID-jevi objekata: ako se neki pojavljuju u export fajlovima, webhook payload-ima ili linkovima za dijeljenje, to je razlog da i tamo testirate provjeru vlasništva, a ne razlog da pretpostavite da UUID-jevi to već pokrivaju.</p>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://labs.apisec.ai/research/articles/bola-object-level-auth-analysis" target="_blank" rel="noopener noreferrer">What 100+ BOLA Reports Taught Us About Where Object-Level Authorization Actually Fails</a>, APIsec Labs</li><li><a href="http://www.indusface.com/learning/owasp-api-top-10-broken-object-level-authorization/" target="_blank" rel="noopener noreferrer">OWASP API Top 10: Broken Object Level Authorization</a>, Indusface</li></ul></template>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    </div>
+    <section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../sharding-tests-github-actions/" data-title-sr="Kako podijeliti spor skup testova na GitHub Actions, a ne izgubiti signal" data-excerpt-sr="Kako sharding testova preko matrice u GitHub Actions zapravo radi, primjer ubrzanja iz prakse, i konkretni načini na koje može tiho da sakrije padove."><div class="meta"><time datetime="2026-10-08" data-fmt="short">8 Oct 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div><h2>Splitting a Slow Test Suite Across GitHub Actions Without Losing Signal</h2><p>How matrix-based test sharding in GitHub Actions actually works, a real-world speedup example, and the specific ways it can quietly hide failures.</p></a>
+      <a class="post-card card glow" href="../maestro-mobile-test-automation/" data-title-sr="Pouzdana automatizacija testiranja mobilnih aplikacija uz Maestro: praktični vodič" data-excerpt-sr="Kako Maestro YAML tokovi pojednostavljuju E2E testiranje mobilnih aplikacija, uz radni primjer login toka i dobre prakse koje ga čine održivim."><div class="meta"><time datetime="2026-10-06" data-fmt="short">6 Oct 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div><h2>Writing Reliable Mobile Test Automation with Maestro: A Practical Guide</h2><p>How Maestro's YAML flows simplify mobile E2E testing, with a working login flow example and the best practices that keep it maintainable.</p></a>
+      <a class="post-card card glow" href="../writing-bug-reports-that-get-fixed/" data-title-sr="Prijava greške kakvu developeri zaista žele: praktični vodič" data-excerpt-sr="Praktična struktura prijave greške koju developer može da reprodukuje i popravi već iz prvog čitanja, uz primjer „prije i poslije&quot;."><div class="meta"><time datetime="2026-10-05" data-fmt="short">5 Oct 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div><h2>The Bug Report Developers Actually Want: A Field Guide</h2><p>A practical structure for bug reports a developer can reproduce and fix on the first read, with a before/after example.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <a href="../../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../../blog/common.js"></script>
+  <script src="../post.js"></script>
+</body>
+</html>

@@ -1,5 +1,20 @@
 [
   {
+    "slug": "bola-tenant-isolation-testing",
+    "title": "Testing for Broken Object-Level Authorization: The Access Check Most Test Suites Never Try",
+    "titleSr": "Testiranje Broken Object-Level Authorization: provjera pristupa koju većina test skupova nikad ne proba",
+    "excerpt": "Why functional tests routinely miss the authorization bug that lets one customer see or change another's data, and how to test for it deliberately.",
+    "excerptSr": "Zašto funkcionalni testovi redovno propuštaju bug u autorizaciji koji jednom korisniku dozvoljava da vidi ili mijenja tuđe podatke, i kako ga namjerno testirati.",
+    "tags": [
+      "qa",
+      "api-testing",
+      "security-testing",
+      "multi-tenant"
+    ],
+    "date": "2026-10-09",
+    "readingTime": 6
+  },
+  {
     "slug": "sharding-tests-github-actions",
     "title": "Splitting a Slow Test Suite Across GitHub Actions Without Losing Signal",
     "titleSr": "Kako podijeliti spor skup testova na GitHub Actions, a ne izgubiti signal",
