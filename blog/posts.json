@@ -1,5 +1,21 @@
 [
   {
+    "slug": "checkmk-synthetic-monitoring-for-qa",
+    "title": "Keep Your Tests Running After Release: Checkmk Synthetic Monitoring for QA Teams",
+    "titleSr": "Neka testovi rade i poslije objave: Checkmk Synthetic Monitoring za QA timove",
+    "excerpt": "How QA teams can turn Robot Framework tests into continuous production checks with Checkmk, plus the pitfalls to plan for.",
+    "excerptSr": "Kako QA timovi mogu da pretvore Robot Framework testove u stalne provjere produkcije uz Checkmk, i na koje zamke treba računati.",
+    "tags": [
+      "qa",
+      "test-automation",
+      "synthetic-monitoring",
+      "robot-framework",
+      "observability"
+    ],
+    "date": "2026-10-12",
+    "readingTime": 6
+  },
+  {
     "slug": "qa-metrics-that-matter",
     "title": "The QA Metrics That Actually Predict Quality (and the Ones That Don't)",
     "titleSr": "QA metrike koje zaista predviđaju kvalitet (i one koje ne predviđaju)",

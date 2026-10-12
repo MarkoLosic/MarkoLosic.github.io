@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Keep Your Tests Running After Release: Checkmk Synthetic Monitoring for QA Teams — Marko Lošić</title>
+  <meta name="description" content="How QA teams can turn Robot Framework tests into continuous production checks with Checkmk, plus the pitfalls to plan for.">
+  <link rel="canonical" href="https://markolosic.github.io/blog/checkmk-synthetic-monitoring-for-qa/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Keep Your Tests Running After Release: Checkmk Synthetic Monitoring for QA Teams — Marko Lošić">
+  <meta property="og:description" content="How QA teams can turn Robot Framework tests into continuous production checks with Checkmk, plus the pitfalls to plan for.">
+  <meta property="og:url" content="https://markolosic.github.io/blog/checkmk-synthetic-monitoring-for-qa/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/checkmk-synthetic-monitoring-for-qa.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Keep Your Tests Running After Release: Checkmk Synthetic Monitoring for QA Teams — Marko Lošić">
+  <meta name="twitter:description" content="How QA teams can turn Robot Framework tests into continuous production checks with Checkmk, plus the pitfalls to plan for.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/checkmk-synthetic-monitoring-for-qa.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Keep Your Tests Running After Release: Checkmk Synthetic Monitoring for QA Teams","description":"How QA teams can turn Robot Framework tests into continuous production checks with Checkmk, plus the pitfalls to plan for.","image":"https://markolosic.github.io/assets/blog/checkmk-synthetic-monitoring-for-qa.jpg","url":"https://markolosic.github.io/blog/checkmk-synthetic-monitoring-for-qa/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/checkmk-synthetic-monitoring-for-qa/"},"datePublished":"2026-10-12","dateModified":"2026-10-12T00:00:00.000Z","keywords":"qa, test-automation, synthetic-monitoring, robot-framework, observability","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
+  <meta property="article:published_time" content="2026-10-12">
+  <meta property="article:modified_time" content="2026-10-12T00:00:00.000Z">
+  <meta name="goatcounter-code" content="markolosic">
+  <script data-goatcounter="https://markolosic.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2307090d'/%3E%3Cpath d='M16 34l11 11 21-26' fill='none' stroke='%2334d399' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#about" data-i18n="nav_about">About</a>
+      <a href="../../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../../blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> <span data-i18n="all_posts">All posts</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-10-12" data-fmt="long">12 October 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span><span>·</span><span class="views" id="views" hidden><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg><span id="views-num"></span></span></div>
+        <h1 data-title-sr="Neka testovi rade i poslije objave: Checkmk Synthetic Monitoring za QA timove">Keep Your Tests Running After Release: Checkmk Synthetic Monitoring for QA Teams</h1>
+        <p class="lead" data-excerpt-sr="Kako QA timovi mogu da pretvore Robot Framework testove u stalne provjere produkcije uz Checkmk, i na koje zamke treba računati.">How QA teams can turn Robot Framework tests into continuous production checks with Checkmk, plus the pitfalls to plan for.</p>
+        <div class="tags"><span>qa</span><span>test-automation</span><span>synthetic-monitoring</span><span>robot-framework</span><span>observability</span></div>
+      </header>
+      <div class="prose"><p>Picture a regression suite that passes on Friday. The release goes out, and on Sunday the login flow breaks because a third-party identity provider changes something. No test runs on Sunday, so the first signal is a support ticket. Most test suites stop at the deployment gate, while the riskiest period for a user journey is everything that happens after it. Checkmk offers one way to keep a small set of your end-to-end tests running against production and to treat their failures like any other operational alert.</p>
+<p><img src="../../assets/blog/checkmk-synthetic-monitoring-for-qa.jpg" alt="Synthetic monitoring: a Robot Framework login test feeding continuous production checks" loading="lazy"></p>
+<h2 id="what-checkmk-is-from-a-tester-s-point-of-view">What Checkmk is, from a tester's point of view</h2>
+<p>Checkmk is a monitoring and observability platform for hybrid environments: servers, networks, databases, cloud workloads, Kubernetes and applications, with a catalog of more than 2,000 integrations. There is a free, open-source Community edition aimed at smaller setups (roughly up to 100 hosts) and several commercial editions.</p>
+<p>For QA work, three parts are relevant:</p>
+<ul><li><strong>Synthetic Monitoring</strong>, which runs Robot Framework tests on a schedule and reports every test as a monitored service. It is part of the commercial editions and requires an additional subscription.</li><li><strong>Infrastructure context.</strong> When a test fails, you can look at the host, database or network metrics in the same tool instead of guessing.</li><li><strong>Integrations and APIs</strong> for Jira, Slack, ServiceNow and a REST API, so alerts land where your team already works.</li></ul>
+<h2 id="how-the-pieces-fit-together">How the pieces fit together</h2>
+<p>The flow is straightforward once you see it:</p>
+<ol><li>You write a test suite in Robot Framework.</li><li>On a test node (Linux or Windows), the <strong>Robotmk scheduler</strong> builds an isolated Python environment for the suite and runs it according to a <em>plan</em> that defines the interval and options such as automatic reruns.</li><li>Results are written to the file system and collected by the Robotmk agent plugin.</li><li>In Checkmk, each test appears as a service with an OK, WARN or CRIT state, and you configure everything through the Robotmk scheduler rule and roll it out with the Agent Bakery.</li></ol>
+<p>A detail worth knowing before you start: the first versions used RCC from Robocorp to build environments. Robocorp discontinued RCC in 2024, and the Checkmk documentation recommends the newer CSM/Micromamba approach for new setups. Older tutorials that mention <code>robot.yaml</code> and RCC describe the legacy path.</p>
+<h2 id="a-concrete-example-monitoring-the-login-journey">A concrete example: monitoring the login journey</h2>
+<p>Here is a small suite written with the Robot Framework Browser library. It is deliberately split into user keywords, because that structure pays off later.</p>
+<pre><code class="lang-robotframework">*** Settings ***
+Library        Browser
+Suite Setup    New Browser    chromium    headless=True
+
+*** Variables ***
+${BASE_URL}    https://shop.example.com
+
+*** Test Cases ***
+Customer Can Log In
+    Open Login Page
+    Submit Login
+    Get Text    h1    ==    My account
+
+*** Keywords ***
+Open Login Page
+    New Page    ${BASE_URL}/login
+
+Submit Login
+    Fill Text      id=username    ${MONITOR_USER}
+    Fill Secret    id=password    $MONITOR_PASSWORD
+    Click          button[type=&quot;submit&quot;]</code></pre>
+<p>The credentials come in as variables from outside the suite, so they never live in the repository. <code>Fill Secret</code> keeps the password out of the Robot log.</p>
+<p>Once this runs under Robotmk, Checkmk gives you a service for <code>Customer Can Log In</code> that tracks three things: whether the entry page responds (availability), whether the journey ends with the expected result (functionality), and how long it takes (runtime). You then add thresholds, for example a warning when the whole journey takes longer than a few seconds and a critical state when it fails or takes far longer. The right numbers depend on your baseline, so measure for a week before you commit to them.</p>
+<p>The keyword split matters because of <strong>KPI monitoring</strong>. With the KPI discovery rule, you can promote individual keywords, such as <code>Submit Login</code>, to their own services (up to five per test). When the journey slows down, you can see immediately whether the time goes into loading the page or into authentication, which points you towards the frontend, the backend or the identity provider.</p>
+<p>Turn on automatic reruns for this plan. A single failed run caused by a network blip should not wake anyone up; two consecutive failures probably should.</p>
+<h2 id="where-this-fits-in-a-test-strategy">Where this fits in a test strategy</h2>
+<p>Synthetic monitoring does not replace your pipeline tests. It answers a different question.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th></th><th>Pre-release regression</th><th>Checkmk synthetic monitor</th></tr></thead>
+<tbody>
+<tr><td>Question</td><td>Does the new build work?</td><td>Does the live system still work?</td></tr>
+<tr><td>When it runs</td><td>On each build or before release</td><td>Continuously, on a fixed interval</td></tr>
+<tr><td>Scope</td><td>Broad, many scenarios</td><td>Few critical journeys</td></tr>
+<tr><td>Data</td><td>Seeded test data</td><td>Dedicated monitor accounts in production</td></tr>
+<tr><td>Who reacts to a failure</td><td>Developers and QA</td><td>On-call operations, with QA as owner of the test</td></tr>
+</tbody>
+</table>
+</div>
+<p>There is a second, less obvious use: monitoring your <strong>test environments</strong>. A large share of &quot;flaky&quot; failures in staging come from the environment itself: a full disk, an overloaded database, an expired certificate. Pointing Checkmk (even the free Community edition) at your staging hosts lets you check infrastructure state at the moment a test failed, before you start debugging the test.</p>
+<h2 id="pitfalls-and-limits">Pitfalls and limits</h2>
+<ul><li><strong>Side effects in production.</strong> A checkout monitor that places real orders creates real problems. Use dedicated accounts, stop before the irreversible step, or run payment journeys against a sandbox provider where one exists.</li><li><strong>Flaky monitors erode trust quickly.</strong> In CI, a flaky test costs a rerun. In monitoring, it trains the on-call team to ignore alerts. Use stable selectors, reruns and realistic thresholds, and remove a monitor rather than leave it noisy.</li><li><strong>Ownership after UI changes.</strong> Every release can break the monitor without breaking the product. Agree up front who updates the suite, and include monitor suites in the definition of done for UI changes.</li><li><strong>Cost and edition limits.</strong> Synthetic Monitoring is not part of the Community edition and needs a separate subscription. For a single public website, a simpler uptime or HTTP check may be enough.</li><li><strong>Node maintenance.</strong> Test nodes need browser updates, credentials and network access. Treat them as production systems, including how secrets are stored on them.</li><li><strong>Coverage illusion.</strong> Five green monitors say nothing about the hundred journeys you did not script.</li></ul>
+<h2 id="what-to-do-next">What to do next</h2>
+<ol><li>Explore the public demo at play.checkmk.com to see how tests appear as services, without installing anything.</li><li>Pick two or three business-critical journeys from your existing Robot Framework suites and remove any steps with side effects.</li><li>Install the Community edition on a spare machine and monitor your staging hosts, so infrastructure data is available the next time a test fails unexpectedly.</li><li>If your organization has a commercial edition, follow the CSM-based Robotmk guide and set up one plan with reruns and runtime thresholds before scaling up.</li></ol>
+<h2 id="sources">Sources</h2>
+<ul><li><a href="https://checkmk.com/" target="_blank" rel="noopener noreferrer">Checkmk product overview</a></li><li><a href="https://checkmk.com/solutions/synthetic-monitoring-checkmk" target="_blank" rel="noopener noreferrer">Checkmk Synthetic Monitoring</a></li><li><a href="https://docs.checkmk.com/latest/en/robotmk_mm.html" target="_blank" rel="noopener noreferrer">Checkmk documentation — Synthetic Monitoring with Robotmk (CSM/Micromamba)</a></li><li><a href="https://docs.checkmk.com/latest/en/robotmk.html" target="_blank" rel="noopener noreferrer">Checkmk documentation — Synthetic Monitoring with Robotmk (legacy RCC)</a></li><li><a href="https://robotframework-browser.org/" target="_blank" rel="noopener noreferrer">Robot Framework Browser library</a></li></ul></div>
+      <template id="prose-sr"><p>Zamislite regresioni skup testova koji prođe u petak. Objava ode u produkciju, a u nedjelju se login pokvari jer je eksterni identity provider nešto promijenio. U nedjelju se nijedan test ne pokreće, pa je prvi signal tiket korisničke podrške. Većina skupova testova staje na deployment kapiji, a najrizičniji period za korisnički tok je sve ono što se dešava poslije nje. Checkmk nudi jedan način da mali broj vaših end-to-end testova nastavi da radi nad produkcijom i da se njihovi padovi tretiraju kao svaki drugi operativni alarm.</p>
+<p><img src="../../assets/blog/checkmk-synthetic-monitoring-for-qa.jpg" alt="Synthetic monitoring: Robot Framework login test koji napaja stalne provjere produkcije" loading="lazy"></p>
+<h2 id="šta-je-checkmk-iz-ugla-testera">Šta je Checkmk iz ugla testera</h2>
+<p>Checkmk je platforma za monitoring i observability hibridnih okruženja: servera, mreža, baza podataka, cloud servisa, Kubernetesa i aplikacija, sa katalogom od preko 2.000 integracija. Postoji besplatno, open-source Community izdanje namijenjeno manjim okruženjima (otprilike do 100 hostova) i nekoliko komercijalnih izdanja.</p>
+<p>Za QA posao su bitna tri dijela:</p>
+<ul><li><strong>Synthetic Monitoring</strong>, koji pokreće Robot Framework testove po rasporedu i svaki test prikazuje kao nadgledani servis. Dio je komercijalnih izdanja i zahtijeva dodatnu pretplatu.</li><li><strong>Kontekst infrastrukture.</strong> Kada test padne, metrike hosta, baze ili mreže možete pogledati u istom alatu umjesto da nagađate.</li><li><strong>Integracije i API-ji</strong> za Jiru, Slack, ServiceNow i REST API, tako da alarmi stižu tamo gdje vaš tim već radi.</li></ul>
+<h2 id="kako-se-dijelovi-uklapaju">Kako se dijelovi uklapaju</h2>
+<p>Tok je jednostavan kada ga jednom vidite:</p>
+<ol><li>Napišete skup testova u Robot Frameworku.</li><li>Na test čvoru (Linux ili Windows) <strong>Robotmk scheduler</strong> pravi izolovano Python okruženje za skup i pokreće ga prema <em>planu</em> koji definiše interval i opcije poput automatskog ponovnog pokretanja.</li><li>Rezultati se upisuju u fajl sistem, a prikuplja ih Robotmk agent plugin.</li><li>U Checkmku se svaki test pojavljuje kao servis sa stanjem OK, WARN ili CRIT, a sve se podešava kroz Robotmk scheduler pravilo i distribuira preko Agent Bakery-ja.</li></ol>
+<p>Detalj koji vrijedi znati prije početka: prve verzije su za pravljenje okruženja koristile RCC od Robocorpa. Robocorp je ugasio RCC 2024. godine, a Checkmk dokumentacija za nova podešavanja preporučuje noviji CSM/Micromamba pristup. Stariji tutorijali koji pominju <code>robot.yaml</code> i RCC opisuju zastarjeli put.</p>
+<h2 id="konkretan-primjer-nadgledanje-login-toka">Konkretan primjer: nadgledanje login toka</h2>
+<p>Evo malog skupa napisanog uz Robot Framework Browser biblioteku. Namjerno je podijeljen na korisničke ključne riječi (keywords), jer se ta struktura kasnije isplati.</p>
+<pre><code class="lang-robotframework">*** Settings ***
+Library        Browser
+Suite Setup    New Browser    chromium    headless=True
+
+*** Variables ***
+${BASE_URL}    https://shop.example.com
+
+*** Test Cases ***
+Customer Can Log In
+    Open Login Page
+    Submit Login
+    Get Text    h1    ==    My account
+
+*** Keywords ***
+Open Login Page
+    New Page    ${BASE_URL}/login
+
+Submit Login
+    Fill Text      id=username    ${MONITOR_USER}
+    Fill Secret    id=password    $MONITOR_PASSWORD
+    Click          button[type=&quot;submit&quot;]</code></pre>
+<p>Kredencijali dolaze kao varijable izvan skupa, pa nikada ne završe u repozitorijumu. <code>Fill Secret</code> drži lozinku van Robot loga.</p>
+<p>Kada ovo radi pod Robotmk-om, Checkmk vam daje servis za <code>Customer Can Log In</code> koji prati tri stvari: da li ulazna stranica odgovara (dostupnost), da li se tok završava očekivanim rezultatom (funkcionalnost) i koliko traje (vrijeme izvršavanja). Zatim dodate pragove, na primjer upozorenje kada cijeli tok traje duže od nekoliko sekundi i kritično stanje kada padne ili traje mnogo duže. Prave vrijednosti zavise od vaše polazne osnove, pa mjerite sedmicu dana prije nego što se obavežete na njih.</p>
+<p>Podjela na ključne riječi je bitna zbog <strong>KPI monitoringa</strong>. Uz KPI discovery pravilo možete pojedinačne ključne riječi, poput <code>Submit Login</code>, pretvoriti u zasebne servise (do pet po testu). Kada se tok uspori, odmah vidite da li vrijeme odlazi na učitavanje stranice ili na autentifikaciju, što vas usmjerava ka frontendu, backendu ili identity provideru.</p>
+<p>Uključite automatsko ponovno pokretanje za ovaj plan. Jedan pad izazvan kratkim prekidom mreže ne bi trebalo nikoga da probudi; dva uzastopna pada vjerovatno bi trebalo.</p>
+<h2 id="gdje-se-ovo-uklapa-u-strategiju-testiranja">Gdje se ovo uklapa u strategiju testiranja</h2>
+<p>Synthetic monitoring ne zamjenjuje testove u pipeline-u. On odgovara na drugo pitanje.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th></th><th>Regresija prije objave</th><th>Checkmk sintetički monitor</th></tr></thead>
+<tbody>
+<tr><td>Pitanje</td><td>Da li novi build radi?</td><td>Da li živi sistem i dalje radi?</td></tr>
+<tr><td>Kada se pokreće</td><td>Na svaki build ili prije objave</td><td>Stalno, u fiksnom intervalu</td></tr>
+<tr><td>Obim</td><td>Širok, mnogo scenarija</td><td>Nekoliko kritičnih tokova</td></tr>
+<tr><td>Podaci</td><td>Pripremljeni test podaci</td><td>Namjenski monitor nalozi u produkciji</td></tr>
+<tr><td>Ko reaguje na pad</td><td>Developeri i QA</td><td>Dežurni operativni tim, a QA je vlasnik testa</td></tr>
+</tbody>
+</table>
+</div>
+<p>Postoji i druga, manje očigledna primjena: nadgledanje vaših <strong>test okruženja</strong>. Velik dio „nestabilnih&quot; padova na stagingu dolazi od samog okruženja: pun disk, preopterećena baza, istekao sertifikat. Ako Checkmk (čak i besplatno Community izdanje) usmjerite na staging hostove, možete provjeriti stanje infrastrukture u trenutku kada je test pao, prije nego što počnete da debagujete sam test.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<ul><li><strong>Sporedni efekti u produkciji.</strong> Checkout monitor koji pravi prave narudžbe pravi i prave probleme. Koristite namjenske naloge, zaustavite se prije nepovratnog koraka ili pokrećite tokove plaćanja nad sandbox provajderom gdje on postoji.</li><li><strong>Nestabilni monitori brzo troše povjerenje.</strong> U CI-ju nestabilan test košta jedno ponovno pokretanje. U monitoringu uči dežurni tim da ignoriše alarme. Koristite stabilne selektore, ponovna pokretanja i realne pragove, i radije uklonite monitor nego da ga ostavite da stvara buku.</li><li><strong>Vlasništvo nakon UI izmjena.</strong> Svaka objava može pokvariti monitor, a da proizvod ostane ispravan. Unaprijed se dogovorite ko ažurira skup i uključite monitor skupove u definition of done za UI izmjene.</li><li><strong>Trošak i ograničenja izdanja.</strong> Synthetic Monitoring nije dio Community izdanja i zahtijeva posebnu pretplatu. Za jedan javni sajt možda je dovoljna jednostavnija uptime ili HTTP provjera.</li><li><strong>Održavanje čvorova.</strong> Test čvorovima trebaju ažuriranja browsera, kredencijali i mrežni pristup. Tretirajte ih kao produkcione sisteme, uključujući način na koji se na njima čuvaju tajne.</li><li><strong>Iluzija pokrivenosti.</strong> Pet zelenih monitora ne govori ništa o stotinu tokova koje niste skriptovali.</li></ul>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ol><li>Istražite javni demo na play.checkmk.com da vidite kako se testovi prikazuju kao servisi, bez ikakve instalacije.</li><li>Izaberite dva ili tri poslovno kritična toka iz postojećih Robot Framework skupova i uklonite sve korake sa sporednim efektima.</li><li>Instalirajte Community izdanje na slobodnu mašinu i nadgledajte staging hostove, kako bi podaci o infrastrukturi bili dostupni sljedeći put kada test neočekivano padne.</li><li>Ako vaša organizacija ima komercijalno izdanje, pratite Robotmk vodič zasnovan na CSM-u i podesite jedan plan sa ponovnim pokretanjima i pragovima trajanja prije nego što proširite postavku.</li></ol>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://checkmk.com/" target="_blank" rel="noopener noreferrer">Checkmk pregled proizvoda</a></li><li><a href="https://checkmk.com/solutions/synthetic-monitoring-checkmk" target="_blank" rel="noopener noreferrer">Checkmk Synthetic Monitoring</a></li><li><a href="https://docs.checkmk.com/latest/en/robotmk_mm.html" target="_blank" rel="noopener noreferrer">Checkmk dokumentacija — Synthetic Monitoring sa Robotmk (CSM/Micromamba)</a></li><li><a href="https://docs.checkmk.com/latest/en/robotmk.html" target="_blank" rel="noopener noreferrer">Checkmk dokumentacija — Synthetic Monitoring sa Robotmk (zastarjeli RCC)</a></li><li><a href="https://robotframework-browser.org/" target="_blank" rel="noopener noreferrer">Robot Framework Browser biblioteka</a></li></ul></template>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    </div>
+    <section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../qa-metrics-that-matter/" data-title-sr="QA metrike koje zaista predviđaju kvalitet (i one koje ne predviđaju)" data-excerpt-sr="Procenat prolaznosti i broj testova djeluju umirujuće, ali malo govore o kvalitetu. Evo šta pratiti umjesto toga i kako to čitati."><div class="meta"><time datetime="2026-10-12" data-fmt="short">12 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>The QA Metrics That Actually Predict Quality (and the Ones That Don't)</h2><p>Pass rate and test count feel reassuring but say little about quality. Here's what to track instead, and how to read it.</p></a>
+      <a class="post-card card glow" href="../bola-tenant-isolation-testing/" data-title-sr="Testiranje Broken Object-Level Authorization: provjera pristupa koju većina test skupova nikad ne proba" data-excerpt-sr="Zašto funkcionalni testovi redovno propuštaju bug u autorizaciji koji jednom korisniku dozvoljava da vidi ili mijenja tuđe podatke, i kako ga namjerno testirati."><div class="meta"><time datetime="2026-10-09" data-fmt="short">9 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Testing for Broken Object-Level Authorization: The Access Check Most Test Suites Never Try</h2><p>Why functional tests routinely miss the authorization bug that lets one customer see or change another's data, and how to test for it deliberately.</p></a>
+      <a class="post-card card glow" href="../sharding-tests-github-actions/" data-title-sr="Kako podijeliti spor skup testova na GitHub Actions, a ne izgubiti signal" data-excerpt-sr="Kako sharding testova preko matrice u GitHub Actions zapravo radi, primjer ubrzanja iz prakse, i konkretni načini na koje može tiho da sakrije padove."><div class="meta"><time datetime="2026-10-08" data-fmt="short">8 Oct 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div><h2>Splitting a Slow Test Suite Across GitHub Actions Without Losing Signal</h2><p>How matrix-based test sharding in GitHub Actions actually works, a real-world speedup example, and the specific ways it can quietly hide failures.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <a href="../../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../../blog/common.js"></script>
+  <script src="../post.js"></script>
+</body>
+</html>
