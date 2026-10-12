@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The QA Metrics That Actually Predict Quality (and the Ones That Don't) — Marko Lošić</title>
+  <meta name="description" content="Pass rate and test count feel reassuring but say little about quality. Here's what to track instead, and how to read it.">
+  <link rel="canonical" href="https://markolosic.github.io/blog/qa-metrics-that-matter/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="The QA Metrics That Actually Predict Quality (and the Ones That Don't) — Marko Lošić">
+  <meta property="og:description" content="Pass rate and test count feel reassuring but say little about quality. Here's what to track instead, and how to read it.">
+  <meta property="og:url" content="https://markolosic.github.io/blog/qa-metrics-that-matter/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/qa-metrics-that-matter.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The QA Metrics That Actually Predict Quality (and the Ones That Don't) — Marko Lošić">
+  <meta name="twitter:description" content="Pass rate and test count feel reassuring but say little about quality. Here's what to track instead, and how to read it.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/qa-metrics-that-matter.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"The QA Metrics That Actually Predict Quality (and the Ones That Don't)","description":"Pass rate and test count feel reassuring but say little about quality. Here's what to track instead, and how to read it.","image":"https://markolosic.github.io/assets/blog/qa-metrics-that-matter.jpg","url":"https://markolosic.github.io/blog/qa-metrics-that-matter/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/qa-metrics-that-matter/"},"datePublished":"2026-10-12","dateModified":"2026-10-12T00:00:00.000Z","keywords":"qa, methodology, metrics","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
+  <meta property="article:published_time" content="2026-10-12">
+  <meta property="article:modified_time" content="2026-10-12T00:00:00.000Z">
+  <meta name="goatcounter-code" content="markolosic">
+  <script data-goatcounter="https://markolosic.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2307090d'/%3E%3Cpath d='M16 34l11 11 21-26' fill='none' stroke='%2334d399' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#about" data-i18n="nav_about">About</a>
+      <a href="../../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../../blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> <span data-i18n="all_posts">All posts</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-10-12" data-fmt="long">12 October 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span><span>·</span><span class="views" id="views" hidden><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg><span id="views-num"></span></span></div>
+        <h1 data-title-sr="QA metrike koje zaista predviđaju kvalitet (i one koje ne predviđaju)">The QA Metrics That Actually Predict Quality (and the Ones That Don't)</h1>
+        <p class="lead" data-excerpt-sr="Procenat prolaznosti i broj testova djeluju umirujuće, ali malo govore o kvalitetu. Evo šta pratiti umjesto toga i kako to čitati.">Pass rate and test count feel reassuring but say little about quality. Here's what to track instead, and how to read it.</p>
+        <div class="tags"><span>qa</span><span>methodology</span><span>metrics</span></div>
+      </header>
+      <div class="prose"><p>A dashboard showing &quot;1,842 tests, 98% passing&quot; looks like proof that a product is healthy. It usually isn't. Teams can hit numbers like that while shipping a broken checkout flow, because the metric describes the test suite, not the product. The gap between &quot;our tests look good&quot; and &quot;our product is good&quot; is where a lot of avoidable incidents live, and it's worth being specific about which numbers close that gap and which ones just feel reassuring.</p>
+<p><img src="../../assets/blog/qa-metrics-that-matter.jpg" alt="Illustration of a QA dashboard where a large green &quot;misleading pass rate: 98%&quot; sits next to a red chart labelled &quot;actual escaped bug rate: 15% increasing&quot;, while a team points at a &quot;bug reported by user&quot; panel" loading="lazy"></p>
+<h2 id="why-pass-rate-is-the-wrong-north-star">Why pass rate is the wrong north star</h2>
+<p>Pass rate is popular because it's a single number that moves toward a clean 100%. The problem is what it hides. A suite of 100 tests where one test covering core functionality fails has a 99% pass rate, but the product may not be shippable. A suite of 1,000 tests where 200 of them hit that same one bug has an 80% pass rate for the exact same underlying problem. Steve Rowe, a former Microsoft test lead, made this point plainly in a widely cited post on his Microsoft blog: pass rate conflates the number of tests with the severity of what they found, and below 100% it stops distinguishing between &quot;fine&quot; and &quot;not fine&quot; at all.</p>
+<p>It also responds to the wrong pressure. If the goal is &quot;95% passing by Friday,&quot; a team can get there by deleting flaky tests, splitting one strict test into several lenient ones, or skipping hard-to-pass cases instead of fixing the product. None of that makes the software better, but the chart goes up and to the right.</p>
+<p>The same problem shows up with test count and automation percentage. A growing test count can mean better coverage, or years of duplicated, obsolete tests nobody deleted. &quot;Percentage of flows automated&quot; can mean the automation does real work, or it can mean brittle scripts that get skipped whenever they're inconvenient. Neither number tells you which, so neither belongs as the headline on a quality dashboard.</p>
+<h2 id="what-to-track-instead-escaped-defects">What to track instead: escaped defects</h2>
+<p>The metric that actually answers &quot;is testing working&quot; is the escaped defect rate: the share of bugs that reached users instead of being caught before release.</p>
+<pre><code>escape rate = escaped bugs / (escaped bugs + bugs caught pre-release)</code></pre>
+<p>If a team caught 100 bugs in QA and users reported 10 more after release, the escape rate is 10 / 110, about 9%. That number is comparable release over release in a way pass rate never is, because it's measured against the thing you actually care about, defects a customer experienced, not against the size or shape of the test suite.</p>
+<p>A concrete version of this: imagine a team ships a pricing update every two weeks. For three releases in a row, pass rate sits at a steady 97%, and nobody raises a flag. But the escape rate creeps from 4% to 9% to 15% over the same period, because an edge case in currency rounding keeps slipping through and support tickets confirm it each time. Pass rate said &quot;nothing changed.&quot; Escape rate said &quot;testing is losing ground,&quot; and it said it early enough to act on, by adding a rounding-specific regression suite instead of waiting for a fourth complaint spike.</p>
+<p>Escape rate isn't free of problems. It depends on how reliably post-release bugs get reported and linked back to a release, so it needs some support or incident-tracking discipline behind it, and it lags by definition, since you only learn about an escape after release. Pair it with a forward-looking signal too: time to detect a regression once it's introduced, which shows how fast the pipeline would catch the next one, not just the last one.</p>
+<h2 id="other-numbers-worth-watching-and-how-to-read-them">Other numbers worth watching, and how to read them</h2>
+<p>A few other metrics earn their place, but only with the right caveat attached:</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Metric</th><th>What it's good for</th><th>What it misses</th></tr></thead>
+<tbody>
+<tr><td>Escaped defect rate</td><td>Whether testing is catching what matters, trending over time</td><td>Lags release by days or weeks; needs clean bug-to-release tracking</td></tr>
+<tr><td>Flaky test rate</td><td>Whether the suite's signal can be trusted at all</td><td>Doesn't say anything about product quality directly</td></tr>
+<tr><td>Mean time to detect a regression</td><td>How fast the pipeline would catch the next real bug</td><td>Requires a seeded or historical regression to measure against</td></tr>
+<tr><td>Defect severity mix</td><td>Whether effort is going toward the bugs that matter</td><td>Severity labels are subjective and easy to game</td></tr>
+</tbody>
+</table>
+</div>
+<p>Notice none of these are &quot;number of tests&quot; or &quot;percent passing.&quot; Those two keep showing up on dashboards because they're easy to compute and always trending somewhere, not because they predict anything about the product.</p>
+<h2 id="pitfalls-and-limits">Pitfalls and limits</h2>
+<p>Metrics-driven QA has its own failure modes. Any metric a team is measured on will eventually be optimized directly rather than the thing it's meant to represent: chase escape rate hard enough and testers will start reclassifying post-release bugs as &quot;pre-existing&quot; or &quot;edge case&quot; to keep the number down. Metrics also don't replace judgment about what's actually risky in a given release; a quiet refactor of the payment path deserves more scrutiny than the raw numbers would suggest, no matter how good last quarter's escape rate looked. And none of this works without decent bug tracking discipline. If defects aren't consistently logged, tagged with where they were found, and linked to a release, escape rate is just a guess dressed up as a number. Finally, metrics are a lagging view of a team's testing effectiveness, not a substitute for exploratory testing or reviewing what the suite doesn't cover at all.</p>
+<h2 id="what-to-do-next">What to do next</h2>
+<ol><li>Pull the last three to six releases and calculate escaped defect rate, even roughly, from existing bug tracker data. If no one can produce this without a manual pass through tickets, that's the first gap to fix.</li><li>Stop reporting raw test count or percentage automated as a quality signal in standups or dashboards; if they stay useful at all, keep them as capacity metrics, not quality ones.</li><li>Add flaky test rate next to pass rate on any dashboard. A suite can't tell you anything trustworthy about the product if its own stability is unknown.</li><li>Pick one severity category, such as defects in the payment or auth path, and track escape rate for that category specifically. A single aggregate number across all severities will always average away the part that actually matters.</li></ol>
+<h2 id="sources">Sources</h2>
+<ul><li><a href="https://learn.microsoft.com/ja-jp/archive/blogs/steverowe/pass-rates-dont-matter" target="_blank" rel="noopener noreferrer">Pass rates don't matter</a>, Steve Rowe</li><li><a href="https://www.ministryoftesting.com/software-testing-glossary/bug-escape-rate" target="_blank" rel="noopener noreferrer">Bug escape rate</a>, Ministry of Testing glossary</li><li><a href="https://dzone.com/articles/7-useless-test-metrics" target="_blank" rel="noopener noreferrer">7 Useless Test Metrics</a>, DZone</li><li><a href="https://docs.aws.amazon.com/wellarchitected/latest/devops-guidance/metrics-for-functional-testing.html" target="_blank" rel="noopener noreferrer">Metrics for functional testing</a>, AWS Well-Architected DevOps Guidance</li></ul></div>
+      <template id="prose-sr"><p>Dashboard koji pokazuje &quot;1.842 testa, 98% prolazi&quot; izgleda kao dokaz da je proizvod zdrav. Obično nije. Timovi mogu da dostignu takve brojke dok isporučuju pokvaren checkout flow, jer metrika opisuje test skup, a ne proizvod. Razlika između &quot;naši testovi izgledaju dobro&quot; i &quot;naš proizvod je dobar&quot; je mjesto gdje živi mnogo incidenata koji su se mogli izbjeći, i vrijedi biti konkretan oko toga koje brojke tu razliku zatvaraju, a koje samo djeluju umirujuće.</p>
+<p><img src="../../assets/blog/qa-metrics-that-matter.jpg" alt="Ilustracija QA dashboard-a na kojem veliki zeleni &quot;misleading pass rate: 98%&quot; stoji pored crvenog grafikona sa natpisom &quot;actual escaped bug rate: 15% increasing&quot;, dok tim pokazuje na panel &quot;bug reported by user&quot;" loading="lazy"></p>
+<h2 id="zašto-pass-rate-nije-dobar-glavni-pokazatelj">Zašto pass rate nije dobar glavni pokazatelj</h2>
+<p>Pass rate (procenat testova koji prolaze) je popularan jer je to jedan broj koji se kreće ka čistih 100%. Problem je u onome što skriva. Skup od 100 testova u kojem padne jedan test koji pokriva ključnu funkcionalnost ima pass rate od 99%, a proizvod možda nije spreman za isporuku. Skup od 1.000 testova u kojem 200 njih udari u isti taj bug ima pass rate od 80% za potpuno isti problem u pozadini. Steve Rowe, bivši test lead u Microsoftu, to je jasno rekao u često citiranom postu na svom Microsoft blogu: pass rate miješa broj testova sa ozbiljnošću onoga što su pronašli, a ispod 100% uopšte prestaje da razlikuje &quot;u redu&quot; od &quot;nije u redu&quot;.</p>
+<p>Pored toga, reaguje na pogrešan pritisak. Ako je cilj &quot;95% prolazi do petka&quot;, tim može da stigne do toga brisanjem flaky testova, razbijanjem jednog strogog testa na nekoliko blažih ili preskakanjem teških slučajeva umjesto popravljanja proizvoda. Ništa od toga ne čini softver boljim, ali grafikon ide gore i desno.</p>
+<p>Isti problem se javlja i sa brojem testova i procentom automatizacije. Rastući broj testova može da znači bolju pokrivenost, ili godine dupliranih, zastarjelih testova koje niko nije obrisao. &quot;Procenat automatizovanih flow-ova&quot; može da znači da automatizacija radi pravi posao, ili krhke skripte koje se preskaču kad god smetaju. Nijedan od ta dva broja ne kaže koje je od toga, pa nijedan ne pripada na vrh dashboard-a o kvalitetu.</p>
+<h2 id="šta-pratiti-umjesto-toga-escaped-defects">Šta pratiti umjesto toga: escaped defects</h2>
+<p>Metrika koja zaista odgovara na pitanje &quot;da li testiranje radi&quot; je escaped defect rate: udio bugova koji su stigli do korisnika umjesto da budu uhvaćeni prije izdanja.</p>
+<pre><code>escape rate = escaped bugs / (escaped bugs + bugs caught pre-release)</code></pre>
+<p>Ako je tim u QA-u uhvatio 100 bugova, a korisnici su nakon izdanja prijavili još 10, escape rate je 10 / 110, otprilike 9%. Taj broj je uporediv od izdanja do izdanja na način na koji pass rate nikad nije, jer se mjeri u odnosu na ono do čega vam je zaista stalo, defekte koje je doživio korisnik, a ne u odnosu na veličinu ili oblik test skupa.</p>
+<p>Konkretan primjer: zamislite tim koji svake dvije sedmice isporučuje izmjenu cijena. Tri izdanja zaredom pass rate stoji na stabilnih 97% i niko ne diže uzbunu. Ali escape rate u istom periodu puže sa 4% na 9% pa na 15%, jer granični slučaj u zaokruživanju valuta stalno promakne, a tiketi podrške to svaki put potvrde. Pass rate je rekao &quot;ništa se nije promijenilo&quot;. Escape rate je rekao &quot;testiranje gubi teren&quot;, i rekao je to dovoljno rano da se reaguje, dodavanjem regresionog skupa posvećenog zaokruživanju, umjesto čekanja na četvrti talas žalbi.</p>
+<p>Ni escape rate nije bez problema. Zavisi od toga koliko se pouzdano bugovi nakon izdanja prijavljuju i povezuju sa izdanjem, pa iza njega mora da stoji određena disciplina u podršci ili praćenju incidenata, a po definiciji kasni, jer za bug koji je pobjegao saznate tek nakon izdanja. Uparite ga i sa signalom koji gleda unaprijed: vremenom potrebnim da se regresija otkrije nakon što je uvedena, što pokazuje koliko brzo bi pipeline uhvatio sljedeću, a ne samo prošlu.</p>
+<h2 id="ostale-brojke-koje-vrijedi-pratiti-i-kako-ih-čitati">Ostale brojke koje vrijedi pratiti, i kako ih čitati</h2>
+<p>Nekoliko drugih metrika zaslužuje svoje mjesto, ali samo uz odgovarajuću napomenu:</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Metrika</th><th>Za šta je dobra</th><th>Šta propušta</th></tr></thead>
+<tbody>
+<tr><td>Escaped defect rate</td><td>Da li testiranje hvata ono što je bitno, kroz vrijeme</td><td>Kasni za izdanjem danima ili sedmicama; traži uredno povezivanje bugova sa izdanjima</td></tr>
+<tr><td>Flaky test rate</td><td>Da li se signalu test skupa uopšte može vjerovati</td><td>Ne govori ništa direktno o kvalitetu proizvoda</td></tr>
+<tr><td>Prosječno vrijeme do otkrivanja regresije</td><td>Koliko brzo bi pipeline uhvatio sljedeći pravi bug</td><td>Zahtijeva namjerno ubačenu ili istorijsku regresiju za mjerenje</td></tr>
+<tr><td>Raspodjela ozbiljnosti defekata</td><td>Da li trud ide ka bugovima koji su bitni</td><td>Oznake ozbiljnosti su subjektivne i lako se izigravaju</td></tr>
+</tbody>
+</table>
+</div>
+<p>Primijetite da nijedna od ovih nije &quot;broj testova&quot; ili &quot;procenat koji prolazi&quot;. Te dvije se stalno pojavljuju na dashboard-ima zato što ih je lako izračunati i uvijek negdje trenduju, a ne zato što išta predviđaju o proizvodu.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>QA vođen metrikama ima svoje načine da pođe po zlu. Svaka metrika po kojoj se tim ocjenjuje vremenom će se optimizovati direktno, umjesto onoga što bi trebalo da predstavlja: ako se dovoljno uporno juri escape rate, testeri će početi da reklasifikuju bugove nakon izdanja kao &quot;postojeće od ranije&quot; ili &quot;granični slučaj&quot; da bi broj ostao nizak. Metrike takođe ne zamjenjuju procjenu šta je zaista rizično u datom izdanju; tihi refaktor payment putanje zaslužuje više pažnje nego što bi same brojke sugerisale, bez obzira koliko je dobar bio escape rate prošlog kvartala. I ništa od ovoga ne radi bez pristojne discipline u praćenju bugova. Ako se defekti ne bilježe dosljedno, ne označavaju prema tome gdje su pronađeni i ne povezuju sa izdanjem, escape rate je samo nagađanje obučeno u broj. Na kraju, metrike su zakašnjeli pogled na efikasnost testiranja tima, a ne zamjena za eksplorativno testiranje ili pregled onoga što test skup uopšte ne pokriva.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ol><li>Uzmite posljednja tri do šest izdanja i izračunajte escaped defect rate, makar i grubo, iz postojećih podataka u bug trackeru. Ako niko to ne može da uradi bez ručnog prolaska kroz tikete, to je prva rupa koju treba zakrpiti.</li><li>Prestanite da prijavljujete goli broj testova ili procenat automatizacije kao signal kvaliteta na standupima ili dashboard-ima; ako su uopšte korisni, zadržite ih kao metrike kapaciteta, a ne kvaliteta.</li><li>Na svaki dashboard dodajte flaky test rate pored pass rate-a. Test skup ne može da vam kaže ništa pouzdano o proizvodu ako se ne zna koliko je sam stabilan.</li><li>Izaberite jednu kategoriju ozbiljnosti, na primjer defekte u payment ili auth putanji, i pratite escape rate posebno za nju. Jedan zbirni broj preko svih nivoa ozbiljnosti uvijek će uprosječiti baš onaj dio koji je zaista bitan.</li></ol>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://learn.microsoft.com/ja-jp/archive/blogs/steverowe/pass-rates-dont-matter" target="_blank" rel="noopener noreferrer">Pass rates don't matter</a>, Steve Rowe</li><li><a href="https://www.ministryoftesting.com/software-testing-glossary/bug-escape-rate" target="_blank" rel="noopener noreferrer">Bug escape rate</a>, Ministry of Testing glossary</li><li><a href="https://dzone.com/articles/7-useless-test-metrics" target="_blank" rel="noopener noreferrer">7 Useless Test Metrics</a>, DZone</li><li><a href="https://docs.aws.amazon.com/wellarchitected/latest/devops-guidance/metrics-for-functional-testing.html" target="_blank" rel="noopener noreferrer">Metrics for functional testing</a>, AWS Well-Architected DevOps Guidance</li></ul></template>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    </div>
+    <section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../bola-tenant-isolation-testing/" data-title-sr="Testiranje Broken Object-Level Authorization: provjera pristupa koju većina test skupova nikad ne proba" data-excerpt-sr="Zašto funkcionalni testovi redovno propuštaju bug u autorizaciji koji jednom korisniku dozvoljava da vidi ili mijenja tuđe podatke, i kako ga namjerno testirati."><div class="meta"><time datetime="2026-10-09" data-fmt="short">9 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Testing for Broken Object-Level Authorization: The Access Check Most Test Suites Never Try</h2><p>Why functional tests routinely miss the authorization bug that lets one customer see or change another's data, and how to test for it deliberately.</p></a>
+      <a class="post-card card glow" href="../sharding-tests-github-actions/" data-title-sr="Kako podijeliti spor skup testova na GitHub Actions, a ne izgubiti signal" data-excerpt-sr="Kako sharding testova preko matrice u GitHub Actions zapravo radi, primjer ubrzanja iz prakse, i konkretni načini na koje može tiho da sakrije padove."><div class="meta"><time datetime="2026-10-08" data-fmt="short">8 Oct 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div><h2>Splitting a Slow Test Suite Across GitHub Actions Without Losing Signal</h2><p>How matrix-based test sharding in GitHub Actions actually works, a real-world speedup example, and the specific ways it can quietly hide failures.</p></a>
+      <a class="post-card card glow" href="../maestro-mobile-test-automation/" data-title-sr="Pouzdana automatizacija testiranja mobilnih aplikacija uz Maestro: praktični vodič" data-excerpt-sr="Kako Maestro YAML tokovi pojednostavljuju E2E testiranje mobilnih aplikacija, uz radni primjer login toka i dobre prakse koje ga čine održivim."><div class="meta"><time datetime="2026-10-06" data-fmt="short">6 Oct 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div><h2>Writing Reliable Mobile Test Automation with Maestro: A Practical Guide</h2><p>How Maestro's YAML flows simplify mobile E2E testing, with a working login flow example and the best practices that keep it maintainable.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <a href="../../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../../blog/common.js"></script>
+  <script src="../post.js"></script>
+</body>
+</html>

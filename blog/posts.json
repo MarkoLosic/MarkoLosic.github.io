@@ -1,5 +1,19 @@
 [
   {
+    "slug": "qa-metrics-that-matter",
+    "title": "The QA Metrics That Actually Predict Quality (and the Ones That Don't)",
+    "titleSr": "QA metrike koje zaista predviđaju kvalitet (i one koje ne predviđaju)",
+    "excerpt": "Pass rate and test count feel reassuring but say little about quality. Here's what to track instead, and how to read it.",
+    "excerptSr": "Procenat prolaznosti i broj testova djeluju umirujuće, ali malo govore o kvalitetu. Evo šta pratiti umjesto toga i kako to čitati.",
+    "tags": [
+      "qa",
+      "methodology",
+      "metrics"
+    ],
+    "date": "2026-10-12",
+    "readingTime": 6
+  },
+  {
     "slug": "bola-tenant-isolation-testing",
     "title": "Testing for Broken Object-Level Authorization: The Access Check Most Test Suites Never Try",
     "titleSr": "Testiranje Broken Object-Level Authorization: provjera pristupa koju većina test skupova nikad ne proba",
