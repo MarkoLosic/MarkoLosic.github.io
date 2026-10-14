@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI-Generated Test Data: Why It Looks Right and Still Misses the Bugs That Matter — Marko Lošić</title>
+  <meta name="description" content="GenAI test data generation is everywhere, but trust in it at scale is low. Here's why realistic-looking data still misses the edge cases that break systems.">
+  <link rel="canonical" href="https://markolosic.github.io/blog/ai-generated-test-data-blind-spots/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="AI-Generated Test Data: Why It Looks Right and Still Misses the Bugs That Matter — Marko Lošić">
+  <meta property="og:description" content="GenAI test data generation is everywhere, but trust in it at scale is low. Here's why realistic-looking data still misses the edge cases that break systems.">
+  <meta property="og:url" content="https://markolosic.github.io/blog/ai-generated-test-data-blind-spots/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/ai-generated-test-data-blind-spots.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI-Generated Test Data: Why It Looks Right and Still Misses the Bugs That Matter — Marko Lošić">
+  <meta name="twitter:description" content="GenAI test data generation is everywhere, but trust in it at scale is low. Here's why realistic-looking data still misses the edge cases that break systems.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/ai-generated-test-data-blind-spots.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"AI-Generated Test Data: Why It Looks Right and Still Misses the Bugs That Matter","description":"GenAI test data generation is everywhere, but trust in it at scale is low. Here's why realistic-looking data still misses the edge cases that break systems.","image":"https://markolosic.github.io/assets/blog/ai-generated-test-data-blind-spots.jpg","url":"https://markolosic.github.io/blog/ai-generated-test-data-blind-spots/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/ai-generated-test-data-blind-spots/"},"datePublished":"2026-10-14","dateModified":"2026-10-14T00:00:00.000Z","keywords":"qa, ai-in-qa, test-data","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
+  <meta property="article:published_time" content="2026-10-14">
+  <meta property="article:modified_time" content="2026-10-14T00:00:00.000Z">
+  <meta name="goatcounter-code" content="markolosic">
+  <script data-goatcounter="https://markolosic.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2307090d'/%3E%3Cpath d='M16 34l11 11 21-26' fill='none' stroke='%2334d399' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#about" data-i18n="nav_about">About</a>
+      <a href="../../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../../blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> <span data-i18n="all_posts">All posts</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-10-14" data-fmt="long">14 October 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span><span>·</span><span class="views" id="views" hidden><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg><span id="views-num"></span></span></div>
+        <h1 data-title-sr="Testni podaci generisani AI-jem: zašto izgledaju ispravno, a ipak promaše bitne bagove">AI-Generated Test Data: Why It Looks Right and Still Misses the Bugs That Matter</h1>
+        <p class="lead" data-excerpt-sr="Generisanje testnih podataka GenAI-jem je svuda, ali povjerenje u njega na većem obimu je nisko. Evo zašto realistični podaci i dalje promaše granične slučajeve koji ruše sisteme.">GenAI test data generation is everywhere, but trust in it at scale is low. Here's why realistic-looking data still misses the edge cases that break systems.</p>
+        <div class="tags"><span>qa</span><span>ai-in-qa</span><span>test-data</span></div>
+      </header>
+      <div class="prose"><p>Most QA teams have started using generative AI to produce test data: synthetic customer records, order histories, API payloads, anything that would normally take hours to hand-craft or require scrubbing production data. Adoption is close to universal. Confidence is not. Industry surveys on test data practices report that the overwhelming majority of organizations are using GenAI somewhere in their test data pipeline, yet only a small fraction have fully integrated it or trust it enough to run it unchecked at scale. That gap is worth taking seriously, because it points to a specific failure mode: data that looks plausible can still be the wrong data for finding bugs.</p>
+<p><img src="../../assets/blog/ai-generated-test-data-blind-spots.jpg" alt="Realistic synthetic test data passing on one side, broken edge cases and schemas on the other" loading="lazy"></p>
+<h2 id="why-realistic-isn-t-the-same-as-useful">Why realistic isn't the same as useful</h2>
+<p>A language model asked to generate test records is good at one thing: producing output that matches a schema and reads as believable. Ask it for a hundred customer orders and you'll get orders with sensible names, addresses, dates, and totals. What you won't reliably get is the handful of records that actually stress the system: a quantity of zero, a discount that exceeds the order total, a shipping address with no postal code because the country doesn't use one, a timestamp that falls exactly on a daylight-saving transition. Those are the rows that cause defects. They're also exactly the rows a model is least likely to generate on its own, because they're statistically rare in the kind of data it was trained to imitate.</p>
+<p>Here's a simplified version of the kind of generation script teams write:</p>
+<pre><code class="lang-python">prompt = &quot;&quot;&quot;
+Generate 50 realistic e-commerce order records as JSON.
+Fields: order_id, customer_name, quantity, unit_price,
+discount_code, discount_percent, shipping_country, order_date.
+&quot;&quot;&quot;
+records = llm_generate(prompt)</code></pre>
+<p>Run that and inspect the output: every quantity will be a small positive integer, every discount will be a sane percentage, every date will fall in a normal range. Nothing will be malformed, because malformed is not what &quot;realistic&quot; means to the model. The checkout flow that only gets tested against this data will look solid, right up until a real customer enters a quantity of 0, applies two stacked discount codes, or ships to a territory with no postal-code format at all.</p>
+<h2 id="the-problem-compounds-when-the-same-model-grades-its-own-data">The problem compounds when the same model grades its own data</h2>
+<p>A related failure shows up when teams go a step further and let the model also decide what the tests should check. If one model generates the data and a model from the same family (or the same prompt pattern) writes the assertions, the assertions tend to validate exactly the properties the data already has. Research on LLM-generated test suites has found that model-written tests cluster around the same blind spots as the model's own output: in evaluations of widely used code benchmarks, roughly half of the problems had test suites that failed to catch known injected errors, and the majority of the verification logic examined was flawed in ways that let incorrect solutions pass. The pattern is consistent: a model's errors and a model's test coverage tend to share the same shape, because both come from the same underlying assumptions about what &quot;normal&quot; input looks like. A green test suite built this way isn't proof of correctness — it's proof that the data and the checks agree with each other, which isn't the same thing.</p>
+<h2 id="pitfalls-and-limits">Pitfalls and limits</h2>
+<p>AI-generated test data is genuinely useful for volume and speed, but it has real limits that are easy to ignore once it's producing output fast enough to feel finished.</p>
+<p>It can generate records that are technically valid but practically impossible, or miss the rare combinations that actually matter, so test suites built entirely on it can look thorough while leaving real gaps. Bias in the generated distribution is hard to spot by eye, since nothing in the output looks wrong until you compare it against production patterns. Most generation pipelines don't produce an audit trail of why a given record was created or what it was meant to cover, which makes it hard to explain gaps later. And &quot;synthetic&quot; is not automatically &quot;safe&quot;: if the generation was conditioned on or fine-tuned from real customer data, the output can still echo sensitive patterns even though no single record is a real person's, so synthetic data headed anywhere near compliance-sensitive systems still needs a privacy review, not an assumption.</p>
+<h2 id="what-to-do-next">What to do next</h2>
+<p>Keep a small, human-written set of edge-case records — the zero quantities, boundary dates, malformed addresses, stacked discounts — version it alongside your test suite, and always run it in addition to any AI-generated bulk data, never instead of it.</p>
+<p>Don't let the same model (or the same prompt) both generate your test data and write the assertions that check it; have a different reviewer, human or model, define what &quot;correct&quot; means for that data independently.</p>
+<p>For any field that has caused a real production bug before, add a property-based or boundary-focused check specifically for it, rather than relying on generated examples to happen to include it.</p>
+<p>Before synthetic data touches anything resembling customer records, confirm with whoever owns data compliance whether the generation process was conditioned on real data, and treat it as sensitive until that's confirmed otherwise.</p>
+<h2 id="sources">Sources</h2>
+<ul><li><a href="https://www.genrocket.com/newsletter/95-are-using-genai-for-test-data-only-10-trust-it-at-scale-why/" target="_blank" rel="noopener noreferrer">95% Are Using GenAI for Test Data. Only 10% Trust It at Scale. Why?</a> — GenRocket</li><li><a href="https://blog.datprof.com/blogs/the-case-for-caution-evaluating-ai-generated-synthetic-test-data" target="_blank" rel="noopener noreferrer">The Case for Caution: Evaluating AI-Generated Synthetic Test Data</a> — DATPROF</li><li><a href="https://agentpatterns.ai/patterns/anti-patterns/test-homogenization-trap/" target="_blank" rel="noopener noreferrer">The Test Homogenization Trap</a> — Agent Patterns</li></ul></div>
+      <template id="prose-sr"><p>Većina QA timova je počela da koristi generativni AI za pravljenje testnih podataka: sintetičke zapise o kupcima, istorije narudžbi, API payload-e, sve ono što bi inače trajalo satima da se napravi ručno ili bi zahtijevalo čišćenje produkcionih podataka. Usvajanje je skoro univerzalno. Povjerenje nije. Istraživanja o praksama rada sa testnim podacima pokazuju da ogromna većina organizacija koristi GenAI negdje u svom procesu pripreme testnih podataka, ali samo mali dio ga je u potpunosti integrisao ili mu vjeruje dovoljno da ga pušta bez provjere na većem obimu. Taj jaz vrijedi shvatiti ozbiljno, jer ukazuje na konkretan način na koji stvari pucaju: podaci koji izgledaju uvjerljivo i dalje mogu biti pogrešni podaci za pronalaženje bagova.</p>
+<p><img src="../../assets/blog/ai-generated-test-data-blind-spots.jpg" alt="Realistični sintetički testni podaci prolaze s jedne strane, pokvareni granični slučajevi i šeme s druge" loading="lazy"></p>
+<h2 id="zašto-realistično-nije-isto-što-i-korisno">Zašto realistično nije isto što i korisno</h2>
+<p>Jezički model kome se zada da generiše testne zapise dobar je u jednoj stvari: da napravi izlaz koji odgovara šemi i djeluje vjerodostojno. Tražite od njega stotinu narudžbi i dobićete narudžbe sa smislenim imenima, adresama, datumima i iznosima. Ono što nećete pouzdano dobiti je onih nekoliko zapisa koji zaista opterećuju sistem: količina nula, popust veći od ukupnog iznosa narudžbe, adresa za dostavu bez poštanskog broja jer ga ta zemlja ne koristi, vremenska oznaka koja pada tačno na prelazak na ljetnje ili zimsko računanje vremena. To su redovi koji izazivaju defekte. To su ujedno i baš oni redovi koje model najmanje vjerovatno generiše sam od sebe, jer su statistički rijetki u vrsti podataka koju je naučen da imitira.</p>
+<p>Evo pojednostavljene verzije skripte za generisanje kakvu timovi obično pišu:</p>
+<pre><code class="lang-python">prompt = &quot;&quot;&quot;
+Generate 50 realistic e-commerce order records as JSON.
+Fields: order_id, customer_name, quantity, unit_price,
+discount_code, discount_percent, shipping_country, order_date.
+&quot;&quot;&quot;
+records = llm_generate(prompt)</code></pre>
+<p>Pokrenite to i pogledajte izlaz: svaka količina biće mali pozitivan cijeli broj, svaki popust razuman procenat, svaki datum u normalnom opsegu. Ništa neće biti neispravno formatirano, jer za model „realistično&quot; ne znači neispravno. Checkout tok koji se testira samo nad ovim podacima izgledaće stabilno, sve dok pravi kupac ne unese količinu 0, ne primijeni dva kombinovana koda za popust ili ne naruči dostavu na teritoriju koja uopšte nema format poštanskog broja.</p>
+<h2 id="problem-se-uvećava-kada-isti-model-ocjenjuje-sopstvene-podatke">Problem se uvećava kada isti model ocjenjuje sopstvene podatke</h2>
+<p>Srodan problem se javlja kada timovi odu korak dalje i prepuste modelu da odluči i šta testovi treba da provjeravaju. Ako jedan model generiše podatke, a model iz iste porodice (ili isti obrazac prompta) piše asercije, asercije obično potvrđuju baš ona svojstva koja podaci već imaju. Istraživanja o skupovima testova koje generišu LLM-ovi pokazala su da se testovi koje pišu modeli grupišu oko istih slijepih tačaka kao i izlaz samog modela: u evaluacijama široko korišćenih benchmarka za kod, otprilike polovina zadataka imala je skupove testova koji nisu uhvatili poznate ubačene greške, a većina analizirane logike provjere bila je manjkava na način koji je propuštao netačna rješenja. Obrazac je dosljedan: greške modela i pokrivenost testova koje model piše obično imaju isti oblik, jer oboje proizilaze iz istih pretpostavki o tome kako izgleda „normalan&quot; ulaz. Zelen skup testova napravljen na ovaj način nije dokaz ispravnosti — on je dokaz da se podaci i provjere slažu međusobno, a to nije isto.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Testni podaci generisani AI-jem su zaista korisni za obim i brzinu, ali imaju stvarna ograničenja koja je lako zanemariti kada izlaz stiže dovoljno brzo da djeluje gotovo.</p>
+<p>Mogu da generišu zapise koji su tehnički validni, ali praktično nemogući, ili da promaše rijetke kombinacije koje su zaista bitne, pa skupovi testova izgrađeni isključivo na njima mogu izgledati temeljno, a ostavljati stvarne rupe. Pristrasnost u generisanoj raspodjeli teško je primijetiti golim okom, jer ništa u izlazu ne izgleda pogrešno dok ga ne uporedite sa obrascima iz produkcije. Većina procesa za generisanje ne ostavlja trag o tome zašto je određeni zapis napravljen ili šta je trebalo da pokrije, pa je kasnije teško objasniti rupe u pokrivenosti. I „sintetičko&quot; ne znači automatski „bezbjedno&quot;: ako je generisanje bilo uslovljeno pravim podacima kupaca ili je model na njima dodatno treniran, izlaz i dalje može da odražava osjetljive obrasce iako nijedan pojedinačni zapis ne pripada stvarnoj osobi. Zato sintetički podaci koji idu bilo gdje blizu sistema osjetljivih na usklađenost sa propisima i dalje zahtijevaju provjeru privatnosti, a ne pretpostavku.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<p>Održavajte mali, ručno napisan skup zapisa za granične slučajeve — nulte količine, granične datume, neispravne adrese, kombinovane popuste — verzionišite ga zajedno sa testovima i uvijek ga pokrećite pored bilo kakvih masovnih podataka generisanih AI-jem, nikada umjesto njih.</p>
+<p>Ne dozvolite da isti model (ili isti prompt) i generiše testne podatke i piše asercije koje ih provjeravaju; neka drugi recenzent, čovjek ili model, nezavisno definiše šta za te podatke znači „ispravno&quot;.</p>
+<p>Za svako polje koje je već izazvalo pravi bag u produkciji dodajte provjeru zasnovanu na svojstvima (property-based) ili na graničnim vrijednostima, posebno za to polje, umjesto da se oslanjate na to da će generisani primjeri slučajno uključiti taj slučaj.</p>
+<p>Prije nego što sintetički podaci dođu u dodir sa bilo čim što liči na podatke kupaca, provjerite sa osobom zaduženom za usklađenost podataka da li je proces generisanja bio uslovljen pravim podacima i tretirajte ih kao osjetljive dok se ne potvrdi suprotno.</p>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://www.genrocket.com/newsletter/95-are-using-genai-for-test-data-only-10-trust-it-at-scale-why/" target="_blank" rel="noopener noreferrer">95% Are Using GenAI for Test Data. Only 10% Trust It at Scale. Why?</a> — GenRocket</li><li><a href="https://blog.datprof.com/blogs/the-case-for-caution-evaluating-ai-generated-synthetic-test-data" target="_blank" rel="noopener noreferrer">The Case for Caution: Evaluating AI-Generated Synthetic Test Data</a> — DATPROF</li><li><a href="https://agentpatterns.ai/patterns/anti-patterns/test-homogenization-trap/" target="_blank" rel="noopener noreferrer">The Test Homogenization Trap</a> — Agent Patterns</li></ul></template>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    </div>
+    <section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../checkmk-synthetic-monitoring-for-qa/" data-title-sr="Neka testovi rade i poslije objave: Checkmk Synthetic Monitoring za QA timove" data-excerpt-sr="Kako QA timovi mogu da pretvore Robot Framework testove u stalne provjere produkcije uz Checkmk, i na koje zamke treba računati."><div class="meta"><time datetime="2026-10-12" data-fmt="short">12 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Keep Your Tests Running After Release: Checkmk Synthetic Monitoring for QA Teams</h2><p>How QA teams can turn Robot Framework tests into continuous production checks with Checkmk, plus the pitfalls to plan for.</p></a>
+      <a class="post-card card glow" href="../qa-metrics-that-matter/" data-title-sr="QA metrike koje zaista predviđaju kvalitet (i one koje ne predviđaju)" data-excerpt-sr="Procenat prolaznosti i broj testova djeluju umirujuće, ali malo govore o kvalitetu. Evo šta pratiti umjesto toga i kako to čitati."><div class="meta"><time datetime="2026-10-12" data-fmt="short">12 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>The QA Metrics That Actually Predict Quality (and the Ones That Don't)</h2><p>Pass rate and test count feel reassuring but say little about quality. Here's what to track instead, and how to read it.</p></a>
+      <a class="post-card card glow" href="../bola-tenant-isolation-testing/" data-title-sr="Testiranje Broken Object-Level Authorization: provjera pristupa koju većina test skupova nikad ne proba" data-excerpt-sr="Zašto funkcionalni testovi redovno propuštaju bug u autorizaciji koji jednom korisniku dozvoljava da vidi ili mijenja tuđe podatke, i kako ga namjerno testirati."><div class="meta"><time datetime="2026-10-09" data-fmt="short">9 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Testing for Broken Object-Level Authorization: The Access Check Most Test Suites Never Try</h2><p>Why functional tests routinely miss the authorization bug that lets one customer see or change another's data, and how to test for it deliberately.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <a href="../../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../../blog/common.js"></script>
+  <script src="../post.js"></script>
+</body>
+</html>

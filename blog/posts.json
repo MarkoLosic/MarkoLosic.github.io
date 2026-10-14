@@ -1,5 +1,19 @@
 [
   {
+    "slug": "ai-generated-test-data-blind-spots",
+    "title": "AI-Generated Test Data: Why It Looks Right and Still Misses the Bugs That Matter",
+    "titleSr": "Testni podaci generisani AI-jem: zašto izgledaju ispravno, a ipak promaše bitne bagove",
+    "excerpt": "GenAI test data generation is everywhere, but trust in it at scale is low. Here's why realistic-looking data still misses the edge cases that break systems.",
+    "excerptSr": "Generisanje testnih podataka GenAI-jem je svuda, ali povjerenje u njega na većem obimu je nisko. Evo zašto realistični podaci i dalje promaše granične slučajeve koji ruše sisteme.",
+    "tags": [
+      "qa",
+      "ai-in-qa",
+      "test-data"
+    ],
+    "date": "2026-10-14",
+    "readingTime": 5
+  },
+  {
     "slug": "checkmk-synthetic-monitoring-for-qa",
     "title": "Keep Your Tests Running After Release: Checkmk Synthetic Monitoring for QA Teams",
     "titleSr": "Neka testovi rade i poslije objave: Checkmk Synthetic Monitoring za QA timove",
