@@ -120,7 +120,7 @@ function shell({ depth, title, description, canonical, type = 'website', image =
   ${head}
   <meta name="goatcounter-code" content="${GOATCOUNTER}">
   <script data-goatcounter="https://${GOATCOUNTER}.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2307090d'/%3E%3Cpath d='M16 34l11 11 21-26' fill='none' stroke='%2334d399' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -140,7 +140,7 @@ function shell({ depth, title, description, canonical, type = 'website', image =
 
   <header class="nav" id="nav">
     <a class="brand" href="${root}" aria-label="${AUTHOR} — home">
-      <span class="brand-mark"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
       <span class="brand-name">Marko&nbsp;Lošić</span>
     </a>
     <nav class="links" id="links" aria-label="Primary">
@@ -155,11 +155,11 @@ function shell({ depth, title, description, canonical, type = 'website', image =
         <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
       </button>
       <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
-        <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
-        <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
       </button>
       <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
       </button>
     </div>
   </header>
@@ -177,7 +177,8 @@ ${body}
 }
 
 const tagSpans = tags => (tags || []).map(t => `<span>${esc(t)}</span>`).join('');
-const clock = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+const clock = '<svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg>';
+const back = '<svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg>';
 
 /* ---------- build ---------- */
 const posts = loadPosts().map(p => {
@@ -218,7 +219,7 @@ const listBody = `
       <p class="lead" data-i18n="blog_lead">Writing about QA, test automation, mobile and AI testing, and what I learn while building software.</p>
     </section>
     <div class="blog-tools">
-      <label class="search"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q" type="search" data-i18n-placeholder="search_ph" placeholder="Search posts…" aria-label="Search posts" autocomplete="off"></label>
+      <label class="search"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M1 0h4v1h-4zM0 1h1v1h-1zM5 1h1v1h-1zM0 2h1v1h-1zM5 2h1v1h-1zM0 3h1v1h-1zM5 3h1v1h-1zM0 4h1v1h-1zM5 4h1v1h-1zM1 5h4v1h-4zM5 6h2v1h-2zM6 7h2v1h-2zM7 8h2v1h-2z"/></svg><input id="q" type="search" data-i18n-placeholder="search_ph" placeholder="Search posts…" aria-label="Search posts" autocomplete="off"></label>
       <div class="tag-row" id="tags" aria-label="Filter by tag">${allTags.length ? ['', ...allTags].map(t => `<button type="button" class="tag${t ? '' : ' on'}" data-t="${esc(t)}"${t ? '' : ' data-i18n="tag_all"'}>${t ? esc(t) : 'All'}</button>`).join('') : ''}</div>
     </div>
     <div class="post-grid" id="posts">${cards || '<p class="state" data-i18n="no_posts">No posts yet — check back soon.</p>'}
@@ -251,10 +252,10 @@ for (const p of posts) {
       <a class="post-card card glow" href="../${o.slug}/" data-title-sr="${esc(o.title_sr)}" data-excerpt-sr="${esc(o.excerpt_sr)}"><div class="meta"><time datetime="${o.published_at}" data-fmt="short">${fmtShort(o.published_at)}</time><span>·</span><span>${o.reading_time} <span data-i18n="min_read">min read</span></span></div><h2>${esc(o.title)}</h2><p>${esc(o.excerpt)}</p></a>`;
   const body = `
   <main class="wrap post-wrap">
-    <a class="back" href="../">${clock.replace('M5 12h14M13 6l6 6-6 6', 'M19 12H5M11 6l-6 6 6 6')} <span data-i18n="all_posts">All posts</span></a>
+    <a class="back" href="../">${back} <span data-i18n="all_posts">All posts</span></a>
     <article>
       <header class="post-head">
-        <div class="meta"><time datetime="${p.published_at}" data-fmt="long">${fmtLong(p.published_at)}</time><span>·</span><span>${p.reading_time} <span data-i18n="min_read">min read</span></span><span>·</span><span class="views" id="views" hidden><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg><span id="views-num"></span></span></div>
+        <div class="meta"><time datetime="${p.published_at}" data-fmt="long">${fmtLong(p.published_at)}</time><span>·</span><span>${p.reading_time} <span data-i18n="min_read">min read</span></span><span>·</span><span class="views" id="views" hidden><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M2 2h5v1h-5zM1 3h1v1h-1zM4 3h1v1h-1zM7 3h1v1h-1zM0 4h1v1h-1zM3 4h3v1h-3zM8 4h1v1h-1zM1 5h1v1h-1zM4 5h1v1h-1zM7 5h1v1h-1zM2 6h5v1h-5z"/></svg><span id="views-num"></span></span></div>
         <h1 data-title-sr="${esc(p.title_sr)}">${esc(p.title)}</h1>
         ${p.excerpt ? `<p class="lead" data-excerpt-sr="${esc(p.excerpt_sr)}">${esc(p.excerpt)}</p>` : ''}
         <div class="tags">${tagSpans(p.tags)}</div>
