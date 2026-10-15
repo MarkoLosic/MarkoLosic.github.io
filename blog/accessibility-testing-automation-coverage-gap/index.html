@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Automated Accessibility Testing Catches Only Part of Your Problems — Here's What Closes the Gap — Marko Lošić</title>
+  <meta name="description" content="Scanners like axe-core catch only a portion of real accessibility failures. Here's how to wire them into CI sensibly and what still needs a human.">
+  <link rel="canonical" href="https://markolosic.github.io/blog/accessibility-testing-automation-coverage-gap/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Automated Accessibility Testing Catches Only Part of Your Problems — Here's What Closes the Gap — Marko Lošić">
+  <meta property="og:description" content="Scanners like axe-core catch only a portion of real accessibility failures. Here's how to wire them into CI sensibly and what still needs a human.">
+  <meta property="og:url" content="https://markolosic.github.io/blog/accessibility-testing-automation-coverage-gap/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/marko.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Automated Accessibility Testing Catches Only Part of Your Problems — Here's What Closes the Gap — Marko Lošić">
+  <meta name="twitter:description" content="Scanners like axe-core catch only a portion of real accessibility failures. Here's how to wire them into CI sensibly and what still needs a human.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/marko.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Automated Accessibility Testing Catches Only Part of Your Problems — Here's What Closes the Gap","description":"Scanners like axe-core catch only a portion of real accessibility failures. Here's how to wire them into CI sensibly and what still needs a human.","image":"https://markolosic.github.io/assets/marko.jpg","url":"https://markolosic.github.io/blog/accessibility-testing-automation-coverage-gap/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/accessibility-testing-automation-coverage-gap/"},"datePublished":"2026-10-15","dateModified":"2026-10-15T00:00:00.000Z","keywords":"qa, accessibility, test-automation, ci-cd","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
+  <meta property="article:published_time" content="2026-10-15">
+  <meta property="article:modified_time" content="2026-10-15T00:00:00.000Z">
+  <meta name="goatcounter-code" content="markolosic">
+  <script data-goatcounter="https://markolosic.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2307090d'/%3E%3Cpath d='M16 34l11 11 21-26' fill='none' stroke='%2334d399' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#about" data-i18n="nav_about">About</a>
+      <a href="../../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../../blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> <span data-i18n="all_posts">All posts</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-10-15" data-fmt="long">15 October 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span><span>·</span><span class="views" id="views" hidden><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg><span id="views-num"></span></span></div>
+        <h1 data-title-sr="Automatsko testiranje pristupačnosti hvata samo dio problema — evo šta zatvara jaz">Automated Accessibility Testing Catches Only Part of Your Problems — Here's What Closes the Gap</h1>
+        <p class="lead" data-excerpt-sr="Skeneri poput axe-core hvataju samo dio stvarnih problema sa pristupačnošću. Evo kako da ih razumno uvežete u CI i šta i dalje zahtijeva čovjeka.">Scanners like axe-core catch only a portion of real accessibility failures. Here's how to wire them into CI sensibly and what still needs a human.</p>
+        <div class="tags"><span>qa</span><span>accessibility</span><span>test-automation</span><span>ci-cd</span></div>
+      </header>
+      <div class="prose"><p>A team adds <code>axe-core</code> to its CI pipeline, the checks go green, and everyone quietly assumes accessibility is handled. Then a support ticket comes in: a screen reader user can't close a modal, or a keyboard user gets trapped tabbing through a date picker. The automated suite never flagged either, because it structurally can't.</p>
+<p>That gap isn't a bug in the tooling. It's a limit of what any scanner can judge from the DOM alone, and it's worth understanding precisely so you know what your green checkmarks actually promise.</p>
+<h2 id="what-automated-scanners-actually-cover">What automated scanners actually cover</h2>
+<p>Scanners such as axe-core, WAVE, Pa11y and Lighthouse's accessibility audit all work the same way: they inspect rendered markup against a fixed set of programmatic rules — missing <code>alt</code> attributes, insufficient color contrast ratios, missing form labels, invalid ARIA attributes, broken heading hierarchies, and similar structural problems.</p>
+<p>How much that covers depends on how you count. Measured against WCAG 2.x success criteria, the commonly cited estimate is that automation can fully evaluate only around 30 to 40% of them. Measured by the volume of issues found in real audits, the number looks better — Deque, the maintainers of axe-core, reported that automated checks accounted for a bit over half of the issues in their audit data — because the most frequent problems (contrast, missing labels, missing alt text) happen to be the ones machines check well. Either way, a large share of what matters is left over. Running a second scanner helps a little, but the tools overlap far more than they complement each other.</p>
+<p>The remainder is the kind of thing a machine cannot evaluate without understanding intent: whether alt text actually describes the image or just says &quot;image123.png&quot;, whether a custom dropdown behaves like a native one for keyboard and screen reader users, whether focus moves somewhere sensible after a modal closes, whether the reading order makes sense when CSS is stripped away.</p>
+<h2 id="a-concrete-setup-axe-core-in-a-playwright-pipeline">A concrete setup: axe-core in a Playwright pipeline</h2>
+<p>A practical pattern, documented by an engineering team running this in production, looks like this. They wrap <code>@axe-core/playwright</code> in a small helper that scopes the scan to WCAG 2.1 Level A and AA rules and excludes third-party elements they don't control (ad iframes, embedded widgets):</p>
+<pre><code class="lang-js">import { test } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+
+function getAxeInstance(page) {
+  return new AxeBuilder({ page })
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+    .exclude('#third-party-ad-slot');
+}
+
+test('login page accessibility scan', async ({ page }) =&gt; {
+  await page.goto('/login');
+  const results = await getAxeInstance(page).analyze();
+  await attachViolationsReport(results, 'login', 'desktop');
+});</code></pre>
+<p>Each test is a normal Playwright test: navigate to a page, run the scan, save violations as a report keyed by page and viewport. The CI step runs this against a fixed list of critical pages on every staging deploy.</p>
+<p>The interesting decision is what happens when violations are found. This team doesn't fail the build. Their existing accessibility debt was too large for a hard gate to be sustainable, so a violation instead opens or updates a GitHub Issue, and the fixes get triaged and scheduled like any other bug. That's a reasonable starting posture if you're retrofitting accessibility into an existing codebase — a blocking gate on day one usually just gets disabled by a frustrated team two weeks later. Once the backlog is under control, tightening the gate to block new violations (while leaving existing debt to be paid down separately) is the natural next step.</p>
+<h2 id="pitfalls-and-limits">Pitfalls and limits</h2>
+<p>The biggest risk isn't that automated scanning catches too little — it's that a passing scan gets treated as proof of accessibility rather than a floor. Teams that stop there consistently miss:</p>
+<ul><li><strong>Keyboard navigation flows</strong>: whether every interactive element is reachable and operable by keyboard alone, in a sensible order, with visible focus indicators. A scanner can confirm an element is focusable; it can't walk through your checkout flow with Tab and Enter.</li><li><strong>Screen reader experience</strong>: whether announcements make sense in context. A correctly labeled button can still be announced in a confusing way if the surrounding ARIA live regions are set up wrong.</li><li><strong>Content judgment</strong>: alt text that's technically present but useless, or a heading structure that passes validation but doesn't reflect the actual content hierarchy.</li><li><strong>Dynamic and custom components</strong>: date pickers, comboboxes, drag-and-drop interfaces, and anything built from scratch rather than native HTML controls are exactly where automated tools are weakest and manual testing matters most.</li></ul>
+<p>There's also a quieter risk: automated results can include false positives (a contrast check flagging text that's actually fine against its real background, because of a transparency layer or background image the tool couldn't account for) which, if ignored a few times, trains a team to ignore the tool altogether. Treat flagged issues as a starting point for review, not an automatic verdict.</p>
+<h2 id="what-to-do-next">What to do next</h2>
+<ol><li><strong>Add an automated scanner to CI as a non-blocking signal first</strong>, scoped to WCAG A/AA rules, if you don't already have one. Expect real but partial coverage — if your debt is significant, treat the first results as a backlog, not a pass/fail gate.</li><li><strong>Build a short manual checklist for your highest-traffic flows</strong> (checkout, sign-up, core workflows): tab through the entire flow with a keyboard only, then run it once with a screen reader (VoiceOver, NVDA, or similar). This catches the class of bugs scanners structurally can't.</li><li><strong>Combine two scanners, not more</strong>: axe-core plus one other (Lighthouse or WAVE) captures most of the realistic automated gain. Adding a third mostly adds noise and duplicate findings.</li><li><strong>Revisit the gate periodically</strong>: once new violations are rare, move from &quot;open an issue&quot; to &quot;fail the build on new violations&quot; so accessibility debt stops silently growing while old debt gets paid down on its own schedule.</li></ol>
+<h2 id="sources">Sources</h2>
+<ul><li><a href="https://testparty.ai/blog/automated-vs-manual-accessibility-audits-coverage" target="_blank" rel="noopener noreferrer">Automated vs. Manual Accessibility Audits: Coverage</a> — TestParty</li><li><a href="https://dev.to/subito/how-we-automate-accessibility-testing-with-playwright-and-axe-3ok5" target="_blank" rel="noopener noreferrer">How We Automate Accessibility Testing with Playwright and Axe</a> — Subito</li></ul></div>
+      <template id="prose-sr"><p>Tim doda <code>axe-core</code> u svoj CI pipeline, provjere pozelene i svi prećutno pretpostave da je pristupačnost riješena. Onda stigne tiket od podrške: korisnik čitača ekrana ne može da zatvori modal, ili korisnik tastature ostane zarobljen dok tabom prolazi kroz birač datuma. Automatski testovi nisu prijavili ni jedno ni drugo, jer to po samoj prirodi ne mogu.</p>
+<p>Taj jaz nije bag u alatu. To je granica onoga što bilo koji skener može da procijeni samo na osnovu DOM-a, i vrijedi je precizno razumjeti da biste znali šta vaše zelene kvačice zaista obećavaju.</p>
+<h2 id="šta-automatski-skeneri-zaista-pokrivaju">Šta automatski skeneri zaista pokrivaju</h2>
+<p>Skeneri kao što su axe-core, WAVE, Pa11y i Lighthouse audit pristupačnosti rade na isti način: provjeravaju renderovani markup prema fiksnom skupu programskih pravila — nedostajući <code>alt</code> atributi, nedovoljan kontrast boja, polja forme bez labela, neispravni ARIA atributi, polomljena hijerarhija naslova i slični strukturni problemi.</p>
+<p>Koliko to pokriva zavisi od toga kako brojite. U odnosu na kriterijume uspjeha WCAG 2.x, često navođena procjena je da automatizacija može u potpunosti da ocijeni samo oko 30 do 40% njih. Kada se mjeri po broju problema pronađenih u stvarnim auditima, brojka izgleda bolje — Deque, tim koji održava axe-core, objavio je da su automatske provjere činile nešto više od polovine problema u njihovim podacima iz audita — jer su najčešći problemi (kontrast, nedostajuće labele, nedostajući alt tekst) baš oni koje mašine dobro provjeravaju. U oba slučaja, veliki dio onoga što je bitno ostaje nepokriven. Drugi skener malo pomaže, ali se alati mnogo više preklapaju nego što se dopunjuju.</p>
+<p>Ostatak su stvari koje mašina ne može da ocijeni bez razumijevanja namjere: da li alt tekst zaista opisuje sliku ili samo kaže „image123.png&quot;, da li se custom padajući meni ponaša kao nativni za korisnike tastature i čitača ekrana, da li fokus ide negdje smisleno nakon zatvaranja modala, da li redoslijed čitanja ima smisla kada se ukloni CSS.</p>
+<h2 id="konkretna-postavka-axe-core-u-playwright-pipeline-u">Konkretna postavka: axe-core u Playwright pipeline-u</h2>
+<p>Praktičan obrazac, koji je opisao inženjerski tim koji ga koristi u produkciji, izgleda ovako. Oni <code>@axe-core/playwright</code> umotaju u mali helper koji ograničava skeniranje na WCAG 2.1 pravila nivoa A i AA i isključuje elemente trećih strana koje ne kontrolišu (iframe-ove sa reklamama, ugrađene widget-e):</p>
+<pre><code class="lang-js">import { test } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+
+function getAxeInstance(page) {
+  return new AxeBuilder({ page })
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+    .exclude('#third-party-ad-slot');
+}
+
+test('login page accessibility scan', async ({ page }) =&gt; {
+  await page.goto('/login');
+  const results = await getAxeInstance(page).analyze();
+  await attachViolationsReport(results, 'login', 'desktop');
+});</code></pre>
+<p>Svaki test je običan Playwright test: otvori stranicu, pokreni skeniranje, sačuvaj prekršaje kao izvještaj označen stranicom i veličinom ekrana. CI korak ovo pokreće nad fiksnom listom kritičnih stranica pri svakom deploy-u na staging.</p>
+<p>Zanimljiva odluka je šta se dešava kada se prekršaji pronađu. Ovaj tim ne obara build. Njihov postojeći dug u pristupačnosti bio je prevelik da bi tvrda kapija bila održiva, pa prekršaj umjesto toga otvara ili ažurira GitHub Issue, a ispravke se trijažiraju i planiraju kao i svaki drugi bag. To je razuman početni pristup ako pristupačnost naknadno uvodite u postojeći kod — blokirajuća kapija od prvog dana obično završi tako što je frustrirani tim isključi dvije sedmice kasnije. Kada je backlog pod kontrolom, prirodan sljedeći korak je da se kapija pooštri tako da blokira nove prekršaje (dok se postojeći dug otplaćuje odvojeno).</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Najveći rizik nije to što automatsko skeniranje hvata premalo — nego to što se prolazno skeniranje tretira kao dokaz pristupačnosti, a ne kao donja granica. Timovi koji tu stanu redovno promaše:</p>
+<ul><li><strong>Tokove navigacije tastaturom</strong>: da li je svaki interaktivni element dostupan i upotrebljiv samo tastaturom, smislenim redoslijedom i sa vidljivim indikatorom fokusa. Skener može da potvrdi da element može da dobije fokus; ne može da prođe kroz vaš checkout tok sa Tab i Enter.</li><li><strong>Iskustvo sa čitačem ekrana</strong>: da li najave imaju smisla u kontekstu. Ispravno označeno dugme i dalje može biti najavljeno na zbunjujući način ako su okolni ARIA live regioni loše postavljeni.</li><li><strong>Procjenu sadržaja</strong>: alt tekst koji tehnički postoji, ali je beskoristan, ili strukturu naslova koja prolazi validaciju, ali ne odražava stvarnu hijerarhiju sadržaja.</li><li><strong>Dinamičke i custom komponente</strong>: birači datuma, combobox-ovi, drag-and-drop interfejsi i sve što je napravljeno od nule umjesto nativnih HTML kontrola su upravo mjesta gdje su automatski alati najslabiji, a ručno testiranje najvažnije.</li></ul>
+<p>Postoji i tiši rizik: automatski rezultati mogu sadržati lažno pozitivne nalaze (provjera kontrasta prijavi tekst koji je zapravo u redu na svojoj stvarnoj pozadini, zbog sloja providnosti ili pozadinske slike koju alat nije mogao da uzme u obzir). Ako se takvi nalazi nekoliko puta ignorišu, tim nauči da ignoriše alat u cjelini. Tretirajte prijavljene probleme kao polaznu tačku za pregled, ne kao automatsku presudu.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ol><li><strong>Prvo dodajte automatski skener u CI kao neblokirajući signal</strong>, ograničen na WCAG A/AA pravila, ako ga već nemate. Očekujte stvarnu, ali djelimičnu pokrivenost — ako je vaš dug značajan, tretirajte prve rezultate kao backlog, a ne kao prolaz/pad kapiju.</li><li><strong>Napravite kratku listu za ručnu provjeru najposjećenijih tokova</strong> (checkout, registracija, ključni tokovi rada): prođite kroz cijeli tok samo tastaturom, a zatim ga jednom prođite sa čitačem ekrana (VoiceOver, NVDA ili sličnim). Tako hvatate klasu bagova koje skeneri po prirodi ne mogu.</li><li><strong>Kombinujte dva skenera, ne više</strong>: axe-core plus još jedan (Lighthouse ili WAVE) donosi većinu realnog dobitka od automatizacije. Treći uglavnom dodaje šum i duple nalaze.</li><li><strong>Povremeno preispitajte kapiju</strong>: kada novi prekršaji postanu rijetki, pređite sa „otvori issue&quot; na „obori build na novim prekršajima&quot;, da dug u pristupačnosti prestane neprimjetno da raste dok se stari dug otplaćuje svojim tempom.</li></ol>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://testparty.ai/blog/automated-vs-manual-accessibility-audits-coverage" target="_blank" rel="noopener noreferrer">Automated vs. Manual Accessibility Audits: Coverage</a> — TestParty</li><li><a href="https://dev.to/subito/how-we-automate-accessibility-testing-with-playwright-and-axe-3ok5" target="_blank" rel="noopener noreferrer">How We Automate Accessibility Testing with Playwright and Axe</a> — Subito</li></ul></template>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    </div>
+    <section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../ai-generated-test-data-blind-spots/" data-title-sr="Testni podaci generisani AI-jem: zašto izgledaju ispravno, a ipak promaše bitne bagove" data-excerpt-sr="Generisanje testnih podataka GenAI-jem je svuda, ali povjerenje u njega na većem obimu je nisko. Evo zašto realistični podaci i dalje promaše granične slučajeve koji ruše sisteme."><div class="meta"><time datetime="2026-10-14" data-fmt="short">14 Oct 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div><h2>AI-Generated Test Data: Why It Looks Right and Still Misses the Bugs That Matter</h2><p>GenAI test data generation is everywhere, but trust in it at scale is low. Here's why realistic-looking data still misses the edge cases that break systems.</p></a>
+      <a class="post-card card glow" href="../checkmk-synthetic-monitoring-for-qa/" data-title-sr="Neka testovi rade i poslije objave: Checkmk Synthetic Monitoring za QA timove" data-excerpt-sr="Kako QA timovi mogu da pretvore Robot Framework testove u stalne provjere produkcije uz Checkmk, i na koje zamke treba računati."><div class="meta"><time datetime="2026-10-12" data-fmt="short">12 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Keep Your Tests Running After Release: Checkmk Synthetic Monitoring for QA Teams</h2><p>How QA teams can turn Robot Framework tests into continuous production checks with Checkmk, plus the pitfalls to plan for.</p></a>
+      <a class="post-card card glow" href="../qa-metrics-that-matter/" data-title-sr="QA metrike koje zaista predviđaju kvalitet (i one koje ne predviđaju)" data-excerpt-sr="Procenat prolaznosti i broj testova djeluju umirujuće, ali malo govore o kvalitetu. Evo šta pratiti umjesto toga i kako to čitati."><div class="meta"><time datetime="2026-10-12" data-fmt="short">12 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>The QA Metrics That Actually Predict Quality (and the Ones That Don't)</h2><p>Pass rate and test count feel reassuring but say little about quality. Here's what to track instead, and how to read it.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <a href="../../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../../blog/common.js"></script>
+  <script src="../post.js"></script>
+</body>
+</html>

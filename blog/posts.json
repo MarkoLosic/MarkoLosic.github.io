@@ -1,5 +1,20 @@
 [
   {
+    "slug": "accessibility-testing-automation-coverage-gap",
+    "title": "Automated Accessibility Testing Catches Only Part of Your Problems — Here's What Closes the Gap",
+    "titleSr": "Automatsko testiranje pristupačnosti hvata samo dio problema — evo šta zatvara jaz",
+    "excerpt": "Scanners like axe-core catch only a portion of real accessibility failures. Here's how to wire them into CI sensibly and what still needs a human.",
+    "excerptSr": "Skeneri poput axe-core hvataju samo dio stvarnih problema sa pristupačnošću. Evo kako da ih razumno uvežete u CI i šta i dalje zahtijeva čovjeka.",
+    "tags": [
+      "qa",
+      "accessibility",
+      "test-automation",
+      "ci-cd"
+    ],
+    "date": "2026-10-15",
+    "readingTime": 5
+  },
+  {
     "slug": "ai-generated-test-data-blind-spots",
     "title": "AI-Generated Test Data: Why It Looks Right and Still Misses the Bugs That Matter",
     "titleSr": "Testni podaci generisani AI-jem: zašto izgledaju ispravno, a ipak promaše bitne bagove",
