@@ -186,14 +186,14 @@ h3 { font-family: var(--font-head); letter-spacing: -.01em; }
 .highlights { display: grid; gap: 14px; }
 .highlights li { display: flex; gap: 16px; padding: 20px; border: 1px solid var(--border); border-radius: 16px; background: var(--surface); transition: transform .25s, border-color .25s; }
 .highlights li:hover { transform: translateX(6px); border-color: var(--accent); }
-.hl-ic { flex: none; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 12px; background: var(--surface-2); font-size: 20px; }
+.hl-ic { flex: none; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 12px; background: var(--surface-2); color: var(--accent); }
 .highlights b { font-family: var(--font-head); font-size: 17px; }
 .highlights p { color: var(--muted); font-size: 14.5px; margin-top: 2px; }
 
 /* Skills */
 .skill-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
 .skill-grid h3 { display: flex; align-items: center; gap: 12px; font-size: 20px; margin-bottom: 18px; }
-.ic { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 11px; background: var(--surface-2); font-size: 18px; }
+.ic { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 11px; background: var(--surface-2); color: var(--accent); }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chips + .chips { margin-top: 12px; }
 .chips span { padding: 6px 13px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); font-size: 13.5px; font-weight: 500; transition: transform .2s, border-color .2s; }
@@ -217,7 +217,7 @@ h3 { font-family: var(--font-head); letter-spacing: -.01em; }
 .feature-head { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
 .feature-head h4 { font-size: 20px; }
 .feature-head .mini { margin: 2px 0 0; font-size: 13.5px; }
-.badge { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: var(--surface-2); font-size: 22px; }
+.badge { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: var(--surface-2); color: var(--accent); }
 .feature-lede { max-width: 800px; color: var(--muted); font-size: 16px; }
 .feature-more { color: var(--accent); font-weight: 500; white-space: nowrap; }
 .feature-more:hover { text-decoration: underline; }
