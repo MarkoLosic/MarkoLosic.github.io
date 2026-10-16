@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Testing Across Daylight Saving Time: The Booking Bugs That Only Show Up Twice a Year — Marko Lošić</title>
+  <meta name="description" content="Why scheduling and booking features break around DST transitions, and how to write tests that actually catch it.">
+  <link rel="canonical" href="https://markolosic.github.io/blog/testing-dst-booking-bugs/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Testing Across Daylight Saving Time: The Booking Bugs That Only Show Up Twice a Year — Marko Lošić">
+  <meta property="og:description" content="Why scheduling and booking features break around DST transitions, and how to write tests that actually catch it.">
+  <meta property="og:url" content="https://markolosic.github.io/blog/testing-dst-booking-bugs/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/testing-dst-booking-bugs.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Testing Across Daylight Saving Time: The Booking Bugs That Only Show Up Twice a Year — Marko Lošić">
+  <meta name="twitter:description" content="Why scheduling and booking features break around DST transitions, and how to write tests that actually catch it.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/testing-dst-booking-bugs.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Testing Across Daylight Saving Time: The Booking Bugs That Only Show Up Twice a Year","description":"Why scheduling and booking features break around DST transitions, and how to write tests that actually catch it.","image":"https://markolosic.github.io/assets/blog/testing-dst-booking-bugs.jpg","url":"https://markolosic.github.io/blog/testing-dst-booking-bugs/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/testing-dst-booking-bugs/"},"datePublished":"2026-10-16","dateModified":"2026-10-16T00:00:00.000Z","keywords":"qa, real-world-use-case, timezones, scheduling","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
+  <meta property="article:published_time" content="2026-10-16">
+  <meta property="article:modified_time" content="2026-10-16T00:00:00.000Z">
+  <meta name="goatcounter-code" content="markolosic">
+  <script data-goatcounter="https://markolosic.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#about" data-i18n="nav_about">About</a>
+      <a href="../../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../../blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span data-i18n="all_posts">All posts</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-10-16" data-fmt="long">16 October 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span><span>·</span><span class="views" id="views" hidden><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M2 2h5v1h-5zM1 3h1v1h-1zM4 3h1v1h-1zM7 3h1v1h-1zM0 4h1v1h-1zM3 4h3v1h-3zM8 4h1v1h-1zM1 5h1v1h-1zM4 5h1v1h-1zM7 5h1v1h-1zM2 6h5v1h-5z"/></svg><span id="views-num"></span></span></div>
+        <h1 data-title-sr="Testiranje kroz pomjeranje sata: bagovi u zakazivanju koji se javljaju samo dva puta godišnje">Testing Across Daylight Saving Time: The Booking Bugs That Only Show Up Twice a Year</h1>
+        <p class="lead" data-excerpt-sr="Zašto funkcije zakazivanja i rezervacija pucaju oko prelaska na ljetnje i zimsko računanje vremena i kako napisati testove koji to zaista hvataju.">Why scheduling and booking features break around DST transitions, and how to write tests that actually catch it.</p>
+        <div class="tags"><span>qa</span><span>real-world-use-case</span><span>timezones</span><span>scheduling</span></div>
+      </header>
+      <div class="prose"><p>A meeting scheduler, a delivery slot picker, a cron-based reminder system — any feature that promises &quot;this happens at this local time&quot; eventually has to survive the two days a year when local time itself is inconsistent. Daylight saving time transitions create an hour that doesn't exist and, a few months later, an hour that happens twice. Most test suites never touch either one, because they run against whatever today happens to be, and today is rarely a transition day.</p>
+<p><img src="../../assets/blog/testing-dst-booking-bugs.jpg" alt="Illustration of a stopwatch whose dial splits around 2 and 3 a.m., surrounded by March and November calendars with DST transition dates circled, timezone labels such as UTC, GMT, IANA, America/New_York and Europe/London, and code editor windows with bug and warning icons" loading="lazy"></p>
+<h2 id="why-this-keeps-catching-teams-off-guard">Why this keeps catching teams off guard</h2>
+<p>The failure mode isn't exotic, and it has hit companies with far more time-handling experience than most teams building a booking feature. In 2010, iPhone recurring alarms fired at the wrong time after DST changes, first in Australia and New Zealand and then in Europe, and people woke up an hour off. In 2007, when the US extended daylight saving by several weeks, Microsoft Outlook appointments falling in the new window shifted by an hour, and companies spent weeks correcting meetings by hand. Infrastructure vendors still ship support articles warning that a time change can throw off scheduled jobs — Dell has one for PowerProtect Cyber Recovery. None of these were careless teams. Their time-handling code was correct on every day except the two that mattered.</p>
+<p>The underlying bugs come from a short list that keeps recurring:</p>
+<ul><li><strong>The missing hour.</strong> On the spring-forward date, a time like 2:30 a.m. in <code>America/New_York</code> simply doesn't exist. Anything scheduled for it either throws, silently skips, or gets normalized to a time nobody chose.</li><li><strong>The duplicate hour.</strong> On fall-back, 1:30 a.m. happens twice. A job or reminder scheduled in local time for that slot can fire twice — or, depending on the scheduler, not at all.</li><li><strong>Local time stored without a zone.</strong> If a booking is saved as a naive timestamp or as a fixed UTC offset instead of a time plus an IANA zone ID (<code>Europe/Berlin</code>, not <code>GMT+1</code>), the booking is correct until the zone's offset changes — then it's off by an hour.</li><li><strong>&quot;Every 24 hours&quot; scheduling.</strong> A job set to run every 86,400 seconds drifts relative to the wall clock the moment the offset changes, which is exactly how automated schedules end up firing an hour early or late right after a time change.</li></ul>
+<h2 id="a-concrete-test-scenario">A concrete test scenario</h2>
+<p>Take a meeting-booking feature where a user in <code>America/New_York</code> books a recurring 9:00 a.m. call with a user in <code>Europe/London</code>. The useful test here isn't &quot;booking works&quot;. It's a set of checks pinned to specific calendar dates. In 2026, the US springs forward on March 8 and the UK on March 29, so for three weeks the two cities are four hours apart instead of five:</p>
+<pre><code class="lang-text">Fixed clock: 2026-03-07 (the day before US spring-forward)
+1. Book a weekly 9:00 a.m. America/New_York call, starting 2026-03-01.
+2. Assert the 2026-03-01 occurrence shows 9:00 a.m. New York / 2:00 p.m. London.
+3. Assert the 2026-03-08 and 2026-03-15 occurrences (after the US shift)
+   still show 9:00 a.m. New York, but now 1:00 p.m. London — not 2:00 p.m.,
+   because the UK's own shift hasn't happened yet.
+4. Assert the 2026-03-29 occurrence (after the UK shift) is back to
+   9:00 a.m. New York / 2:00 p.m. London.
+5. Attempt to book a one-off call at 2:30 a.m. America/New_York on
+   2026-03-08 (the nonexistent hour). Assert the system rejects it or
+   explicitly normalizes it, rather than silently accepting a timestamp
+   that never occurred.
+6. Repeat for the US fall-back on 2026-11-01, asserting that a reminder
+   scheduled for 1:30 a.m. (the ambiguous hour) fires exactly once.</code></pre>
+<p>In a system built like this, step 3 is where the bug usually surfaces. It comes down to storing &quot;9:00 a.m. New York time&quot; versus storing &quot;14:00 UTC&quot;. The second form bakes in the rule that applied on the day the booking was created rather than what the user actually meant, so it goes wrong the moment the offset changes. The fix is to store the local time plus the IANA zone ID for every future-dated event, and only resolve it to a UTC instant at read time, not at creation time.</p>
+<h2 id="pitfalls-and-limits">Pitfalls and limits</h2>
+<p>Testing this well has real costs, and it's worth naming them rather than pretending the approach is free.</p>
+<ul><li><strong>You can't enumerate every zone pair.</strong> There are hundreds of IANA zones, many with their own transition dates, and some countries change their rules with little notice (Mexico abolished DST for most of the country in 2022). Pick a representative set — UTC, a zone west of Greenwich, a zone east of it, a half-hour-offset zone like <code>Asia/Kolkata</code>, and one that doesn't observe DST at all — rather than trying to cover all of them.</li><li><strong>A fixed-clock test still needs a real tz database.</strong> Mocking &quot;now&quot; without updating the underlying timezone data gives you tests that pass against stale rules.</li><li><strong>This doesn't replace monitoring.</strong> A rule can change in the real world (a country announces a new DST policy) faster than your test fixtures do. Tests catch known transition logic. They won't catch a government changing the rules next year.</li><li><strong>Over-testing every date is wasted effort.</strong> You don't need coverage of all 365 days. The value sits in the handful of transition dates for each zone you actually support.</li></ul>
+<h2 id="what-to-do-next">What to do next</h2>
+<ol><li>Grep your codebase for date math that doesn't go through a timezone-aware library, and for any place where a future event's instant is computed and stored at creation time instead of at read time.</li><li>Add a small fixture: a fixed clock plus 3–4 representative IANA zones, and write one test per bug category above (missing hour, duplicate hour, cross-zone drift) rather than one generic &quot;timezones work&quot; test.</li><li>Check your job scheduler's behavior on the fall-back date specifically. It's the cheapest check with the highest payoff, since a double-fired job or notification is the most common and most visible version of this bug.</li><li>If you depend on Moment.js, which its own maintainers describe as a legacy project, or a similar library, flag it for replacement before the next DST transition, not after it causes a ticket.</li></ol>
+<h2 id="sources">Sources</h2>
+<ul><li><a href="https://converttime.com/en/blog/dst-software-bugs" target="_blank" rel="noopener noreferrer">DST software bugs</a> — ConvertTime</li><li><a href="https://axonbuild.com/blog/time-zone-handling-checklist/" target="_blank" rel="noopener noreferrer">Time zone handling checklist</a> — Axon Build</li><li><a href="https://www.dell.com/support/kbdoc/en-il/000197427/time-change-causes-schedule-issues" target="_blank" rel="noopener noreferrer">PowerProtect Cyber Recovery: Time changes may cause schedule issues</a> — Dell Support</li></ul></div>
+      <template id="prose-sr"><p>Zakazivač sastanaka, birač termina za dostavu, sistem podsjetnika zasnovan na cron-u — svaka funkcija koja obećava „ovo se dešava u ovo lokalno vrijeme&quot; prije ili kasnije mora da preživi dva dana u godini kada ni samo lokalno vrijeme nije dosljedno. Prelazak na ljetnje i zimsko računanje vremena (DST) pravi sat koji ne postoji, a nekoliko mjeseci kasnije sat koji se desi dva puta. Većina test paketa ne dotakne nijedan od njih, jer se testovi izvršavaju za koji god datum je danas, a danas je rijetko dan pomjeranja sata.</p>
+<p><img src="../../assets/blog/testing-dst-booking-bugs.jpg" alt="Ilustracija štoperice čiji se brojčanik lomi oko 2 i 3 sata ujutru, okružene kalendarima za mart i novembar sa zaokruženim datumima pomjeranja sata, oznakama vremenskih zona kao što su UTC, GMT, IANA, America/New_York i Europe/London, i prozorima editora koda sa ikonama baga i upozorenja" loading="lazy"></p>
+<h2 id="zašto-ovo-stalno-iznenadi-timove">Zašto ovo stalno iznenadi timove</h2>
+<p>Ovakav kvar nije nešto egzotično, a pogodio je i kompanije sa mnogo više iskustva u radu sa vremenom nego što ga ima većina timova koji prave funkciju rezervacija. Godine 2010. ponavljajući alarmi na iPhone-u oglašavali su se u pogrešno vrijeme nakon pomjeranja sata, prvo u Australiji i Novom Zelandu, a zatim i u Evropi, pa su se ljudi budili sat ranije ili kasnije. Godine 2007, kada su SAD produžile ljetnje računanje vremena za nekoliko sedmica, sastanci u Microsoft Outlook-u koji su padali u novi period pomjerili su se za sat, a kompanije su sedmicama ručno ispravljale kalendare. Proizvođači infrastrukture i danas objavljuju članke podrške koji upozoravaju da pomjeranje sata može poremetiti zakazane poslove — Dell ima jedan za PowerProtect Cyber Recovery. Nijedan od ovih timova nije bio nemaran. Njihov kod za rad sa vremenom radio je ispravno svakog dana osim ona dva koja su bila bitna.</p>
+<p>Bagovi u pozadini dolaze sa kratke liste koja se stalno ponavlja:</p>
+<ul><li><strong>Sat koji nedostaje.</strong> Na dan pomjeranja sata unaprijed, vrijeme poput 2:30 ujutru u zoni <code>America/New_York</code> jednostavno ne postoji. Sve što je zakazano za taj trenutak ili baci grešku, ili se tiho preskoči, ili se normalizuje na vrijeme koje niko nije izabrao.</li><li><strong>Sat koji se ponavlja.</strong> Kada se sat vraća unazad, 1:30 ujutru desi se dva puta. Posao ili podsjetnik zakazan po lokalnom vremenu za taj termin može da se okine dva puta — ili, zavisno od zakazivača, nijednom.</li><li><strong>Lokalno vrijeme sačuvano bez zone.</strong> Ako se rezervacija čuva kao „goli&quot; timestamp ili kao fiksni UTC pomak umjesto kao vrijeme plus IANA ID zone (<code>Europe/Berlin</code>, a ne <code>GMT+1</code>), rezervacija je tačna sve dok se pomak zone ne promijeni — a onda je pomjerena za sat.</li><li><strong>Zakazivanje „na svaka 24 sata&quot;.</strong> Posao podešen da se pokreće na svakih 86.400 sekundi počne da odstupa od zidnog sata čim se pomak promijeni, i upravo tako se automatski rasporedi okinu sat ranije ili kasnije odmah nakon pomjeranja sata.</li></ul>
+<h2 id="konkretan-test-scenario">Konkretan test scenario</h2>
+<p>Uzmimo funkciju za zakazivanje sastanaka u kojoj korisnik u zoni <code>America/New_York</code> zakazuje ponavljajući poziv u 9:00 ujutru sa korisnikom u zoni <code>Europe/London</code>. Koristan test ovdje nije „zakazivanje radi&quot;. To je skup provjera vezanih za konkretne datume. U 2026. godini SAD pomjeraju sat unaprijed 8. marta, a Velika Britanija 29. marta, pa su ta dva grada tri sedmice udaljena četiri sata umjesto pet:</p>
+<pre><code class="lang-text">Fiksiran sat: 2026-03-07 (dan prije pomjeranja sata u SAD)
+1. Zakaži sedmični poziv u 9:00 po America/New_York, sa početkom 2026-03-01.
+2. Provjeri da termin 2026-03-01 prikazuje 9:00 Njujork / 14:00 London.
+3. Provjeri da termini 2026-03-08 i 2026-03-15 (nakon pomjeranja u SAD)
+   i dalje prikazuju 9:00 Njujork, ali sada 13:00 London — ne 14:00,
+   jer se sat u Velikoj Britaniji još nije pomjerio.
+4. Provjeri da je termin 2026-03-29 (nakon pomjeranja u Velikoj Britaniji)
+   ponovo 9:00 Njujork / 14:00 London.
+5. Pokušaj da zakažeš jednokratni poziv u 2:30 ujutru po America/New_York
+   na dan 2026-03-08 (sat koji ne postoji). Provjeri da ga sistem odbije
+   ili eksplicitno normalizuje, umjesto da tiho prihvati trenutak
+   koji se nikada nije desio.
+6. Ponovi za vraćanje sata u SAD 2026-11-01 i provjeri da se podsjetnik
+   zakazan za 1:30 ujutru (dvosmislen sat) okine tačno jednom.</code></pre>
+<p>U sistemu koji je ovako napravljen, bag obično ispliva na trećem koraku. Sve se svodi na razliku između čuvanja „9:00 po njujorškom vremenu&quot; i čuvanja „14:00 UTC&quot;. Drugi oblik u sebe ugrađuje pravilo koje je važilo na dan kada je rezervacija napravljena, a ne ono što je korisnik zaista mislio, pa postaje pogrešan čim se pomak promijeni. Rješenje je da se za svaki budući događaj čuva lokalno vrijeme plus IANA ID zone, a da se u UTC trenutak pretvara tek pri čitanju, ne pri kreiranju.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Dobro testiranje ovoga ima stvarnu cijenu i vrijedi je imenovati, umjesto da se pretvaramo da je pristup besplatan.</p>
+<ul><li><strong>Ne možete pokriti svaki par zona.</strong> Postoje stotine IANA zona, mnoge sa sopstvenim datumima pomjeranja, a neke zemlje mijenjaju pravila uz malo najave (Meksiko je 2022. ukinuo pomjeranje sata za veći dio zemlje). Izaberite reprezentativan skup — UTC, zonu zapadno od Griniča, zonu istočno od njega, zonu sa pomakom od pola sata kao što je <code>Asia/Kolkata</code> i jednu koja uopšte ne pomjera sat — umjesto da pokušavate da pokrijete sve.</li><li><strong>Test sa fiksiranim satom i dalje traži stvarnu tz bazu.</strong> Ako mock-ujete „sada&quot;, a ne ažurirate podatke o vremenskim zonama ispod toga, dobijate testove koji prolaze nad zastarjelim pravilima.</li><li><strong>Ovo ne zamjenjuje monitoring.</strong> Pravilo se u stvarnom svijetu može promijeniti (država najavi novu politiku pomjeranja sata) brže nego vaši test fixture-i. Testovi hvataju poznatu logiku prelaza. Neće uhvatiti vladu koja sljedeće godine promijeni pravila.</li><li><strong>Testiranje svakog datuma je bačen trud.</strong> Ne treba vam pokrivenost svih 365 dana. Vrijednost je u nekoliko datuma prelaza za svaku zonu koju zaista podržavate.</li></ul>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ol><li>Pretražite kod (grep) za računanje sa datumima koje ne ide kroz biblioteku svjesnu vremenskih zona, i za svako mjesto gdje se trenutak budućeg događaja računa i čuva pri kreiranju umjesto pri čitanju.</li><li>Dodajte mali fixture: fiksiran sat plus 3–4 reprezentativne IANA zone, i napišite po jedan test za svaku kategoriju baga iznad (sat koji nedostaje, sat koji se ponavlja, odstupanje između zona), umjesto jednog opšteg testa „vremenske zone rade&quot;.</li><li>Posebno provjerite kako se vaš zakazivač poslova ponaša na dan vraćanja sata. To je najjeftinija provjera sa najvećom koristi, jer je dvaput okinut posao ili notifikacija najčešća i najvidljivija verzija ovog baga.</li><li>Ako zavisite od Moment.js-a, koji sami održavaoci opisuju kao legacy projekat, ili slične biblioteke, označite je za zamjenu prije sljedećeg pomjeranja sata, a ne nakon što izazove tiket.</li></ol>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://converttime.com/en/blog/dst-software-bugs" target="_blank" rel="noopener noreferrer">DST software bugs</a> — ConvertTime</li><li><a href="https://axonbuild.com/blog/time-zone-handling-checklist/" target="_blank" rel="noopener noreferrer">Time zone handling checklist</a> — Axon Build</li><li><a href="https://www.dell.com/support/kbdoc/en-il/000197427/time-change-causes-schedule-issues" target="_blank" rel="noopener noreferrer">PowerProtect Cyber Recovery: Time changes may cause schedule issues</a> — Dell Support</li></ul></template>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    </div>
+    <section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../accessibility-testing-automation-coverage-gap/" data-title-sr="Automatsko testiranje pristupačnosti hvata samo dio problema — evo šta zatvara jaz" data-excerpt-sr="Skeneri poput axe-core hvataju samo dio stvarnih problema sa pristupačnošću. Evo kako da ih razumno uvežete u CI i šta i dalje zahtijeva čovjeka."><div class="meta"><time datetime="2026-10-15" data-fmt="short">15 Oct 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div><h2>Automated Accessibility Testing Catches Only Part of Your Problems — Here's What Closes the Gap</h2><p>Scanners like axe-core catch only a portion of real accessibility failures. Here's how to wire them into CI sensibly and what still needs a human.</p></a>
+      <a class="post-card card glow" href="../ai-generated-test-data-blind-spots/" data-title-sr="Testni podaci generisani AI-jem: zašto izgledaju ispravno, a ipak promaše bitne bagove" data-excerpt-sr="Generisanje testnih podataka GenAI-jem je svuda, ali povjerenje u njega na većem obimu je nisko. Evo zašto realistični podaci i dalje promaše granične slučajeve koji ruše sisteme."><div class="meta"><time datetime="2026-10-14" data-fmt="short">14 Oct 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div><h2>AI-Generated Test Data: Why It Looks Right and Still Misses the Bugs That Matter</h2><p>GenAI test data generation is everywhere, but trust in it at scale is low. Here's why realistic-looking data still misses the edge cases that break systems.</p></a>
+      <a class="post-card card glow" href="../checkmk-synthetic-monitoring-for-qa/" data-title-sr="Neka testovi rade i poslije objave: Checkmk Synthetic Monitoring za QA timove" data-excerpt-sr="Kako QA timovi mogu da pretvore Robot Framework testove u stalne provjere produkcije uz Checkmk, i na koje zamke treba računati."><div class="meta"><time datetime="2026-10-12" data-fmt="short">12 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Keep Your Tests Running After Release: Checkmk Synthetic Monitoring for QA Teams</h2><p>How QA teams can turn Robot Framework tests into continuous production checks with Checkmk, plus the pitfalls to plan for.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <a href="../../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../../blog/common.js"></script>
+  <script src="../post.js"></script>
+</body>
+</html>

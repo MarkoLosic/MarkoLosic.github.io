@@ -1,5 +1,20 @@
 [
   {
+    "slug": "testing-dst-booking-bugs",
+    "title": "Testing Across Daylight Saving Time: The Booking Bugs That Only Show Up Twice a Year",
+    "titleSr": "Testiranje kroz pomjeranje sata: bagovi u zakazivanju koji se javljaju samo dva puta godišnje",
+    "excerpt": "Why scheduling and booking features break around DST transitions, and how to write tests that actually catch it.",
+    "excerptSr": "Zašto funkcije zakazivanja i rezervacija pucaju oko prelaska na ljetnje i zimsko računanje vremena i kako napisati testove koji to zaista hvataju.",
+    "tags": [
+      "qa",
+      "real-world-use-case",
+      "timezones",
+      "scheduling"
+    ],
+    "date": "2026-10-16",
+    "readingTime": 6
+  },
+  {
     "slug": "accessibility-testing-automation-coverage-gap",
     "title": "Automated Accessibility Testing Catches Only Part of Your Problems — Here's What Closes the Gap",
     "titleSr": "Automatsko testiranje pristupačnosti hvata samo dio problema — evo šta zatvara jaz",
