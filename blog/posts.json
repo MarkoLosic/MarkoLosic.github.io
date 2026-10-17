@@ -1,5 +1,20 @@
 [
   {
+    "slug": "pom-alternatives-flow-model-screenplay-pattern",
+    "title": "When Your Page Object Model Stops Scaling: Flow Model and Screenplay Pattern Compared",
+    "titleSr": "Kada Page Object Model prestane da se skalira: poređenje Flow modela i Screenplay obrasca",
+    "excerpt": "Page objects work until the suite grows. A look at when to add a flow layer, when Screenplay earns its complexity, and when to just stay put.",
+    "excerptSr": "Page objekti rade dok paket testova ne naraste. Kada dodati sloj tokova, kada Screenplay opravdava svoju složenost, a kada je najbolje ostati gdje ste.",
+    "tags": [
+      "qa",
+      "test-automation",
+      "page-object-model",
+      "screenplay-pattern"
+    ],
+    "date": "2026-10-17",
+    "readingTime": 5
+  },
+  {
     "slug": "testing-dst-booking-bugs",
     "title": "Testing Across Daylight Saving Time: The Booking Bugs That Only Show Up Twice a Year",
     "titleSr": "Testiranje kroz pomjeranje sata: bagovi u zakazivanju koji se javljaju samo dva puta godišnje",
