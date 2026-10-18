@@ -1,5 +1,20 @@
 [
   {
+    "slug": "ai-rewriting-qa-job-description",
+    "title": "AI Is Rewriting the QA Job Description, Not Deleting It",
+    "titleSr": "AI prepisuje opis QA posla, ali ga ne briše",
+    "excerpt": "AI already drafts test cases and triages failures. Here's what that actually changes about QA work, and where the role is heading next.",
+    "excerptSr": "AI već piše nacrte test slučajeva i sortira padove testova. Evo šta to zaista mijenja u QA poslu i kuda ta uloga ide.",
+    "tags": [
+      "qa",
+      "ai-in-qa",
+      "career",
+      "test-strategy"
+    ],
+    "date": "2026-10-18",
+    "readingTime": 5
+  },
+  {
     "slug": "pom-alternatives-flow-model-screenplay-pattern",
     "title": "When Your Page Object Model Stops Scaling: Flow Model and Screenplay Pattern Compared",
     "titleSr": "Kada Page Object Model prestane da se skalira: poređenje Flow modela i Screenplay obrasca",
