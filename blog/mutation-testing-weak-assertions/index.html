@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mutation Testing: How to Tell If Your Test Suite Actually Catches Bugs — Marko Lošić</title>
+  <meta name="description" content="Code coverage shows which lines ran. Mutation testing shows whether your tests would notice if the logic broke. Here's how to use it.">
+  <link rel="canonical" href="https://markolosic.github.io/blog/mutation-testing-weak-assertions/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Mutation Testing: How to Tell If Your Test Suite Actually Catches Bugs — Marko Lošić">
+  <meta property="og:description" content="Code coverage shows which lines ran. Mutation testing shows whether your tests would notice if the logic broke. Here's how to use it.">
+  <meta property="og:url" content="https://markolosic.github.io/blog/mutation-testing-weak-assertions/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/mutation-testing-weak-assertions.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mutation Testing: How to Tell If Your Test Suite Actually Catches Bugs — Marko Lošić">
+  <meta name="twitter:description" content="Code coverage shows which lines ran. Mutation testing shows whether your tests would notice if the logic broke. Here's how to use it.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/mutation-testing-weak-assertions.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Mutation Testing: How to Tell If Your Test Suite Actually Catches Bugs","description":"Code coverage shows which lines ran. Mutation testing shows whether your tests would notice if the logic broke. Here's how to use it.","image":"https://markolosic.github.io/assets/blog/mutation-testing-weak-assertions.jpg","url":"https://markolosic.github.io/blog/mutation-testing-weak-assertions/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/mutation-testing-weak-assertions/"},"datePublished":"2026-10-19","dateModified":"2026-10-19T00:00:00.000Z","keywords":"qa, test-automation, mutation-testing, test-design","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
+  <meta property="article:published_time" content="2026-10-19">
+  <meta property="article:modified_time" content="2026-10-19T00:00:00.000Z">
+  <meta name="goatcounter-code" content="markolosic">
+  <script data-goatcounter="https://markolosic.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#about" data-i18n="nav_about">About</a>
+      <a href="../../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../../blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span data-i18n="all_posts">All posts</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-10-19" data-fmt="long">19 October 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span><span>·</span><span class="views" id="views" hidden><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M2 2h5v1h-5zM1 3h1v1h-1zM4 3h1v1h-1zM7 3h1v1h-1zM0 4h1v1h-1zM3 4h3v1h-3zM8 4h1v1h-1zM1 5h1v1h-1zM4 5h1v1h-1zM7 5h1v1h-1zM2 6h5v1h-5z"/></svg><span id="views-num"></span></span></div>
+        <h1 data-title-sr="Mutaciono testiranje: kako da saznate da li vaši testovi zaista hvataju bagove">Mutation Testing: How to Tell If Your Test Suite Actually Catches Bugs</h1>
+        <p class="lead" data-excerpt-sr="Pokrivenost koda pokazuje koje su linije izvršene. Mutaciono testiranje pokazuje da li bi vaši testovi primijetili da je logika pokvarena. Evo kako da ga koristite.">Code coverage shows which lines ran. Mutation testing shows whether your tests would notice if the logic broke. Here's how to use it.</p>
+        <div class="tags"><span>qa</span><span>test-automation</span><span>mutation-testing</span><span>test-design</span></div>
+      </header>
+      <div class="prose"><p>A test suite can sit at 95% line coverage and still let a one-character logic bug ship. Coverage only tells you that a line executed during a test run; it says nothing about whether any assertion would have failed if that line did the wrong thing. A function can be called, return a value nobody checks, and still count as &quot;covered.&quot;</p>
+<p>Mutation testing answers the question coverage can't: if this exact piece of logic were slightly wrong, would any test actually fail? It does this by automatically introducing small, deliberate bugs into your code, called mutants, and rerunning your test suite against each one. A mutant that causes a test to fail is &quot;killed.&quot; A mutant that causes no test to fail &quot;survives,&quot; and a surviving mutant is a direct, concrete signal that part of your logic has no real test coverage behind it, even if the coverage report says otherwise.</p>
+<p><img src="../../assets/blog/mutation-testing-weak-assertions.jpg" alt="Neon illustration of a DNA double helix made of code, with green &quot;KILLED&quot; badges on caught mutants, red target markers labelled &quot;MUTANT DETECTED&quot; and &quot;MUTATED&quot;, glitching bug icons, a coverage chart, and a stats panel showing a &quot;101 &gt; 100&quot; test failure" loading="lazy"></p>
+<h2 id="how-a-mutation-testing-run-actually-works">How a mutation testing run actually works</h2>
+<p>Tools like Stryker (JavaScript/TypeScript, .NET), PIT (Java), and mutmut or cosmic-ray (Python) parse your source and generate variants with small, mechanical changes: flipping a comparison operator (<code>&lt;=</code> to <code>&lt;</code>), swapping a boolean (<code>true</code> to <code>false</code>), changing an arithmetic operator (<code>+</code> to <code>-</code>), or removing a statement entirely. Each mutant is compiled or loaded individually, and your existing test suite runs against it, unchanged.</p>
+<p>Take a simple discount calculator:</p>
+<pre><code class="lang-python">def calculate_price(base_price, discount_percent):
+    if discount_percent &gt; 100:
+        raise ValueError(&quot;Invalid discount&quot;)
+    return base_price * (1 - discount_percent / 100)</code></pre>
+<p>A mutation tool might flip <code>discount_percent &gt; 100</code> to <code>discount_percent &gt;= 100</code>. If your test suite only checks <code>discount_percent = 150</code> and <code>discount_percent = 50</code>, that mutant survives, because nothing in the suite tests the boundary at exactly 100. The fix isn't to rewrite the function — it's to add a test for the boundary value itself:</p>
+<pre><code class="lang-python">import pytest
+
+def test_discount_of_exactly_100_is_allowed():
+    assert calculate_price(200, 100) == 0
+
+def test_discount_over_100_raises():
+    with pytest.raises(ValueError):
+        calculate_price(200, 101)</code></pre>
+<p>That's the pattern mutation testing surfaces again and again: tests that cover the happy path but never probe the edges where off-by-one and boundary bugs actually live.</p>
+<h2 id="mutation-score-and-what-it-does-and-doesn-t-tell-you">Mutation score, and what it does and doesn't tell you</h2>
+<p>The result of a run is usually expressed as a mutation score: killed mutants divided by total valid mutants, as a percentage. A score of 70% means 70% of the deliberately introduced bugs would have been caught by your tests; the other 30% could ship unnoticed.</p>
+<p>Two things complicate that number. First, some mutants are &quot;equivalent&quot;: the code is textually different but behaves identically for every input, so no test could ever kill it (a true equivalent mutant does not change observable behavior, as distinct from a boundary change like the one above, which does). Most tools can't reliably detect these automatically, so a real-world mutation score is a slight underestimate of what your tests are actually worth — a human has to eyeball a surviving mutant to tell &quot;nobody tests this&quot; from &quot;nothing could test this.&quot; Second, mutation score is not a target to chase to 100%. Treating it like a coverage percentage to maximize produces the same problem coverage chasing does: tests written to kill mutants rather than to verify behavior that matters.</p>
+<h2 id="where-it-fits-and-where-it-doesn-t">Where it fits, and where it doesn't</h2>
+<p>Mutation testing is expensive. Running the full suite once per mutant means a project with a two-minute test suite and a few hundred mutants can take hours, not minutes. That makes it a poor fit for running on every commit. In practice, teams run it on a schedule (nightly, or on a weekly cadence) or scope it to the specific module or pull request diff that changed, rather than the whole codebase.</p>
+<p>It's also not a substitute for integration or end-to-end testing. Mutation testing operates at the unit level, inside a single function or class; it tells you whether your unit tests would catch a logic error in that unit, not whether your system behaves correctly end to end. And it's noisy on code that's inherently permissive — validation logic with many acceptable inputs, logging statements, or getters/setters generate a lot of mutants that either can't meaningfully be killed or aren't worth killing. Most tools let you exclude files, methods, or specific mutation types (string literals, logging calls) to cut that noise, and skipping that configuration step is the most common reason teams try mutation testing once and abandon it as &quot;too slow and too noisy.&quot;</p>
+<h2 id="what-to-do-next">What to do next</h2>
+<ol><li>Pick one tool for your stack (Stryker for JS/TS or .NET, PIT for Java, mutmut for Python) and run it against a single, business-critical module first, not the whole repo.</li><li>Read the surviving mutants, not just the score. Each one is a specific, actionable gap: either write a test for it, or document why it's equivalent and exclude it.</li><li>Configure exclusions before judging the tool. Cut noisy mutation types and low-value files so the surviving mutants you review are the ones worth your time.</li><li>If it proves useful, run it on a schedule or scoped to changed files in CI, with a mutation score threshold that gates review, not a hard build failure, until the team trusts the signal.</li></ol>
+<h2 id="sources">Sources</h2>
+<ul><li><a href="https://learn.microsoft.com/dotnet/core/testing/mutation-testing" target="_blank" rel="noopener noreferrer">Mutation testing</a> — Microsoft Learn (.NET docs)</li><li><a href="https://mutants.rs/vs-coverage.html" target="_blank" rel="noopener noreferrer">How is mutation testing different to coverage measurement?</a> — mutants.rs</li></ul></div>
+      <template id="prose-sr"><p>Paket testova može imati 95% pokrivenosti linija koda i ipak propustiti u produkciju logički bag od jednog jedinog karaktera. Pokrivenost vam govori samo da je linija izvršena tokom testiranja; ne govori ništa o tome da li bi ijedna provjera (assertion) pala da ta linija radi pogrešnu stvar. Funkcija može biti pozvana, vratiti vrijednost koju niko ne provjerava i svejedno se računati kao „pokrivena&quot;.</p>
+<p>Mutaciono testiranje odgovara na pitanje na koje pokrivenost ne može: da je baš ovaj dio logike malo pogrešan, da li bi ijedan test zaista pao? To radi tako što automatski ubacuje male, namjerne bagove u vaš kod, koji se zovu mutanti, i ponovo pokreće paket testova nad svakim od njih. Mutant zbog kojeg neki test padne je „ubijen&quot; (killed). Mutant zbog kojeg nijedan test ne padne „preživljava&quot; (survives), a preživjeli mutant je direktan, konkretan signal da iza dijela vaše logike ne stoji nikakvo stvarno testiranje, čak i ako izvještaj o pokrivenosti tvrdi suprotno.</p>
+<p><img src="../../assets/blog/mutation-testing-weak-assertions.jpg" alt="Neonska ilustracija dvostruke spirale DNK sastavljene od koda, sa zelenim oznakama „KILLED&quot; na uhvaćenim mutantima, crvenim metama sa natpisima „MUTANT DETECTED&quot; i „MUTATED&quot;, ikonama bagova koji trepere, grafikonom pokrivenosti i panelom sa statistikom koji prikazuje pad testa „101 &gt; 100&quot;" loading="lazy"></p>
+<h2 id="kako-zapravo-izgleda-jedno-pokretanje-mutacionog-testiranja">Kako zapravo izgleda jedno pokretanje mutacionog testiranja</h2>
+<p>Alati kao što su Stryker (JavaScript/TypeScript, .NET), PIT (Java) i mutmut ili cosmic-ray (Python) parsiraju vaš izvorni kod i generišu varijante sa malim, mehaničkim izmjenama: obrću operator poređenja (<code>&lt;=</code> u <code>&lt;</code>), mijenjaju bulovu vrijednost (<code>true</code> u <code>false</code>), mijenjaju aritmetički operator (<code>+</code> u <code>-</code>) ili potpuno uklanjaju naredbu. Svaki mutant se zasebno kompajlira ili učitava, a vaš postojeći paket testova se nad njim pokreće bez ikakvih izmjena.</p>
+<p>Uzmimo jednostavan kalkulator popusta:</p>
+<pre><code class="lang-python">def calculate_price(base_price, discount_percent):
+    if discount_percent &gt; 100:
+        raise ValueError(&quot;Invalid discount&quot;)
+    return base_price * (1 - discount_percent / 100)</code></pre>
+<p>Alat za mutaciono testiranje mogao bi da promijeni <code>discount_percent &gt; 100</code> u <code>discount_percent &gt;= 100</code>. Ako vaš paket testova provjerava samo <code>discount_percent = 150</code> i <code>discount_percent = 50</code>, taj mutant preživljava, jer ništa u paketu ne testira granicu od tačno 100. Rješenje nije da prepišete funkciju — nego da dodate test za samu graničnu vrijednost:</p>
+<pre><code class="lang-python">import pytest
+
+def test_discount_of_exactly_100_is_allowed():
+    assert calculate_price(200, 100) == 0
+
+def test_discount_over_100_raises():
+    with pytest.raises(ValueError):
+        calculate_price(200, 101)</code></pre>
+<p>To je obrazac koji mutaciono testiranje otkriva iznova i iznova: testovi koji pokrivaju „srećan put&quot; (happy path), ali nikada ne zadiru u ivice na kojima zapravo žive off-by-one i granični bagovi.</p>
+<h2 id="mutacioni-skor-šta-vam-govori-a-šta-ne">Mutacioni skor: šta vam govori, a šta ne</h2>
+<p>Rezultat pokretanja se obično izražava kao mutacioni skor: broj ubijenih mutanata podijeljen sa ukupnim brojem validnih mutanata, u procentima. Skor od 70% znači da bi vaši testovi uhvatili 70% namjerno ubačenih bagova; preostalih 30% bi moglo neprimijećeno da završi u produkciji.</p>
+<p>Dvije stvari komplikuju taj broj. Prvo, neki mutanti su „ekvivalentni&quot;: kod se razlikuje u tekstu, ali se za svaki ulaz ponaša identično, pa nijedan test nikada ne može da ga ubije (pravi ekvivalentni mutant ne mijenja vidljivo ponašanje, za razliku od izmjene granice kao u primjeru iznad, koja ga mijenja). Većina alata ne može pouzdano da ih otkrije automatski, pa je mutacioni skor u praksi blago potcijenjena mjera stvarne vrijednosti vaših testova — čovjek mora da pogleda preživjelog mutanta da bi razlikovao „ovo niko ne testira&quot; od „ovo ništa ne može da testira&quot;. Drugo, mutacioni skor nije cilj koji treba gurati do 100%. Ako ga tretirate kao procenat pokrivenosti koji treba maksimizovati, dobijate isti problem kao i kod jurenja pokrivenosti: testove napisane da ubiju mutante, umjesto da provjere ponašanje koje je zaista važno.</p>
+<h2 id="gdje-se-uklapa-a-gdje-ne">Gdje se uklapa, a gdje ne</h2>
+<p>Mutaciono testiranje je skupo. Pokretanje cijelog paketa po jednom za svakog mutanta znači da projekat sa paketom testova od dva minuta i nekoliko stotina mutanata može da traje satima, a ne minutima. Zato nije dobar izbor za pokretanje na svaki commit. U praksi ga timovi pokreću po rasporedu (svake noći ili jednom sedmično) ili ga ograničavaju na konkretan modul ili diff iz pull requesta koji se promijenio, umjesto na cijeli kod.</p>
+<p>Takođe nije zamjena za integraciono ili end-to-end testiranje. Mutaciono testiranje radi na nivou jedinice, unutar jedne funkcije ili klase; govori vam da li bi vaši unit testovi uhvatili logičku grešku u toj jedinici, a ne da li se vaš sistem ispravno ponaša od početka do kraja. Uz to, bučno je na kodu koji je po prirodi popustljiv — validaciona logika sa mnogo prihvatljivih ulaza, naredbe za logovanje ili getteri i setteri generišu mnogo mutanata koje ili nije moguće smisleno ubiti ili se ne isplati ubijati. Većina alata omogućava da isključite fajlove, metode ili određene tipove mutacija (string literale, pozive za logovanje) kako biste smanjili tu buku, a preskakanje tog koraka konfiguracije je najčešći razlog zbog kojeg timovi jednom probaju mutaciono testiranje i odustanu od njega kao od nečega „presporog i prebučnog&quot;.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ol><li>Izaberite jedan alat za svoj stek (Stryker za JS/TS ili .NET, PIT za Javu, mutmut za Python) i prvo ga pokrenite nad jednim, poslovno kritičnim modulom, a ne nad cijelim repozitorijumom.</li><li>Čitajte preživjele mutante, ne samo skor. Svaki od njih je konkretna rupa na kojoj se može raditi: ili napišite test za nju, ili dokumentujte zašto je mutant ekvivalentan i isključite ga.</li><li>Podesite izuzetke prije nego što donesete sud o alatu. Izbacite bučne tipove mutacija i fajlove male vrijednosti, kako bi preživjeli mutanti koje pregledate bili oni koji su vrijedni vašeg vremena.</li><li>Ako se pokaže korisnim, pokrećite ga po rasporedu ili samo nad izmijenjenim fajlovima u CI-ju, sa pragom mutacionog skora koji služi kao signal za review, a ne kao tvrdi pad build-a, dok tim ne stekne povjerenje u taj signal.</li></ol>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://learn.microsoft.com/dotnet/core/testing/mutation-testing" target="_blank" rel="noopener noreferrer">Mutation testing</a> — Microsoft Learn (.NET dokumentacija)</li><li><a href="https://mutants.rs/vs-coverage.html" target="_blank" rel="noopener noreferrer">How is mutation testing different to coverage measurement?</a> — mutants.rs</li></ul></template>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    </div>
+    <section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../ai-rewriting-qa-job-description/" data-title-sr="AI prepisuje opis QA posla, ali ga ne briše" data-excerpt-sr="AI već piše nacrte test slučajeva i sortira padove testova. Evo šta to zaista mijenja u QA poslu i kuda ta uloga ide."><div class="meta"><time datetime="2026-10-18" data-fmt="short">18 Oct 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div><h2>AI Is Rewriting the QA Job Description, Not Deleting It</h2><p>AI already drafts test cases and triages failures. Here's what that actually changes about QA work, and where the role is heading next.</p></a>
+      <a class="post-card card glow" href="../pom-alternatives-flow-model-screenplay-pattern/" data-title-sr="Kada Page Object Model prestane da se skalira: poređenje Flow modela i Screenplay obrasca" data-excerpt-sr="Page objekti rade dok paket testova ne naraste. Kada dodati sloj tokova, kada Screenplay opravdava svoju složenost, a kada je najbolje ostati gdje ste."><div class="meta"><time datetime="2026-10-17" data-fmt="short">17 Oct 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div><h2>When Your Page Object Model Stops Scaling: Flow Model and Screenplay Pattern Compared</h2><p>Page objects work until the suite grows. A look at when to add a flow layer, when Screenplay earns its complexity, and when to just stay put.</p></a>
+      <a class="post-card card glow" href="../testing-dst-booking-bugs/" data-title-sr="Testiranje kroz pomjeranje sata: bagovi u zakazivanju koji se javljaju samo dva puta godišnje" data-excerpt-sr="Zašto funkcije zakazivanja i rezervacija pucaju oko prelaska na ljetnje i zimsko računanje vremena i kako napisati testove koji to zaista hvataju."><div class="meta"><time datetime="2026-10-16" data-fmt="short">16 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Testing Across Daylight Saving Time: The Booking Bugs That Only Show Up Twice a Year</h2><p>Why scheduling and booking features break around DST transitions, and how to write tests that actually catch it.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <a href="../../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../../blog/common.js"></script>
+  <script src="../post.js"></script>
+</body>
+</html>

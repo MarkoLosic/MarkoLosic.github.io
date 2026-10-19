@@ -1,5 +1,20 @@
 [
   {
+    "slug": "mutation-testing-weak-assertions",
+    "title": "Mutation Testing: How to Tell If Your Test Suite Actually Catches Bugs",
+    "titleSr": "Mutaciono testiranje: kako da saznate da li vaši testovi zaista hvataju bagove",
+    "excerpt": "Code coverage shows which lines ran. Mutation testing shows whether your tests would notice if the logic broke. Here's how to use it.",
+    "excerptSr": "Pokrivenost koda pokazuje koje su linije izvršene. Mutaciono testiranje pokazuje da li bi vaši testovi primijetili da je logika pokvarena. Evo kako da ga koristite.",
+    "tags": [
+      "qa",
+      "test-automation",
+      "mutation-testing",
+      "test-design"
+    ],
+    "date": "2026-10-19",
+    "readingTime": 5
+  },
+  {
     "slug": "ai-rewriting-qa-job-description",
     "title": "AI Is Rewriting the QA Job Description, Not Deleting It",
     "titleSr": "AI prepisuje opis QA posla, ali ga ne briše",
