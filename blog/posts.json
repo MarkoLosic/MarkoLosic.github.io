@@ -1,5 +1,20 @@
 [
   {
+    "slug": "testing-non-deterministic-ai-features",
+    "title": "Testing AI Features That Don't Give the Same Answer Twice",
+    "titleSr": "Testiranje AI funkcija koje nikad ne daju isti odgovor dvaput",
+    "excerpt": "Why assert-equal breaks on LLM-powered features, and how to replace it with rubric-based and intent-based checks that actually catch regressions.",
+    "excerptSr": "Zašto assert-equal ne radi na funkcijama zasnovanim na LLM-u i kako ga zamijeniti provjerama zasnovanim na rubrikama i namjeri, koje zaista hvataju regresije.",
+    "tags": [
+      "qa",
+      "ai-in-qa",
+      "llm-testing",
+      "test-automation"
+    ],
+    "date": "2026-10-21",
+    "readingTime": 5
+  },
+  {
     "slug": "mutation-testing-weak-assertions",
     "title": "Mutation Testing: How to Tell If Your Test Suite Actually Catches Bugs",
     "titleSr": "Mutaciono testiranje: kako da saznate da li vaši testovi zaista hvataju bagove",
