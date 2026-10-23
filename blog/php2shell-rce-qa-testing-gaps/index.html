@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PHP2Shell: How a Critical PHP Core RCE Exposes Gaps in Standard QA Practices — Marko Lošić</title>
+  <meta name="description" content="What the PHP2Shell remote code execution bugs reveal about blind spots in typical test suites, and concrete steps to close them.">
+  <link rel="canonical" href="https://markolosic.github.io/blog/php2shell-rce-qa-testing-gaps/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="PHP2Shell: How a Critical PHP Core RCE Exposes Gaps in Standard QA Practices — Marko Lošić">
+  <meta property="og:description" content="What the PHP2Shell remote code execution bugs reveal about blind spots in typical test suites, and concrete steps to close them.">
+  <meta property="og:url" content="https://markolosic.github.io/blog/php2shell-rce-qa-testing-gaps/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/php2shell-rce-qa-testing-gaps.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PHP2Shell: How a Critical PHP Core RCE Exposes Gaps in Standard QA Practices — Marko Lošić">
+  <meta name="twitter:description" content="What the PHP2Shell remote code execution bugs reveal about blind spots in typical test suites, and concrete steps to close them.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/php2shell-rce-qa-testing-gaps.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"PHP2Shell: How a Critical PHP Core RCE Exposes Gaps in Standard QA Practices","description":"What the PHP2Shell remote code execution bugs reveal about blind spots in typical test suites, and concrete steps to close them.","image":"https://markolosic.github.io/assets/blog/php2shell-rce-qa-testing-gaps.jpg","url":"https://markolosic.github.io/blog/php2shell-rce-qa-testing-gaps/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/php2shell-rce-qa-testing-gaps/"},"datePublished":"2026-10-23","dateModified":"2026-10-23T00:00:00.000Z","keywords":"qa, security-testing, php, incident-response","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
+  <meta property="article:published_time" content="2026-10-23">
+  <meta property="article:modified_time" content="2026-10-23T00:00:00.000Z">
+  <meta name="goatcounter-code" content="markolosic">
+  <script data-goatcounter="https://markolosic.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#about" data-i18n="nav_about">About</a>
+      <a href="../../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../../blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span data-i18n="all_posts">All posts</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-10-23" data-fmt="long">23 October 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span><span>·</span><span class="views" id="views" hidden><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M2 2h5v1h-5zM1 3h1v1h-1zM4 3h1v1h-1zM7 3h1v1h-1zM0 4h1v1h-1zM3 4h3v1h-3zM8 4h1v1h-1zM1 5h1v1h-1zM4 5h1v1h-1zM7 5h1v1h-1zM2 6h5v1h-5z"/></svg><span id="views-num"></span></span></div>
+        <h1 data-title-sr="PHP2Shell: kako kritični RCE u jezgru PHP-a otkriva rupe u standardnim QA praksama">PHP2Shell: How a Critical PHP Core RCE Exposes Gaps in Standard QA Practices</h1>
+        <p class="lead" data-excerpt-sr="Šta PHP2Shell ranjivosti za udaljeno izvršavanje koda otkrivaju o slijepim tačkama tipičnih paketa testova i konkretni koraci da se one zatvore.">What the PHP2Shell remote code execution bugs reveal about blind spots in typical test suites, and concrete steps to close them.</p>
+        <div class="tags"><span>qa</span><span>security-testing</span><span>php</span><span>incident-response</span></div>
+      </header>
+      <div class="prose"><p>In late 2026, two critical vulnerabilities in PHP's core interpreter, tracked as CVE-2026-109618 and CVE-2026-109619, were disclosed with a CVSS score of 9.2. Neither requires authentication or user interaction. Both are reachable with ordinary-looking HTTP requests, and in-the-wild exploitation was reported before most sites could patch. What makes this case worth a QA team's attention isn't just the severity — it's that the bugs sit in exactly the kind of territory most test suites never look at: malformed input at the protocol level, and state that carries over between requests. That's a useful prompt to ask what your own tests would have caught, and what they wouldn't.</p>
+<p><img src="../../assets/blog/php2shell-rce-qa-testing-gaps.jpg" alt="Isometric illustration of a server tower with a glowing PHP chip on top, hit by streams of &quot;HTTP REQUEST&quot; data packets that slip past a cracked firewall shield, surrounded by warning panels reading &quot;CVSS 9.2&quot;, &quot;RCE critical alert&quot;, &quot;PHP2Shell&quot;, &quot;Memory corruption&quot;, &quot;Use-after-free&quot;, &quot;State leak&quot;, &quot;Malformed multipart&quot; and &quot;Shell exploit active&quot;" loading="lazy"></p>
+<h2 id="what-actually-happened">What actually happened</h2>
+<p>CVE-2026-109618 is a memory-corruption issue tied to how PHP parses multipart form data. A request without a <code>Content-Length</code> header can bypass the configured <code>post_max_size</code> limit, an uncapped number of HTTP headers can be sent to inflate memory use, and <code>max_file_uploads</code> doesn't count empty file fields, which lets the structures PHP builds for them exhaust memory.</p>
+<p>CVE-2026-109619 is a use-after-free: PHP workers track per-request state, such as session data, and under specific error conditions that state isn't cleared before its memory is freed. Triggering it takes two separate requests — one that causes an error (an out-of-memory condition, an execution timeout, or a failed upload), followed by one that triggers a warning during initialization.</p>
+<p>Researchers at Wiz reported confirmed exploitation on PHP 8.5 with <code>fatal_error_backtraces</code> enabled, and the affected code is suspected to date back to PHP 5. Patches landed in PHP 8.5.12, 8.4.27, 8.3.36, and 8.2.35; versions before 8.2 are expected to stay unpatched because those branches are end of life.</p>
+<p>This is not a bug a typical functional test would stumble into. It lives in the gap between &quot;the request worked&quot; and &quot;the request was well-formed,&quot; and in the gap between one request and the next.</p>
+<h2 id="why-this-is-a-testing-blind-spot">Why this is a testing blind spot</h2>
+<p>Most QA suites are built around three assumptions that this incident breaks. First, that a single request is a complete, isolated unit of testing — write the request, assert the response, move on. CVE-2026-109619 only appears across a <em>sequence</em>: an error-triggering request followed by a specific second request. Negative tests that check &quot;does this bad input get rejected&quot; one request at a time won't notice that the server's internal state didn't reset correctly in between.</p>
+<p>Second, that malformed input means obviously wrong values — a negative number where a positive one is expected, a string where an integer belongs. Few test plans include a POST request with no <code>Content-Length</code> header, an excessive number of HTTP headers, or dozens of empty file-upload fields. These are protocol-level malformations, not business-logic edge cases, and they usually fall outside what either QA or product-focused security reviews think to check.</p>
+<p>Third, that the staging environment where tests run matches production closely enough that a pass in staging means something in production. If your staging PHP build has <code>session.upload_progress</code> disabled, a different <code>max_file_uploads</code> setting, or lacks a vendor-bundled PHP that ships inside an appliance or control panel, your tests will pass against a target that was never actually exposed to the real risk.</p>
+<p>Here's the kind of check this incident argues for adding, aimed at catching state leakage across requests rather than at reproducing the exploit itself:</p>
+<pre><code class="lang-python">import httpx
+
+def test_error_request_does_not_poison_next_request(base_url):
+    client = httpx.Client(base_url=base_url)
+
+    # Request 1: deliberately trigger a server-side error
+    # (e.g. a payload that exceeds max_file_uploads or times out)
+    r1 = client.post(&quot;/upload&quot;, files=oversized_upload_payload())
+    assert r1.status_code in (413, 500, 504)
+
+    # Request 2: an ordinary, valid request right after
+    r2 = client.get(&quot;/account/session-check&quot;)
+    assert r2.status_code == 200
+    assert r2.json()[&quot;session_id&quot;] != r1.headers.get(&quot;leaked-session-id&quot;)</code></pre>
+<p>A test like this won't catch every variant of a use-after-free, but it builds the habit of asserting that one request's failure can't contaminate the next one — which is the actual shape of the bug class, independent of this specific CVE.</p>
+<h2 id="pitfalls-and-limits">Pitfalls and limits</h2>
+<p>Writing tests for this class of bug has real limits. You can't fuzz production, and running genuinely malformed requests (missing headers, huge payloads, malformed multipart boundaries) against a shared staging environment can crash it for other teams, so this kind of testing needs its own isolated, disposable environment.</p>
+<p>It's also easy to write a test that passes for the wrong reason: if your staging <code>php.ini</code> differs from production even slightly — a different <code>upload_max_filesize</code>, a disabled module, a backported distro patch that changes behavior without changing the version string — a green test tells you nothing about the real target.</p>
+<p>And version fingerprinting is unreliable in both directions: a <code>X-Powered-By</code> header can be hidden by a proxy, and a Linux distribution's security patches can land before the upstream version number changes, so &quot;we're on patched PHP 8.4.27&quot; isn't something you can safely infer from a response header alone.</p>
+<h2 id="what-to-do-next">What to do next</h2>
+<ol><li><strong>Track PHP core, not just your dependencies.</strong> Composer audit and Dependabot-style tools catch vulnerable packages; they don't catch a vulnerable PHP interpreter itself. Add the PHP version your servers actually run (confirmed via <code>php -v</code> / <code>php-fpm -v</code> on the box, not inferred from headers) to whatever CVE or patch-tracking process you already have.</li><li><strong>Add protocol-level negative tests to your suite</strong>, run against an isolated, disposable environment: oversized header counts, missing <code>Content-Length</code>, malformed multipart boundaries, and empty file-upload fields. Treat these the same way you already treat SQL injection or XSS payloads — as a standing regression set, not a one-off pentest finding.</li><li><strong>Test request sequences, not just single requests</strong>, specifically around error paths: does a failed request leave any state (sessions, caches, temp files) that the next request can read or reuse?</li><li><strong>Keep staging configuration identical to production</strong> for anything security-relevant — <code>php.ini</code> directives, loaded modules, and the exact PHP build — and re-verify that alignment periodically rather than assuming it from a deployment script written months ago.</li></ol>
+<h2 id="sources">Sources</h2>
+<ul><li><a href="https://isc.sans.edu/diary.html?storyid=35447" target="_blank" rel="noopener noreferrer">Critical PHP Vulnerability (CVE-2026-109618, CVE-2026-109619)</a> — SANS Internet Storm Center</li><li><a href="https://pentest-tools.com/network-vulnerability-scanning/php2shell-scanner" target="_blank" rel="noopener noreferrer">PHP2Shell scanner for CVE-2026-109618 and CVE-2026-109619</a> — Pentest-Tools.com</li></ul></div>
+      <template id="prose-sr"><p>Krajem 2026. godine objavljene su dvije kritične ranjivosti u jezgru PHP interpretera, označene kao CVE-2026-109618 i CVE-2026-109619, sa CVSS ocjenom 9.2. Nijedna ne zahtijeva autentifikaciju niti bilo kakvu interakciju korisnika. Obje se mogu dosegnuti HTTP zahtjevima koji izgledaju sasvim obično, a zloupotreba u stvarnom svijetu prijavljena je prije nego što je većina sajtova stigla da se zakrpi. Ono što ovaj slučaj čini vrijednim pažnje QA tima nije samo ozbiljnost — nego to što se ovi bagovi nalaze upravo na teritoriji koju većina paketa testova nikada ne pogleda: neispravan ulaz na nivou protokola i stanje koje se prenosi iz jednog zahtjeva u drugi. To je dobar povod da se zapitate šta bi vaši testovi uhvatili, a šta ne bi.</p>
+<p><img src="../../assets/blog/php2shell-rce-qa-testing-gaps.jpg" alt="Izometrijska ilustracija serverskog ormara sa svijetlećim PHP čipom na vrhu, koji pogađaju tokovi paketa podataka „HTTP REQUEST&quot; što prolaze pored napuklog štita firewalla, okružena panelima upozorenja sa natpisima „CVSS 9.2&quot;, „RCE critical alert&quot;, „PHP2Shell&quot;, „Memory corruption&quot;, „Use-after-free&quot;, „State leak&quot;, „Malformed multipart&quot; i „Shell exploit active&quot;" loading="lazy"></p>
+<h2 id="šta-se-zapravo-desilo">Šta se zapravo desilo</h2>
+<p>CVE-2026-109618 je problem korupcije memorije vezan za način na koji PHP parsira multipart podatke iz formi. Zahtjev bez <code>Content-Length</code> zaglavlja može da zaobiđe podešeno ograničenje <code>post_max_size</code>, može se poslati neograničen broj HTTP zaglavlja kako bi se naduvala potrošnja memorije, a <code>max_file_uploads</code> ne broji prazna polja za upload fajlova, što omogućava da strukture koje PHP pravi za njih iscrpe memoriju.</p>
+<p>CVE-2026-109619 je use-after-free: PHP workeri prate stanje po zahtjevu, poput podataka o sesiji, a pod određenim uslovima greške to stanje se ne očisti prije nego što se njegova memorija oslobodi. Za aktiviranje su potrebna dva odvojena zahtjeva — jedan koji izazove grešku (nedostatak memorije, istek vremena izvršavanja ili neuspješan upload), a zatim drugi koji izazove upozorenje tokom inicijalizacije.</p>
+<p>Istraživači iz Wiza prijavili su potvrđenu zloupotrebu na PHP 8.5 sa uključenim <code>fatal_error_backtraces</code>, a sumnja se da pogođeni kod potiče još iz PHP 5. Zakrpe su izašle u verzijama PHP 8.5.12, 8.4.27, 8.3.36 i 8.2.35; očekuje se da verzije starije od 8.2 ostanu nezakrpljene, jer su te grane na kraju životnog vijeka (end of life).</p>
+<p>Ovo nije bag na koji bi tipičan funkcionalni test slučajno naletio. On živi u procjepu između „zahtjev je uspio&quot; i „zahtjev je bio ispravno formiran&quot;, kao i u procjepu između jednog zahtjeva i sljedećeg.</p>
+<h2 id="zašto-je-ovo-slijepa-tačka-testiranja">Zašto je ovo slijepa tačka testiranja</h2>
+<p>Većina QA paketa testova izgrađena je na tri pretpostavke koje ovaj incident ruši. Prva je da je jedan zahtjev kompletna, izolovana jedinica testiranja — napišeš zahtjev, provjeriš odgovor, ideš dalje. CVE-2026-109619 se pojavljuje samo kroz <em>niz</em> zahtjeva: zahtjev koji izazove grešku, a zatim određeni drugi zahtjev. Negativni testovi koji jedan po jedan zahtjev provjeravaju „da li se ovaj loš ulaz odbija&quot; neće primijetiti da se interno stanje servera između njih nije ispravno resetovalo.</p>
+<p>Druga je da neispravan ulaz znači očigledno pogrešne vrijednosti — negativan broj tamo gdje se očekuje pozitivan, string tamo gdje pripada cijeli broj. Malo koji test plan uključuje POST zahtjev bez <code>Content-Length</code> zaglavlja, prevelik broj HTTP zaglavlja ili desetine praznih polja za upload fajlova. To su neispravnosti na nivou protokola, a ne granični slučajevi poslovne logike, i obično padaju van onoga što QA ili bezbjednosni pregledi fokusirani na proizvod uopšte pomisle da provjere.</p>
+<p>Treća je da staging okruženje u kojem se testovi pokreću dovoljno vjerno odgovara produkciji da prolaz na stagingu nešto znači i za produkciju. Ako vaš staging PHP build ima isključen <code>session.upload_progress</code>, drugačije podešen <code>max_file_uploads</code> ili ne sadrži PHP koji proizvođač isporučuje unutar nekog uređaja ili kontrolnog panela, vaši testovi će prolaziti nad metom koja nikada nije bila izložena stvarnom riziku.</p>
+<p>Evo kakvu provjeru ovaj incident opravdava da dodate — usmjerenu na hvatanje curenja stanja između zahtjeva, a ne na reprodukovanje samog exploita:</p>
+<pre><code class="lang-python">import httpx
+
+def test_error_request_does_not_poison_next_request(base_url):
+    client = httpx.Client(base_url=base_url)
+
+    # Request 1: deliberately trigger a server-side error
+    # (e.g. a payload that exceeds max_file_uploads or times out)
+    r1 = client.post(&quot;/upload&quot;, files=oversized_upload_payload())
+    assert r1.status_code in (413, 500, 504)
+
+    # Request 2: an ordinary, valid request right after
+    r2 = client.get(&quot;/account/session-check&quot;)
+    assert r2.status_code == 200
+    assert r2.json()[&quot;session_id&quot;] != r1.headers.get(&quot;leaked-session-id&quot;)</code></pre>
+<p>Ovakav test neće uhvatiti svaku varijantu use-after-free baga, ali gradi naviku da se provjerava da neuspjeh jednog zahtjeva ne može da kontaminira sljedeći — a upravo to je stvarni oblik ove klase bagova, nezavisno od ovog konkretnog CVE-a.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Pisanje testova za ovu klasu bagova ima stvarna ograničenja. Ne možete fuzzovati produkciju, a slanje zaista neispravnih zahtjeva (bez zaglavlja, sa ogromnim payload-om, sa neispravnim multipart granicama) na zajedničko staging okruženje može da ga obori i drugim timovima, pa je ovakvom testiranju potrebno sopstveno izolovano okruženje koje se može baciti nakon upotrebe.</p>
+<p>Lako je napisati i test koji prolazi iz pogrešnog razloga: ako se vaš staging <code>php.ini</code> i malo razlikuje od produkcijskog — drugačiji <code>upload_max_filesize</code>, isključen modul, zakrpa koju je distribucija backportovala i koja mijenja ponašanje bez promjene oznake verzije — zelen test vam ne govori ništa o stvarnoj meti.</p>
+<p>Uz to, prepoznavanje verzije (fingerprinting) je nepouzdano u oba smjera: proxy može da sakrije <code>X-Powered-By</code> zaglavlje, a bezbjednosne zakrpe Linux distribucije mogu stići prije nego što se promijeni upstream broj verzije, pa „mi smo na zakrpljenom PHP 8.4.27&quot; nije nešto što možete bezbjedno zaključiti samo na osnovu zaglavlja odgovora.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ol><li><strong>Pratite jezgro PHP-a, a ne samo svoje zavisnosti.</strong> Composer audit i alati poput Dependabota hvataju ranjive pakete; ne hvataju ranjiv sam PHP interpreter. Verziju PHP-a koju vaši serveri zaista pokreću (potvrđenu komandama <code>php -v</code> / <code>php-fpm -v</code> na samoj mašini, a ne zaključenu iz zaglavlja) dodajte u proces praćenja CVE-ova ili zakrpa koji već imate.</li><li><strong>Dodajte negativne testove na nivou protokola u svoj paket</strong>, i pokrećite ih u izolovanom okruženju koje se može baciti: prevelik broj zaglavlja, nedostajući <code>Content-Length</code>, neispravne multipart granice i prazna polja za upload fajlova. Tretirajte ih isto kao što već tretirate SQL injection ili XSS payload-e — kao stalni regresioni set, a ne kao jednokratni nalaz iz pentesta.</li><li><strong>Testirajte nizove zahtjeva, a ne samo pojedinačne zahtjeve</strong>, naročito oko putanja grešaka: da li neuspješan zahtjev ostavlja bilo kakvo stanje (sesije, keš, privremene fajlove) koje sljedeći zahtjev može da pročita ili ponovo iskoristi?</li><li><strong>Održavajte konfiguraciju staginga identičnom produkciji</strong> za sve što je bitno za bezbjednost — <code>php.ini</code> direktive, učitane module i tačan PHP build — i povremeno ponovo provjerite da se poklapaju, umjesto da to pretpostavljate na osnovu deployment skripte napisane prije nekoliko mjeseci.</li></ol>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://isc.sans.edu/diary.html?storyid=35447" target="_blank" rel="noopener noreferrer">Critical PHP Vulnerability (CVE-2026-109618, CVE-2026-109619)</a> — SANS Internet Storm Center</li><li><a href="https://pentest-tools.com/network-vulnerability-scanning/php2shell-scanner" target="_blank" rel="noopener noreferrer">PHP2Shell scanner for CVE-2026-109618 and CVE-2026-109619</a> — Pentest-Tools.com</li></ul></template>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    </div>
+    <section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../visual-regression-testing-ui-bugs/" data-title-sr="Vizuelno regresiono testiranje: kako uhvatiti UI bagove pored kojih vaši funkcionalni testovi prolaze" data-excerpt-sr="Zašto provjere na nivou piksela hvataju greške u rasporedu koje funkcionalni testovi propuštaju, kako ih spriječiti da budu nestabilne i koji alati se zaista uklapaju u vaš pipeline."><div class="meta"><time datetime="2026-10-23" data-fmt="short">23 Oct 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div><h2>Visual Regression Testing: Catching the UI Bugs Your Functional Tests Walk Right Past</h2><p>Why pixel-level checks catch layout bugs functional tests miss, how to stop them from flaking, and which tools actually fit your pipeline.</p></a>
+      <a class="post-card card glow" href="../testing-ai-agents-tool-calls-side-effects/" data-title-sr="Testiranje AI agenata koji izvršavaju akcije: zašto odgovor koji zvuči tačno nije dovoljan" data-excerpt-sr="Lista provjera za testiranje AI agenata koji pozivaju alate i mijenjaju stvarne sisteme, koja ide dalje od ocjenjivanja konačnog tekstualnog odgovora."><div class="meta"><time datetime="2026-10-23" data-fmt="short">23 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Testing AI Agents That Take Actions: Why a Correct-Sounding Answer Isn't Enough</h2><p>A checklist for testing AI agents that call tools and change real systems, beyond just grading the final text answer.</p></a>
+      <a class="post-card card glow" href="../testing-non-deterministic-ai-features/" data-title-sr="Testiranje AI funkcija koje nikad ne daju isti odgovor dvaput" data-excerpt-sr="Zašto assert-equal ne radi na funkcijama zasnovanim na LLM-u i kako ga zamijeniti provjerama zasnovanim na rubrikama i namjeri, koje zaista hvataju regresije."><div class="meta"><time datetime="2026-10-21" data-fmt="short">21 Oct 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div><h2>Testing AI Features That Don't Give the Same Answer Twice</h2><p>Why assert-equal breaks on LLM-powered features, and how to replace it with rubric-based and intent-based checks that actually catch regressions.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <a href="../../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../../blog/common.js"></script>
+  <script src="../post.js"></script>
+</body>
+</html>
