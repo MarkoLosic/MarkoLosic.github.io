@@ -1,5 +1,35 @@
 [
   {
+    "slug": "visual-regression-testing-ui-bugs",
+    "title": "Visual Regression Testing: Catching the UI Bugs Your Functional Tests Walk Right Past",
+    "titleSr": "Vizuelno regresiono testiranje: kako uhvatiti UI bagove pored kojih vaši funkcionalni testovi prolaze",
+    "excerpt": "Why pixel-level checks catch layout bugs functional tests miss, how to stop them from flaking, and which tools actually fit your pipeline.",
+    "excerptSr": "Zašto provjere na nivou piksela hvataju greške u rasporedu koje funkcionalni testovi propuštaju, kako ih spriječiti da budu nestabilne i koji alati se zaista uklapaju u vaš pipeline.",
+    "tags": [
+      "qa",
+      "visual-testing",
+      "ui-testing",
+      "tools-and-trends"
+    ],
+    "date": "2026-10-23",
+    "readingTime": 5
+  },
+  {
+    "slug": "testing-ai-agents-tool-calls-side-effects",
+    "title": "Testing AI Agents That Take Actions: Why a Correct-Sounding Answer Isn't Enough",
+    "titleSr": "Testiranje AI agenata koji izvršavaju akcije: zašto odgovor koji zvuči tačno nije dovoljan",
+    "excerpt": "A checklist for testing AI agents that call tools and change real systems, beyond just grading the final text answer.",
+    "excerptSr": "Lista provjera za testiranje AI agenata koji pozivaju alate i mijenjaju stvarne sisteme, koja ide dalje od ocjenjivanja konačnog tekstualnog odgovora.",
+    "tags": [
+      "qa",
+      "ai-in-qa",
+      "agentic-ai",
+      "test-automation"
+    ],
+    "date": "2026-10-23",
+    "readingTime": 6
+  },
+  {
     "slug": "testing-non-deterministic-ai-features",
     "title": "Testing AI Features That Don't Give the Same Answer Twice",
     "titleSr": "Testiranje AI funkcija koje nikad ne daju isti odgovor dvaput",

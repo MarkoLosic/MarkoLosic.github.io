@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Visual Regression Testing: Catching the UI Bugs Your Functional Tests Walk Right Past — Marko Lošić</title>
+  <meta name="description" content="Why pixel-level checks catch layout bugs functional tests miss, how to stop them from flaking, and which tools actually fit your pipeline.">
+  <link rel="canonical" href="https://markolosic.github.io/blog/visual-regression-testing-ui-bugs/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Visual Regression Testing: Catching the UI Bugs Your Functional Tests Walk Right Past — Marko Lošić">
+  <meta property="og:description" content="Why pixel-level checks catch layout bugs functional tests miss, how to stop them from flaking, and which tools actually fit your pipeline.">
+  <meta property="og:url" content="https://markolosic.github.io/blog/visual-regression-testing-ui-bugs/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/visual-regression-testing-ui-bugs.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Visual Regression Testing: Catching the UI Bugs Your Functional Tests Walk Right Past — Marko Lošić">
+  <meta name="twitter:description" content="Why pixel-level checks catch layout bugs functional tests miss, how to stop them from flaking, and which tools actually fit your pipeline.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/visual-regression-testing-ui-bugs.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Visual Regression Testing: Catching the UI Bugs Your Functional Tests Walk Right Past","description":"Why pixel-level checks catch layout bugs functional tests miss, how to stop them from flaking, and which tools actually fit your pipeline.","image":"https://markolosic.github.io/assets/blog/visual-regression-testing-ui-bugs.jpg","url":"https://markolosic.github.io/blog/visual-regression-testing-ui-bugs/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/visual-regression-testing-ui-bugs/"},"datePublished":"2026-10-23","dateModified":"2026-10-23T00:00:00.000Z","keywords":"qa, visual-testing, ui-testing, tools-and-trends","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
+  <meta property="article:published_time" content="2026-10-23">
+  <meta property="article:modified_time" content="2026-10-23T00:00:00.000Z">
+  <meta name="goatcounter-code" content="markolosic">
+  <script data-goatcounter="https://markolosic.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#about" data-i18n="nav_about">About</a>
+      <a href="../../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../../blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span data-i18n="all_posts">All posts</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-10-23" data-fmt="long">23 October 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span><span>·</span><span class="views" id="views" hidden><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M2 2h5v1h-5zM1 3h1v1h-1zM4 3h1v1h-1zM7 3h1v1h-1zM0 4h1v1h-1zM3 4h3v1h-3zM8 4h1v1h-1zM1 5h1v1h-1zM4 5h1v1h-1zM7 5h1v1h-1zM2 6h5v1h-5z"/></svg><span id="views-num"></span></span></div>
+        <h1 data-title-sr="Vizuelno regresiono testiranje: kako uhvatiti UI bagove pored kojih vaši funkcionalni testovi prolaze">Visual Regression Testing: Catching the UI Bugs Your Functional Tests Walk Right Past</h1>
+        <p class="lead" data-excerpt-sr="Zašto provjere na nivou piksela hvataju greške u rasporedu koje funkcionalni testovi propuštaju, kako ih spriječiti da budu nestabilne i koji alati se zaista uklapaju u vaš pipeline.">Why pixel-level checks catch layout bugs functional tests miss, how to stop them from flaking, and which tools actually fit your pipeline.</p>
+        <div class="tags"><span>qa</span><span>visual-testing</span><span>ui-testing</span><span>tools-and-trends</span></div>
+      </header>
+      <div class="prose"><p>A functional test clicks the &quot;Checkout&quot; button and asserts the next page loaded. It passes. What it doesn't know is that the button is now half-covered by a promo banner that shifted down six pixels after a CSS change, and a real user on a laptop screen would have to guess where to click. Functional and end-to-end tests check that elements exist, respond to events, and the right data shows up. None of that tells you whether the page actually looks right. That gap is what visual regression testing is for, and it's worth understanding both what it catches and how teams make it reliable enough to trust.</p>
+<p><img src="../../assets/blog/visual-regression-testing-ui-bugs.jpg" alt="Split-screen illustration of the same pricing page on two tablets: on the left, a cyan &quot;Baseline (functional asserts pass)&quot; version covered in green PASS badges; on the right, a magenta &quot;Visual regression (pixel diff)&quot; version where a shifted promo banner and moved &quot;Buy Now&quot; buttons are highlighted by a pixelated diff overlay and a red FAIL label" loading="lazy"></p>
+<h2 id="what-it-actually-checks">What it actually checks</h2>
+<p>Visual regression testing takes a screenshot of a page or component, compares it pixel-by-pixel (or, increasingly, with an AI-assisted diff) against a stored baseline, and flags anything that changed. It doesn't know what the page is supposed to do; it only knows what the page is supposed to look like.</p>
+<p>Imagine a team shipping a pricing page redesign. Their Playwright end-to-end suite still passes: the &quot;Buy now&quot; button is present, clickable, and still navigates to the right URL in the DOM. But a flexbox change in a shared layout component pushed the button two rows down on screens narrower than 768px, so on mobile it now sits underneath a feature list instead of next to the price. No functional assertion fails, because nothing is structurally broken — the button is still there and still works. A visual diff against the mobile baseline catches it immediately, because the screenshot simply looks different.</p>
+<p>A minimal Playwright visual check for that page might look like this:</p>
+<pre><code class="lang-js">import { test, expect } from '@playwright/test';
+
+test('pricing page layout, mobile viewport', async ({ page }) =&gt; {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto('/pricing');
+
+  // Stabilize before capturing
+  await page.evaluate(() =&gt; document.fonts.ready);
+  await page.locator('[data-testid=&quot;promo-banner&quot;]').evaluate(
+    el =&gt; el.style.animation = 'none'
+  );
+
+  await expect(page).toHaveScreenshot('pricing-mobile.png', {
+    mask: [page.locator('[data-testid=&quot;live-visitor-count&quot;]')],
+    maxDiffPixelRatio: 0.01,
+  });
+});</code></pre>
+<p>The <code>mask</code> option blacks out an element that's expected to change on every run (a visitor counter, a timestamp), and <code>maxDiffPixelRatio</code> sets how much pixel drift is tolerable before the test fails.</p>
+<h2 id="where-teams-go-wrong-and-the-fixes">Where teams go wrong, and the fixes</h2>
+<p>The single biggest reason teams abandon visual testing isn't that it's useless — it's that it becomes noisy. A test suite that cries wolf on every run trains people to ignore it, which defeats the purpose. The common causes, and what actually fixes them:</p>
+<ul><li><strong>Late-loading web fonts</strong> shift text and line-wrapping between runs. Wait on <code>document.fonts.ready</code> before capturing, and make sure fonts are actually served (not 404ing) in CI.</li><li><strong>Animations and transitions</strong> get caught mid-frame — spinners, carets, fades. Disable CSS animations and transitions for the test environment rather than hoping the timing lines up.</li><li><strong>Images that haven't finished decoding</strong>, or <code>srcset</code> picking a different asset on different runs, change pixels without any real bug. Wait for images to report complete, and trigger lazy-loaded content deliberately before capturing.</li><li><strong>Dynamic content</strong> — live counters, relative timestamps, randomized ordering — needs masking, a frozen clock, or seeded test data, not a wider tolerance threshold.</li><li><strong>Platform rendering differences.</strong> Anti-aliasing, font rasterization, and even scrollbar width differ between macOS, Linux, and Windows (classic scrollbars eat roughly 15px of layout that macOS overlay scrollbars don't). Generate every baseline in one canonical environment, typically the same container image CI uses, never on a developer's laptop.</li></ul>
+<p>A structural pitfall sits above all of these: visual tests are expensive to maintain. Every intentional design change requires someone to review and re-approve a batch of diffs, and if that review turns into rubber-stamping (&quot;yeah, looks fine, approve all&quot;), baselines drift and the whole check becomes decorative.</p>
+<p>AI-assisted tools like Percy's diff classifier or Applitools' match levels reduce the number of diffs a human has to look at by labeling likely-intentional changes separately from likely bugs, but that convenience is a vendor claim, not a guarantee — a classifier that's too eager to label noise as &quot;expected&quot; will quietly hide a genuinely non-deterministic pipeline instead of forcing you to fix it.</p>
+<p>Cost is the other real limit: cloud-rendering tools like Percy and Applitools bill per screenshot or per plan tier, which adds up fast once you're covering every page at every breakpoint, while open-source options like Playwright's built-in <code>toHaveScreenshot</code>, Argos, or BackstopJS are free but give you less cross-browser rendering and no built-in review workflow.</p>
+<p>Visual regression testing is also the wrong tool for checking that data is correct, that a workflow completes, or that an API returns the right payload — it only tells you the pixels changed, not why, and a passing visual test says nothing about whether the page actually functions.</p>
+<h2 id="what-to-do-next">What to do next</h2>
+<ol><li><strong>Start with one high-traffic flow</strong>, not the whole site — a checkout page, a pricing page, or a dashboard that breaks visibly and often. Trying to snapshot everything on day one is how teams end up drowning in diffs and giving up within a month.</li><li><strong>Stabilize before you snapshot.</strong> Freeze the clock, disable animations, wait for fonts and images, and mask anything genuinely dynamic. Fix determinism at the source rather than widening the diff tolerance to compensate.</li><li><strong>Generate baselines in CI, not locally.</strong> Rendering differs enough across operating systems and GPUs that a baseline captured on someone's laptop will produce false failures for everyone else.</li><li><strong>Set tolerance per screenshot, not globally</strong>, and treat every diff review as a real decision — a few minutes of looking at what changed, not a reflexive &quot;approve all&quot; to unblock a merge.</li></ol>
+<h2 id="sources">Sources</h2>
+<ul><li><a href="https://argos-ci.com/blog/fix-flaky-visual-tests" target="_blank" rel="noopener noreferrer">How to Fix Flaky Visual Tests: Every Root Cause, Solved</a> — Argos</li><li><a href="https://argos-ci.com/blog/best-visual-regression-testing-tools" target="_blank" rel="noopener noreferrer">The 9 Best Visual Regression Testing Tools in 2026</a> — Argos</li><li><a href="https://testdino.com/blog/ai-visual-regression-testing" target="_blank" rel="noopener noreferrer">AI-Powered Visual Regression Testing: What's New in 2026</a> — TestDino</li></ul></div>
+      <template id="prose-sr"><p>Funkcionalni test klikne na dugme „Checkout&quot; i provjeri da se sljedeća stranica učitala. Test prolazi. Ono što ne zna jeste da je dugme sada do pola prekriveno promo banerom koji se nakon izmjene u CSS-u pomjerio šest piksela naniže, pa bi stvaran korisnik na ekranu laptopa morao da pogađa gdje da klikne. Funkcionalni i end-to-end testovi provjeravaju da elementi postoje, da reaguju na događaje i da se prikazuju pravi podaci. Ništa od toga vam ne govori da li stranica zaista izgleda kako treba. Upravo tu rupu popunjava vizuelno regresiono testiranje, i vrijedi razumjeti i šta ono hvata i kako ga timovi čine dovoljno pouzdanim da mu se može vjerovati.</p>
+<p><img src="../../assets/blog/visual-regression-testing-ui-bugs.jpg" alt="Ilustracija podijeljenog ekrana sa istom stranicom sa cijenama na dva tableta: lijevo cijan verzija „Baseline (functional asserts pass)&quot; prekrivena zelenim oznakama PASS; desno magenta verzija „Visual regression (pixel diff)&quot; na kojoj su pomjereni promo baner i premještena dugmad „Buy Now&quot; istaknuti pikselizovanim diff slojem i crvenom oznakom FAIL" loading="lazy"></p>
+<h2 id="šta-zapravo-provjerava">Šta zapravo provjerava</h2>
+<p>Vizuelno regresiono testiranje napravi snimak ekrana stranice ili komponente, uporedi ga piksel po piksel (ili, sve češće, uz pomoć AI-ja) sa sačuvanom osnovnom verzijom (baseline) i označi sve što se promijenilo. Ne zna šta stranica treba da radi; zna samo kako treba da izgleda.</p>
+<p>Zamislite tim koji objavljuje redizajn stranice sa cijenama. Njihov Playwright end-to-end paket testova i dalje prolazi: dugme „Buy now&quot; postoji, može se kliknuti i u DOM-u i dalje vodi na pravi URL. Ali izmjena flexbox-a u zajedničkoj komponenti za raspored spustila je dugme dva reda niže na ekranima užim od 768px, pa se na mobilnom sada nalazi ispod liste funkcionalnosti umjesto pored cijene. Nijedna funkcionalna provjera ne pada, jer ništa nije strukturno pokvareno — dugme je i dalje tu i i dalje radi. Vizuelni diff u odnosu na mobilni baseline to odmah uhvati, jer snimak ekrana jednostavno izgleda drugačije.</p>
+<p>Minimalna vizuelna provjera u Playwright-u za tu stranicu mogla bi da izgleda ovako:</p>
+<pre><code class="lang-js">import { test, expect } from '@playwright/test';
+
+test('pricing page layout, mobile viewport', async ({ page }) =&gt; {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto('/pricing');
+
+  // Stabilize before capturing
+  await page.evaluate(() =&gt; document.fonts.ready);
+  await page.locator('[data-testid=&quot;promo-banner&quot;]').evaluate(
+    el =&gt; el.style.animation = 'none'
+  );
+
+  await expect(page).toHaveScreenshot('pricing-mobile.png', {
+    mask: [page.locator('[data-testid=&quot;live-visitor-count&quot;]')],
+    maxDiffPixelRatio: 0.01,
+  });
+});</code></pre>
+<p>Opcija <code>mask</code> zacrni element za koji se očekuje da će se mijenjati pri svakom pokretanju (brojač posjetilaca, vremenska oznaka), a <code>maxDiffPixelRatio</code> određuje koliko odstupanje u pikselima je prihvatljivo prije nego što test padne.</p>
+<h2 id="gdje-timovi-griješe-i-kako-to-popraviti">Gdje timovi griješe i kako to popraviti</h2>
+<p>Najveći razlog zbog kojeg timovi odustaju od vizuelnog testiranja nije to što je beskorisno — nego to što postane bučno. Paket testova koji pri svakom pokretanju diže lažnu uzbunu navikne ljude da ga ignorišu, čime gubi svaki smisao. Najčešći uzroci i ono što ih zaista rješava:</p>
+<ul><li><strong>Web fontovi koji se kasno učitaju</strong> pomjeraju tekst i prelamanje redova između pokretanja. Prije snimanja sačekajte <code>document.fonts.ready</code> i provjerite da se fontovi u CI-ju zaista serviraju (a ne vraćaju 404).</li><li><strong>Animacije i tranzicije</strong> budu uhvaćene usred kadra — spineri, kursori, fade efekti. Isključite CSS animacije i tranzicije u test okruženju, umjesto da se nadate da će se tajming poklopiti.</li><li><strong>Slike koje još nisu dekodirane</strong>, ili <code>srcset</code> koji pri različitim pokretanjima izabere drugi fajl, mijenjaju piksele bez ikakvog stvarnog baga. Sačekajte da slike prijave da su učitane i namjerno pokrenite lazy-loaded sadržaj prije snimanja.</li><li><strong>Dinamički sadržaj</strong> — brojači uživo, relativne vremenske oznake, nasumičan redoslijed — zahtijeva maskiranje, zamrznut sat ili test podatke sa fiksnim seed-om, a ne veći prag tolerancije.</li><li><strong>Razlike u renderovanju između platformi.</strong> Anti-aliasing, rasterizacija fontova, pa čak i širina scrollbara razlikuju se između macOS-a, Linuxa i Windowsa (klasični scrollbarovi pojedu otprilike 15px rasporeda koje macOS overlay scrollbarovi ne zauzimaju). Svaki baseline generišite u jednom kanonskom okruženju, obično istoj container slici koju koristi CI, a nikada na laptopu nekog developera.</li></ul>
+<p>Iznad svih ovih problema stoji jedna strukturna zamka: vizuelni testovi su skupi za održavanje. Svaka namjerna izmjena dizajna zahtijeva da neko pregleda i ponovo odobri gomilu diffova, a ako se taj pregled pretvori u mehaničko odobravanje („da, izgleda okej, odobri sve&quot;), baseline-ovi se postepeno udaljavaju od stvarnosti i cijela provjera postaje ukras.</p>
+<p>Alati zasnovani na AI-ju, kao što su Percy-jev klasifikator diffova ili Applitools-ovi nivoi poklapanja (match levels), smanjuju broj diffova koje čovjek mora da pregleda tako što vjerovatno namjerne izmjene označavaju odvojeno od vjerovatnih bagova. Ali ta pogodnost je tvrdnja proizvođača, a ne garancija — klasifikator koji previše olako označava šum kao „očekivan&quot; tiho će sakriti zaista nedeterministički pipeline, umjesto da vas natjera da ga popravite.</p>
+<p>Druga stvarna granica je cijena: alati koji renderuju u oblaku, poput Percy-ja i Applitools-a, naplaćuju po snimku ekrana ili po nivou paketa, što brzo raste kada pokrivate svaku stranicu na svakom breakpointu. Open-source opcije poput Playwright-ovog ugrađenog <code>toHaveScreenshot</code>, Argosa ili BackstopJS-a su besplatne, ali nude slabije renderovanje u više pretraživača i nemaju ugrađen proces za pregled izmjena.</p>
+<p>Vizuelno regresiono testiranje je takođe pogrešan alat za provjeru da li su podaci tačni, da li se neki tok uspješno završava ili da li API vraća pravi odgovor — ono vam govori samo da su se pikseli promijenili, a ne zašto, i test koji vizuelno prolazi ne govori ništa o tome da li stranica zaista funkcioniše.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ol><li><strong>Počnite sa jednim tokom sa velikim saobraćajem</strong>, a ne sa cijelim sajtom — stranicom za checkout, stranicom sa cijenama ili dashboardom koji se vidljivo i često kvari. Pokušaj da se već prvog dana snimi sve je upravo način na koji se timovi udave u diffovima i odustanu u roku od mjesec dana.</li><li><strong>Stabilizujte prije snimanja.</strong> Zamrznite sat, isključite animacije, sačekajte fontove i slike i maskirajte sve što je zaista dinamično. Determinizam popravite na izvoru, umjesto da kompenzujete povećanjem tolerancije za diff.</li><li><strong>Baseline-ove generišite u CI-ju, a ne lokalno.</strong> Renderovanje se dovoljno razlikuje između operativnih sistema i grafičkih kartica da će baseline snimljen na nečijem laptopu svima ostalima davati lažne padove.</li><li><strong>Toleranciju podesite za svaki snimak posebno, a ne globalno</strong>, i svaki pregled diffa tretirajte kao stvarnu odluku — nekoliko minuta gledanja šta se promijenilo, a ne refleksno „odobri sve&quot; samo da bi se odblokirao merge.</li></ol>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://argos-ci.com/blog/fix-flaky-visual-tests" target="_blank" rel="noopener noreferrer">How to Fix Flaky Visual Tests: Every Root Cause, Solved</a> — Argos</li><li><a href="https://argos-ci.com/blog/best-visual-regression-testing-tools" target="_blank" rel="noopener noreferrer">The 9 Best Visual Regression Testing Tools in 2026</a> — Argos</li><li><a href="https://testdino.com/blog/ai-visual-regression-testing" target="_blank" rel="noopener noreferrer">AI-Powered Visual Regression Testing: What's New in 2026</a> — TestDino</li></ul></template>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    </div>
+    <section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../testing-ai-agents-tool-calls-side-effects/" data-title-sr="Testiranje AI agenata koji izvršavaju akcije: zašto odgovor koji zvuči tačno nije dovoljan" data-excerpt-sr="Lista provjera za testiranje AI agenata koji pozivaju alate i mijenjaju stvarne sisteme, koja ide dalje od ocjenjivanja konačnog tekstualnog odgovora."><div class="meta"><time datetime="2026-10-23" data-fmt="short">23 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Testing AI Agents That Take Actions: Why a Correct-Sounding Answer Isn't Enough</h2><p>A checklist for testing AI agents that call tools and change real systems, beyond just grading the final text answer.</p></a>
+      <a class="post-card card glow" href="../testing-non-deterministic-ai-features/" data-title-sr="Testiranje AI funkcija koje nikad ne daju isti odgovor dvaput" data-excerpt-sr="Zašto assert-equal ne radi na funkcijama zasnovanim na LLM-u i kako ga zamijeniti provjerama zasnovanim na rubrikama i namjeri, koje zaista hvataju regresije."><div class="meta"><time datetime="2026-10-21" data-fmt="short">21 Oct 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div><h2>Testing AI Features That Don't Give the Same Answer Twice</h2><p>Why assert-equal breaks on LLM-powered features, and how to replace it with rubric-based and intent-based checks that actually catch regressions.</p></a>
+      <a class="post-card card glow" href="../mutation-testing-weak-assertions/" data-title-sr="Mutaciono testiranje: kako da saznate da li vaši testovi zaista hvataju bagove" data-excerpt-sr="Pokrivenost koda pokazuje koje su linije izvršene. Mutaciono testiranje pokazuje da li bi vaši testovi primijetili da je logika pokvarena. Evo kako da ga koristite."><div class="meta"><time datetime="2026-10-19" data-fmt="short">19 Oct 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div><h2>Mutation Testing: How to Tell If Your Test Suite Actually Catches Bugs</h2><p>Code coverage shows which lines ran. Mutation testing shows whether your tests would notice if the logic broke. Here's how to use it.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <a href="../../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../../blog/common.js"></script>
+  <script src="../post.js"></script>
+</body>
+</html>

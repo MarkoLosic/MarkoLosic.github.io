@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Testing AI Agents That Take Actions: Why a Correct-Sounding Answer Isn't Enough — Marko Lošić</title>
+  <meta name="description" content="A checklist for testing AI agents that call tools and change real systems, beyond just grading the final text answer.">
+  <link rel="canonical" href="https://markolosic.github.io/blog/testing-ai-agents-tool-calls-side-effects/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Testing AI Agents That Take Actions: Why a Correct-Sounding Answer Isn't Enough — Marko Lošić">
+  <meta property="og:description" content="A checklist for testing AI agents that call tools and change real systems, beyond just grading the final text answer.">
+  <meta property="og:url" content="https://markolosic.github.io/blog/testing-ai-agents-tool-calls-side-effects/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/testing-ai-agents-tool-calls-side-effects.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Testing AI Agents That Take Actions: Why a Correct-Sounding Answer Isn't Enough — Marko Lošić">
+  <meta name="twitter:description" content="A checklist for testing AI agents that call tools and change real systems, beyond just grading the final text answer.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/testing-ai-agents-tool-calls-side-effects.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Testing AI Agents That Take Actions: Why a Correct-Sounding Answer Isn't Enough","description":"A checklist for testing AI agents that call tools and change real systems, beyond just grading the final text answer.","image":"https://markolosic.github.io/assets/blog/testing-ai-agents-tool-calls-side-effects.jpg","url":"https://markolosic.github.io/blog/testing-ai-agents-tool-calls-side-effects/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/testing-ai-agents-tool-calls-side-effects/"},"datePublished":"2026-10-23","dateModified":"2026-10-23T00:00:00.000Z","keywords":"qa, ai-in-qa, agentic-ai, test-automation","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
+  <meta property="article:published_time" content="2026-10-23">
+  <meta property="article:modified_time" content="2026-10-23T00:00:00.000Z">
+  <meta name="goatcounter-code" content="markolosic">
+  <script data-goatcounter="https://markolosic.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#about" data-i18n="nav_about">About</a>
+      <a href="../../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../../blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span data-i18n="all_posts">All posts</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-10-23" data-fmt="long">23 October 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span><span>·</span><span class="views" id="views" hidden><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M2 2h5v1h-5zM1 3h1v1h-1zM4 3h1v1h-1zM7 3h1v1h-1zM0 4h1v1h-1zM3 4h3v1h-3zM8 4h1v1h-1zM1 5h1v1h-1zM4 5h1v1h-1zM7 5h1v1h-1zM2 6h5v1h-5z"/></svg><span id="views-num"></span></span></div>
+        <h1 data-title-sr="Testiranje AI agenata koji izvršavaju akcije: zašto odgovor koji zvuči tačno nije dovoljan">Testing AI Agents That Take Actions: Why a Correct-Sounding Answer Isn't Enough</h1>
+        <p class="lead" data-excerpt-sr="Lista provjera za testiranje AI agenata koji pozivaju alate i mijenjaju stvarne sisteme, koja ide dalje od ocjenjivanja konačnog tekstualnog odgovora.">A checklist for testing AI agents that call tools and change real systems, beyond just grading the final text answer.</p>
+        <div class="tags"><span>qa</span><span>ai-in-qa</span><span>agentic-ai</span><span>test-automation</span></div>
+      </header>
+      <div class="prose"><p>Most teams that test AI features still grade them the way they'd grade a search box: does the response look right. That works reasonably well for a chatbot that only talks. It breaks down for the growing category of AI features that act — rescheduling an appointment, updating a CRM record, issuing a refund, modifying a database row. An agent can write a fluent, confident, entirely plausible final message while having called the wrong tool, sent the wrong arguments, or changed nothing at all. If your test suite only reads the chat transcript, that failure is invisible.</p>
+<p><img src="../../assets/blog/testing-ai-agents-tool-calls-side-effects.jpg" alt="Isometric illustration of a glowing chat window where the user asks &quot;Reschedule and refund my booking&quot; and the agent replies &quot;Done — your appointment is moved to Thursday at 2pm!&quot;, while underneath the surface broken pipelines connect cancel_booking and refund_booking nodes to &quot;404 FAILED&quot; flags and a table full of DUPLICATE_ID errors" loading="lazy"></p>
+<h2 id="the-problem-with-grading-the-final-answer">The problem with grading the final answer</h2>
+<p>Grading only the agent's last message checks whether the words are plausible, not whether the world changed the way they claim it did. A reschedule agent can reply &quot;Done — your appointment is moved to Thursday at 2pm&quot; after a tool call that silently failed, timed out, or created a second, duplicate event instead of moving the original one. The text is correct-looking. The underlying state is wrong. This is the core shift testers need to make with agentic AI: you are testing a sequence of actions and a resulting state, not a single text output.</p>
+<h2 id="a-concrete-example-a-reschedule-and-refund-support-agent">A concrete example: a reschedule-and-refund support agent</h2>
+<p>Picture a support tool where an AI agent can look up a customer's booking, reschedule it, and issue a partial refund if the new slot is cheaper. A reasonable test case for this agent needs more than a prompt and an expected sentence. It needs:</p>
+<ul><li><strong>Initial state</strong>: a specific booking record, with a known price and time slot, loaded into a sandboxed copy of the system (never a production account).</li><li><strong>Injected context</strong>: a fixed &quot;current time&quot; and time zone, so a prompt like &quot;move it to next Thursday&quot; resolves to one deterministic date instead of whatever day the test happens to run.</li><li><strong>Allowed and forbidden tools</strong>: the agent should be allowed to call <code>get_booking</code> and <code>reschedule_booking</code>, but forbidden from calling <code>cancel_booking</code> or <code>refund_booking</code> unless the new slot is actually cheaper.</li><li><strong>Required outcome, checked in the sandbox itself</strong>: the booking's date field changed, exactly one booking exists for that customer (no duplicate was created), and a refund was issued only if the price actually dropped, for the correct amount.</li></ul>
+<p>That last point is the one teams skip most often. It's tempting to trust the agent's own claim of success. Instead, query the sandbox state directly after the run — the way you'd assert on a database row in an integration test — rather than trusting the chat transcript.</p>
+<p>A useful mental model, borrowed from how tool-calling agents are evaluated in production settings, is to split your checks into layers:</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Layer</th><th>What you're checking</th><th>Example failure it catches</th></tr></thead>
+<tbody>
+<tr><td>Tool necessity</td><td>Should a tool be called at all</td><td>Agent reschedules when the user only asked a question</td></tr>
+<tr><td>Tool selection</td><td>Was the right tool chosen</td><td>Agent calls <code>cancel_booking</code> instead of <code>reschedule_booking</code></td></tr>
+<tr><td>Arguments</td><td>Are the parameters correct</td><td>Correct tool, wrong date or wrong customer ID</td></tr>
+<tr><td>Ordering</td><td>Did required steps happen in the right sequence</td><td>Refund issued before the reschedule was confirmed</td></tr>
+<tr><td>Side effects</td><td>Did the system state actually change correctly</td><td>Booking &quot;moved&quot; per the reply, but the original slot is still held</td></tr>
+<tr><td>Final answer</td><td>Does the reply match what actually happened</td><td>Agent reports success after a failed or unconfirmed write</td></tr>
+</tbody>
+</table>
+</div>
+<p>Treat the bottom two rows — a false success claim and an irreversible or duplicated action — as hard release blockers regardless of how well the agent scores elsewhere. A chatbot that gives a slightly awkward answer is a quality issue. An agent that reports success after silently failing to refund someone, or after double-booking a slot, is a trust and possibly a financial issue.</p>
+<p>It's also worth testing how the agent handles tool output it shouldn't trust blindly: a malformed response from a downstream API, a stale record, a timeout, or text returned from a tool that contains an embedded instruction (a form of prompt injection delivered through data rather than the user). A well-built agent treats everything a tool returns as untrusted input, not as ground truth to act on automatically.</p>
+<h2 id="pitfalls-and-limits">Pitfalls and limits</h2>
+<p>This kind of testing costs more than grading a chat reply, and it's worth being honest about that before you commit to it. You need a sandbox or emulated version of every system the agent can write to, a way to reset that state between test runs, and idempotency keys or similar guards so that retries during testing don't leave duplicate writes behind.</p>
+<p>Comparing tool arguments is also messier than it looks — a semantic, LLM-based judge is reasonable for an open-ended field like a search query, but it should never be the thing that decides whether an account ID or a required field was correct; use exact or structural comparison for those. And because the same prompt can produce a different, equally valid sequence of tool calls on different runs, write your expected behavior as constraints (what must happen, what must never happen) rather than a single fixed transcript, or you'll get constant false failures on legitimate variation.</p>
+<p>None of this replaces ordinary contract and integration testing of the tools themselves — if the booking API has a bug, no amount of agent-level testing will hide that, and it shouldn't.</p>
+<h2 id="what-to-do-next">What to do next</h2>
+<ol><li>For any AI feature that can write, pick its single riskiest action (a refund, a cancellation, a data change) and write one sandboxed test that checks the resulting state directly, not the chat reply.</li><li>Add a short list of forbidden tool calls for at least one test case, and assert the agent never makes them, even when a user tries to coax it there.</li><li>Build in a fixed, injected &quot;current time&quot; for any test involving relative dates, so results are reproducible.</li><li>Before the next release, review your test suite for cases where you're only asserting on the final message. Convert the highest-risk ones into state-based assertions.</li></ol>
+<h2 id="sources">Sources</h2>
+<ul><li><a href="https://oneuptime.com/blog/post/2026-08-31-evaluate-tool-calling-agents/markdown" target="_blank" rel="noopener noreferrer">Evaluate Tool-Calling Agents: Tools, Arguments, and Final Answers</a> — OneUptime</li><li><a href="https://www.getmaxim.ai/articles/how-to-evaluate-ai-agents-a-practical-checklist-for-production" target="_blank" rel="noopener noreferrer">How to Evaluate AI Agents: A Practical Checklist for Production</a> — Maxim AI</li></ul></div>
+      <template id="prose-sr"><p>Većina timova koji testiraju AI funkcije i dalje ih ocjenjuje onako kako bi ocjenjivali polje za pretragu: da li odgovor izgleda dobro. To prilično dobro funkcioniše za chatbot koji samo priča. Ali ne funkcioniše za sve veću kategoriju AI funkcija koje djeluju — pomjeraju termin, ažuriraju zapis u CRM-u, izdaju povraćaj novca, mijenjaju red u bazi podataka. Agent može da napiše tečnu, samouvjerenu i potpuno uvjerljivu završnu poruku, a da je pritom pozvao pogrešan alat, poslao pogrešne argumente ili nije promijenio baš ništa. Ako vaš paket testova čita samo transkript razgovora, taj propust je nevidljiv.</p>
+<p><img src="../../assets/blog/testing-ai-agents-tool-calls-side-effects.jpg" alt="Izometrijska ilustracija svijetlećeg prozora za čet u kojem korisnik traži „Reschedule and refund my booking&quot;, a agent odgovara „Done — your appointment is moved to Thursday at 2pm!&quot;, dok ispod površine pokidane cijevi povezuju čvorove cancel_booking i refund_booking sa zastavicama „404 FAILED&quot; i tabelom punom grešaka DUPLICATE_ID" loading="lazy"></p>
+<h2 id="problem-sa-ocjenjivanjem-samo-konačnog-odgovora">Problem sa ocjenjivanjem samo konačnog odgovora</h2>
+<p>Ocjenjivanje samo posljednje poruke agenta provjerava da li riječi zvuče uvjerljivo, a ne da li se svijet promijenio onako kako one tvrde. Agent za pomjeranje termina može da odgovori „Gotovo — vaš termin je pomjeren na četvrtak u 14h&quot; nakon poziva alata koji je tiho pao, istekao (timeout) ili napravio drugi, duplirani događaj umjesto da pomjeri originalni. Tekst izgleda ispravno. Stanje ispod njega je pogrešno. To je ključna promjena u razmišljanju koju testeri moraju da naprave kod agentskog AI-ja: ne testirate jedan tekstualni izlaz, nego niz akcija i stanje koje iz njih proizlazi.</p>
+<h2 id="konkretan-primjer-agent-podrške-za-pomjeranje-termina-i-povraćaj-novca">Konkretan primjer: agent podrške za pomjeranje termina i povraćaj novca</h2>
+<p>Zamislite alat za korisničku podršku u kojem AI agent može da pronađe rezervaciju korisnika, pomjeri je i izda djelimičan povraćaj novca ako je novi termin jeftiniji. Smislen test slučaj za ovakvog agenta zahtijeva više od prompta i očekivane rečenice. Potrebno mu je:</p>
+<ul><li><strong>Početno stanje</strong>: konkretan zapis o rezervaciji, sa poznatom cijenom i terminom, učitan u sandbox kopiju sistema (nikada u produkcioni nalog).</li><li><strong>Ubačeni kontekst</strong>: fiksno „trenutno vrijeme&quot; i vremenska zona, kako bi se prompt poput „pomjeri je na sljedeći četvrtak&quot; uvijek razriješio na jedan, determinističan datum, a ne na onaj koji zavisi od dana kada se test slučajno pokrene.</li><li><strong>Dozvoljeni i zabranjeni alati</strong>: agent smije da poziva <code>get_booking</code> i <code>reschedule_booking</code>, ali ne smije da poziva <code>cancel_booking</code> niti <code>refund_booking</code>, osim ako je novi termin zaista jeftiniji.</li><li><strong>Obavezan ishod, provjeren u samom sandboxu</strong>: polje datuma na rezervaciji je promijenjeno, za tog korisnika postoji tačno jedna rezervacija (nije napravljen duplikat), a povraćaj novca je izdat samo ako je cijena zaista pala, i to u tačnom iznosu.</li></ul>
+<p>Upravo tu posljednju stavku timovi najčešće preskaču. Primamljivo je povjerovati agentu kada sam tvrdi da je uspio. Umjesto toga, nakon pokretanja direktno provjerite stanje u sandboxu — onako kako biste u integracionom testu provjeravali red u bazi — umjesto da se oslanjate na transkript razgovora.</p>
+<p>Koristan mentalni model, preuzet iz načina na koji se agenti koji pozivaju alate ocjenjuju u produkcionim okruženjima, jeste da provjere podijelite u slojeve:</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Sloj</th><th>Šta provjeravate</th><th>Primjer greške koju hvata</th></tr></thead>
+<tbody>
+<tr><td>Potreba za alatom</td><td>Da li uopšte treba pozvati alat</td><td>Agent pomjera termin iako je korisnik samo postavio pitanje</td></tr>
+<tr><td>Izbor alata</td><td>Da li je izabran pravi alat</td><td>Agent poziva <code>cancel_booking</code> umjesto <code>reschedule_booking</code></td></tr>
+<tr><td>Argumenti</td><td>Da li su parametri ispravni</td><td>Pravi alat, ali pogrešan datum ili pogrešan ID korisnika</td></tr>
+<tr><td>Redoslijed</td><td>Da li su obavezni koraci izvršeni pravim redom</td><td>Povraćaj novca izdat prije nego što je pomjeranje termina potvrđeno</td></tr>
+<tr><td>Sporedni efekti</td><td>Da li se stanje sistema zaista ispravno promijenilo</td><td>Rezervacija je „pomjerena&quot; prema odgovoru, ali originalni termin je i dalje zauzet</td></tr>
+<tr><td>Konačni odgovor</td><td>Da li odgovor odgovara onome što se zaista desilo</td><td>Agent prijavljuje uspjeh nakon neuspješnog ili nepotvrđenog upisa</td></tr>
+</tbody>
+</table>
+</div>
+<p>Posljednja dva reda — lažnu tvrdnju o uspjehu i nepovratnu ili dupliranu akciju — tretirajte kao čvrste blokere za izdavanje verzije, bez obzira na to koliko dobro agent prolazi na ostalim provjerama. Chatbot koji da pomalo nespretan odgovor je problem kvaliteta. Agent koji prijavi uspjeh nakon što je tiho propustio da nekome vrati novac, ili nakon što je dvaput rezervisao isti termin, je problem povjerenja, a možda i finansijski problem.</p>
+<p>Vrijedi testirati i kako agent postupa sa izlazom iz alata kojem ne bi trebalo slijepo da vjeruje: neispravan odgovor iz nekog API-ja niže u lancu, zastario zapis, timeout ili tekst koji alat vrati, a koji sadrži ugrađenu instrukciju (oblik prompt injection napada koji stiže kroz podatke, a ne od korisnika). Dobro napravljen agent sve što mu alat vrati tretira kao nepouzdan ulaz, a ne kao apsolutnu istinu na osnovu koje automatski djeluje.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Ovakvo testiranje košta više od ocjenjivanja odgovora u četu i dobro je da budete iskreni po tom pitanju prije nego što se upustite u njega. Potrebna vam je sandbox ili emulirana verzija svakog sistema u koji agent može da upisuje, način da resetujete to stanje između pokretanja testova, i idempotency ključevi ili slične zaštite, kako ponovni pokušaji tokom testiranja ne bi ostavljali duplirane upise.</p>
+<p>Poređenje argumenata alata je takođe zapetljanije nego što izgleda — semantički sudija zasnovan na LLM-u je razuman izbor za otvoreno polje poput upita za pretragu, ali nikada ne bi trebalo da on odlučuje da li je ID naloga ili obavezno polje ispravno; za to koristite tačno ili strukturno poređenje. A pošto isti prompt pri različitim pokretanjima može da proizvede drugačiji, ali podjednako ispravan niz poziva alata, očekivano ponašanje pišite kao ograničenja (šta mora da se desi, šta nikada ne smije da se desi), a ne kao jedan fiksni transkript — inače ćete stalno dobijati lažne padove na sasvim legitimnim varijacijama.</p>
+<p>Ništa od ovoga ne zamjenjuje uobičajeno contract i integraciono testiranje samih alata — ako API za rezervacije ima bag, nikakvo testiranje na nivou agenta to neće sakriti, i ne bi ni trebalo.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ol><li>Za svaku AI funkciju koja može da upisuje podatke, izaberite njenu najrizičniju akciju (povraćaj novca, otkazivanje, izmjenu podataka) i napišite jedan test u sandboxu koji direktno provjerava rezultujuće stanje, a ne odgovor u četu.</li><li>Za bar jedan test slučaj dodajte kratku listu zabranjenih poziva alata i provjerite da ih agent nikada ne pravi, čak ni kada ga korisnik pokušava nagovoriti na to.</li><li>Za svaki test koji uključuje relativne datume ugradite fiksno, ubačeno „trenutno vrijeme&quot;, kako bi rezultati bili ponovljivi.</li><li>Prije sljedećeg izdanja pregledajte paket testova i pronađite slučajeve u kojima provjeravate samo konačnu poruku. Najrizičnije među njima pretvorite u provjere zasnovane na stanju.</li></ol>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://oneuptime.com/blog/post/2026-08-31-evaluate-tool-calling-agents/markdown" target="_blank" rel="noopener noreferrer">Evaluate Tool-Calling Agents: Tools, Arguments, and Final Answers</a> — OneUptime</li><li><a href="https://www.getmaxim.ai/articles/how-to-evaluate-ai-agents-a-practical-checklist-for-production" target="_blank" rel="noopener noreferrer">How to Evaluate AI Agents: A Practical Checklist for Production</a> — Maxim AI</li></ul></template>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    </div>
+    <section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../visual-regression-testing-ui-bugs/" data-title-sr="Vizuelno regresiono testiranje: kako uhvatiti UI bagove pored kojih vaši funkcionalni testovi prolaze" data-excerpt-sr="Zašto provjere na nivou piksela hvataju greške u rasporedu koje funkcionalni testovi propuštaju, kako ih spriječiti da budu nestabilne i koji alati se zaista uklapaju u vaš pipeline."><div class="meta"><time datetime="2026-10-23" data-fmt="short">23 Oct 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div><h2>Visual Regression Testing: Catching the UI Bugs Your Functional Tests Walk Right Past</h2><p>Why pixel-level checks catch layout bugs functional tests miss, how to stop them from flaking, and which tools actually fit your pipeline.</p></a>
+      <a class="post-card card glow" href="../testing-non-deterministic-ai-features/" data-title-sr="Testiranje AI funkcija koje nikad ne daju isti odgovor dvaput" data-excerpt-sr="Zašto assert-equal ne radi na funkcijama zasnovanim na LLM-u i kako ga zamijeniti provjerama zasnovanim na rubrikama i namjeri, koje zaista hvataju regresije."><div class="meta"><time datetime="2026-10-21" data-fmt="short">21 Oct 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div><h2>Testing AI Features That Don't Give the Same Answer Twice</h2><p>Why assert-equal breaks on LLM-powered features, and how to replace it with rubric-based and intent-based checks that actually catch regressions.</p></a>
+      <a class="post-card card glow" href="../mutation-testing-weak-assertions/" data-title-sr="Mutaciono testiranje: kako da saznate da li vaši testovi zaista hvataju bagove" data-excerpt-sr="Pokrivenost koda pokazuje koje su linije izvršene. Mutaciono testiranje pokazuje da li bi vaši testovi primijetili da je logika pokvarena. Evo kako da ga koristite."><div class="meta"><time datetime="2026-10-19" data-fmt="short">19 Oct 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div><h2>Mutation Testing: How to Tell If Your Test Suite Actually Catches Bugs</h2><p>Code coverage shows which lines ran. Mutation testing shows whether your tests would notice if the logic broke. Here's how to use it.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <a href="../../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../../blog/common.js"></script>
+  <script src="../post.js"></script>
+</body>
+</html>
