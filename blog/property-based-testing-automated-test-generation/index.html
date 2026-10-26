@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Property-Based Testing: One Test That Covers Cases You'd Never Think to Write — Marko Lošić</title>
+  <meta name="description" content="How property-based testing with Hypothesis or fast-check finds edge cases example-based tests miss, and where it falls short.">
+  <link rel="canonical" href="https://markolosic.github.io/blog/property-based-testing-automated-test-generation/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Property-Based Testing: One Test That Covers Cases You'd Never Think to Write — Marko Lošić">
+  <meta property="og:description" content="How property-based testing with Hypothesis or fast-check finds edge cases example-based tests miss, and where it falls short.">
+  <meta property="og:url" content="https://markolosic.github.io/blog/property-based-testing-automated-test-generation/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/property-based-testing-automated-test-generation.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Property-Based Testing: One Test That Covers Cases You'd Never Think to Write — Marko Lošić">
+  <meta name="twitter:description" content="How property-based testing with Hypothesis or fast-check finds edge cases example-based tests miss, and where it falls short.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/property-based-testing-automated-test-generation.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Property-Based Testing: One Test That Covers Cases You'd Never Think to Write","description":"How property-based testing with Hypothesis or fast-check finds edge cases example-based tests miss, and where it falls short.","image":"https://markolosic.github.io/assets/blog/property-based-testing-automated-test-generation.jpg","url":"https://markolosic.github.io/blog/property-based-testing-automated-test-generation/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/property-based-testing-automated-test-generation/"},"datePublished":"2026-10-26","dateModified":"2026-10-26T00:00:00.000Z","keywords":"qa, test-automation, property-based-testing, methodology","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
+  <meta property="article:published_time" content="2026-10-26">
+  <meta property="article:modified_time" content="2026-10-26T00:00:00.000Z">
+  <meta name="goatcounter-code" content="markolosic">
+  <script data-goatcounter="https://markolosic.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#about" data-i18n="nav_about">About</a>
+      <a href="../../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../../blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span data-i18n="all_posts">All posts</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-10-26" data-fmt="long">26 October 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span><span>·</span><span class="views" id="views" hidden><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M2 2h5v1h-5zM1 3h1v1h-1zM4 3h1v1h-1zM7 3h1v1h-1zM0 4h1v1h-1zM3 4h3v1h-3zM8 4h1v1h-1zM1 5h1v1h-1zM4 5h1v1h-1zM7 5h1v1h-1zM2 6h5v1h-5z"/></svg><span id="views-num"></span></span></div>
+        <h1 data-title-sr="Property-based testiranje: jedan test koji pokriva slučajeve kojih se nikad ne biste sjetili">Property-Based Testing: One Test That Covers Cases You'd Never Think to Write</h1>
+        <p class="lead" data-excerpt-sr="Kako property-based testiranje uz Hypothesis ili fast-check pronalazi granične slučajeve koje testovi zasnovani na primjerima propuštaju, i gdje ima svoja ograničenja.">How property-based testing with Hypothesis or fast-check finds edge cases example-based tests miss, and where it falls short.</p>
+        <div class="tags"><span>qa</span><span>test-automation</span><span>property-based-testing</span><span>methodology</span></div>
+      </header>
+      <div class="prose"><p>Most automated test suites are built one example at a time: a test for the happy path, a test for an empty input, a test for a known edge case someone hit in production once. That approach works until the bug lives in a scenario nobody thought to write down — a list with exactly one element, a date right at a century boundary, a string with a character nobody tested. Property-based testing attacks that blind spot directly. Instead of writing a test per input, you write a test per rule, and a generator throws hundreds of inputs at that rule on every run.</p>
+<p><img src="../../assets/blog/property-based-testing-automated-test-generation.jpg" alt="Isometric illustration of a chaotic stream of symbols, binary matrices and code fragments flowing into a glowing translucent gate on a circuit-board platform, where they are filtered into an ordered data pipeline that narrows down to a single highlighted red point" loading="lazy"></p>
+<h2 id="what-a-property-actually-is">What a &quot;property&quot; actually is</h2>
+<p>A property-based test doesn't say &quot;when the input is X, the output should be Y.&quot; It states something that should be true for every valid input: a round trip that returns the original value, a result that never exceeds a bound, an operation that commutes regardless of order. Libraries like Hypothesis (Python), fast-check (JavaScript/TypeScript), and QuickCheck (Haskell, with ports in most other languages) generate inputs matching a strategy you declare, run your assertion against each one, and — this is the part that makes the technique useful rather than just noisy — shrink any failing input down to the smallest case that still fails.</p>
+<p>A good illustration, adapted from a real refactor described in Increment's testing issue: a SaaS product limits how many collaborators a project can have. The original test created exactly three fixed users and checked that the fourth was rejected. That test passes, but it only proves the rule holds for three specific people. A property version states the actual rule: for any project name and any list of distinct users, adding more than the limit should be rejected, and adding exactly the limit should succeed. Here's that idea with fast-check:</p>
+<pre><code class="lang-ts">import fc from 'fast-check';
+import { test, expect } from 'vitest';
+
+test('collaborator limit holds for any project and user list', () =&gt; {
+  fc.assert(
+    fc.property(
+      fc.string({ minLength: 1 }),
+      fc.uniqueArray(fc.string({ minLength: 1 }), { minLength: 0, maxLength: 10 }),
+      (projectName, users) =&gt; {
+        const project = createProject(projectName);
+        const results = users.map((u) =&gt; project.addCollaborator(u));
+        const accepted = results.filter(Boolean).length;
+        expect(accepted).toBe(Math.min(users.length, project.collaboratorLimit));
+      }
+    )
+  );
+});</code></pre>
+<p>That single test replaces a whole family of example tests and keeps checking the rule as the codebase changes, instead of only the three cases someone remembered to write.</p>
+<h2 id="shrinking-is-what-makes-the-failures-usable">Shrinking is what makes the failures usable</h2>
+<p>Random generation on its own would be nearly useless for debugging — a failing case with a 40-element array of garbage strings tells you almost nothing. Shrinking is the step that turns a random failure into a minimal, readable one. Hypothesis's own documentation describes finding a real bug in Argon2 Python bindings this way: a property test asserting that hashing and then verifying always succeeds found that hash lengths above 512 silently failed because they overran a fixed-size buffer in the underlying C library. The shrunk failing example was <code>hash_len=513</code> — one number, pointing straight at the boundary.</p>
+<p>A similar round-trip property (parse a date, format it back, expect the same value) caught a real bug in the <code>dateutil</code> library: the ISO 8601 date <code>0005-01-01T00:00:05</code> was parsed as <code>0001-05-01T00:00:05</code> — the year and month had been swapped. No one would have picked that date by hand to test; the generator found it, and shrinking reduced it to the smallest input that still reproduced the swap.</p>
+<p>Shrinking has a subtler failure mode worth knowing about, documented by the Hypothesis team: when a property can fail for more than one underlying reason, naive shrinking can &quot;slip&quot; from the bug you found toward a different, less interesting one. A test checking <code>min(xs) &lt;= mean(xs) &lt;= max(xs)</code> over a list of floats can fail because of <code>NaN</code> values, because of infinities, or because of floating-point precision — but a shrinker chasing &quot;simpler&quot; will often collapse everything down to the empty list, which fails for a boring reason (<code>min()</code> on an empty list raises an error) and hides the interesting bug you actually triggered. Modern Hypothesis versions address this by detecting and reporting multiple distinct failures separately, each shrunk on its own, rather than collapsing them into one.</p>
+<h2 id="where-this-approach-falls-short">Where this approach falls short</h2>
+<p>Good properties are genuinely harder to come up with than good examples, and teams new to the technique often spend their first attempts writing properties that are too weak to catch anything (&quot;the function doesn't throw&quot;) or constraints that filter out so many generated inputs that the test barely runs. Generators also need real care: too loose, and you'll spend your CI budget generating invalid inputs the real system would never see; too tight, and you've quietly reintroduced the same blind spots example-based testing had. Shrinking can mask a bug behind a simpler but less relevant one, as described above, so a failing property test is a starting point for investigation, not an automatic root cause. And property tests are usually slower and noisier in CI than deterministic examples — a flaky-looking failure that only reproduces with a specific random seed needs that seed saved and replayed, not just rerun and ignored.</p>
+<p>Property-based testing also isn't a replacement for example-based tests that document specific, named business scenarios (&quot;a VIP customer gets free shipping over $50&quot;). Those are still clearer as explicit examples. The two techniques work best side by side: examples for documenting intent, properties for catching the inputs nobody thought to document.</p>
+<h2 id="what-to-do-next">What to do next</h2>
+<p>Pick one pure function in your codebase with an obvious invariant — a serializer/deserializer, a sort, a parser, anything with a round trip or a clear mathematical rule — and write exactly one property test for it using Hypothesis or fast-check. Run it locally against existing code before trusting it in CI, and actually read the first few failures it surfaces instead of dismissing them as noise. When it finds a real bug, save the failing seed and add it as a permanent regression example alongside the property. Expand to a second function only once the first property test has earned its place in the suite — converting a whole test file at once tends to produce a flood of findings that's hard to triage.</p>
+<h2 id="sources">Sources</h2>
+<ul><li><a href="https://fast-check.dev/docs/introduction/" target="_blank" rel="noopener noreferrer">fast-check introduction</a></li><li><a href="https://hypothesis.works/articles/multi-bug-discovery/" target="_blank" rel="noopener noreferrer">Hypothesis: When multiple bugs attack</a></li><li><a href="https://increment.com/testing/in-praise-of-property-based-testing/" target="_blank" rel="noopener noreferrer">In praise of property-based testing — Increment</a></li></ul></div>
+      <template id="prose-sr"><p>Većina paketa automatizovanih testova gradi se primjer po primjer: test za srećni scenario (happy path), test za prazan ulaz, test za poznati granični slučaj na koji je neko jednom naletio u produkciji. Taj pristup radi sve dok se bag ne nađe u scenariju koji niko nije pomislio da zapiše — lista sa tačno jednim elementom, datum tačno na granici vijeka, string sa karakterom koji niko nije testirao. Property-based testiranje direktno napada tu slijepu tačku. Umjesto da pišete test za svaki ulaz, pišete test za svako pravilo, a generator pri svakom pokretanju baca stotine ulaza na to pravilo.</p>
+<p><img src="../../assets/blog/property-based-testing-automated-test-generation.jpg" alt="Izometrijska ilustracija haotičnog toka simbola, binarnih matrica i fragmenata koda koji ulaze u svijetleću providnu kapiju na platformi nalik štampanoj ploči, gdje se filtriraju u uređen tok podataka koji se sužava do jedne istaknute crvene tačke" loading="lazy"></p>
+<h2 id="šta-je-zapravo-property">Šta je zapravo „property&quot;</h2>
+<p>Property-based test ne kaže „kada je ulaz X, izlaz treba da bude Y&quot;. On iskazuje nešto što treba da važi za svaki validan ulaz: povratno putovanje (round trip) koje vraća originalnu vrijednost, rezultat koji nikada ne prelazi neku granicu, operaciju koja daje isti rezultat bez obzira na redoslijed. Biblioteke poput Hypothesisa (Python), fast-checka (JavaScript/TypeScript) i QuickChecka (Haskell, sa portovima za većinu drugih jezika) generišu ulaze prema strategiji koju definišete, provjeravaju vašu tvrdnju nad svakim od njih i — upravo to tehniku čini korisnom, a ne samo bučnom — smanjuju (shrinking) svaki ulaz koji obori test do najmanjeg slučaja koji i dalje pada.</p>
+<p>Dobra ilustracija, prilagođena iz stvarnog refaktorisanja opisanog u Incrementovom broju posvećenom testiranju: SaaS proizvod ograničava koliko saradnika jedan projekat može da ima. Originalni test pravio je tačno tri fiksna korisnika i provjeravao da je četvrti odbijen. Taj test prolazi, ali dokazuje samo da pravilo važi za tri konkretne osobe. Property verzija iskazuje stvarno pravilo: za bilo koji naziv projekta i bilo koju listu različitih korisnika, dodavanje više od limita treba da bude odbijeno, a dodavanje tačno do limita treba da uspije. Evo te ideje sa fast-checkom:</p>
+<pre><code class="lang-ts">import fc from 'fast-check';
+import { test, expect } from 'vitest';
+
+test('collaborator limit holds for any project and user list', () =&gt; {
+  fc.assert(
+    fc.property(
+      fc.string({ minLength: 1 }),
+      fc.uniqueArray(fc.string({ minLength: 1 }), { minLength: 0, maxLength: 10 }),
+      (projectName, users) =&gt; {
+        const project = createProject(projectName);
+        const results = users.map((u) =&gt; project.addCollaborator(u));
+        const accepted = results.filter(Boolean).length;
+        expect(accepted).toBe(Math.min(users.length, project.collaboratorLimit));
+      }
+    )
+  );
+});</code></pre>
+<p>Taj jedan test zamjenjuje čitavu porodicu testova zasnovanih na primjerima i nastavlja da provjerava pravilo kako se kod mijenja, umjesto samo ona tri slučaja kojih se neko sjetio da ih napiše.</p>
+<h2 id="shrinking-je-ono-što-padove-čini-upotrebljivim">Shrinking je ono što padove čini upotrebljivim</h2>
+<p>Samo nasumično generisanje bilo bi skoro beskorisno za debagovanje — pad sa nizom od 40 besmislenih stringova ne govori vam gotovo ništa. Shrinking je korak koji nasumičan pad pretvara u minimalan, čitljiv primjer. Dokumentacija Hypothesisa opisuje kako je na ovaj način pronađen stvaran bag u Python bindinzima za Argon2: property test koji tvrdi da heširanje, pa zatim verifikacija, uvijek uspijeva otkrio je da dužine heša preko 512 tiho padaju jer prepunjavaju bafer fiksne veličine u C biblioteci ispod. Smanjeni primjer koji pada bio je <code>hash_len=513</code> — jedan broj koji pokazuje pravo na granicu.</p>
+<p>Slično round-trip svojstvo (parsiraj datum, formatiraj ga nazad, očekuj istu vrijednost) uhvatilo je stvaran bag u biblioteci <code>dateutil</code>: ISO 8601 datum <code>0005-01-01T00:00:05</code> parsiran je kao <code>0001-05-01T00:00:05</code> — godina i mjesec su zamijenili mjesta. Niko ne bi ručno izabrao baš taj datum za testiranje; generator ga je pronašao, a shrinking ga je sveo na najmanji ulaz koji i dalje reprodukuje zamjenu.</p>
+<p>Shrinking ima i suptilniji način da zakaže, koji je vrijedno poznavati, a dokumentovao ga je Hypothesis tim: kada svojstvo može da padne iz više od jednog razloga, naivan shrinking može da „sklizne&quot; sa baga koji ste pronašli ka nekom drugom, manje zanimljivom. Test koji provjerava <code>min(xs) &lt;= mean(xs) &lt;= max(xs)</code> nad listom brojeva u pokretnom zarezu može da padne zbog <code>NaN</code> vrijednosti, zbog beskonačnosti ili zbog preciznosti računanja u pokretnom zarezu — ali shrinker koji juri „jednostavnije&quot; često sve sruši na praznu listu, koja pada iz dosadnog razloga (<code>min()</code> nad praznom listom baca grešku) i sakriva zanimljiv bag koji ste zapravo pogodili. Novije verzije Hypothesisa ovo rješavaju tako što prepoznaju i prijavljuju više različitih padova odvojeno, svaki smanjen za sebe, umjesto da ih stope u jedan.</p>
+<h2 id="gdje-ovaj-pristup-ne-ide-dovoljno-daleko">Gdje ovaj pristup ne ide dovoljno daleko</h2>
+<p>Dobra svojstva je zaista teže smisliti nego dobre primjere, a timovi koji su novi u ovoj tehnici često prve pokušaje potroše na svojstva koja su preslaba da bilo šta uhvate („funkcija ne baca izuzetak&quot;) ili na ograničenja koja odbace toliko generisanih ulaza da se test jedva i izvrši. Generatori takođe zahtijevaju pažnju: ako su previše labavi, potrošićete CI budžet na generisanje nevalidnih ulaza koje stvarni sistem nikada ne bi vidio; ako su previše strogi, tiho ste vratili iste slijepe tačke koje je imalo testiranje zasnovano na primjerima. Shrinking može da sakrije bag iza jednostavnijeg, ali manje relevantnog, kao što je opisano gore, pa je property test koji pada polazna tačka za istraživanje, a ne automatski uzrok problema. I property testovi su u CI-ju obično sporiji i bučniji od determinističkih primjera — pad koji izgleda kao flaky, a reprodukuje se samo sa određenim nasumičnim seedom, zahtijeva da se taj seed sačuva i ponovo pusti, a ne samo da se test ponovo pokrene i ignoriše.</p>
+<p>Property-based testiranje takođe nije zamjena za testove zasnovane na primjerima koji dokumentuju konkretne, imenovane poslovne scenarije („VIP kupac dobija besplatnu dostavu preko 50 dolara&quot;). Oni su i dalje jasniji kao eksplicitni primjeri. Ove dvije tehnike najbolje rade jedna uz drugu: primjeri za dokumentovanje namjere, svojstva za hvatanje ulaza koje niko nije pomislio da dokumentuje.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<p>Izaberite jednu čistu funkciju u svom kodu sa očiglednom invarijantom — serijalizator/deserijalizator, sortiranje, parser, bilo šta sa round tripom ili jasnim matematičkim pravilom — i napišite za nju tačno jedan property test uz Hypothesis ili fast-check. Pokrenite ga lokalno nad postojećim kodom prije nego što mu povjerite mjesto u CI-ju, i zaista pročitajte prvih nekoliko padova koje izbaci umjesto da ih otpišete kao šum. Kada pronađe stvaran bag, sačuvajte seed koji pada i dodajte ga kao trajni regresioni primjer uz svojstvo. Na drugu funkciju pređite tek kada prvi property test zasluži svoje mjesto u paketu — prebacivanje čitavog test fajla odjednom obično proizvede poplavu nalaza koju je teško trijažirati.</p>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://fast-check.dev/docs/introduction/" target="_blank" rel="noopener noreferrer">fast-check introduction</a></li><li><a href="https://hypothesis.works/articles/multi-bug-discovery/" target="_blank" rel="noopener noreferrer">Hypothesis: When multiple bugs attack</a></li><li><a href="https://increment.com/testing/in-praise-of-property-based-testing/" target="_blank" rel="noopener noreferrer">In praise of property-based testing — Increment</a></li></ul></template>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    </div>
+    <section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../php2shell-rce-qa-testing-gaps/" data-title-sr="PHP2Shell: kako kritični RCE u jezgru PHP-a otkriva rupe u standardnim QA praksama" data-excerpt-sr="Šta PHP2Shell ranjivosti za udaljeno izvršavanje koda otkrivaju o slijepim tačkama tipičnih paketa testova i konkretni koraci da se one zatvore."><div class="meta"><time datetime="2026-10-23" data-fmt="short">23 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>PHP2Shell: How a Critical PHP Core RCE Exposes Gaps in Standard QA Practices</h2><p>What the PHP2Shell remote code execution bugs reveal about blind spots in typical test suites, and concrete steps to close them.</p></a>
+      <a class="post-card card glow" href="../visual-regression-testing-ui-bugs/" data-title-sr="Vizuelno regresiono testiranje: kako uhvatiti UI bagove pored kojih vaši funkcionalni testovi prolaze" data-excerpt-sr="Zašto provjere na nivou piksela hvataju greške u rasporedu koje funkcionalni testovi propuštaju, kako ih spriječiti da budu nestabilne i koji alati se zaista uklapaju u vaš pipeline."><div class="meta"><time datetime="2026-10-23" data-fmt="short">23 Oct 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div><h2>Visual Regression Testing: Catching the UI Bugs Your Functional Tests Walk Right Past</h2><p>Why pixel-level checks catch layout bugs functional tests miss, how to stop them from flaking, and which tools actually fit your pipeline.</p></a>
+      <a class="post-card card glow" href="../testing-ai-agents-tool-calls-side-effects/" data-title-sr="Testiranje AI agenata koji izvršavaju akcije: zašto odgovor koji zvuči tačno nije dovoljan" data-excerpt-sr="Lista provjera za testiranje AI agenata koji pozivaju alate i mijenjaju stvarne sisteme, koja ide dalje od ocjenjivanja konačnog tekstualnog odgovora."><div class="meta"><time datetime="2026-10-23" data-fmt="short">23 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Testing AI Agents That Take Actions: Why a Correct-Sounding Answer Isn't Enough</h2><p>A checklist for testing AI agents that call tools and change real systems, beyond just grading the final text answer.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <a href="../../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../../blog/common.js"></script>
+  <script src="../post.js"></script>
+</body>
+</html>
