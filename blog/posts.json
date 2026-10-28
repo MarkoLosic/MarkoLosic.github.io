@@ -1,5 +1,20 @@
 [
   {
+    "slug": "owasp-for-qa-top10-asvs-test-cases",
+    "title": "OWASP for QA: Turning the Top 10 and ASVS Into Actual Test Cases",
+    "titleSr": "OWASP za QA: kako Top 10 i ASVS pretvoriti u konkretne test slučajeve",
+    "excerpt": "\"Test for OWASP\" is a vague instruction. Here's how the Top 10, ASVS and ZAP fit together into test cases a QA engineer can actually run.",
+    "excerptSr": "„Testirajte za OWASP\" je nejasno uputstvo. Evo kako se Top 10, ASVS i ZAP uklapaju u test slučajeve koje QA inženjer zaista može da izvrši.",
+    "tags": [
+      "qa",
+      "security-testing",
+      "owasp",
+      "asvs"
+    ],
+    "date": "2026-10-28",
+    "readingTime": 6
+  },
+  {
     "slug": "reviewing-ai-generated-test-code-anti-patterns",
     "title": "Reviewing AI-Generated Test Code: The Anti-Patterns That Slip Past a Quick Look",
     "titleSr": "Pregled testova koje je napisao AI: anti-obrasci koji promaknu na brzinu",

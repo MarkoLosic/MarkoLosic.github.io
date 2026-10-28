@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OWASP for QA: Turning the Top 10 and ASVS Into Actual Test Cases — Marko Lošić</title>
+  <meta name="description" content="&quot;Test for OWASP&quot; is a vague instruction. Here's how the Top 10, ASVS and ZAP fit together into test cases a QA engineer can actually run.">
+  <link rel="canonical" href="https://markolosic.github.io/blog/owasp-for-qa-top10-asvs-test-cases/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="OWASP for QA: Turning the Top 10 and ASVS Into Actual Test Cases — Marko Lošić">
+  <meta property="og:description" content="&quot;Test for OWASP&quot; is a vague instruction. Here's how the Top 10, ASVS and ZAP fit together into test cases a QA engineer can actually run.">
+  <meta property="og:url" content="https://markolosic.github.io/blog/owasp-for-qa-top10-asvs-test-cases/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/owasp-for-qa-top10-asvs-test-cases.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="OWASP for QA: Turning the Top 10 and ASVS Into Actual Test Cases — Marko Lošić">
+  <meta name="twitter:description" content="&quot;Test for OWASP&quot; is a vague instruction. Here's how the Top 10, ASVS and ZAP fit together into test cases a QA engineer can actually run.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/owasp-for-qa-top10-asvs-test-cases.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"OWASP for QA: Turning the Top 10 and ASVS Into Actual Test Cases","description":"\"Test for OWASP\" is a vague instruction. Here's how the Top 10, ASVS and ZAP fit together into test cases a QA engineer can actually run.","image":"https://markolosic.github.io/assets/blog/owasp-for-qa-top10-asvs-test-cases.jpg","url":"https://markolosic.github.io/blog/owasp-for-qa-top10-asvs-test-cases/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/owasp-for-qa-top10-asvs-test-cases/"},"datePublished":"2026-10-28","dateModified":"2026-10-28T00:00:00.000Z","keywords":"qa, security-testing, owasp, asvs","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
+  <meta property="article:published_time" content="2026-10-28">
+  <meta property="article:modified_time" content="2026-10-28T00:00:00.000Z">
+  <meta name="goatcounter-code" content="markolosic">
+  <script data-goatcounter="https://markolosic.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#about" data-i18n="nav_about">About</a>
+      <a href="../../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../../blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span data-i18n="all_posts">All posts</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-10-28" data-fmt="long">28 October 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span><span>·</span><span class="views" id="views" hidden><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M2 2h5v1h-5zM1 3h1v1h-1zM4 3h1v1h-1zM7 3h1v1h-1zM0 4h1v1h-1zM3 4h3v1h-3zM8 4h1v1h-1zM1 5h1v1h-1zM4 5h1v1h-1zM7 5h1v1h-1zM2 6h5v1h-5z"/></svg><span id="views-num"></span></span></div>
+        <h1 data-title-sr="OWASP za QA: kako Top 10 i ASVS pretvoriti u konkretne test slučajeve">OWASP for QA: Turning the Top 10 and ASVS Into Actual Test Cases</h1>
+        <p class="lead" data-excerpt-sr="„Testirajte za OWASP&quot; je nejasno uputstvo. Evo kako se Top 10, ASVS i ZAP uklapaju u test slučajeve koje QA inženjer zaista može da izvrši.">&quot;Test for OWASP&quot; is a vague instruction. Here's how the Top 10, ASVS and ZAP fit together into test cases a QA engineer can actually run.</p>
+        <div class="tags"><span>qa</span><span>security-testing</span><span>owasp</span><span>asvs</span></div>
+      </header>
+      <div class="prose"><p>&quot;Make sure we're covered for the OWASP Top 10&quot; is a common line in a security review or a client requirement, and it's not very actionable on its own. The Top 10 is a ranked list of risk categories, not a set of test cases. Turning it into something a QA engineer without a security background can actually execute requires pulling in the rest of the OWASP ecosystem: the Application Security Verification Standard (ASVS) for concrete, leveled requirements, the Testing Guide and Cheat Sheets for how to check each one, and a scanner like ZAP for the parts that are worth automating. Used separately, each piece is either too abstract or too narrow. Used together, they form a workable process.</p>
+<p><img src="../../assets/blog/owasp-for-qa-top10-asvs-test-cases.jpg" alt="A QA workstation with a code editor showing a &quot;forced payment-processor timeout&quot; test case, a laptop with OWASP and ASVS logos, printed OWASP Top 10 (2025) and ASVS 4.0.3 requirement sheets, sticky notes reading &quot;Top 10 → ASVS&quot; and &quot;Run ZAP scan&quot;, and a CI/CD pipeline sketched on a whiteboard" loading="lazy"></p>
+<h2 id="three-pieces-that-do-different-jobs">Three pieces that do different jobs</h2>
+<p><strong>The Top 10</strong> tells you what to prioritize. The current list (2025) keeps Broken Access Control at the top and moves Security Misconfiguration into second place. It also introduces two categories that weren't framed this way before: Software Supply Chain Failures, which widens an older &quot;vulnerable components&quot; category into a broader look at third-party and build-pipeline risk, and Mishandling of Exceptional Conditions, which covers security gaps caused by bad error handling, such as verbose stack traces or unsafe fallback logic. The Top 10 is useful for deciding where to spend limited testing time, not for writing a single test case.</p>
+<p><strong>ASVS</strong> turns risk categories into requirements you can check off. It's organized into 14 chapters (V1 through V14, covering things like authentication, session management, access control, cryptography, error handling and logging, and API security) at three verification levels. Level 1 is a baseline that's fully testable through normal penetration testing. Level 2, the one OWASP recommends for most applications handling anything sensitive, adds requirements that typically need some code or design review alongside testing. Level 3 is for applications where a failure has serious consequences, such as payment processing or health data. Version 4.0.3 has 286 individual requirements in total, and OWASP's own guidance is explicit: don't try to implement or verify all of them for every application. Pick a level based on what the application actually handles, then work through the chapters that matter for it.</p>
+<p><strong>The Testing Guide, Cheat Sheets, and ZAP</strong> are where &quot;verify this requirement&quot; becomes an actual test. The Cheat Sheets give you the technical detail for a specific control (what a safe session cookie configuration looks like, what password storage should and shouldn't do). ZAP is a scanner that can run a subset of checks automatically, which matters because manual verification of 286 requirements per release isn't realistic for most teams.</p>
+<h2 id="a-worked-example-one-asvs-requirement-one-test-case">A worked example: one ASVS requirement, one test case</h2>
+<p>Take the new Top 10 category, Mishandling of Exceptional Conditions, and ASVS's error handling and logging chapter (V7 in version 4.0.3), which requires that error responses not leak internal implementation details. A concrete test case for a billing API might look like this:</p>
+<pre><code>Test: Forced payment-processor timeout does not leak internals
+Setup: point the payment gateway client at an unreachable endpoint
+       (or use a test double configured to time out)
+Action: POST /api/v1/charges with a valid request body
+Expect:
+  - HTTP response body contains no stack trace, file path,
+    SQL fragment, or internal hostname/IP
+  - HTTP response body contains a generic error code
+    (e.g. &quot;PAYMENT_PROCESSOR_UNAVAILABLE&quot;), not the raw exception message
+  - The full exception IS present in the server-side log,
+    with enough context to debug it internally</code></pre>
+<p>This is a single, specific, repeatable check, and it's the kind of test a QA engineer can write without deep security expertise, once the relevant ASVS requirement has pointed at what to check. The same pattern, pick one Top 10 category, find the matching ASVS chapter, write one or two tests against specific requirements, scales to access control, authentication, or input validation without needing to treat &quot;security testing&quot; as one undifferentiated task.</p>
+<h2 id="where-automation-fits">Where automation fits</h2>
+<p>A ZAP baseline scan, run against a staging environment as part of CI, is a reasonable first pass for the things that don't need business-logic understanding: missing security headers, outdated libraries with known CVEs, cookies without the right flags, and similar configuration-level issues. The <code>zaproxy/action-baseline</code> GitHub Action or the current <code>ghcr.io/zaproxy/zaproxy</code> container are the maintained way to run this (the old <code>owasp/zap2docker-stable</code> image is no longer the recommended path). What it won't catch is anything that depends on knowing what the data is supposed to mean: a user able to view another tenant's invoice by changing an ID in the URL looks like a completely normal, well-formed request to a scanner. Broken access control, the single most common Top 10 category, is mostly caught by test cases written with knowledge of the application's data model, not by automated scanning.</p>
+<h2 id="pitfalls-and-limits">Pitfalls and limits</h2>
+<p>Passing a Top 10 checklist is not the same as being secure; it's a prioritized list of common risk categories, not an exhaustive one, and plenty of real incidents fall outside it. Treating ASVS as a box-ticking exercise across all 286 requirements wastes time that could go toward the handful of requirements that actually apply to your application's risk level. A green ZAP scan says nothing about business-logic flaws like broken access control or price manipulation through hidden form fields, so a team that treats &quot;the scanner is clean&quot; as the definition of secure will miss exactly the issues that cause the worst incidents. And Software Supply Chain Failures, the newest category, isn't something a periodic test pass satisfies at all; it needs continuous dependency and build-pipeline monitoring, which is a different kind of control than a test case.</p>
+<h2 id="what-to-do-next">What to do next</h2>
+<ul><li>Pick an ASVS level for each application based on what it actually handles (public marketing site vs. an app storing payment or health data), and read only the chapters relevant to that level, not the whole document.</li><li>Take one Top 10 category this sprint and translate one or two of its matching ASVS requirements into actual, repeatable test cases, rather than trying to cover the whole list at once.</li><li>Add a ZAP baseline scan to CI as a first pass for configuration-level issues, and route its findings into your normal backlog instead of treating a clean scan as a security sign-off.</li><li>Revisit which Top 10 categories apply to your systems when a new version ships; the 2025 list added supply-chain and exception-handling risk that many existing test plans don't cover yet.</li></ul>
+<h2 id="sources">Sources</h2>
+<ul><li><a href="https://devguide.owasp.org/en/06-verification/01-guides/03-asvs/" target="_blank" rel="noopener noreferrer">OWASP Developer Guide: Application Security Verification Standard (ASVS)</a></li><li><a href="https://dev.to/sambishop/understanding-the-latest-owasp-top-10-2025-changes-5go5" target="_blank" rel="noopener noreferrer">Understanding the Latest OWASP Top 10 2025 Changes (dev.to)</a></li></ul></div>
+      <template id="prose-sr"><p>„Pobrinite se da smo pokriveni za OWASP Top 10&quot; česta je rečenica u bezbjednosnom pregledu ili zahtjevu klijenta, ali sama po sebi ne govori mnogo o tome šta treba uraditi. Top 10 je rangirana lista kategorija rizika, a ne skup test slučajeva. Da bi se pretvorio u nešto što QA inženjer bez bezbjednosnog iskustva zaista može da izvrši, potrebno je uključiti ostatak OWASP ekosistema: Application Security Verification Standard (ASVS) za konkretne zahtjeve podijeljene po nivoima, Testing Guide i Cheat Sheets za to kako se svaki od njih provjerava, i skener poput ZAP-a za dijelove koje se isplati automatizovati. Svaki od ovih dijelova je, sam za sebe, ili previše apstraktan ili preuzak. Zajedno čine proces koji funkcioniše.</p>
+<p><img src="../../assets/blog/owasp-for-qa-top10-asvs-test-cases.jpg" alt="QA radno mjesto sa editorom koda koji prikazuje test slučaj „forced payment-processor timeout&quot;, laptopom sa OWASP i ASVS logotipima, odštampanim listovima OWASP Top 10 (2025) i ASVS 4.0.3 zahtjeva, cedulicama „Top 10 → ASVS&quot; i „Run ZAP scan&quot;, i CI/CD pipelineom skiciranim na tabli" loading="lazy"></p>
+<h2 id="tri-dijela-koja-rade-različite-poslove">Tri dijela koja rade različite poslove</h2>
+<p><strong>Top 10</strong> vam govori šta da prioritizujete. Aktuelna lista (2025) zadržava Broken Access Control na vrhu, a Security Misconfiguration pomjera na drugo mjesto. Uvodi i dvije kategorije koje ranije nisu bile ovako formulisane: Software Supply Chain Failures, koja stariju kategoriju „ranjivih komponenti&quot; proširuje na širi pogled na rizik od trećih strana i build pipelinea, i Mishandling of Exceptional Conditions, koja pokriva bezbjednosne propuste nastale zbog lošeg rukovanja greškama, kao što su opširni stack traceovi ili nebezbjedna fallback logika. Top 10 je koristan za odluku gdje potrošiti ograničeno vrijeme za testiranje, ali ne i za pisanje ijednog konkretnog test slučaja.</p>
+<p><strong>ASVS</strong> pretvara kategorije rizika u zahtjeve koje možete da štiklirate. Organizovan je u 14 poglavlja (V1 do V14, koja pokrivaju autentifikaciju, upravljanje sesijama, kontrolu pristupa, kriptografiju, rukovanje greškama i logovanje, bezbjednost API-ja i slično) na tri nivoa verifikacije. Nivo 1 je osnovni nivo koji se u potpunosti može provjeriti običnim penetracionim testiranjem. Nivo 2, koji OWASP preporučuje za većinu aplikacija koje rade sa bilo čim osjetljivim, dodaje zahtjeve za koje je obično potreban i pregled koda ili dizajna pored testiranja. Nivo 3 je za aplikacije kod kojih otkaz ima ozbiljne posljedice, kao što su obrada plaćanja ili zdravstveni podaci. Verzija 4.0.3 ima ukupno 286 pojedinačnih zahtjeva, a OWASP-ove smjernice su eksplicitne: ne pokušavajte da implementirate ili provjerite sve njih za svaku aplikaciju. Izaberite nivo na osnovu onoga s čim aplikacija zaista radi, pa prođite kroz poglavlja koja su za nju bitna.</p>
+<p><strong>Testing Guide, Cheat Sheets i ZAP</strong> su mjesto gdje „provjeri ovaj zahtjev&quot; postaje stvarni test. Cheat Sheets daju tehničke detalje za konkretnu kontrolu (kako izgleda bezbjedna konfiguracija session kolačića, šta čuvanje lozinki treba, a šta ne smije da radi). ZAP je skener koji može automatski da izvrši dio provjera, što je bitno jer ručna verifikacija 286 zahtjeva po izdanju za većinu timova nije realna.</p>
+<h2 id="primjer-iz-prakse-jedan-asvs-zahtjev-jedan-test-slučaj">Primjer iz prakse: jedan ASVS zahtjev, jedan test slučaj</h2>
+<p>Uzmite novu Top 10 kategoriju, Mishandling of Exceptional Conditions, i ASVS poglavlje o rukovanju greškama i logovanju (V7 u verziji 4.0.3), koje zahtijeva da odgovori na greške ne otkrivaju interne detalje implementacije. Konkretan test slučaj za billing API mogao bi da izgleda ovako:</p>
+<pre><code>Test: Forced payment-processor timeout does not leak internals
+Setup: point the payment gateway client at an unreachable endpoint
+       (or use a test double configured to time out)
+Action: POST /api/v1/charges with a valid request body
+Expect:
+  - HTTP response body contains no stack trace, file path,
+    SQL fragment, or internal hostname/IP
+  - HTTP response body contains a generic error code
+    (e.g. &quot;PAYMENT_PROCESSOR_UNAVAILABLE&quot;), not the raw exception message
+  - The full exception IS present in the server-side log,
+    with enough context to debug it internally</code></pre>
+<p>Ovo je jedna konkretna, ponovljiva provjera, i upravo je to vrsta testa koju QA inženjer može da napiše bez dubokog bezbjednosnog znanja, kada mu odgovarajući ASVS zahtjev pokaže šta treba provjeriti. Isti obrazac — izaberi jednu Top 10 kategoriju, pronađi odgovarajuće ASVS poglavlje, napiši jedan ili dva testa za konkretne zahtjeve — primjenjuje se i na kontrolu pristupa, autentifikaciju ili validaciju ulaza, bez potrebe da se „bezbjednosno testiranje&quot; posmatra kao jedan neizdiferenciran zadatak.</p>
+<h2 id="gdje-se-uklapa-automatizacija">Gdje se uklapa automatizacija</h2>
+<p>ZAP baseline skeniranje, pokrenuto nad staging okruženjem kao dio CI-ja, razuman je prvi prolaz za stvari koje ne zahtijevaju razumijevanje poslovne logike: nedostajuća bezbjednosna zaglavlja, zastarjele biblioteke sa poznatim CVE-ovima, kolačići bez odgovarajućih flagova i slični problemi na nivou konfiguracije. GitHub Action <code>zaproxy/action-baseline</code> ili aktuelni <code>ghcr.io/zaproxy/zaproxy</code> kontejner su održavani način da se ovo pokrene (stari <code>owasp/zap2docker-stable</code> image više nije preporučeni put). Ono što neće uhvatiti je sve što zavisi od znanja šta podaci treba da znače: korisnik koji može da vidi fakturu drugog tenanta promjenom ID-ja u URL-u skeneru izgleda kao potpuno normalan, ispravno formiran zahtjev. Broken access control, najčešća Top 10 kategorija, uglavnom se otkriva test slučajevima napisanim uz poznavanje modela podataka aplikacije, a ne automatskim skeniranjem.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Prolazak kroz Top 10 checklistu nije isto što i bezbjednost; to je prioritizovana lista čestih kategorija rizika, a ne iscrpna lista, i mnogi stvarni incidenti padaju van nje. Tretiranje ASVS-a kao štikliranja svih 286 zahtjeva troši vrijeme koje bi moglo da ode na šačicu zahtjeva koji su zaista relevantni za nivo rizika vaše aplikacije. Zeleno ZAP skeniranje ne govori ništa o propustima u poslovnoj logici kao što su broken access control ili manipulacija cijenom kroz skrivena polja forme, pa će tim koji „skener je čist&quot; uzima kao definiciju bezbjednosti propustiti upravo one probleme koji izazivaju najgore incidente. A Software Supply Chain Failures, najnovija kategorija, uopšte nije nešto što periodični test prolaz može da zadovolji; za nju je potrebno kontinuirano praćenje zavisnosti i build pipelinea, što je potpuno drugačija vrsta kontrole od test slučaja.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ul><li>Za svaku aplikaciju izaberite ASVS nivo na osnovu onoga s čim zaista radi (javni marketinški sajt naspram aplikacije koja čuva podatke o plaćanju ili zdravstvene podatke) i čitajte samo poglavlja relevantna za taj nivo, a ne cijeli dokument.</li><li>U ovom sprintu uzmite jednu Top 10 kategoriju i jedan ili dva odgovarajuća ASVS zahtjeva pretvorite u stvarne, ponovljive test slučajeve, umjesto da pokušavate da odjednom pokrijete cijelu listu.</li><li>Dodajte ZAP baseline skeniranje u CI kao prvi prolaz za probleme na nivou konfiguracije i njegove nalaze usmjerite u svoj uobičajeni backlog, umjesto da čisto skeniranje tretirate kao bezbjednosno odobrenje.</li><li>Kada izađe nova verzija, ponovo procijenite koje se Top 10 kategorije odnose na vaše sisteme; lista iz 2025. dodala je rizike lanca snabdijevanja i rukovanja izuzecima koje mnogi postojeći test planovi još ne pokrivaju.</li></ul>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://devguide.owasp.org/en/06-verification/01-guides/03-asvs/" target="_blank" rel="noopener noreferrer">OWASP Developer Guide: Application Security Verification Standard (ASVS)</a></li><li><a href="https://dev.to/sambishop/understanding-the-latest-owasp-top-10-2025-changes-5go5" target="_blank" rel="noopener noreferrer">Understanding the Latest OWASP Top 10 2025 Changes (dev.to)</a></li></ul></template>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    </div>
+    <section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../reviewing-ai-generated-test-code-anti-patterns/" data-title-sr="Pregled testova koje je napisao AI: anti-obrasci koji promaknu na brzinu" data-excerpt-sr="AI asistenti pišu testove jednako lako kao i kod, ali mnogi od tih testova prolaze a da ništa ne provjeravaju. Evo na šta treba obratiti pažnju prije nego što ih spojite."><div class="meta"><time datetime="2026-10-28" data-fmt="short">28 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Reviewing AI-Generated Test Code: The Anti-Patterns That Slip Past a Quick Look</h2><p>AI assistants write tests as readily as code, but many of those tests pass without checking anything. Here's what to look for before merging them.</p></a>
+      <a class="post-card card glow" href="../property-based-testing-automated-test-generation/" data-title-sr="Property-based testiranje: jedan test koji pokriva slučajeve kojih se nikad ne biste sjetili" data-excerpt-sr="Kako property-based testiranje uz Hypothesis ili fast-check pronalazi granične slučajeve koje testovi zasnovani na primjerima propuštaju, i gdje ima svoja ograničenja."><div class="meta"><time datetime="2026-10-26" data-fmt="short">26 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Property-Based Testing: One Test That Covers Cases You'd Never Think to Write</h2><p>How property-based testing with Hypothesis or fast-check finds edge cases example-based tests miss, and where it falls short.</p></a>
+      <a class="post-card card glow" href="../php2shell-rce-qa-testing-gaps/" data-title-sr="PHP2Shell: kako kritični RCE u jezgru PHP-a otkriva rupe u standardnim QA praksama" data-excerpt-sr="Šta PHP2Shell ranjivosti za udaljeno izvršavanje koda otkrivaju o slijepim tačkama tipičnih paketa testova i konkretni koraci da se one zatvore."><div class="meta"><time datetime="2026-10-23" data-fmt="short">23 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>PHP2Shell: How a Critical PHP Core RCE Exposes Gaps in Standard QA Practices</h2><p>What the PHP2Shell remote code execution bugs reveal about blind spots in typical test suites, and concrete steps to close them.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <a href="../../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../../blog/common.js"></script>
+  <script src="../post.js"></script>
+</body>
+</html>
