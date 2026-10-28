@@ -1,5 +1,20 @@
 [
   {
+    "slug": "reviewing-ai-generated-test-code-anti-patterns",
+    "title": "Reviewing AI-Generated Test Code: The Anti-Patterns That Slip Past a Quick Look",
+    "titleSr": "Pregled testova koje je napisao AI: anti-obrasci koji promaknu na brzinu",
+    "excerpt": "AI assistants write tests as readily as code, but many of those tests pass without checking anything. Here's what to look for before merging them.",
+    "excerptSr": "AI asistenti pišu testove jednako lako kao i kod, ali mnogi od tih testova prolaze a da ništa ne provjeravaju. Evo na šta treba obratiti pažnju prije nego što ih spojite.",
+    "tags": [
+      "qa",
+      "ai-in-qa",
+      "test-automation",
+      "code-review"
+    ],
+    "date": "2026-10-28",
+    "readingTime": 6
+  },
+  {
     "slug": "property-based-testing-automated-test-generation",
     "title": "Property-Based Testing: One Test That Covers Cases You'd Never Think to Write",
     "titleSr": "Property-based testiranje: jedan test koji pokriva slučajeve kojih se nikad ne biste sjetili",

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reviewing AI-Generated Test Code: The Anti-Patterns That Slip Past a Quick Look — Marko Lošić</title>
+  <meta name="description" content="AI assistants write tests as readily as code, but many of those tests pass without checking anything. Here's what to look for before merging them.">
+  <link rel="canonical" href="https://markolosic.github.io/blog/reviewing-ai-generated-test-code-anti-patterns/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Reviewing AI-Generated Test Code: The Anti-Patterns That Slip Past a Quick Look — Marko Lošić">
+  <meta property="og:description" content="AI assistants write tests as readily as code, but many of those tests pass without checking anything. Here's what to look for before merging them.">
+  <meta property="og:url" content="https://markolosic.github.io/blog/reviewing-ai-generated-test-code-anti-patterns/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/reviewing-ai-generated-test-code-anti-patterns.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Reviewing AI-Generated Test Code: The Anti-Patterns That Slip Past a Quick Look — Marko Lošić">
+  <meta name="twitter:description" content="AI assistants write tests as readily as code, but many of those tests pass without checking anything. Here's what to look for before merging them.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/reviewing-ai-generated-test-code-anti-patterns.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Reviewing AI-Generated Test Code: The Anti-Patterns That Slip Past a Quick Look","description":"AI assistants write tests as readily as code, but many of those tests pass without checking anything. Here's what to look for before merging them.","image":"https://markolosic.github.io/assets/blog/reviewing-ai-generated-test-code-anti-patterns.jpg","url":"https://markolosic.github.io/blog/reviewing-ai-generated-test-code-anti-patterns/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/reviewing-ai-generated-test-code-anti-patterns/"},"datePublished":"2026-10-28","dateModified":"2026-10-28T00:00:00.000Z","keywords":"qa, ai-in-qa, test-automation, code-review","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
+  <meta property="article:published_time" content="2026-10-28">
+  <meta property="article:modified_time" content="2026-10-28T00:00:00.000Z">
+  <meta name="goatcounter-code" content="markolosic">
+  <script data-goatcounter="https://markolosic.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#about" data-i18n="nav_about">About</a>
+      <a href="../../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../../blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span data-i18n="all_posts">All posts</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-10-28" data-fmt="long">28 October 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span><span>·</span><span class="views" id="views" hidden><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M2 2h5v1h-5zM1 3h1v1h-1zM4 3h1v1h-1zM7 3h1v1h-1zM0 4h1v1h-1zM3 4h3v1h-3zM8 4h1v1h-1zM1 5h1v1h-1zM4 5h1v1h-1zM7 5h1v1h-1zM2 6h5v1h-5z"/></svg><span id="views-num"></span></span></div>
+        <h1 data-title-sr="Pregled testova koje je napisao AI: anti-obrasci koji promaknu na brzinu">Reviewing AI-Generated Test Code: The Anti-Patterns That Slip Past a Quick Look</h1>
+        <p class="lead" data-excerpt-sr="AI asistenti pišu testove jednako lako kao i kod, ali mnogi od tih testova prolaze a da ništa ne provjeravaju. Evo na šta treba obratiti pažnju prije nego što ih spojite.">AI assistants write tests as readily as code, but many of those tests pass without checking anything. Here's what to look for before merging them.</p>
+        <div class="tags"><span>qa</span><span>ai-in-qa</span><span>test-automation</span><span>code-review</span></div>
+      </header>
+      <div class="prose"><p>When an AI coding assistant finishes a feature, it usually offers a test file along with it, and the suite is green. That greenness is exactly the problem: a test suite can pass completely and still verify almost nothing about the code it claims to cover. Reviewers are trained to scan test diffs for syntax and coverage percentage, not for whether a given test is structurally capable of failing. AI-generated tests make that blind spot much more common, because the model writing the test often has the same blind spots as the model (or developer) that wrote the implementation.</p>
+<p><img src="../../assets/blog/reviewing-ai-generated-test-code-anti-patterns.jpg" alt="Illustration of a code editor on a monitor showing passing test_calculate_discount() badges, while a magnifying glass over the code reveals hidden bugs and a &quot;mutant survived&quot; warning" loading="lazy"></p>
+<p>A recent analysis by the AI code review company CodeRabbit, covering 470 open-source pull requests (320 AI-coauthored, 150 human-only), found AI-authored changes carried about 1.7 times more issues overall than human-only ones, with logic and correctness problems up 75%. Test code wasn't singled out in that count, but the same forces that produce buggier implementation code produce weaker tests: pattern-matching on &quot;what a test for this usually looks like&quot; rather than reasoning about what could actually go wrong.</p>
+<h2 id="the-test-that-can-t-fail">The test that can't fail</h2>
+<p>The clearest anti-pattern is a test whose expected value is derived from the function it's testing, instead of calculated independently. If a developer or assistant writes the implementation and the test in the same pass, it's easy for the &quot;expected&quot; side of an assertion to just be a copy of whatever the function currently returns:</p>
+<pre><code class="lang-python">def test_calculate_discount():
+    order = Order(items=[...], coupon=&quot;SAVE10&quot;)
+    result = calculate_discount(order)
+    # &quot;expected&quot; was pasted from a debug print of the function's own output
+    assert result == 12.6</code></pre>
+<p>If the discount logic is wrong, this test enshrines the wrong answer instead of catching it. The fix isn't more tests of this shape, it's a different question during review: would this test fail if the function returned a hardcoded, wrong value? If the answer is &quot;I'm not sure,&quot; the expected value needs to be computed from the business rule, not copied from output.</p>
+<h2 id="over-mocking-and-happy-path-only-coverage">Over-mocking and happy-path-only coverage</h2>
+<p>Two other patterns show up constantly in AI-generated suites. The first is over-mocking: every collaborator of the unit under test gets replaced with a mock, including ones that are cheap and safe to call for real. At that point the test verifies that the code calls its mocks in the expected order, not that the code produces correct behavior. The second is happy-path concentration: the assistant writes tests for the cases a competent developer would think of first and skips the ones that require knowledge the model doesn't have about this specific system, such as which timezone timestamps are stored in, whether a date field is inclusive or exclusive, or what the actual contract of a shared utility is. Both patterns are easy to miss in review because the resulting test file looks thorough: lots of test functions, lots of assertions, good naming.</p>
+<h2 id="using-mutation-testing-as-a-second-opinion">Using mutation testing as a second opinion</h2>
+<p>Code coverage tells you a line was executed, not that the test would notice if that line were wrong. Mutation testing closes that gap: a tool systematically changes small things in the implementation (flips a <code>&gt;</code> to <code>&gt;=</code>, swaps <code>and</code> for <code>or</code>, changes a constant) and reruns the suite. A &quot;mutant&quot; that survives, meaning the tests still pass despite the deliberate bug, is a concrete example of something your tests don't actually check.</p>
+<p>Research specifically aimed at LLM-generated tests backs this up. A 2023 paper introducing MuTAP, a mutation-testing-guided approach to improving LLM-generated tests, reported that about 17% of faulty code snippets in its benchmark went undetected by both a leading automated test generator and standard zero-shot/few-shot LLM prompting; feeding surviving mutants back into the prompt let the approach catch up to 28% more faulty snippets than the baselines. The detail worth remembering isn't the exact percentage, which is benchmark-specific, but the mechanism: LLM-written tests reliably miss a meaningful slice of real bugs, and mutation testing is one of the few techniques that tells you which slice, on your own code, instead of a benchmark.</p>
+<p>You don't need a mutation testing pass on every commit. Run it selectively on files where an assistant generated most of the test code, especially business logic with branching, and treat a high survival rate as a signal to rewrite the tests, not just add more of them.</p>
+<h2 id="pitfalls-and-limits">Pitfalls and limits</h2>
+<p>Mutation testing is slow on anything beyond a focused module; running it over an entire codebase on every pull request usually isn't practical, so it needs to be scoped. It also produces some noise: &quot;equivalent mutants&quot; that can't be killed by any test because the mutated code behaves identically to the original, which can make a survival rate look worse than it is and requires a human to triage. None of this replaces human review of intent, either. A test can kill every mutant you throw at it and still be testing the wrong requirement, because the person who wrote the original ticket wanted different behavior than what got implemented. And accepting AI-written tests at review speed, the same speed you'd skim a one-line fix, is itself the root cause; the fixes below only work if review time actually increases for test files an assistant generated.</p>
+<h2 id="what-to-do-next">What to do next</h2>
+<ul><li>Add one review question for any AI-generated test: &quot;Would this fail if the function returned a hardcoded or obviously wrong value?&quot; If you can't answer confidently by reading it, trace through it before approving.</li><li>Run a mutation testing tool (Stryker for JS/TS, PIT for Java, mutmut or <code>cosmic-ray</code> for Python) against files where an assistant wrote most of the tests, and treat a high mutant survival rate as a signal to rewrite rather than pad the suite.</li><li>Push back on over-mocking in review: ask whether a mocked collaborator could be called for real, or replaced with a lightweight fake, so the test exercises actual integration points.</li><li>Track cases where a bug shipped despite &quot;full&quot; test coverage, and use them to build a short internal list of the specific anti-patterns your team's AI tooling tends to produce, so review time can target those first.</li></ul>
+<h2 id="sources">Sources</h2>
+<ul><li><a href="https://itbrief.com.au/story/study-finds-ai-generated-code-far-buggier-than-human-work" target="_blank" rel="noopener noreferrer">CodeRabbit study via IT Brief Australia: AI-generated code far buggier than human work</a></li><li><a href="https://arxiv.org/abs/2308.16557v1" target="_blank" rel="noopener noreferrer">Dinella et al., &quot;MuTAP: Mutation-Guided Genetic Adversarial LLM Prompting for Unit Test Generation&quot; (arXiv)</a></li><li><a href="https://dev.to/stravukarl/the-bugs-ai-writes-five-patterns-that-show-up-in-ai-generated-code-bl3" target="_blank" rel="noopener noreferrer">The Bugs AI Writes: Five Patterns That Show Up in AI-Generated Code (dev.to)</a></li></ul></div>
+      <template id="prose-sr"><p>Kada AI asistent za kodiranje završi neku funkcionalnost, obično uz nju ponudi i test fajl, a paket testova je zelen. Upravo ta zelena boja je problem: paket testova može da prođe u potpunosti, a da pritom ne provjeri gotovo ništa o kodu koji navodno pokriva. Revjueri su navikli da u diffovima testova gledaju sintaksu i procenat pokrivenosti, a ne da li je dati test uopšte strukturno sposoban da padne. Testovi koje generiše AI čine tu slijepu tačku mnogo češćom, jer model koji piše test često ima iste slijepe tačke kao i model (ili developer) koji je napisao implementaciju.</p>
+<p><img src="../../assets/blog/reviewing-ai-generated-test-code-anti-patterns.jpg" alt="Ilustracija editora koda na monitoru sa oznakama da test_calculate_discount() prolazi, dok lupa nad kodom otkriva skrivene bagove i upozorenje „mutant survived&quot;" loading="lazy"></p>
+<p>Nedavna analiza kompanije CodeRabbit, koja se bavi AI pregledom koda, obuhvatila je 470 open-source pull requestova (320 u čijem je pisanju učestvovao AI i 150 koje su pisali samo ljudi) i pokazala da izmjene koje je pisao AI imaju ukupno oko 1,7 puta više problema od onih koje su pisali samo ljudi, pri čemu su problemi sa logikom i ispravnošću porasli za 75%. Test kod u tom brojanju nije posebno izdvojen, ali iste sile koje proizvode kod sa više bagova proizvode i slabije testove: prepoznavanje obrasca „kako test za ovo obično izgleda&quot;, umjesto razmišljanja o tome šta zapravo može da pođe po zlu.</p>
+<h2 id="test-koji-ne-može-da-padne">Test koji ne može da padne</h2>
+<p>Najočigledniji anti-obrazac je test čija je očekivana vrijednost izvedena iz same funkcije koju testira, umjesto da je izračunata nezavisno. Ako developer ili asistent napiše implementaciju i test u istom prolazu, lako se desi da „očekivana&quot; strana tvrdnje bude samo kopija onoga što funkcija trenutno vraća:</p>
+<pre><code class="lang-python">def test_calculate_discount():
+    order = Order(items=[...], coupon=&quot;SAVE10&quot;)
+    result = calculate_discount(order)
+    # &quot;expected&quot; was pasted from a debug print of the function's own output
+    assert result == 12.6</code></pre>
+<p>Ako je logika popusta pogrešna, ovaj test ovjekovječuje pogrešan odgovor umjesto da ga uhvati. Rješenje nije više testova ovakvog oblika, već drugačije pitanje tokom pregleda: da li bi ovaj test pao kada bi funkcija vraćala hardkodovanu, pogrešnu vrijednost? Ako je odgovor „nisam siguran&quot;, očekivanu vrijednost treba izračunati iz poslovnog pravila, a ne kopirati iz izlaza.</p>
+<h2 id="previše-mockova-i-pokrivenost-samo-srećnog-scenarija">Previše mockova i pokrivenost samo srećnog scenarija</h2>
+<p>U paketima testova koje generiše AI stalno se pojavljuju još dva obrasca. Prvi je pretjerano mockovanje: svaki saradnik jedinice koja se testira zamijenjen je mockom, uključujući i one koje je jeftino i bezbjedno pozvati stvarno. U tom trenutku test provjerava da kod poziva svoje mockove očekivanim redoslijedom, a ne da kod daje ispravno ponašanje. Drugi je fokus na srećni scenario (happy path): asistent piše testove za slučajeve kojih bi se kompetentan developer prvo sjetio, a preskače one koji zahtijevaju znanje koje model nema o baš ovom sistemu — na primjer, u kojoj vremenskoj zoni se čuvaju vremenske oznake, da li je polje datuma inkluzivno ili ekskluzivno, ili kakav je stvarni ugovor neke zajedničke pomoćne funkcije. Oba obrasca je lako prevideti u pregledu, jer rezultujući test fajl izgleda temeljno: mnogo test funkcija, mnogo tvrdnji, dobra imena.</p>
+<h2 id="mutaciono-testiranje-kao-drugo-mišljenje">Mutaciono testiranje kao drugo mišljenje</h2>
+<p>Pokrivenost koda govori vam da je linija izvršena, a ne da bi test primijetio kada bi ta linija bila pogrešna. Mutaciono testiranje zatvara tu prazninu: alat sistematski mijenja sitnice u implementaciji (okrene <code>&gt;</code> u <code>&gt;=</code>, zamijeni <code>and</code> sa <code>or</code>, promijeni konstantu) i ponovo pokreće testove. „Mutant&quot; koji preživi — odnosno testovi i dalje prolaze uprkos namjerno ubačenom bagu — konkretan je primjer nečega što vaši testovi zapravo ne provjeravaju.</p>
+<p>Istraživanja usmjerena baš na testove koje generišu LLM-ovi to potvrđuju. Rad iz 2023. godine koji predstavlja MuTAP, pristup za poboljšanje testova koje generišu LLM-ovi vođen mutacionim testiranjem, navodi da je oko 17% neispravnih isječaka koda u njegovom benchmarku ostalo neotkriveno i od strane vodećeg alata za automatsko generisanje testova i uz standardno zero-shot/few-shot promptovanje LLM-a; vraćanje preživjelih mutanata nazad u prompt omogućilo je ovom pristupu da uhvati i do 28% više neispravnih isječaka od osnovnih pristupa. Detalj koji vrijedi zapamtiti nije tačan procenat, koji zavisi od benchmarka, već mehanizam: testovi koje pišu LLM-ovi pouzdano propuštaju značajan dio stvarnih bagova, a mutaciono testiranje je jedna od rijetkih tehnika koja vam kaže koji je to dio — na vašem kodu, a ne na benchmarku.</p>
+<p>Ne treba vam mutaciono testiranje na svakom commitu. Pokrećite ga selektivno nad fajlovima u kojima je asistent napisao većinu test koda, naročito nad poslovnom logikom sa grananjem, i visoku stopu preživljavanja mutanata shvatite kao signal da testove treba prepisati, a ne samo dodati nove.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Mutaciono testiranje je sporo na bilo čemu većem od fokusiranog modula; pokretanje nad cijelim kodom na svakom pull requestu obično nije praktično, pa mu treba ograničiti obim. Ono proizvodi i određeni šum: „ekvivalentne mutante&quot; koje nijedan test ne može da ubije jer se mutirani kod ponaša identično originalu, što stopu preživljavanja može učiniti gorom nego što jeste i zahtijeva da čovjek to trijažira. Ništa od ovoga ne zamjenjuje ni ljudski pregled namjere. Test može da ubije svakog mutanta kog mu bacite, a da i dalje testira pogrešan zahtjev, jer je osoba koja je napisala originalni tiket htjela drugačije ponašanje od onoga što je implementirano. A prihvatanje testova koje je napisao AI brzinom pregleda — istom brzinom kojom biste preletjeli ispravku od jedne linije — samo po sebi je osnovni uzrok problema; mjere ispod funkcionišu samo ako se vrijeme pregleda zaista poveća za test fajlove koje je generisao asistent.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ul><li>Dodajte jedno pitanje u pregled svakog testa koji je napisao AI: „Da li bi ovo palo kada bi funkcija vraćala hardkodovanu ili očigledno pogrešnu vrijednost?&quot; Ako čitanjem ne možete sa sigurnošću da odgovorite, prođite kroz test korak po korak prije odobravanja.</li><li>Pokrenite alat za mutaciono testiranje (Stryker za JS/TS, PIT za Javu, mutmut ili <code>cosmic-ray</code> za Python) nad fajlovima u kojima je asistent napisao većinu testova, i visoku stopu preživjelih mutanata shvatite kao signal za prepisivanje, a ne za naduvavanje paketa testova.</li><li>U pregledu se usprotivite pretjeranom mockovanju: pitajte da li bi mockovani saradnik mogao da se pozove stvarno ili da se zamijeni laganim fake objektom, kako bi test provjeravao stvarne tačke integracije.</li><li>Pratite slučajeve u kojima je bag stigao do produkcije uprkos „punoj&quot; pokrivenosti testovima i iskoristite ih da napravite kratku internu listu konkretnih anti-obrazaca koje AI alati vašeg tima obično proizvode, kako bi pregled prvo ciljao njih.</li></ul>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://itbrief.com.au/story/study-finds-ai-generated-code-far-buggier-than-human-work" target="_blank" rel="noopener noreferrer">CodeRabbit study via IT Brief Australia: AI-generated code far buggier than human work</a></li><li><a href="https://arxiv.org/abs/2308.16557v1" target="_blank" rel="noopener noreferrer">Dinella et al., &quot;MuTAP: Mutation-Guided Genetic Adversarial LLM Prompting for Unit Test Generation&quot; (arXiv)</a></li><li><a href="https://dev.to/stravukarl/the-bugs-ai-writes-five-patterns-that-show-up-in-ai-generated-code-bl3" target="_blank" rel="noopener noreferrer">The Bugs AI Writes: Five Patterns That Show Up in AI-Generated Code (dev.to)</a></li></ul></template>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    </div>
+    <section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../property-based-testing-automated-test-generation/" data-title-sr="Property-based testiranje: jedan test koji pokriva slučajeve kojih se nikad ne biste sjetili" data-excerpt-sr="Kako property-based testiranje uz Hypothesis ili fast-check pronalazi granične slučajeve koje testovi zasnovani na primjerima propuštaju, i gdje ima svoja ograničenja."><div class="meta"><time datetime="2026-10-26" data-fmt="short">26 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Property-Based Testing: One Test That Covers Cases You'd Never Think to Write</h2><p>How property-based testing with Hypothesis or fast-check finds edge cases example-based tests miss, and where it falls short.</p></a>
+      <a class="post-card card glow" href="../php2shell-rce-qa-testing-gaps/" data-title-sr="PHP2Shell: kako kritični RCE u jezgru PHP-a otkriva rupe u standardnim QA praksama" data-excerpt-sr="Šta PHP2Shell ranjivosti za udaljeno izvršavanje koda otkrivaju o slijepim tačkama tipičnih paketa testova i konkretni koraci da se one zatvore."><div class="meta"><time datetime="2026-10-23" data-fmt="short">23 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>PHP2Shell: How a Critical PHP Core RCE Exposes Gaps in Standard QA Practices</h2><p>What the PHP2Shell remote code execution bugs reveal about blind spots in typical test suites, and concrete steps to close them.</p></a>
+      <a class="post-card card glow" href="../visual-regression-testing-ui-bugs/" data-title-sr="Vizuelno regresiono testiranje: kako uhvatiti UI bagove pored kojih vaši funkcionalni testovi prolaze" data-excerpt-sr="Zašto provjere na nivou piksela hvataju greške u rasporedu koje funkcionalni testovi propuštaju, kako ih spriječiti da budu nestabilne i koji alati se zaista uklapaju u vaš pipeline."><div class="meta"><time datetime="2026-10-23" data-fmt="short">23 Oct 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div><h2>Visual Regression Testing: Catching the UI Bugs Your Functional Tests Walk Right Past</h2><p>Why pixel-level checks catch layout bugs functional tests miss, how to stop them from flaking, and which tools actually fit your pipeline.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <a href="../../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../../blog/common.js"></script>
+  <script src="../post.js"></script>
+</body>
+</html>
