@@ -1,5 +1,20 @@
 [
   {
+    "slug": "testing-feature-flags-targeting-and-default-bugs",
+    "title": "Testing Feature Flags: The Bugs That Hide Behind the Switch",
+    "titleSr": "Testiranje feature flagova: bagovi koji se kriju iza prekidača",
+    "excerpt": "Feature flag testing usually stops at on/off. The real bugs live in targeting rules, default values, and what happens when the flag service goes dark.",
+    "excerptSr": "Testiranje feature flagova obično se završava na uključeno/isključeno. Pravi bagovi žive u pravilima targetiranja, podrazumijevanim vrijednostima i onome što se desi kada flag servis prestane da odgovara.",
+    "tags": [
+      "qa",
+      "feature-flags",
+      "real-world-use-case",
+      "release-testing"
+    ],
+    "date": "2026-10-30",
+    "readingTime": 6
+  },
+  {
     "slug": "owasp-for-qa-top10-asvs-test-cases",
     "title": "OWASP for QA: Turning the Top 10 and ASVS Into Actual Test Cases",
     "titleSr": "OWASP za QA: kako Top 10 i ASVS pretvoriti u konkretne test slučajeve",

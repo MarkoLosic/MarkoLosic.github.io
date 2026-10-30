@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://markolosic.github.io/</loc><lastmod>2026-10-28</lastmod></url>
-  <url><loc>https://markolosic.github.io/blog/</loc><lastmod>2026-10-28</lastmod></url>
+  <url><loc>https://markolosic.github.io/</loc><lastmod>2026-10-30</lastmod></url>
+  <url><loc>https://markolosic.github.io/blog/</loc><lastmod>2026-10-30</lastmod></url>
+  <url><loc>https://markolosic.github.io/blog/testing-feature-flags-targeting-and-default-bugs/</loc><lastmod>2026-10-30</lastmod></url>
   <url><loc>https://markolosic.github.io/blog/owasp-for-qa-top10-asvs-test-cases/</loc><lastmod>2026-10-28</lastmod></url>
   <url><loc>https://markolosic.github.io/blog/reviewing-ai-generated-test-code-anti-patterns/</loc><lastmod>2026-10-28</lastmod></url>
   <url><loc>https://markolosic.github.io/blog/property-based-testing-automated-test-generation/</loc><lastmod>2026-10-26</lastmod></url>
