@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Heist of the Century: How One Laptop Cost Binance $6.3 Billion — Marko Lošić</title>
+  <meta name="description" content="Binance lost an estimated $6.3 billion in the largest crypto theft ever, and the way in was a single compromised DevOps laptop. What happened and what to take…">
+  <link rel="canonical" href="https://markolosic.github.io/blog/binance-6-3-billion-hack-devops-laptop/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="The Heist of the Century: How One Laptop Cost Binance $6.3 Billion — Marko Lošić">
+  <meta property="og:description" content="Binance lost an estimated $6.3 billion in the largest crypto theft ever, and the way in was a single compromised DevOps laptop. What happened and what to take…">
+  <meta property="og:url" content="https://markolosic.github.io/blog/binance-6-3-billion-hack-devops-laptop/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/binance-6-3-billion-hack-devops-laptop.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Heist of the Century: How One Laptop Cost Binance $6.3 Billion — Marko Lošić">
+  <meta name="twitter:description" content="Binance lost an estimated $6.3 billion in the largest crypto theft ever, and the way in was a single compromised DevOps laptop. What happened and what to take…">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/binance-6-3-billion-hack-devops-laptop.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"The Heist of the Century: How One Laptop Cost Binance $6.3 Billion","description":"Binance lost an estimated $6.3 billion in the largest crypto theft ever, and the way in was a single compromised DevOps laptop. What happened and what to take away from it.","image":"https://markolosic.github.io/assets/blog/binance-6-3-billion-hack-devops-laptop.jpg","url":"https://markolosic.github.io/blog/binance-6-3-billion-hack-devops-laptop/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/binance-6-3-billion-hack-devops-laptop/"},"datePublished":"2026-10-30","dateModified":"2026-10-30T00:00:00.000Z","keywords":"security-testing, real-world-use-case, fintech","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
+  <meta property="article:published_time" content="2026-10-30">
+  <meta property="article:modified_time" content="2026-10-30T00:00:00.000Z">
+  <meta name="goatcounter-code" content="markolosic">
+  <script data-goatcounter="https://markolosic.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#about" data-i18n="nav_about">About</a>
+      <a href="../../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../../blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span data-i18n="all_posts">All posts</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-10-30" data-fmt="long">30 October 2026</time><span>·</span><span>4 <span data-i18n="min_read">min read</span></span><span>·</span><span class="views" id="views" hidden><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M2 2h5v1h-5zM1 3h1v1h-1zM4 3h1v1h-1zM7 3h1v1h-1zM0 4h1v1h-1zM3 4h3v1h-3zM8 4h1v1h-1zM1 5h1v1h-1zM4 5h1v1h-1zM7 5h1v1h-1zM2 6h5v1h-5z"/></svg><span id="views-num"></span></span></div>
+        <h1 data-title-sr="Pljačka stoljeća: kako je jedan laptop koštao Binance 6,3 milijarde dolara">The Heist of the Century: How One Laptop Cost Binance $6.3 Billion</h1>
+        <p class="lead" data-excerpt-sr="Binance je u najvećoj kripto krađi u historiji izgubio oko 6,3 milijarde dolara, a ulaz je bio jedan kompromitovan laptop DevOps inženjera. Šta se desilo i šta iz toga treba ponijeti.">Binance lost an estimated $6.3 billion in the largest crypto theft ever, and the way in was a single compromised DevOps laptop. What happened and what to take away from it.</p>
+        <div class="tags"><span>security-testing</span><span>real-world-use-case</span><span>fintech</span></div>
+      </header>
+      <div class="prose"><p>Banks used to be robbed with masks and shotguns. Later, with insider deals. Today, one compromised laptop is enough to make more than $6 billion disappear.</p>
+<p><img src="../../assets/blog/binance-6-3-billion-hack-devops-laptop.jpg" alt="A laptop on a dark desk with a stream of glowing binary code and crypto coins pouring out of a shattered bank vault, surrounded by a network of padlock icons" loading="lazy"></p>
+<p>On October 29, Binance, the world's largest crypto exchange, suffered the largest crypto theft in history. By the company's estimate, the damage is around $6.3 billion. That's roughly four times the previous record, the $1.5 billion Bybit heist in February 2025.</p>
+<h2 id="twenty-minutes-ten-blockchains">Twenty minutes, ten blockchains</h2>
+<p>Funds started leaving Binance's wallets around 20:05 UTC, across ten different blockchains. Most of it was gone within about twenty minutes. Digital money that, if it were paper, would have needed trucks to move.</p>
+<p>Estimates differ: Binance puts the figure at $6.3 billion, while Chainalysis put it at $5.9 billion at the time of the attack. The exchange paused withdrawals on some of the affected chains and says user funds are safe and that it will cover the losses. Proof of reserves has been promised only after remediation, so for now that claim has to be taken on trust.</p>
+<h2 id="in-through-a-laptop-out-through-a-service-container">In through a laptop, out through a service container</h2>
+<p>According to Binance's initial findings, the entry point was the compromised laptop of a DevOps engineer. From there, the attacker reached a service container that was able to submit withdrawal requests, and used it to push unauthorized transactions.</p>
+<p>What <em>didn't</em> happen is just as interesting: the company says there is no evidence that wallet private keys were leaked. On Ethereum, the attacker abused EIP-7702 authorizations to make a Binance hot wallet execute a &quot;sweeper&quot; contract. On the other chains, the transfers were ordinary signed transactions.</p>
+<p>CEO Richard Teng later stressed that this wasn't a single click or one person abusing their access. It was a complex attack with multiple factors and multiple points of compromise. But the question remains: how did a path from one work laptop to a system that moves billions exist in the first place?</p>
+<h2 id="a-familiar-signature-north-korea">A familiar signature: North Korea</h2>
+<p>TRM Labs attributed the attack with high confidence to TraderTraitor, a North Korean state unit linked to the Lazarus Group. The same group was blamed for the Bybit heist.</p>
+<p>The pattern repeats: attackers don't go after the crypto directly, they go after the people and devices that have access to it. LastPass went through something similar in 2022, when a senior DevOps engineer's compromised computer became the key to an internal vault. Attackers know the shortest path to the vault runs through someone who holds the key.</p>
+<h2 id="what-to-take-away">What to take away</h2>
+<p>The details are still coming together, but some lessons are already clear:</p>
+<ul><li><strong>The endpoint is the perimeter.</strong> An engineer's laptop with production access should be protected like a server, not like an office PC.</li><li><strong>No single access path should be able to move money.</strong> High-value transactions need multiple signatures, separate systems and human confirmation.</li><li><strong>Service containers are targets.</strong> If a container can submit withdrawals, its permissions and network access have to be minimal.</li><li><strong>Detection speed decides the outcome.</strong> When most of the money is gone in 20 minutes, limits and automatic circuit breakers are worth more than any investigation afterwards.</li><li><strong>New features bring new attack vectors.</strong> EIP-7702 showed that even &quot;safe&quot; keys can be bypassed through the logic around them.</li></ul>
+<h2 id="generals-after-the-battle">Generals after the battle</h2>
+<p>Over the next few days the internet will fill up with two million generals after the battle who would have done everything faster, better and more securely. At a platform that has the money to hire every one of those people who would have done it faster, better and more securely.</p>
+<p>The truth is simpler. It happened, someone made a mistake, and it will happen again. That's the world of cybersecurity: you think you're safe, and then you find out you aren't.</p>
+<p>And yes, it's the most thankless job on the planet. The CISO's head will probably roll, unless the company is mature enough to understand that security isn't one person's job, just as this attack wasn't one laptop's job.</p>
+<h2 id="sources">Sources</h2>
+<ul><li>Hackread: <em>Binance Probes DevOps Engineer's Hacked Laptop After $6.3B Theft</em></li><li>TechCrunch: <em>North Korean hackers blamed for stealing record $6.3B in Binance breach</em></li><li>Forbes: <em>Binance's $6.3 Billion Hack Started With One Engineer's Laptop</em></li><li>Euronews: <em>How the Binance hack happened and who was behind it</em></li><li>daily.dev: <em>Binance's $6.3bn heist</em></li></ul></div>
+      <template id="prose-sr"><p>Nekada su se banke pljačkale maskama i puškama. Kasnije insajderskim poslovima. Danas je dovoljan jedan kompromitovan laptop da nestane više od 6 milijardi dolara.</p>
+<p><img src="../../assets/blog/binance-6-3-billion-hack-devops-laptop.jpg" alt="Laptop na tamnom stolu iz kojeg teče svijetleći binarni kod i kripto novčići prema razbijenom bankovnom trezoru, okružen mrežom ikonica katanaca" loading="lazy"></p>
+<p>Binance, najveća kripto berza na svijetu, 29. oktobra je doživjela najveću kripto krađu u historiji. Po procjenama kompanije, šteta je oko 6,3 milijarde dolara. To je otprilike četiri puta više od dosadašnjeg rekorda, pljačke Bybita od 1,5 milijardi u februaru 2025.</p>
+<h2 id="dvadeset-minuta-deset-blockchaina">Dvadeset minuta, deset blockchaina</h2>
+<p>Novac je počeo izlaziti iz Binanceovih walleta oko 20:05 UTC, na deset različitih blockchaina. Većina sredstava nestala je u roku od dvadesetak minuta. Digitalni novac koji bi se, da je papirni, vozio kamionima.</p>
+<p>Procjene se razlikuju: Binance govori o 6,3 milijarde, Chainalysis je u trenutku napada iznos stavio na 5,9 milijardi. Berza je pauzirala povlačenja na dijelu blockchaina i tvrdi da su korisnička sredstva sigurna te da će pokriti gubitke. Dokaz rezervi obećan je tek nakon sanacije, pa ta tvrdnja zasad ostaje na riječ.</p>
+<h2 id="ulaz-kroz-laptop-izlaz-kroz-servisni-kontejner">Ulaz kroz laptop, izlaz kroz servisni kontejner</h2>
+<p>Prema prvim nalazima Binancea, ulazna tačka bio je kompromitovan laptop jednog DevOps inženjera. Preko njega je napadač došao do servisnog kontejnera koji je mogao slati zahtjeve za povlačenje sredstava, i iskoristio ga za neovlaštene transakcije.</p>
+<p>Zanimljivo je šta se <em>nije</em> desilo: kompanija kaže da nema dokaza da su procurili privatni ključevi walleta. Na Ethereumu je napadač iskoristio EIP-7702 autorizacije da natjera Binanceov hot wallet da izvrši „sweeper&quot; ugovor. Na ostalim lancima išli su obični, potpisani transferi.</p>
+<p>CEO Richard Teng je kasnije naglasio da ovo nije bio jedan klik niti zloupotreba ovlasti jednog čovjeka. Riječ je o složenom napadu s više faktora i više tačaka proboja. Ali pitanje ostaje: kako je put od jednog radnog laptopa do sistema koji upravlja milijardama uopšte postojao?</p>
+<h2 id="poznati-potpis-sjeverna-koreja">Poznati potpis: Sjeverna Koreja</h2>
+<p>TRM Labs je napad s visokom sigurnošću pripisao grupi TraderTraitor, sjevernokorejskoj državnoj jedinici povezanoj s Lazarus Groupom. Ista grupa okrivljena je i za pljačku Bybita.</p>
+<p>Obrazac se ponavlja: ne napada se kripto direktno, nego ljudi i uređaji koji imaju pristup. Slično je 2022. prošao i LastPass, kada je kompromitovan računar senior DevOps inženjera postao ključ za interni vault. Napadači znaju da je najkraći put do trezora preko nekoga ko ima ključ.</p>
+<h2 id="šta-iz-ovoga-treba-ponijeti">Šta iz ovoga treba ponijeti</h2>
+<p>Detalji će se tek slagati, ali neke lekcije su jasne već sada:</p>
+<ul><li><strong>Endpoint je perimetar.</strong> Laptop inženjera s produkcijskim pristupom treba štititi kao server, a ne kao kancelarijski računar.</li><li><strong>Nijedan pojedinačni pristup ne smije pokretati novac.</strong> Transakcije visoke vrijednosti traže više potpisa, odvojene sisteme i ljudsku potvrdu.</li><li><strong>Servisni kontejneri su meta.</strong> Ako kontejner može slati povlačenja, njegova ovlaštenja i mrežni pristup moraju biti minimalni.</li><li><strong>Brzina detekcije odlučuje.</strong> Kada većina novca nestane za 20 minuta, limiti i automatsko zaustavljanje vrijede više od svake istrage poslije.</li><li><strong>Nove funkcije donose nove vektore.</strong> EIP-7702 je pokazao da se i „sigurni&quot; ključevi mogu zaobići kroz logiku oko njih.</li></ul>
+<h2 id="generali-poslije-bitke">Generali poslije bitke</h2>
+<p>Na internetu će se u narednim danima pojaviti dva miliona generala poslije bitke koji bi sve uradili brže, bolje i sigurnije. I to kod platforme koja ima novca da kupi sve te koji bi to radili brže, bolje i sigurnije.</p>
+<p>Istina je jednostavnija. Desilo se, neko je pogriješio, i desit će se opet. Takav je svijet cyber sigurnosti: misliš da si siguran, a onda te razuvjere.</p>
+<p>I da, najnezahvalniji posao na planeti. CISO-u će vjerovatno pasti glava, osim ako je kompanija dovoljno zrela da shvati da sigurnost nije posao jednog čovjeka, baš kao što ni ovaj napad nije bio posao jednog laptopa.</p>
+<h2 id="izvori">Izvori</h2>
+<ul><li>Hackread: <em>Binance Probes DevOps Engineer's Hacked Laptop After $6.3B Theft</em></li><li>TechCrunch: <em>North Korean hackers blamed for stealing record $6.3B in Binance breach</em></li><li>Forbes: <em>Binance's $6.3 Billion Hack Started With One Engineer's Laptop</em></li><li>Euronews: <em>How the Binance hack happened and who was behind it</em></li><li>daily.dev: <em>Binance's $6.3bn heist</em></li></ul></template>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    </div>
+    <section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../testing-feature-flags-targeting-and-default-bugs/" data-title-sr="Testiranje feature flagova: bagovi koji se kriju iza prekidača" data-excerpt-sr="Testiranje feature flagova obično se završava na uključeno/isključeno. Pravi bagovi žive u pravilima targetiranja, podrazumijevanim vrijednostima i onome što se desi kada flag servis prestane da odgovara."><div class="meta"><time datetime="2026-10-30" data-fmt="short">30 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Testing Feature Flags: The Bugs That Hide Behind the Switch</h2><p>Feature flag testing usually stops at on/off. The real bugs live in targeting rules, default values, and what happens when the flag service goes dark.</p></a>
+      <a class="post-card card glow" href="../owasp-for-qa-top10-asvs-test-cases/" data-title-sr="OWASP za QA: kako Top 10 i ASVS pretvoriti u konkretne test slučajeve" data-excerpt-sr="„Testirajte za OWASP&quot; je nejasno uputstvo. Evo kako se Top 10, ASVS i ZAP uklapaju u test slučajeve koje QA inženjer zaista može da izvrši."><div class="meta"><time datetime="2026-10-28" data-fmt="short">28 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>OWASP for QA: Turning the Top 10 and ASVS Into Actual Test Cases</h2><p>&quot;Test for OWASP&quot; is a vague instruction. Here's how the Top 10, ASVS and ZAP fit together into test cases a QA engineer can actually run.</p></a>
+      <a class="post-card card glow" href="../reviewing-ai-generated-test-code-anti-patterns/" data-title-sr="Pregled testova koje je napisao AI: anti-obrasci koji promaknu na brzinu" data-excerpt-sr="AI asistenti pišu testove jednako lako kao i kod, ali mnogi od tih testova prolaze a da ništa ne provjeravaju. Evo na šta treba obratiti pažnju prije nego što ih spojite."><div class="meta"><time datetime="2026-10-28" data-fmt="short">28 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Reviewing AI-Generated Test Code: The Anti-Patterns That Slip Past a Quick Look</h2><p>AI assistants write tests as readily as code, but many of those tests pass without checking anything. Here's what to look for before merging them.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <a href="../../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../../blog/common.js"></script>
+  <script src="../post.js"></script>
+</body>
+</html>

@@ -1,5 +1,19 @@
 [
   {
+    "slug": "binance-6-3-billion-hack-devops-laptop",
+    "title": "The Heist of the Century: How One Laptop Cost Binance $6.3 Billion",
+    "titleSr": "Pljačka stoljeća: kako je jedan laptop koštao Binance 6,3 milijarde dolara",
+    "excerpt": "Binance lost an estimated $6.3 billion in the largest crypto theft ever, and the way in was a single compromised DevOps laptop. What happened and what to take away from it.",
+    "excerptSr": "Binance je u najvećoj kripto krađi u historiji izgubio oko 6,3 milijarde dolara, a ulaz je bio jedan kompromitovan laptop DevOps inženjera. Šta se desilo i šta iz toga treba ponijeti.",
+    "tags": [
+      "security-testing",
+      "real-world-use-case",
+      "fintech"
+    ],
+    "date": "2026-10-30",
+    "readingTime": 4
+  },
+  {
     "slug": "testing-feature-flags-targeting-and-default-bugs",
     "title": "Testing Feature Flags: The Bugs That Hide Behind the Switch",
     "titleSr": "Testiranje feature flagova: bagovi koji se kriju iza prekidača",
