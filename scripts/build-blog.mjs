@@ -45,6 +45,12 @@ const OG_IMAGE = `${SITE}/assets/marko.jpg`;
 // Free analytics/view-counter service (goatcounter.com). Sign up (no card needed), then set this
 // to your site code (the "X" in https://X.goatcounter.com), either here or via GOATCOUNTER_CODE.
 const GOATCOUNTER = process.env.GOATCOUNTER_CODE || 'markolosic';
+// Google Analytics 4 measurement ID ("G-XXXXXXXXXX", from analytics.google.com → Admin → Data streams).
+// Set to '' to skip GA. index.html is hand-written, so it has its own copy of the snippet.
+const GA_ID = process.env.GA_MEASUREMENT_ID || 'G-TP2Z3K3Z94';
+const gaTag = GA_ID ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${GA_ID}"></script>
+  <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${GA_ID}');</script>
+  ` : '';
 const esc = MD.esc;
 
 /* ---------- data ---------- */
@@ -118,7 +124,7 @@ function shell({ depth, title, description, canonical, type = 'website', image =
   <meta name="twitter:image" content="${image}">
   <link rel="alternate" type="application/rss+xml" title="${AUTHOR} — Blog" href="${SITE}/rss.xml">
   ${head}
-  <meta name="goatcounter-code" content="${GOATCOUNTER}">
+  ${gaTag}<meta name="goatcounter-code" content="${GOATCOUNTER}">
   <script data-goatcounter="https://${GOATCOUNTER}.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">

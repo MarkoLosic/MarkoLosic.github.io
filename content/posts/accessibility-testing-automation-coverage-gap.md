@@ -5,6 +5,7 @@ date: 2026-10-15
 tags: [qa, accessibility, test-automation, ci-cd]
 excerpt: Scanners like axe-core catch only a portion of real accessibility failures. Here's how to wire them into CI sensibly and what still needs a human.
 excerpt_sr: Skeneri poput axe-core hvataju samo dio stvarnih problema sa pristupačnošću. Evo kako da ih razumno uvežete u CI i šta i dalje zahtijeva čovjeka.
+image: assets/blog/accessibility-testing-automation-coverage-gap.jpg
 ---
 A team adds `axe-core` to its CI pipeline, the checks go green, and everyone quietly assumes accessibility is handled. Then a support ticket comes in: a screen reader user can't close a modal, or a keyboard user gets trapped tabbing through a date picker. The automated suite never flagged either, because it structurally can't.
 

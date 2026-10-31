@@ -5,6 +5,7 @@ date: 2026-09-21
 tags: [testing, automation, maestro]
 excerpt: Maestro is known as a mobile UI testing tool, but its browser support quietly closes the gap with web testing. Here's why I reach for it, and how to write your first flow.
 excerpt_sr: Maestro je poznat kao alat za testiranje mobilnih aplikacija, ali podrška za pretraživač tiho zatvara jaz prema web testiranju. Evo zašto ga koristim, i kako napisati svoj prvi tok.
+image: assets/blog/maestro-for-web-testing.jpg
 ---
 I've used Maestro for a while now to automate mobile flows — onboarding, login, the usual suspects. What changed my mind about it recently is that the same tool now speaks browser too. Not as a Playwright replacement, but as something genuinely useful sitting next to it. Here's the case for giving it a try on your web app.
 

@@ -19,8 +19,13 @@ Contact: markolosic1993@gmail.com · +387 63 759 197
 
 ## Optional
 
-- [Blog](https://markolosic.github.io/blog/): 15+ articles on QA, test automation, mobile and AI testing
+- [Blog](https://markolosic.github.io/blog/): 35+ articles on QA, test automation, mobile and AI testing
 - [Asserting Too Early: The Quiet Source of Flaky Playwright Tests](https://markolosic.github.io/blog/asserting-too-early-flaky-playwright-tests/)
 - [Testing Idempotency: How to Catch Duplicate-Charge Bugs Before Your Users Do](https://markolosic.github.io/blog/testing-idempotency-duplicate-charges/)
 - [Risk-Based Testing: How to Decide What to Test First When You Can't Test Everything](https://markolosic.github.io/blog/risk-based-testing-prioritization/)
+- [OWASP for QA: Turning the Top 10 and ASVS Into Actual Test Cases](https://markolosic.github.io/blog/owasp-for-qa-top10-asvs-test-cases/)
+- [Testing AI Agents That Take Actions: Why a Correct-Sounding Answer Isn't Enough](https://markolosic.github.io/blog/testing-ai-agents-tool-calls-side-effects/)
+- [Testing AI Features That Don't Give the Same Answer Twice](https://markolosic.github.io/blog/testing-non-deterministic-ai-features/)
+- [Writing Reliable Mobile Test Automation with Maestro: A Practical Guide](https://markolosic.github.io/blog/maestro-mobile-test-automation/)
+- [Splitting a Slow Test Suite Across GitHub Actions Without Losing Signal](https://markolosic.github.io/blog/sharding-tests-github-actions/)
 - [RSS](https://markolosic.github.io/rss.xml)
