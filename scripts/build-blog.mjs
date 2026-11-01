@@ -42,15 +42,10 @@ const rel = (...p) => path.join(ROOT, ...p);
 const SITE = (process.env.SITE_URL || 'https://markolosic.github.io').replace(/\/+$/, '');
 const AUTHOR = 'Marko Lošić';
 const OG_IMAGE = `${SITE}/assets/marko.jpg`;
-// Free analytics/view-counter service (goatcounter.com). Sign up (no card needed), then set this
-// to your site code (the "X" in https://X.goatcounter.com), either here or via GOATCOUNTER_CODE.
-const GOATCOUNTER = process.env.GOATCOUNTER_CODE || 'markolosic';
 // Google Analytics 4 measurement ID ("G-XXXXXXXXXX", from analytics.google.com → Admin → Data streams).
-// Set to '' to skip GA. index.html is hand-written, so it has its own copy of the snippet.
+// js/consent.js loads GA only after the visitor accepts the cookie banner. Set to '' to skip GA.
+// index.html and 404.html are hand-written, so they carry their own copy of the ID.
 const GA_ID = process.env.GA_MEASUREMENT_ID || 'G-TP2Z3K3Z94';
-const gaTag = GA_ID ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${GA_ID}"></script>
-  <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${GA_ID}');</script>
-  ` : '';
 const esc = MD.esc;
 
 /* ---------- data ---------- */
@@ -124,12 +119,9 @@ function shell({ depth, title, description, canonical, type = 'website', image =
   <meta name="twitter:image" content="${image}">
   <link rel="alternate" type="application/rss+xml" title="${AUTHOR} — Blog" href="${SITE}/rss.xml">
   ${head}
-  ${gaTag}<meta name="goatcounter-code" content="${GOATCOUNTER}">
-  <script data-goatcounter="https://${GOATCOUNTER}.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="${root}assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="${root}assets/fonts.css">
   <link rel="stylesheet" href="${root}styles.css">
   <link rel="stylesheet" href="${root}blog/blog.css">
   <script>
@@ -173,8 +165,10 @@ ${body}
   <footer class="footer wrap">
     <span>© <span id="year">${new Date().getFullYear()}</span> ${AUTHOR}</span>
     <a href="${root}#contact" data-i18n="contact_cta">Get in touch</a>
+    <button type="button" data-consent data-i18n="cookies">Cookie settings</button>
     <a href="${root}" data-i18n="back_home">Back to home ↑</a>
   </footer>
+  <script src="${root}js/consent.js" data-ga="${GA_ID}"></script>
   <script src="${root}blog/common.js"></script>
   ${scripts}
 </body>
@@ -261,7 +255,7 @@ for (const p of posts) {
     <a class="back" href="../">${back} <span data-i18n="all_posts">All posts</span></a>
     <article>
       <header class="post-head">
-        <div class="meta"><time datetime="${p.published_at}" data-fmt="long">${fmtLong(p.published_at)}</time><span>·</span><span>${p.reading_time} <span data-i18n="min_read">min read</span></span><span>·</span><span class="views" id="views" hidden><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M2 2h5v1h-5zM1 3h1v1h-1zM4 3h1v1h-1zM7 3h1v1h-1zM0 4h1v1h-1zM3 4h3v1h-3zM8 4h1v1h-1zM1 5h1v1h-1zM4 5h1v1h-1zM7 5h1v1h-1zM2 6h5v1h-5z"/></svg><span id="views-num"></span></span></div>
+        <div class="meta"><time datetime="${p.published_at}" data-fmt="long">${fmtLong(p.published_at)}</time><span>·</span><span>${p.reading_time} <span data-i18n="min_read">min read</span></span></div>
         <h1 data-title-sr="${esc(p.title_sr)}">${esc(p.title)}</h1>
         ${p.excerpt ? `<p class="lead" data-excerpt-sr="${esc(p.excerpt_sr)}">${esc(p.excerpt)}</p>` : ''}
         <div class="tags">${tagSpans(p.tags)}</div>

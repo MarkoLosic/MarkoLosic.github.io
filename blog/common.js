@@ -24,7 +24,8 @@
     back_home: 'Nazad na početnu ↑',
     copy_link: 'Kopiraj link',
     copied: 'Kopirano ✓',
-    copy_fail: 'Pritisni Ctrl/Cmd+C'
+    copy_fail: 'Pritisni Ctrl/Cmd+C',
+    cookies: 'Postavke kolačića'
   };
 
   const i18nNodes = $$('[data-i18n]');

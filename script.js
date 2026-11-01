@@ -122,7 +122,7 @@
     ct_p: 'Hajde da razgovaramo o kvalitetu, automatizaciji ili vašem sljedećem izdanju. Rado se povezujem sa kolegama inženjerima, timovima i regruterima.',
     ct_mail: 'Pošalji imejl', ct_copy: 'Kopiraj imejl', ct_copied: 'Kopirano ✓',
     k_email: 'Imejl', k_phone: 'Telefon', k_loc: 'Lokacija',
-    foot: 'Testirano pažljivo. Isporučeno zeleno. ✓', top: 'Na vrh ↑'
+    foot: 'Testirano pažljivo. Isporučeno zeleno. ✓', top: 'Na vrh ↑', cookies: 'Postavke kolačića'
   };
   const nodes = $$('[data-i18n]');
   nodes.forEach(n => { n.dataset.en = n.innerHTML; });

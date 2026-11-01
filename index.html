@@ -21,13 +21,9 @@
   <meta name="twitter:title" content="Marko Lošić — QA Engineer · Test Automation">
   <meta name="twitter:description" content="I make software reliable before users ever see it. Playwright, Cypress, TypeScript, JavaScript, Maestro, CI/CD, AI model testing.">
   <meta name="twitter:image" content="https://markolosic.github.io/assets/marko.jpg">
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TP2Z3K3Z94"></script>
-  <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-TP2Z3K3Z94');</script>
-  <script data-goatcounter="https://markolosic.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/fonts.css">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="blog/blog.css">
   <script>
@@ -482,9 +478,11 @@
   <footer class="footer wrap">
     <span>© <span id="year">2026</span> Marko Lošić</span>
     <span class="foot-mid" data-i18n="foot">Tested with care. Shipped green. ✓</span>
+    <button type="button" data-consent data-i18n="cookies">Cookie settings</button>
     <a href="#top" data-i18n="top">Back to top ↑</a>
   </footer>
 
+  <script src="js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
   <script src="script.js"></script>
 </body>
 </html>

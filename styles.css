@@ -321,3 +321,18 @@ h3 { font-family: var(--font-head); letter-spacing: -.01em; }
   .js .reveal { opacity: 1; transform: none; }
 }
 @media print { .nav, .bg-glow, .progress { display: none; } body { background: #fff; color: #000; } }
+
+/* Cookie consent banner (js/consent.js) */
+.consent { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 120; max-width: 600px; margin-inline: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px; padding: 18px 20px; background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius); box-shadow: var(--shadow); color: var(--muted); font-size: 14.5px; line-height: 1.55; }
+.consent[hidden] { display: none; }
+.consent p { flex: 1 1 280px; }
+.consent-btns { display: flex; gap: 10px; }
+.consent .btn { height: 42px; padding: 0 20px; font-size: 14.5px; }
+.footer button:hover { color: var(--accent); }
+
+/* 404 */
+.notfound { min-height: 70svh; display: grid; place-content: center; justify-items: center; gap: 18px; padding-top: 120px; text-align: center; }
+.notfound .code { font: 700 clamp(88px, 22vw, 180px)/1 var(--font-head); letter-spacing: -.04em; }
+.notfound .lead { max-width: 46ch; color: var(--muted); }
+.notfound .path { font-family: var(--font-mono); font-size: 14px; color: var(--muted); padding: 6px 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); overflow-wrap: anywhere; }
+.notfound .actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 8px; }

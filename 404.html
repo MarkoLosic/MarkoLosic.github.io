@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page not found — Marko Lošić</title>
+  <meta name="description" content="This page doesn't exist. Head back to the home page or the blog.">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <!-- GitHub Pages serves this file at whatever URL was missed, so every path here is absolute -->
+  <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/fonts.css">
+  <link rel="stylesheet" href="/styles.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+      if (localStorage.getItem('lang') === 'sr') document.documentElement.lang = 'sr';
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="/" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+  </header>
+
+  <main class="wrap notfound">
+    <span class="eyebrow" data-i18n="eyebrow">Test failed</span>
+    <h1 class="code"><span class="grad">404</span></h1>
+    <p class="lead" data-i18n="lead">Expected a page here, got nothing. The link may be old, or the address has a typo.</p>
+    <code class="path" id="path"></code>
+    <div class="actions">
+      <a class="btn primary" href="/" data-i18n="home">Back to home</a>
+      <a class="btn ghost" href="/blog/" data-i18n="blog">Read the blog</a>
+    </div>
+  </main>
+
+  <footer class="footer wrap">
+    <span>© 2026 Marko Lošić</span>
+    <button type="button" data-consent data-i18n="cookies">Cookie settings</button>
+    <a href="/#contact" data-i18n="contact">Get in touch</a>
+  </footer>
+
+  <script src="/js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script>
+    document.getElementById('path').textContent = location.pathname;
+    if (document.documentElement.lang === 'sr') {
+      var SR = {
+        eyebrow: 'Test nije prošao',
+        lead: 'Očekivao sam stranicu ovdje, a nema ničega. Link je možda zastario ili adresa ima grešku.',
+        home: 'Nazad na početnu', blog: 'Čitaj blog', cookies: 'Postavke kolačića', contact: 'Kontaktiraj me'
+      };
+      document.title = 'Stranica nije pronađena — Marko Lošić';
+      document.querySelectorAll('[data-i18n]').forEach(function (n) { n.textContent = SR[n.dataset.i18n]; });
+    }
+  </script>
+</body>
+</html>

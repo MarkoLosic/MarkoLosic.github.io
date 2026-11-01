@@ -23,14 +23,9 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"AI-Generated Test Data: Why It Looks Right and Still Misses the Bugs That Matter","description":"GenAI test data generation is everywhere, but trust in it at scale is low. Here's why realistic-looking data still misses the edge cases that break systems.","image":"https://markolosic.github.io/assets/blog/ai-generated-test-data-blind-spots.jpg","url":"https://markolosic.github.io/blog/ai-generated-test-data-blind-spots/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/ai-generated-test-data-blind-spots/"},"datePublished":"2026-10-14","dateModified":"2026-10-14T00:00:00.000Z","keywords":"qa, ai-in-qa, test-data","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
   <meta property="article:published_time" content="2026-10-14">
   <meta property="article:modified_time" content="2026-10-14T00:00:00.000Z">
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TP2Z3K3Z94"></script>
-  <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-TP2Z3K3Z94');</script>
-  <meta name="goatcounter-code" content="markolosic">
-  <script data-goatcounter="https://markolosic.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/fonts.css">
   <link rel="stylesheet" href="../../styles.css">
   <link rel="stylesheet" href="../../blog/blog.css">
   <script>
@@ -75,7 +70,7 @@
     <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span data-i18n="all_posts">All posts</span></a>
     <article>
       <header class="post-head">
-        <div class="meta"><time datetime="2026-10-14" data-fmt="long">14 October 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span><span>·</span><span class="views" id="views" hidden><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M2 2h5v1h-5zM1 3h1v1h-1zM4 3h1v1h-1zM7 3h1v1h-1zM0 4h1v1h-1zM3 4h3v1h-3zM8 4h1v1h-1zM1 5h1v1h-1zM4 5h1v1h-1zM7 5h1v1h-1zM2 6h5v1h-5z"/></svg><span id="views-num"></span></span></div>
+        <div class="meta"><time datetime="2026-10-14" data-fmt="long">14 October 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div>
         <h1 data-title-sr="Testni podaci generisani AI-jem: zašto izgledaju ispravno, a ipak promaše bitne bagove">AI-Generated Test Data: Why It Looks Right and Still Misses the Bugs That Matter</h1>
         <p class="lead" data-excerpt-sr="Generisanje testnih podataka GenAI-jem je svuda, ali povjerenje u njega na većem obimu je nisko. Evo zašto realistični podaci i dalje promaše granične slučajeve koji ruše sisteme.">GenAI test data generation is everywhere, but trust in it at scale is low. Here's why realistic-looking data still misses the edge cases that break systems.</p>
         <div class="tags"><span>qa</span><span>ai-in-qa</span><span>test-data</span></div>
@@ -141,8 +136,10 @@ records = llm_generate(prompt)</code></pre>
   <footer class="footer wrap">
     <span>© <span id="year">2026</span> Marko Lošić</span>
     <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <button type="button" data-consent data-i18n="cookies">Cookie settings</button>
     <a href="../../" data-i18n="back_home">Back to home ↑</a>
   </footer>
+  <script src="../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
   <script src="../../blog/common.js"></script>
   <script src="../post.js"></script>
 </body>
