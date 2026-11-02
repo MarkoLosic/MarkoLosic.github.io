@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Definition of Done for QA: How Teams Agree on What 'Tested' Actually Means — Marko Lošić</title>
+  <meta name="description" content="A vague Definition of Done lets everyone assume someone else tested the edge cases. Here's how to write one that actually catches bugs before release.">
+  <link rel="canonical" href="https://markolosic.github.io/blog/definition-of-done-for-qa/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Definition of Done for QA: How Teams Agree on What 'Tested' Actually Means — Marko Lošić">
+  <meta property="og:description" content="A vague Definition of Done lets everyone assume someone else tested the edge cases. Here's how to write one that actually catches bugs before release.">
+  <meta property="og:url" content="https://markolosic.github.io/blog/definition-of-done-for-qa/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/definition-of-done-for-qa.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Definition of Done for QA: How Teams Agree on What 'Tested' Actually Means — Marko Lošić">
+  <meta name="twitter:description" content="A vague Definition of Done lets everyone assume someone else tested the edge cases. Here's how to write one that actually catches bugs before release.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/definition-of-done-for-qa.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Definition of Done for QA: How Teams Agree on What 'Tested' Actually Means","description":"A vague Definition of Done lets everyone assume someone else tested the edge cases. Here's how to write one that actually catches bugs before release.","image":"https://markolosic.github.io/assets/blog/definition-of-done-for-qa.jpg","url":"https://markolosic.github.io/blog/definition-of-done-for-qa/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/definition-of-done-for-qa/"},"datePublished":"2026-11-02","dateModified":"2026-11-02T00:00:00.000Z","keywords":"qa, methodology, definition-of-done, scrum","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
+  <meta property="article:published_time" content="2026-11-02">
+  <meta property="article:modified_time" content="2026-11-02T00:00:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/fonts.css">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#about" data-i18n="nav_about">About</a>
+      <a href="../../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../../blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span data-i18n="all_posts">All posts</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-11-02" data-fmt="long">2 November 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div>
+        <h1 data-title-sr="Definition of Done za QA: kako se tim dogovori šta zapravo znači „testirano“">Definition of Done for QA: How Teams Agree on What 'Tested' Actually Means</h1>
+        <p class="lead" data-excerpt-sr="Nejasan Definition of Done svima dozvoljava da pretpostave da je neko drugi testirao granične slučajeve. Evo kako napisati onaj koji zaista hvata bagove prije izdanja.">A vague Definition of Done lets everyone assume someone else tested the edge cases. Here's how to write one that actually catches bugs before release.</p>
+        <div class="tags"><span>qa</span><span>methodology</span><span>definition-of-done</span><span>scrum</span></div>
+      </header>
+      <div class="prose"><p>Ask three people on a feature team what &quot;tested&quot; means for a finished ticket, and you'll often get three different answers: &quot;the acceptance criteria pass,&quot; &quot;QA signed off,&quot; and &quot;it works on my machine and nothing broke in CI.&quot; None of those are wrong exactly, but none of them are a shared standard either — and the gap between them is exactly where regressions slip through. A Definition of Done (DoD) is supposed to close that gap. In practice, most teams write one once, early in a project, and never revisit whether it still matches how they actually ship.</p>
+<p><img src="../../assets/blog/definition-of-done-for-qa.jpg" alt="Isometric illustration of clipboards with ticked checklists and a kanban board, a magnifying glass revealing bugs hiding in a code panel, surrounded by shields, gears and branching diagrams" loading="lazy"></p>
+<h2 id="what-a-definition-of-done-is-actually-for">What a Definition of Done is actually for</h2>
+<p>The Scrum Guide describes the Definition of Done as a formal description of the state a piece of work must reach to count as done — not &quot;coded,&quot; not &quot;demoed,&quot; but releasable. Work that doesn't meet it isn't finished; it goes back to the backlog. That sounds strict, and it's meant to be: a widely cited set of principles on the topic puts it plainly — &quot;don't show or deliver undone work,&quot; and &quot;never abandon the Definition of Done&quot; to hit a deadline. The same source makes a point that QA teams run into constantly: writing the DoD is not the testers' job alone. It's a whole-team agreement, which means product, developers, and QA all have to actually negotiate what &quot;tested&quot; covers — not have QA quietly backfill the definition after the fact.</p>
+<p>The problem is that &quot;tested&quot; is a word every role on the team can use honestly while meaning something different by it.</p>
+<h2 id="a-concrete-example-the-dod-that-said-tested-and-nothing-else">A concrete example: the DoD that said &quot;tested&quot; and nothing else</h2>
+<p>Imagine a team shipping a self-serve password reset flow. Their Definition of Done, written a year earlier when the team was two developers and no dedicated QA, says simply: &quot;code reviewed, unit tests pass, tested, deployed to staging.&quot; Everyone agrees the ticket meets it. A developer writes unit tests for the token-generation logic. QA runs the happy path manually in staging — request a reset, click the email link, set a new password — and it works. The ticket moves to done.</p>
+<p>What the DoD never specified: what happens to a reset token after it's used once, what happens if the user requests two reset emails in a row and clicks the older one, and what happens if the account was deleted between the request and the click. None of those are exotic scenarios — they're the first three things an experienced tester would normally think to check on any reset flow — but &quot;tested&quot; in this team's DoD didn't say <em>which</em> cases, so nobody treated them as mandatory. Three weeks after release, a support ticket comes in: a user reused an old reset link from a week earlier and it still worked, because the token had no expiry check in that one secondary code path. The acceptance criteria had been &quot;a user can reset their password,&quot; which the happy-path test satisfied completely. The bug was real, but by the DoD's own wording, the ticket had genuinely been done.</p>
+<p>This is the pattern behind most &quot;unclear DoD&quot; escapes: it's rarely that nobody tested anything. It's that the DoD described an outcome (&quot;tested&quot;) instead of a standard (what counts as having tested it), so every person filled in the blank with their own reasonable-sounding default.</p>
+<h2 id="writing-a-dod-that-actually-specifies-what-tested-covers">Writing a DoD that actually specifies what &quot;tested&quot; covers</h2>
+<p>A DoD clause that just says &quot;tested&quot; or &quot;QA approved&quot; is a placeholder, not a standard. A version that functions as one tends to be specific about the <em>kind</em> of coverage expected, for example:</p>
+<pre><code>A story is Done when:
+- Acceptance criteria pass, AND
+- At least one negative/invalid-input case per input field is covered
+  (empty, malformed, expired, already-used, where applicable)
+- Any state transition in the ticket (e.g. token used -&gt; token invalid)
+  has an explicit test, automated or manual
+- Cross-browser/device check only if the ticket touches UI rendering
+- A tester other than the implementer has exercised the change</code></pre>
+<p>None of this is exotic — it's the same four or five categories (invalid input, state transitions, concurrency, permissions, and cross-environment behavior) that account for most escaped defects in practice. The value isn't in the specific list; it's in writing down <em>which</em> categories apply to <em>this kind</em> of ticket, so &quot;tested&quot; stops being a word people fill in from memory under deadline pressure.</p>
+<p>Xebia's engineering team found a related gap when they realized their single DoD worked fine for new features but kept leaving customers with unanswered questions after bug fixes — things like which versions were affected and whether a workaround existed. Their fix wasn't a stricter DoD overall; it was a second, bug-specific DoD that asked a different set of questions than the feature DoD did. The lesson generalizes: one DoD rarely fits every kind of work item, and trying to force it to often produces a document vague enough to technically fit everything.</p>
+<h2 id="pitfalls-and-limits">Pitfalls and limits</h2>
+<p>A detailed DoD checklist can become its own problem if treated as a substitute for judgment: a 20-item checklist that a tester rubber-stamps without thinking is no better than &quot;tested&quot; with no detail at all, just slower. A DoD also can't cover cases nobody on the team has thought of yet — it codifies known categories of risk, not unknown ones, which is why it needs revisiting after every escaped bug, not just at project kickoff. And a DoD owned only by QA tends to get quietly worked around by the rest of the team under deadline pressure, since nobody else feels bound by it; it only holds if product and engineering helped write it and are willing to push a deadline rather than ship around it.</p>
+<h2 id="what-to-do-next">What to do next</h2>
+<ul><li>Pull up your team's current DoD and check whether &quot;tested&quot; is followed by any specifics. If it isn't, that's the gap to close first.</li><li>After the next bug that reaches production, ask explicitly: would our current DoD have caught this, or did it genuinely satisfy the wording as written? Rewrite the clause that let it through.</li><li>If your team ships both features and bug fixes, check whether one DoD is trying to cover both — consider a short, separate bug DoD like Xebia's, focused on impact and regression risk rather than new-feature coverage.</li><li>Make the next DoD review a whole-team conversation, not a QA memo — the Scrum Guide's own framing is that it's a team commitment, and it only holds up under deadline pressure if everyone agreed to it.</li></ul>
+<h2 id="sources">Sources</h2>
+<ul><li><a href="https://www.scrum.org/resources/blog/definition-done-theses" target="_blank" rel="noopener noreferrer">Definition of Done Theses: 10 Simple Principles of a Critical Scrum Success Factor</a> — Scrum.org</li><li><a href="https://xebia.com/blog/definition-of-done-for-user-stories-vs-bugs/" target="_blank" rel="noopener noreferrer">Definition of Done for User Stories vs. Bugs</a> — Xebia</li></ul></div>
+      <template id="prose-sr"><p>Pitajte tri osobe iz istog tima šta znači „testirano&quot; za završen tiket, i često ćete dobiti tri različita odgovora: „acceptance kriterijumi prolaze&quot;, „QA je odobrio&quot; i „radi kod mene i ništa nije puklo u CI-ju&quot;. Nijedan od tih odgovora nije baš pogrešan, ali nijedan nije ni zajednički standard — a upravo kroz prazninu između njih provlače se regresije. Definition of Done (DoD) bi trebalo da zatvori tu prazninu. U praksi ga većina timova napiše jednom, na početku projekta, i više nikad ne provjeri da li još uvijek odgovara načinu na koji zaista isporučuju.</p>
+<p><img src="../../assets/blog/definition-of-done-for-qa.jpg" alt="Izometrijska ilustracija tabli sa štikliranim checklistama i kanban tablom, lupa koja otkriva bagove skrivene u panelu sa kodom, okružena štitovima, zupčanicima i dijagramima grananja" loading="lazy"></p>
+<h2 id="čemu-definition-of-done-zapravo-služi">Čemu Definition of Done zapravo služi</h2>
+<p>Scrum Guide opisuje Definition of Done kao formalan opis stanja koje dio posla mora da dostigne da bi se smatrao završenim — ne „iskodiran&quot;, ne „demonstriran&quot;, nego spreman za izdanje. Posao koji ga ne ispunjava nije završen; vraća se u backlog. To zvuči strogo, i tako je i zamišljeno: često citiran skup principa na ovu temu kaže to direktno — „ne pokazujte i ne isporučujte nezavršen posao&quot; i „nikada ne odustajte od Definition of Done&quot; da biste stigli do roka. Isti izvor ističe nešto na šta QA timovi stalno nailaze: pisanje DoD-a nije posao samo testera. To je dogovor cijelog tima, što znači da product, developeri i QA moraju zaista da ispregovaraju šta „testirano&quot; pokriva — a ne da QA naknadno, u tišini, popunjava definiciju.</p>
+<p>Problem je u tome što je „testirano&quot; riječ koju svaka uloga u timu može iskreno da koristi, a da pod njom podrazumijeva nešto drugo.</p>
+<h2 id="konkretan-primjer-dod-u-kojem-piše-testirano-i-ništa-više">Konkretan primjer: DoD u kojem piše „testirano&quot; i ništa više</h2>
+<p>Zamislite tim koji isporučuje samostalni reset lozinke. Njihov Definition of Done, napisan godinu dana ranije dok je tim imao dva developera i nijednog posvećenog QA-a, kaže samo: „kod pregledan, unit testovi prolaze, testirano, deployovano na staging&quot;. Svi se slažu da tiket to ispunjava. Developer piše unit testove za logiku generisanja tokena. QA ručno prolazi srećnu putanju na stagingu — zatraži reset, klikne link iz mejla, postavi novu lozinku — i sve radi. Tiket prelazi u done.</p>
+<p>Ono što DoD nikad nije precizirao: šta se dešava sa reset tokenom nakon što se jednom iskoristi, šta se dešava ako korisnik zatraži dva reset mejla zaredom i klikne na stariji, i šta se dešava ako je nalog obrisan između zahtjeva i klika. Nijedan od tih scenarija nije egzotičan — to su prve tri stvari koje bi iskusan tester inače provjerio na bilo kom reset toku — ali „testirano&quot; u DoD-u ovog tima nije reklo <em>koje</em> slučajeve, pa ih niko nije tretirao kao obavezne. Tri sedmice nakon izdanja stiže tiket od podrške: korisnik je ponovo iskoristio stari reset link od prije sedmicu dana i on je i dalje radio, jer token nije imao provjeru isteka u toj jednoj sporednoj putanji koda. Acceptance kriterijum je glasio „korisnik može da resetuje lozinku&quot;, što je test srećne putanje u potpunosti zadovoljio. Bag je bio stvaran, ali po samom tekstu DoD-a, tiket je zaista bio završen.</p>
+<p>To je obrazac iza većine bagova koji promaknu zbog „nejasnog DoD-a&quot;: rijetko je problem u tome što niko ništa nije testirao. Problem je što je DoD opisivao ishod („testirano&quot;) umjesto standarda (šta se računa kao da je nešto testirano), pa je svako popunio prazninu svojom razumnom podrazumijevanom pretpostavkom.</p>
+<h2 id="kako-napisati-dod-koji-zaista-precizira-šta-testirano-pokriva">Kako napisati DoD koji zaista precizira šta „testirano&quot; pokriva</h2>
+<p>Stavka u DoD-u koja kaže samo „testirano&quot; ili „QA odobrio&quot; je čuvar mjesta, ne standard. Verzija koja zaista funkcioniše kao standard obično je konkretna u vezi sa <em>vrstom</em> očekivane pokrivenosti, na primjer:</p>
+<pre><code>Priča je Done kada:
+- Acceptance kriterijumi prolaze, I
+- Pokriven je bar jedan negativan slučaj / slučaj nevalidnog unosa po polju
+  (prazno, neispravan format, isteklo, već iskorišteno, gdje je primjenjivo)
+- Svaka promjena stanja u tiketu (npr. token iskorišten -&gt; token nevažeći)
+  ima eksplicitan test, automatizovan ili ručni
+- Provjera na više browsera/uređaja samo ako tiket dira prikaz UI-ja
+- Izmjenu je isprobao tester koji nije onaj ko ju je implementirao</code></pre>
+<p>Ništa od ovoga nije egzotično — to su iste četiri ili pet kategorija (nevalidan unos, promjene stanja, konkurentnost, dozvole i ponašanje u različitim okruženjima) koje u praksi čine većinu bagova koji promaknu. Vrijednost nije u konkretnoj listi; vrijednost je u tome da se zapiše <em>koje</em> kategorije važe za <em>ovu vrstu</em> tiketa, kako „testirano&quot; ne bi više bila riječ koju ljudi popunjavaju iz sjećanja pod pritiskom roka.</p>
+<p>Inženjerski tim iz Xebie naišao je na srodnu prazninu kada je shvatio da njihov jedinstveni DoD dobro radi za nove funkcionalnosti, ali da nakon ispravki bagova stalno ostavlja korisnike sa neodgovorenim pitanjima — npr. koje verzije su pogođene i da li postoji zaobilazno rješenje. Njihovo rješenje nije bio strožiji DoD u cjelini; bio je to drugi DoD, posebno za bagove, koji postavlja drugačiji skup pitanja od DoD-a za funkcionalnosti. Pouka važi i šire: jedan DoD rijetko odgovara svakoj vrsti radnog zadatka, a pokušaj da se to nametne često proizvede dokument dovoljno nejasan da tehnički odgovara svemu.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Detaljna DoD checklista može postati problem sama po sebi ako se tretira kao zamjena za rasuđivanje: checklista od 20 stavki koju tester štiklira bez razmišljanja nije ništa bolja od golog „testirano&quot; — samo je sporija. DoD takođe ne može da pokrije slučajeve kojih se niko u timu još nije sjetio — on kodifikuje poznate kategorije rizika, ne nepoznate, i zato ga treba preispitati nakon svakog baga koji promakne, a ne samo na početku projekta. A DoD koji „pripada&quot; samo QA-u ostatak tima pod pritiskom roka obično tiho zaobiđe, jer se niko drugi ne osjeća obaveznim da ga poštuje; on opstaje samo ako su ga product i inženjering zajedno pisali i spremni su da pomjere rok umjesto da isporuče mimo njega.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ul><li>Otvorite trenutni DoD vašeg tima i provjerite da li iza riječi „testirano&quot; stoji bilo kakva konkretizacija. Ako ne stoji, to je praznina koju prvu treba zatvoriti.</li><li>Nakon sljedećeg baga koji stigne do produkcije, eksplicitno pitajte: da li bi ga naš trenutni DoD uhvatio, ili je tiket zaista ispunio tekst onako kako je napisan? Prepišite stavku koja ga je propustila.</li><li>Ako vaš tim isporučuje i funkcionalnosti i ispravke bagova, provjerite da li jedan DoD pokušava da pokrije oboje — razmislite o kratkom, zasebnom DoD-u za bagove, poput Xebijinog, fokusiranom na uticaj i rizik od regresije umjesto na pokrivenost novih funkcionalnosti.</li><li>Neka sljedeći pregled DoD-a bude razgovor cijelog tima, a ne QA memo — i sam Scrum Guide ga posmatra kao obavezu tima, a pod pritiskom roka opstaje samo ako su se svi oko njega dogovorili.</li></ul>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://www.scrum.org/resources/blog/definition-done-theses" target="_blank" rel="noopener noreferrer">Definition of Done Theses: 10 Simple Principles of a Critical Scrum Success Factor</a> — Scrum.org</li><li><a href="https://xebia.com/blog/definition-of-done-for-user-stories-vs-bugs/" target="_blank" rel="noopener noreferrer">Definition of Done for User Stories vs. Bugs</a> — Xebia</li></ul></template>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    </div>
+    <section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../binance-6-3-billion-hack-devops-laptop/" data-title-sr="Pljačka stoljeća: kako je jedan laptop koštao Binance 6,3 milijarde dolara" data-excerpt-sr="Binance je u najvećoj kripto krađi u historiji izgubio oko 6,3 milijarde dolara, a ulaz je bio jedan kompromitovan laptop DevOps inženjera. Šta se desilo i šta iz toga treba ponijeti."><div class="meta"><time datetime="2026-10-30" data-fmt="short">30 Oct 2026</time><span>·</span><span>4 <span data-i18n="min_read">min read</span></span></div><h2>The Heist of the Century: How One Laptop Cost Binance $6.3 Billion</h2><p>Binance lost an estimated $6.3 billion in the largest crypto theft ever, and the way in was a single compromised DevOps laptop. What happened and what to take away from it.</p></a>
+      <a class="post-card card glow" href="../testing-feature-flags-targeting-and-default-bugs/" data-title-sr="Testiranje feature flagova: bagovi koji se kriju iza prekidača" data-excerpt-sr="Testiranje feature flagova obično se završava na uključeno/isključeno. Pravi bagovi žive u pravilima targetiranja, podrazumijevanim vrijednostima i onome što se desi kada flag servis prestane da odgovara."><div class="meta"><time datetime="2026-10-30" data-fmt="short">30 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Testing Feature Flags: The Bugs That Hide Behind the Switch</h2><p>Feature flag testing usually stops at on/off. The real bugs live in targeting rules, default values, and what happens when the flag service goes dark.</p></a>
+      <a class="post-card card glow" href="../owasp-for-qa-top10-asvs-test-cases/" data-title-sr="OWASP za QA: kako Top 10 i ASVS pretvoriti u konkretne test slučajeve" data-excerpt-sr="„Testirajte za OWASP&quot; je nejasno uputstvo. Evo kako se Top 10, ASVS i ZAP uklapaju u test slučajeve koje QA inženjer zaista može da izvrši."><div class="meta"><time datetime="2026-10-28" data-fmt="short">28 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>OWASP for QA: Turning the Top 10 and ASVS Into Actual Test Cases</h2><p>&quot;Test for OWASP&quot; is a vague instruction. Here's how the Top 10, ASVS and ZAP fit together into test cases a QA engineer can actually run.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <button type="button" data-consent data-i18n="cookies">Cookie settings</button>
+    <a href="../../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../blog/common.js"></script>
+  <script src="../post.js"></script>
+</body>
+</html>

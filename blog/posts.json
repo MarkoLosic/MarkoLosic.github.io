@@ -1,5 +1,20 @@
 [
   {
+    "slug": "definition-of-done-for-qa",
+    "title": "Definition of Done for QA: How Teams Agree on What 'Tested' Actually Means",
+    "titleSr": "Definition of Done za QA: kako se tim dogovori šta zapravo znači „testirano“",
+    "excerpt": "A vague Definition of Done lets everyone assume someone else tested the edge cases. Here's how to write one that actually catches bugs before release.",
+    "excerptSr": "Nejasan Definition of Done svima dozvoljava da pretpostave da je neko drugi testirao granične slučajeve. Evo kako napisati onaj koji zaista hvata bagove prije izdanja.",
+    "tags": [
+      "qa",
+      "methodology",
+      "definition-of-done",
+      "scrum"
+    ],
+    "date": "2026-11-02",
+    "readingTime": 6
+  },
+  {
     "slug": "binance-6-3-billion-hack-devops-laptop",
     "title": "The Heist of the Century: How One Laptop Cost Binance $6.3 Billion",
     "titleSr": "Pljačka stoljeća: kako je jedan laptop koštao Binance 6,3 milijarde dolara",
