@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pairwise Testing: Cutting Thousands of Config Combinations Down to a Suite You Can Actually Run — Marko Lošić</title>
+  <meta name="description" content="How pairwise and combinatorial testing shrink a combinatorial explosion into a small, high-coverage test suite, with a worked example and tool picks.">
+  <link rel="canonical" href="https://markolosic.github.io/blog/pairwise-combinatorial-testing/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Pairwise Testing: Cutting Thousands of Config Combinations Down to a Suite You Can Actually Run — Marko Lošić">
+  <meta property="og:description" content="How pairwise and combinatorial testing shrink a combinatorial explosion into a small, high-coverage test suite, with a worked example and tool picks.">
+  <meta property="og:url" content="https://markolosic.github.io/blog/pairwise-combinatorial-testing/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/pairwise-combinatorial-testing.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Pairwise Testing: Cutting Thousands of Config Combinations Down to a Suite You Can Actually Run — Marko Lošić">
+  <meta name="twitter:description" content="How pairwise and combinatorial testing shrink a combinatorial explosion into a small, high-coverage test suite, with a worked example and tool picks.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/pairwise-combinatorial-testing.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Pairwise Testing: Cutting Thousands of Config Combinations Down to a Suite You Can Actually Run","description":"How pairwise and combinatorial testing shrink a combinatorial explosion into a small, high-coverage test suite, with a worked example and tool picks.","image":"https://markolosic.github.io/assets/blog/pairwise-combinatorial-testing.jpg","url":"https://markolosic.github.io/blog/pairwise-combinatorial-testing/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/pairwise-combinatorial-testing/"},"datePublished":"2026-11-04","dateModified":"2026-11-04T00:00:00.000Z","keywords":"qa, test-automation, test-design, methodology, combinatorial-testing","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
+  <meta property="article:published_time" content="2026-11-04">
+  <meta property="article:modified_time" content="2026-11-04T00:00:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/fonts.css">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#about" data-i18n="nav_about">About</a>
+      <a href="../../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../../blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span data-i18n="all_posts">All posts</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-11-04" data-fmt="long">4 November 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div>
+        <h1 data-title-sr="Pairwise testiranje: kako hiljade kombinacija konfiguracije svesti na test suite koji zaista možete da pokrenete">Pairwise Testing: Cutting Thousands of Config Combinations Down to a Suite You Can Actually Run</h1>
+        <p class="lead" data-excerpt-sr="Kako pairwise i kombinatorno testiranje svode kombinatornu eksploziju na mali test suite sa visokom pokrivenošću, uz razrađen primjer i preporuke alata.">How pairwise and combinatorial testing shrink a combinatorial explosion into a small, high-coverage test suite, with a worked example and tool picks.</p>
+        <div class="tags"><span>qa</span><span>test-automation</span><span>test-design</span><span>methodology</span><span>combinatorial-testing</span></div>
+      </header>
+      <div class="prose"><p>Take a form with four configuration dimensions — say, operating system, browser, locale, and payment method, each with three options — and the full combinatorial space is already 81 test cases. Add a fifth dimension and it jumps past 200. No team runs 81 end-to-end cases for one checkout form, so most teams quietly pick a handful of combinations by gut feeling and call it &quot;good enough coverage.&quot; Pairwise testing is a way to replace that guess with a suite that is both smaller and more systematic.</p>
+<p><img src="../../assets/blog/pairwise-combinatorial-testing.jpg" alt="A dense, chaotic network of connected nodes on the left funnelling through converging arrows into a small, orderly hexagonal grid of nodes on the right" loading="lazy"></p>
+<h2 id="the-problem-with-picking-combinations-by-hand">The problem with picking combinations by hand</h2>
+<p>Hand-picked combinations tend to test each value on its own, one at a time: Windows with Chrome, then macOS with Firefox, then Linux with Safari. That checks each value in isolation but rarely checks how values interact — and interaction bugs are exactly the ones that slip through manual review. A date picker that breaks only when the locale is <code>de-DE</code> <strong>and</strong> the browser is Safari is invisible to a test plan built value-by-value.</p>
+<p>Research on software failures from NIST (Kuhn, Lei, and Kacker) is the standard reference point here. Their work on combinatorial testing states plainly that pairwise, or 2-way, coverage &quot;is not sufficient for assurance of mission-critical software,&quot; and that going beyond pairwise requires significantly more test cases — which is exactly why their tooling, and tools like it, support coverage up to 6-way combinations when a system genuinely needs that level of assurance. For most everyday features, though, 2-way (pairwise) coverage is the practical sweet spot: it catches the large class of bugs caused by one value interacting badly with another, at a fraction of the cost of full combinatorial coverage.</p>
+<h2 id="a-worked-example">A worked example</h2>
+<p>Take the four-dimension form above: OS (Windows, macOS, Linux), Locale (en-US, de-DE, ja-JP), Browser (Chrome, Firefox, Safari), Payment (Card, PayPal, Apple Pay). Full coverage is 3 × 3 × 3 × 3 = 81 cases. A pairwise-covering set — built so that every possible pair of values from any two parameters appears together at least once — can bring that down to 9 cases:</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Run</th><th>OS</th><th>Locale</th><th>Browser</th><th>Payment</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><td>Windows</td><td>en-US</td><td>Chrome</td><td>Card</td></tr>
+<tr><td class="num">2</td><td>Windows</td><td>de-DE</td><td>Firefox</td><td>PayPal</td></tr>
+<tr><td class="num">3</td><td>Windows</td><td>ja-JP</td><td>Safari</td><td>Apple Pay</td></tr>
+<tr><td class="num">4</td><td>macOS</td><td>en-US</td><td>Firefox</td><td>Apple Pay</td></tr>
+<tr><td class="num">5</td><td>macOS</td><td>de-DE</td><td>Safari</td><td>Card</td></tr>
+<tr><td class="num">6</td><td>macOS</td><td>ja-JP</td><td>Chrome</td><td>PayPal</td></tr>
+<tr><td class="num">7</td><td>Linux</td><td>en-US</td><td>Safari</td><td>PayPal</td></tr>
+<tr><td class="num">8</td><td>Linux</td><td>de-DE</td><td>Chrome</td><td>Apple Pay</td></tr>
+<tr><td class="num">9</td><td>Linux</td><td>ja-JP</td><td>Firefox</td><td>Card</td></tr>
+</tbody>
+</table></div>
+<p>Check any two columns against each other and every pair of values shows up at least once — Windows paired with every locale, every browser, and every payment method; <code>de-DE</code> paired with every browser; and so on. That is a roughly 9x reduction in run count while still exercising every two-way interaction, which is where most interaction bugs actually live.</p>
+<p>You rarely need to build a table like this by hand. The construction above is a standard orthogonal array, and free tools generate it automatically from a plain-text model of your parameters: Microsoft's open-source <a href="https://github.com/microsoft/pict" target="_blank" rel="noopener noreferrer">PICT</a> takes a short parameter file and outputs a tab-separated pairwise suite in seconds; NIST's own <a href="https://www.nist.gov/node/565361" target="_blank" rel="noopener noreferrer">ACTS</a> tool goes further, generating 1-way up to 6-way covering arrays through a GUI, CLI, or API when pairwise coverage genuinely isn't enough; and commercial platforms like Hexawise add a web UI and reporting on top of the same idea. For most teams, feeding the parameter list into PICT once and checking the output into the repo next to the test suite is the whole setup cost.</p>
+<h2 id="pitfalls-and-limits">Pitfalls and limits</h2>
+<p>Pairwise testing trades completeness for efficiency, and that trade has real edges.</p>
+<ul><li><strong>It only guarantees 2-way coverage.</strong> Bugs that only appear with a specific three- or four-way combination (a particular OS, on a particular browser, with a particular locale <strong>and</strong> payment method all at once) can slip through a pairwise suite entirely. These are rarer than 2-way interaction bugs, but they exist, especially in tightly coupled subsystems like payment processing or device permissions.</li><li><strong>It assumes the parameters are genuinely independent inputs.</strong> If two &quot;parameters&quot; are actually linked (certain payment methods aren't offered in certain locales), feeding them into a generic pairwise tool without encoding that constraint produces invalid or wasted test cases. Most tools support constraints, but someone has to specify them, and that step is easy to skip under deadline pressure.</li><li><strong>It tells you nothing about priority.</strong> A pairwise algorithm treats every parameter and value as equally important. If one payment method handles 90% of real traffic and another is used by a handful of customers, a pairwise suite still gives them equal weight — you may need to layer risk-based judgment on top rather than trusting the algorithm's output as-is.</li><li><strong>It's a generation technique, not a test oracle.</strong> The tool produces input combinations, not expected outputs. You still have to write the assertions, and a badly chosen set of assertions undermines a perfectly good pairwise suite just as it would any other.</li><li><strong>It's a different tool than property-based testing.</strong> Property-based testing generates large numbers of semi-random inputs to check that an invariant holds; pairwise testing systematically covers interactions between a fixed set of discrete parameters. They solve different problems and are worth combining, not substituting one for the other.</li></ul>
+<h2 id="what-to-do-next">What to do next</h2>
+<ol><li>Pick one feature with more than three independent configuration dimensions — locale, device, plan tier, feature flag state, payment provider — and list out every parameter and its possible values.</li><li>Run that list through PICT or ACTS (both are free) and compare the generated suite size against the full combinatorial count. The gap is usually the clearest argument you can make to a skeptical teammate or manager.</li><li>Before you commit to the generated suite, check it against known dependencies between parameters (unsupported combinations, region-locked options) and encode those as constraints rather than filtering results by hand afterward.</li><li>If the feature is high-risk (payments, auth, data migration), consider generating a 3-way covering array instead of 2-way for that feature specifically, and compare the case count increase before deciding it's worth the extra run time.</li></ol>
+<h2 id="sources">Sources</h2>
+<ul><li><a href="https://www.nist.gov/node/565361" target="_blank" rel="noopener noreferrer">NIST — Practical Combinatorial Testing: Beyond Pairwise</a></li><li><a href="https://www.nist.gov/node/565371" target="_blank" rel="noopener noreferrer">NIST — Automated Combinatorial Test Methods: Beyond Pairwise Testing</a></li><li><a href="https://github.com/microsoft/pict" target="_blank" rel="noopener noreferrer">Microsoft PICT (GitHub)</a></li><li><a href="https://www.testrail.com/blog/pairwise-testing/" target="_blank" rel="noopener noreferrer">TestRail — Pairwise Testing Explained with Tools &amp; Examples</a></li><li><a href="https://www.browserstack.com/guide/combinatorial-testing" target="_blank" rel="noopener noreferrer">BrowserStack — What is Combinatorial Testing?</a></li></ul></div>
+      <template id="prose-sr"><p>Uzmite formu sa četiri dimenzije konfiguracije — recimo operativni sistem, browser, lokalizaciju i način plaćanja, svaka sa po tri opcije — i potpun kombinatorni prostor već iznosi 81 test slučaj. Dodajte petu dimenziju i broj skače preko 200. Nijedan tim ne pokreće 81 end-to-end slučaj za jednu checkout formu, pa većina timova tiho izabere šačicu kombinacija po osjećaju i nazove to „dovoljno dobrom pokrivenošću&quot;. Pairwise testiranje je način da se to nagađanje zamijeni test suiteom koji je istovremeno manji i sistematičniji.</p>
+<p><img src="../../assets/blog/pairwise-combinatorial-testing.jpg" alt="Gusta, haotična mreža povezanih čvorova sa lijeve strane koja se kroz strelice koje se spajaju sliva u malu, urednu heksagonalnu mrežu čvorova sa desne strane" loading="lazy"></p>
+<h2 id="problem-sa-ručnim-biranjem-kombinacija">Problem sa ručnim biranjem kombinacija</h2>
+<p>Ručno izabrane kombinacije obično testiraju svaku vrijednost zasebno, jednu po jednu: Windows sa Chromeom, pa macOS sa Firefoxom, pa Linux sa Safarijem. Tako se svaka vrijednost provjeri izolovano, ali se rijetko provjeri kako vrijednosti međusobno djeluju — a upravo bagovi u interakciji su oni koji promaknu ručnom pregledu. Date picker koji puca samo kad je lokalizacija <code>de-DE</code> <strong>i</strong> browser Safari nevidljiv je za test plan sastavljen vrijednost po vrijednost.</p>
+<p>Istraživanje grešaka u softveru iz NIST-a (Kuhn, Lei i Kacker) standardna je referentna tačka za ovu temu. Njihov rad o kombinatornom testiranju jasno kaže da pairwise, odnosno 2-way pokrivenost „nije dovoljna za garanciju kvaliteta softvera od kritične važnosti&quot; i da izlazak van pairwise nivoa zahtijeva znatno više test slučajeva — i upravo zato njihovi alati, kao i slični alati, podržavaju pokrivenost sve do 6-way kombinacija kada sistemu zaista treba toliki nivo sigurnosti. Ipak, za većinu svakodnevnih funkcionalnosti, 2-way (pairwise) pokrivenost je praktična optimalna tačka: hvata veliku klasu bagova nastalih kada jedna vrijednost loše djeluje sa drugom, uz djelić cijene potpune kombinatorne pokrivenosti.</p>
+<h2 id="razrađen-primjer">Razrađen primjer</h2>
+<p>Uzmimo formu sa četiri dimenzije od gore: OS (Windows, macOS, Linux), lokalizacija (en-US, de-DE, ja-JP), browser (Chrome, Firefox, Safari), plaćanje (kartica, PayPal, Apple Pay). Potpuna pokrivenost je 3 × 3 × 3 × 3 = 81 slučaj. Pairwise skup — napravljen tako da se svaki mogući par vrijednosti iz bilo koja dva parametra pojavi zajedno bar jednom — može to da svede na 9 slučajeva:</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Pokretanje</th><th>OS</th><th>Lokalizacija</th><th>Browser</th><th>Plaćanje</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><td>Windows</td><td>en-US</td><td>Chrome</td><td>Kartica</td></tr>
+<tr><td class="num">2</td><td>Windows</td><td>de-DE</td><td>Firefox</td><td>PayPal</td></tr>
+<tr><td class="num">3</td><td>Windows</td><td>ja-JP</td><td>Safari</td><td>Apple Pay</td></tr>
+<tr><td class="num">4</td><td>macOS</td><td>en-US</td><td>Firefox</td><td>Apple Pay</td></tr>
+<tr><td class="num">5</td><td>macOS</td><td>de-DE</td><td>Safari</td><td>Kartica</td></tr>
+<tr><td class="num">6</td><td>macOS</td><td>ja-JP</td><td>Chrome</td><td>PayPal</td></tr>
+<tr><td class="num">7</td><td>Linux</td><td>en-US</td><td>Safari</td><td>PayPal</td></tr>
+<tr><td class="num">8</td><td>Linux</td><td>de-DE</td><td>Chrome</td><td>Apple Pay</td></tr>
+<tr><td class="num">9</td><td>Linux</td><td>ja-JP</td><td>Firefox</td><td>Kartica</td></tr>
+</tbody>
+</table></div>
+<p>Uporedite bilo koje dvije kolone i svaki par vrijednosti pojavljuje se bar jednom — Windows u paru sa svakom lokalizacijom, svakim browserom i svakim načinom plaćanja; <code>de-DE</code> u paru sa svakim browserom; i tako dalje. To je otprilike 9 puta manje pokretanja, a i dalje se provjerava svaka dvosmjerna interakcija, a upravo tu živi većina bagova u interakciji.</p>
+<p>Ovakvu tabelu rijetko treba praviti ručno. Gornja konstrukcija je standardan ortogonalni niz, a besplatni alati je automatski generišu iz tekstualnog modela vaših parametara: Microsoftov open-source <a href="https://github.com/microsoft/pict" target="_blank" rel="noopener noreferrer">PICT</a> uzima kratak fajl sa parametrima i za nekoliko sekundi izbacuje pairwise suite razdvojen tabovima; NIST-ov alat <a href="https://www.nist.gov/node/565361" target="_blank" rel="noopener noreferrer">ACTS</a> ide korak dalje i generiše covering nizove od 1-way do 6-way kroz GUI, CLI ili API, kada pairwise pokrivenost zaista nije dovoljna; a komercijalne platforme poput Hexawise-a dodaju web interfejs i izvještaje na istu ideju. Za većinu timova, jednom propustiti listu parametara kroz PICT i commitovati izlaz u repo pored test suitea je cijeli trošak postavke.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Pairwise testiranje mijenja potpunost za efikasnost, a ta razmjena ima stvarne granice.</p>
+<ul><li><strong>Garantuje samo 2-way pokrivenost.</strong> Bagovi koji se javljaju samo uz određenu kombinaciju tri ili četiri vrijednosti (određeni OS, na određenom browseru, sa određenom lokalizacijom <strong>i</strong> načinom plaćanja istovremeno) mogu potpuno da promaknu pairwise suiteu. Rjeđi su od 2-way bagova u interakciji, ali postoje, naročito u čvrsto povezanim podsistemima kao što su obrada plaćanja ili dozvole uređaja.</li><li><strong>Pretpostavlja da su parametri zaista nezavisni ulazi.</strong> Ako su dva „parametra&quot; zapravo povezana (određeni načini plaćanja nisu dostupni u određenim lokalizacijama), ubacivanje u generički pairwise alat bez zadavanja tog ograničenja daje nevalidne ili protraćene test slučajeve. Većina alata podržava ograničenja (constraints), ali neko mora da ih zada, a taj korak se lako preskoči pod pritiskom roka.</li><li><strong>Ne govori ništa o prioritetu.</strong> Pairwise algoritam tretira svaki parametar i vrijednost kao jednako važne. Ako jedan način plaćanja obrađuje 90% stvarnog saobraćaja, a drugi koristi šačica korisnika, pairwise suite im i dalje daje istu težinu — možda ćete morati da dodate procjenu zasnovanu na riziku umjesto da izlazu algoritma vjerujete onakvom kakav jeste.</li><li><strong>To je tehnika generisanja, ne test oracle.</strong> Alat proizvodi kombinacije ulaza, ne očekivane izlaze. Asercije i dalje morate sami da napišete, a loše izabran skup asercija potkopava savršeno dobar pairwise suite isto kao i bilo koji drugi.</li><li><strong>To nije isto što i property-based testiranje.</strong> Property-based testiranje generiše veliki broj polunasumičnih ulaza da bi provjerilo da li neka invarijanta važi; pairwise testiranje sistematski pokriva interakcije između fiksnog skupa diskretnih parametara. Rješavaju različite probleme i vrijedi ih kombinovati, a ne zamijeniti jedno drugim.</li></ul>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ol><li>Izaberite jednu funkcionalnost sa više od tri nezavisne dimenzije konfiguracije — lokalizacija, uređaj, nivo pretplate, stanje feature flaga, provajder plaćanja — i izlistajte svaki parametar i njegove moguće vrijednosti.</li><li>Propustite tu listu kroz PICT ili ACTS (oba su besplatna) i uporedite veličinu generisanog suitea sa punim kombinatornim brojem. Ta razlika je obično najjasniji argument koji možete da iznesete skeptičnom kolegi ili menadžeru.</li><li>Prije nego što se obavežete na generisani suite, provjerite ga u odnosu na poznate zavisnosti između parametara (nepodržane kombinacije, opcije ograničene na region) i zadajte ih kao ograničenja umjesto da naknadno ručno filtrirate rezultate.</li><li>Ako je funkcionalnost visokog rizika (plaćanja, autentifikacija, migracija podataka), razmislite o generisanju 3-way covering niza umjesto 2-way baš za tu funkcionalnost, i uporedite povećanje broja slučajeva prije nego što odlučite da li je vrijedno dodatnog vremena izvršavanja.</li></ol>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://www.nist.gov/node/565361" target="_blank" rel="noopener noreferrer">NIST — Practical Combinatorial Testing: Beyond Pairwise</a></li><li><a href="https://www.nist.gov/node/565371" target="_blank" rel="noopener noreferrer">NIST — Automated Combinatorial Test Methods: Beyond Pairwise Testing</a></li><li><a href="https://github.com/microsoft/pict" target="_blank" rel="noopener noreferrer">Microsoft PICT (GitHub)</a></li><li><a href="https://www.testrail.com/blog/pairwise-testing/" target="_blank" rel="noopener noreferrer">TestRail — Pairwise Testing Explained with Tools &amp; Examples</a></li><li><a href="https://www.browserstack.com/guide/combinatorial-testing" target="_blank" rel="noopener noreferrer">BrowserStack — What is Combinatorial Testing?</a></li></ul></template>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    </div>
+    <section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../definition-of-done-for-qa/" data-title-sr="Definition of Done za QA: kako se tim dogovori šta zapravo znači „testirano“" data-excerpt-sr="Nejasan Definition of Done svima dozvoljava da pretpostave da je neko drugi testirao granične slučajeve. Evo kako napisati onaj koji zaista hvata bagove prije izdanja."><div class="meta"><time datetime="2026-11-02" data-fmt="short">2 Nov 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Definition of Done for QA: How Teams Agree on What 'Tested' Actually Means</h2><p>A vague Definition of Done lets everyone assume someone else tested the edge cases. Here's how to write one that actually catches bugs before release.</p></a>
+      <a class="post-card card glow" href="../binance-6-3-billion-hack-devops-laptop/" data-title-sr="Pljačka stoljeća: kako je jedan laptop koštao Binance 6,3 milijarde dolara" data-excerpt-sr="Binance je u najvećoj kripto krađi u historiji izgubio oko 6,3 milijarde dolara, a ulaz je bio jedan kompromitovan laptop DevOps inženjera. Šta se desilo i šta iz toga treba ponijeti."><div class="meta"><time datetime="2026-10-30" data-fmt="short">30 Oct 2026</time><span>·</span><span>4 <span data-i18n="min_read">min read</span></span></div><h2>The Heist of the Century: How One Laptop Cost Binance $6.3 Billion</h2><p>Binance lost an estimated $6.3 billion in the largest crypto theft ever, and the way in was a single compromised DevOps laptop. What happened and what to take away from it.</p></a>
+      <a class="post-card card glow" href="../testing-feature-flags-targeting-and-default-bugs/" data-title-sr="Testiranje feature flagova: bagovi koji se kriju iza prekidača" data-excerpt-sr="Testiranje feature flagova obično se završava na uključeno/isključeno. Pravi bagovi žive u pravilima targetiranja, podrazumijevanim vrijednostima i onome što se desi kada flag servis prestane da odgovara."><div class="meta"><time datetime="2026-10-30" data-fmt="short">30 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Testing Feature Flags: The Bugs That Hide Behind the Switch</h2><p>Feature flag testing usually stops at on/off. The real bugs live in targeting rules, default values, and what happens when the flag service goes dark.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <button type="button" data-consent data-i18n="cookies">Cookie settings</button>
+    <a href="../../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../blog/common.js"></script>
+  <script src="../post.js"></script>
+</body>
+</html>

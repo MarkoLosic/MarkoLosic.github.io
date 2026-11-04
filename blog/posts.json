@@ -1,5 +1,21 @@
 [
   {
+    "slug": "pairwise-combinatorial-testing",
+    "title": "Pairwise Testing: Cutting Thousands of Config Combinations Down to a Suite You Can Actually Run",
+    "titleSr": "Pairwise testiranje: kako hiljade kombinacija konfiguracije svesti na test suite koji zaista možete da pokrenete",
+    "excerpt": "How pairwise and combinatorial testing shrink a combinatorial explosion into a small, high-coverage test suite, with a worked example and tool picks.",
+    "excerptSr": "Kako pairwise i kombinatorno testiranje svode kombinatornu eksploziju na mali test suite sa visokom pokrivenošću, uz razrađen primjer i preporuke alata.",
+    "tags": [
+      "qa",
+      "test-automation",
+      "test-design",
+      "methodology",
+      "combinatorial-testing"
+    ],
+    "date": "2026-11-04",
+    "readingTime": 6
+  },
+  {
     "slug": "definition-of-done-for-qa",
     "title": "Definition of Done for QA: How Teams Agree on What 'Tested' Actually Means",
     "titleSr": "Definition of Done za QA: kako se tim dogovori šta zapravo znači „testirano“",
