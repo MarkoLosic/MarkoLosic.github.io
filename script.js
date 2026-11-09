@@ -163,7 +163,7 @@
     bar.style.transform = `scaleX(${h > 0 ? Math.min(y / h, 1) : 0})`;
     let current = '';
     sections.forEach(s => { if (s.offsetParent !== null && s.getBoundingClientRect().top <= innerHeight * .4) current = s.id; });
-    linkEls.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+    linkEls.forEach(a => a.classList.toggle('active', (a.dataset.spy ? '#' + a.dataset.spy : a.getAttribute('href')) === '#' + current));
   };
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();

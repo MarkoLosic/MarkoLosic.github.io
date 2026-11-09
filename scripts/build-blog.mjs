@@ -142,7 +142,7 @@ function shell({ depth, title, description, canonical, type = 'website', image =
       <span class="brand-name">Marko&nbsp;Lošić</span>
     </a>
     <nav class="links" id="links" aria-label="Primary">
-      <a href="${root}#about" data-i18n="nav_about">About</a>
+      <a href="${root}#top" data-i18n="nav_about">About</a>
       <a href="${root}#skills" data-i18n="nav_skills">Skills</a>
       <a href="${root}#experience" data-i18n="nav_exp">Experience</a>
       <a href="${root}blog/" class="active" data-i18n="nav_blog">Blog</a>
