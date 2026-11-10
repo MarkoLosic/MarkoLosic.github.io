@@ -4,7 +4,7 @@ window.PAGE_SR = {
   cta_cv: 'Preuzmi CV',
   pl_eyebrow: 'Studija slučaja · Bravo System',
   pl_h1: 'Kako isporučujem <span class="grad">pouzdan</span> softver.',
-  pl_lede: 'Svaki pull request na Biolink platformi prolazi kroz istu kontrolu kvaliteta: izolovan Docker stack, Playwright E2E suite i Maestro mobilne tokove. Ništa se ne merge-uje dok sve nije zeleno. Prođi kroz to ispod, ili pokreni pipeline i gledaj kako hvata defekt.',
+  pl_lede: 'Svaki pull request na proizvodu prolazi kroz istu kontrolu kvaliteta: izolovan Docker stack, Playwright E2E suite i Maestro mobilne tokove. Ništa se ne merge-uje dok sve nije zeleno. Prođi kroz to ispod, ili pokreni pipeline i gledaj kako hvata defekt.',
   pl_note: '<b>Ilustrativni prikaz.</b> Kod klijenta je pod NDA, pa su isječci koda, nazivi testova i trace podaci ovdje pojednostavljeni, anonimizovani primjeri stvarnog sistema — ne produkcijski kod.',
   pl_m1k: 'Regresioni ciklus',
   pl_m1s: 'ranije cijeli dan ručnog testiranja',

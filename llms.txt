@@ -2,7 +2,7 @@
 
 > QA Engineer based in Banja Luka, Bosnia and Herzegovina, with 6+ years in manual and automated testing of web apps, mobile apps and browser extensions. Currently QA Engineer at Bravo System (Playwright with C#, Maestro, LLM testing); previously QA Engineer & Oracle APEX Developer at Krajina Klas (Cypress).
 
-Highlights: cut regression testing on the Biolink platform from a full day to about 30 minutes; 1000+ releases tested, 500+ automated tests, 50+ products covered; tests a local LLM (Llama 3) for product analytics with 100 hand-written prompts, every answer validated in a table.
+Highlights: cut regression testing on the product from a full day to about 30 minutes; 1000+ releases tested, 500+ automated tests, 50+ products covered; tests a local LLM (Llama 3) for product analytics with 100 hand-written prompts, every answer validated in a table.
 
 Contact: markolosic1993@gmail.com
 

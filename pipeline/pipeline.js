@@ -107,7 +107,7 @@ public abstract class BaseTest : PageTest
         'Onboarding, paywall and publishing flows covered end to end',
         'Runs headless against an Android emulator in CI'
       ],
-      code: `appId: com.example.biolink
+      code: `appId: com.example.app
 tags:
   - smoke
   - mobile-release
@@ -248,7 +248,7 @@ OWASP A07: Identification and Authentication Failures → covered` }
     {
       file: 'onboarding.yaml', suite: 'Maestro · Android emulator', duration: '3,110ms',
       source: `# Maestro flow
-appId: com.example.biolink
+appId: com.example.app
 ---
 - launchApp:
     clearState: true
@@ -258,9 +258,9 @@ appId: com.example.biolink
     id: "auth-submit-btn"
 - assertVisible: "Create your first page"`,
       steps: [
-        { action: 'launchApp (clearState: true)', locator: 'com.example.biolink', time: 1240, url: 'android://pixel-7-api-34/onboarding', view: 'mobile',
+        { action: 'launchApp (clearState: true)', locator: 'com.example.app', time: 1240, url: 'android://pixel-7-api-34/onboarding', view: 'mobile',
           net: `Device: emulator-5554 (Pixel 7, API 34)
-Cold start 1.2s · com.example.biolink in focus` },
+Cold start 1.2s · com.example.app in focus` },
         { action: 'tapOn(id: "auth-submit-btn") + assertVisible', locator: 'id: "auth-submit-btn"', time: 870, url: 'android://pixel-7-api-34/home', view: 'mobileHome',
           net: `POST /api/v2/mobile/session → 200 OK (94ms)
 UI hierarchy: TextView["Create your first page"] visible=true` }
