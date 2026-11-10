@@ -15,9 +15,9 @@ QA Engineer with 6+ years of experience in manual and automated testing of web a
 ## Key numbers
 
 - 6+ years in QA
-- 1000+ releases tested
+- Regression testing cut from a full day to about 30 minutes
 - 500+ automated tests
-- 50+ products covered
+- 100 domain-specific LLM prompts, every answer graded by hand
 
 ## Experience
 
