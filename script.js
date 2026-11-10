@@ -122,6 +122,11 @@
     ct_p: 'Hajde da razgovaramo o kvalitetu, automatizaciji ili vašem sljedećem izdanju. Rado se povezujem sa kolegama inženjerima, timovima i regruterima.',
     ct_mail: 'Pošalji imejl', ct_copy: 'Kopiraj imejl', ct_copied: 'Kopirano ✓',
     k_email: 'Imejl', k_loc: 'Lokacija',
+    cs_eyebrow: 'Studije slučaja', cs_h: 'Pogledaj kako radim, ne samo šta navodim.', cs_more: 'Pogledaj studiju slučaja',
+    cs1_n: 'Studija slučaja 01 · interaktivno', cs1_t: 'Kako isporučujem pouzdan softver',
+    cs1_d: 'QA pipeline iza svakog pull request-a: Playwright sa C#-om u Docker-u, Maestro mobilni tokovi i kontrola koja blokira merge. Pokreni ga i gledaj kako hvata defekt.',
+    cs2_n: 'Studija slučaja 02 · kvalitet AI-ja', cs2_t: 'Testiranje lokalnog LLM-a za analitiku proizvoda',
+    cs2_d: '100 stručnih promptova koje sam napisao, sa tačnim odgovorom utvrđenim iz podataka, i svaki Llama 3 odgovor ručno ocijenjen u tabeli po tačnosti, dosljednosti i bezbjednosti.',
     j1_more: 'Pogledaj kako ovaj pipeline radi', j1_more2: 'Kako testiram LLM-ove',
     ai_case: 'Testiram i AI: pogledaj kako provjeravam lokalni Llama 3 model kroz 100 promptova iz analitike proizvoda',
     foot: 'Testirano pažljivo. Isporučeno zeleno. ✓', top: 'Na vrh ↑', cookies: 'Postavke kolačića'

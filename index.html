@@ -413,6 +413,45 @@
       </div>
     </section>
 
+    <!-- CASE STUDIES: visual entry points to /pipeline/ and /llm-testing/ (previews are plain HTML/CSS) -->
+    <section id="case-studies" class="wrap section">
+      <div class="sec-head reveal"><span class="eyebrow"><span class="sec-num" aria-hidden="true"></span><span data-i18n="cs_eyebrow">Case studies</span></span><h2 data-i18n="cs_h">See how I work, not just what I list.</h2></div>
+      <div class="cases">
+        <a class="case card glow reveal" href="pipeline/">
+          <div class="case-vis" aria-hidden="true">
+            <div class="mini-status"><i class="bad"></i>workflow #1843 · merge blocked</div>
+            <div class="mini-stages">
+              <span class="ok"><b>01</b>PR &amp; Docker<em>✓</em></span>
+              <span class="bad"><b>02</b>Web E2E<em>✕ 1</em></span>
+              <span class="ok"><b>03</b>Maestro<em>✓</em></span>
+              <span class="warn"><b>04</b>Gate<em>⚠</em></span>
+            </div>
+            <div class="mini-code"><span class="k">await</span> Expect(Toast).ToContainTextAsync(<span class="s">"Published"</span>);<br><span class="bad-t">✕ But was: 'Failed to publish changes (Error 500)'</span></div>
+          </div>
+          <div class="case-body">
+            <span class="case-n" data-i18n="cs1_n">Case study 01 · interactive</span>
+            <h3 data-i18n="cs1_t">How I ship reliable software</h3>
+            <p data-i18n="cs1_d">The QA pipeline behind every pull request: Playwright with C# in Docker, Maestro mobile flows and a gate that blocks the merge. Run it and watch it catch a defect.</p>
+            <div class="chips tiny"><span>Playwright</span><span>C#</span><span>Docker</span><span>GitHub Actions</span><span>Maestro</span></div>
+            <span class="case-more"><span data-i18n="cs_more">Explore the case study</span> <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+          </div>
+        </a>
+        <a class="case card glow reveal" href="llm-testing/">
+          <div class="case-vis" aria-hidden="true">
+            <div class="mini-status"><i class="ok"></i>84 correct · 10 partial · 6 wrong</div>
+            <div class="mini-heat"><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="bad"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="warn"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="warn"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="bad"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="warn"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="bad"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="warn"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="warn"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="warn"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="warn"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="bad"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="warn"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="warn"></i><i class="ok"></i><i class="ok"></i><i class="bad"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="bad"></i><i class="ok"></i><i class="ok"></i><i class="ok"></i><i class="warn"></i><i class="ok"></i><i class="ok"></i></div>
+          </div>
+          <div class="case-body">
+            <span class="case-n" data-i18n="cs2_n">Case study 02 · AI quality</span>
+            <h3 data-i18n="cs2_t">Testing a local LLM for product analytics</h3>
+            <p data-i18n="cs2_d">100 domain prompts I wrote, with the correct answer worked out from the data, and every Llama 3 answer graded by hand in a table for correctness, consistency and safety.</p>
+            <div class="chips tiny"><span>Llama 3</span><span>100 prompts</span><span>Manual evaluation</span><span>Product analytics</span></div>
+            <span class="case-more"><span data-i18n="cs_more">Explore the case study</span> <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+          </div>
+        </a>
+      </div>
+    </section>
+
     <!-- EDUCATION -->
     <section id="education" class="wrap section">
       <div class="sec-head reveal"><span class="eyebrow"><span class="sec-num" aria-hidden="true"></span><span data-i18n="nav_edu">Education</span></span><h2 data-i18n="edu_h">Learning, always.</h2></div>
