@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Testing Local LLMs — Marko Lošić</title>
+  <meta name="description" content="Case study: how Marko Lošić tests a locally hosted Llama 3 model for product analytics — 100 expert prompts, each answer validated by hand in a table for correctness, consistency and safety.">
+  <link rel="canonical" href="https://markolosic.github.io/llm-testing/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Testing Local LLMs — Marko Lošić">
+  <meta property="og:description" content="100 expert prompts about product analytics, every answer from a local Llama 3 validated by hand in a table.">
+  <meta property="og:url" content="https://markolosic.github.io/llm-testing/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/marko.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Testing Local LLMs — Marko Lošić">
+  <meta name="twitter:description" content="100 expert prompts about product analytics, every answer from a local Llama 3 validated by hand in a table.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/marko.jpg">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/fonts.css">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../blog/blog.css">
+  <link rel="stylesheet" href="../pipeline/pipeline.css">
+  <link rel="stylesheet" href="llm.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../#top" data-i18n="nav_about">About</a>
+      <a href="../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../#education" data-i18n="nav_edu">Education</a>
+      <a href="../blog/" data-i18n="nav_blog">Blog</a>
+      <a href="../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- INTRO -->
+    <section class="wrap pl-hero">
+      <a class="pl-back" href="../#ai">← AI</a>
+      <span class="eyebrow" data-i18n="lm_eyebrow">Case study · AI quality</span>
+      <h1 class="pl-h1" data-i18n="lm_h1">Testing a local LLM for <span class="grad">product analytics</span>.</h1>
+      <p class="pl-lede" data-i18n="lm_lede">On two projects, a locally hosted Llama 3 model answers questions about product analytics. An answer that sounds confident but gets a number or a trend wrong is worse than no answer. So I wrote 100 prompts from the domain, worked out the correct answer for each from the data, and validated every model answer by hand in a table.</p>
+      <p class="pl-note" data-i18n="lm_note"><b>Illustrative replay.</b> The model is a locally hosted Llama 3. The project is under NDA, so the prompts, data and results shown here are representative examples of the method, not the real ones.</p>
+
+      <div class="pl-metrics">
+        <div class="pl-metric"><span class="pl-k" data-i18n="lm_m1k">Prompts</span><b class="pl-info">100</b><span class="pl-s" data-i18n="lm_m1s">written by me, from the product-analytics domain</span></div>
+        <div class="pl-metric"><span class="pl-k" data-i18n="lm_m2k">Validation</span><b data-i18n="lm_m2b">One table</b><span class="pl-s" data-i18n="lm_m2s">one row per prompt, every answer graded</span></div>
+        <div class="pl-metric"><span class="pl-k" data-i18n="lm_m3k">Criteria</span><b class="pl-ok">3</b><span class="pl-s" data-i18n="lm_m3s">correctness · consistency · safety</span></div>
+        <div class="pl-metric"><span class="pl-k" data-i18n="lm_m4k">Method</span><b data-i18n="lm_m4b">Manual</b><span class="pl-s" data-i18n="lm_m4s">judging an analytics answer takes domain knowledge</span></div>
+      </div>
+    </section>
+
+    <!-- COVERAGE -->
+    <section class="wrap pl-section" aria-labelledby="lm-cov-h">
+      <div class="pl-bar">
+        <div>
+          <span class="pl-step">01</span>
+          <h2 id="lm-cov-h" class="pl-h2" data-i18n="lm_h2a">What the 100 prompts cover</h2>
+          <p class="pl-hint" data-i18n="lm_hint1">Four kinds of questions, from everyday numbers to the cases built to trip the model up.</p>
+        </div>
+      </div>
+      <p class="pl-status" id="lm-summary" role="status"></p>
+      <div class="lm-pillars lm-cats" id="lm-cats"></div>
+    </section>
+
+    <!-- EXPLORER -->
+    <section class="wrap pl-section" aria-labelledby="lm-exp-h">
+      <div class="pl-bar">
+        <div>
+          <span class="pl-step">02</span>
+          <h2 id="lm-exp-h" class="pl-h2" data-i18n="lm_h2b">Inside the 100 prompts</h2>
+          <p class="pl-hint" data-i18n="lm_hint2">Every square is one prompt. Six of them (outlined) are open in detail: pick one to see the data, the expected answer, what the model said and how I graded it.</p>
+        </div>
+      </div>
+
+      <div class="lm-explorer">
+        <div class="card lm-left">
+          <div class="lm-filters" role="group" aria-label="Filter" id="lm-filters"></div>
+          <div class="lm-heat" id="lm-heat"></div>
+          <div class="lm-legend pl-mono">
+            <span><i class="lm-sw pass"></i><span data-i18n="lm_lg1">Correct</span></span><span><i class="lm-sw drift"></i><span data-i18n="lm_lg2">Partial</span></span><span><i class="lm-sw fail"></i><span data-i18n="lm_lg3">Wrong</span></span><span><i class="lm-sw feat"></i><span data-i18n="lm_lg4">Open in detail</span></span>
+          </div>
+          <p class="lm-cellinfo pl-mono" id="lm-cellinfo" aria-live="polite"></p>
+          <span class="pl-k" data-i18n="lm_featk">Featured prompts</span>
+          <div class="lm-feat" id="lm-feat"></div>
+        </div>
+
+        <div class="lm-insp">
+          <div class="lm-insp-h">
+            <div class="lm-insp-id"><span class="pl-tag" id="lm-id"></span><span class="pl-muted" id="lm-cat"></span></div>
+            <div class="pl-seg lm-views" role="group" aria-label="View">
+              <button type="button" data-view="diff" aria-pressed="true" data-i18n="lm_v1">Prompt &amp; answer</button>
+              <button type="button" data-view="table" aria-pressed="false" data-i18n="lm_v2">Validation table</button>
+            </div>
+          </div>
+
+          <div class="lm-body" id="lm-diff">
+            <div class="lm-io">
+              <div class="lm-box">
+                <div class="lm-box-h"><span data-i18n="lm_in">Data the model gets</span></div>
+                <pre id="lm-input"></pre>
+              </div>
+              <div class="lm-box">
+                <div class="lm-box-h"><span>Prompt</span></div>
+                <p class="lm-prompt" id="lm-prompt"></p>
+                <div class="lm-inv"><span class="pl-muted" data-i18n="lm_exp">Correct answer (from the data):</span> <span class="pl-ok" id="lm-inv"></span></div>
+              </div>
+            </div>
+
+            <div class="lm-out" id="lm-out">
+              <div class="lm-out-h"><span><b data-i18n="lm_ans">Model answer</b> <span class="pl-badge" id="lm-verdict"></span></span><span class="pl-mono pl-muted">Llama 3 · local</span></div>
+              <pre class="lm-out-text" id="lm-output"></pre>
+            </div>
+
+            <div class="lm-box">
+              <div class="lm-box-h"><span data-i18n="lm_row">My row in the table</span></div>
+              <div class="lm-asserts" id="lm-asserts"></div>
+              <p class="lm-why" id="lm-why"></p>
+            </div>
+          </div>
+
+          <div class="lm-body" id="lm-table" hidden>
+            <p class="lm-why" data-i18n="lm_tbl_hint">An excerpt from the validation table. Click an outlined row to open it in detail.</p>
+            <div class="lm-sheet"><table id="lm-sheet"></table></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="wrap pl-section" aria-labelledby="lm-proc-h">
+      <div class="pl-bar">
+        <div>
+          <span class="pl-step">03</span>
+          <h2 id="lm-proc-h" class="pl-h2" data-i18n="lm_h2c">How I work</h2>
+        </div>
+      </div>
+      <ol class="lm-process">
+        <li class="card"><span class="ai-n">01</span><h3 data-i18n="lm_p1t">Write the prompts</h3><p data-i18n="lm_p1d">100 questions a product team actually asks about its analytics, plus the ones nobody asks on purpose: empty periods, missing fields, odd date ranges, instructions hidden in user text.</p></li>
+        <li class="card"><span class="ai-n">02</span><h3 data-i18n="lm_p2t">Work out the right answer</h3><p data-i18n="lm_p2d">For every prompt I take the correct answer from the data itself, before asking the model. The model is judged against the data, not against what sounds reasonable.</p></li>
+        <li class="card"><span class="ai-n">03</span><h3 data-i18n="lm_p3t">Grade every answer</h3><p data-i18n="lm_p3d">Each answer gets a row in the table: correct, consistent with related prompts, safe. A short note explains every partial or wrong grade.</p></li>
+        <li class="card"><span class="ai-n">04</span><h3 data-i18n="lm_p4t">Report and re-check</h3><p data-i18n="lm_p4d">Wrong and partial answers go to the team with the table row as evidence. After a change to the model or the prompt template, I run the affected prompts again.</p></li>
+      </ol>
+
+      <div class="pl-more lm-more">
+        <a class="card glow" href="../pipeline/"><span class="pl-k" data-i18n="lm_where">The automated side</span><h3 data-i18n="lm_pipe">My QA pipeline: Playwright and Maestro on every PR</h3></a>
+        <a class="card glow" href="../blog/testing-non-deterministic-ai-features/"><span class="pl-k">Blog</span><h3 data-i18n="bt_nondet">Testing AI features that don't give the same answer twice</h3></a>
+        <a class="card glow" href="../blog/testing-ai-agents-tool-calls-side-effects/"><span class="pl-k">Blog</span><h3 data-i18n="bt_agents">Testing AI agents that take actions</h3></a>
+        <a class="card glow" href="../blog/ai-generated-test-data-blind-spots/"><span class="pl-k">Blog</span><h3 data-i18n="bt_data">AI-generated test data and its blind spots</h3></a>
+      </div>
+      <div class="cta">
+        <a class="btn primary" href="../#contact"><span data-i18n="contact_cta">Get in touch</span>
+          <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></a>
+        <a class="btn ghost" href="../assets/Marko-Losic-CV.pdf" download data-i18n="cta_cv">Download CV</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../#contact" data-i18n="contact_cta">Get in touch</a>
+    <button type="button" data-consent data-i18n="cookies">Cookie settings</button>
+    <a href="../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="sr.js"></script>
+  <script src="../blog/common.js"></script>
+  <script src="llm.js"></script>
+</body>
+</html>

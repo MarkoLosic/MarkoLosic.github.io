@@ -9,7 +9,7 @@
 
   /* ---------- i18n (English lives in the HTML; Serbian is swapped in — same pattern and localStorage key as the main site) ---------- */
   const SR = {
-    nav_about: 'O meni', nav_skills: 'Vještine', nav_exp: 'Iskustvo', nav_blog: 'Blog', nav_contact: 'Kontakt',
+    nav_about: 'O meni', nav_skills: 'Vještine', nav_ai: 'AI', nav_exp: 'Iskustvo', nav_edu: 'Obrazovanje', nav_blog: 'Blog', nav_contact: 'Kontakt',
     blog_h1: 'Bilješke sa <span class="grad">testerske klupe</span>.',
     blog_lead: 'Pišem o QA-u, automatizaciji testiranja, mobilnom i AI testiranju, i o tome šta učim gradeći softver.',
     search_ph: 'Pretraži članke…',
@@ -27,6 +27,8 @@
     copy_fail: 'Pritisni Ctrl/Cmd+C',
     cookies: 'Postavke kolačića'
   };
+  // Pages can add their own Serbian strings (see pipeline/sr.js, llm-testing/sr.js)
+  Object.assign(SR, window.PAGE_SR || {});
 
   const i18nNodes = $$('[data-i18n]');
   i18nNodes.forEach(n => { n.dataset.en = n.innerHTML; });

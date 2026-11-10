@@ -1,0 +1,7 @@
+# GitHub Pages (Jekyll) settings. The site itself is plain HTML; this file only keeps
+# build sources out of the published site.
+#  - scripts/  build script and the CV source (contains contact details meant only for the PDF)
+#  - content/  Markdown sources of the blog; the real pages are generated into blog/
+exclude:
+  - scripts
+  - content

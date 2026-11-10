@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How I Ship Reliable Software — Marko Lošić</title>
+  <meta name="description" content="An interactive walkthrough of the QA pipeline Marko Lošić runs on every pull request: Playwright E2E in C# inside Docker, Maestro mobile flows and a merge-blocking quality gate.">
+  <link rel="canonical" href="https://markolosic.github.io/pipeline/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="How I Ship Reliable Software — Marko Lošić">
+  <meta property="og:description" content="Click through the QA pipeline: Playwright (C#) in Docker on every PR, Maestro mobile flows and a quality gate that blocks the merge.">
+  <meta property="og:url" content="https://markolosic.github.io/pipeline/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/marko.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How I Ship Reliable Software — Marko Lošić">
+  <meta name="twitter:description" content="Click through the QA pipeline: Playwright (C#) in Docker on every PR, Maestro mobile flows and a quality gate that blocks the merge.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/marko.jpg">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/fonts.css">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../blog/blog.css">
+  <link rel="stylesheet" href="pipeline.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../#top" data-i18n="nav_about">About</a>
+      <a href="../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../#education" data-i18n="nav_edu">Education</a>
+      <a href="../blog/" data-i18n="nav_blog">Blog</a>
+      <a href="../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- INTRO -->
+    <section class="wrap pl-hero">
+      <a class="pl-back" href="../#experience">← <span data-i18n="nav_exp">Experience</span></a>
+      <span class="eyebrow" data-i18n="pl_eyebrow">Case study · Bravo System</span>
+      <h1 class="pl-h1" data-i18n="pl_h1">How I ship <span class="grad">reliable</span> software.</h1>
+      <p class="pl-lede" data-i18n="pl_lede">Every pull request on the Biolink platform goes through the same quality gate: an isolated Docker stack, the Playwright E2E suite and Maestro mobile flows. Nothing merges until it's green. Click through it below, or run the pipeline and watch it catch a defect.</p>
+      <p class="pl-note" data-i18n="pl_note"><b>Illustrative replay.</b> Client code is under NDA, so the snippets, spec names and trace data here are simplified, anonymised examples of the real setup — not production code.</p>
+
+      <div class="pl-metrics">
+        <div class="pl-metric">
+          <span class="pl-k" data-i18n="pl_m1k">Regression cycle</span>
+          <b class="pl-ok">~30 min</b>
+          <span class="pl-s" data-i18n="pl_m1s">was a full day of manual testing</span>
+        </div>
+        <div class="pl-metric">
+          <span class="pl-k">Web E2E</span>
+          <b class="pl-info">Playwright</b>
+          <span class="pl-s">C# · .NET · Page Object Model</span>
+        </div>
+        <div class="pl-metric">
+          <span class="pl-k" data-i18n="pl_m3k">Runs on</span>
+          <b data-i18n="pl_m3b">Every PR</b>
+          <span class="pl-s">Docker + GitHub Actions</span>
+        </div>
+        <div class="pl-metric">
+          <span class="pl-k" data-i18n="pl_m4k">Mobile</span>
+          <b class="pl-info">Maestro</b>
+          <span class="pl-s" data-i18n="pl_m4s">YAML flows · Android &amp; iOS</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PIPELINE -->
+    <section class="wrap pl-section" aria-labelledby="pl-pipe-h">
+      <div class="pl-bar">
+        <div>
+          <span class="pl-step">01</span>
+          <h2 id="pl-pipe-h" class="pl-h2" data-i18n="pl_h2a">The pipeline</h2>
+          <p class="pl-hint" data-i18n="pl_hint1">Pick a scenario, run it, then click any stage to see how it's built.</p>
+        </div>
+        <div class="pl-controls">
+          <div class="pl-seg" role="group" aria-label="Scenario">
+            <button type="button" id="pl-pass" aria-pressed="true"><i class="pl-dot ok"></i><span data-i18n="pl_pass">Passing PR</span></button>
+            <button type="button" id="pl-defect" aria-pressed="false"><i class="pl-dot bad"></i><span data-i18n="pl_defect">Caught defect</span></button>
+          </div>
+          <button type="button" class="btn primary pl-run" id="pl-run">
+            <svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/></svg>
+            <span id="pl-run-label">Run pipeline</span>
+          </button>
+        </div>
+      </div>
+
+      <p class="pl-status" id="pl-status" role="status" aria-live="polite"></p>
+      <div class="pl-stages" id="pl-stages"></div>
+
+      <div class="pl-detail card">
+        <div class="pl-detail-copy">
+          <div class="pl-detail-meta">
+            <span class="pl-tag" id="pl-d-badge"></span>
+            <span class="pl-mono pl-muted" id="pl-d-time"></span>
+          </div>
+          <h3 id="pl-d-title"></h3>
+          <p id="pl-d-desc"></p>
+          <span class="pl-k" data-i18n="pl_keyp">Key practices</span>
+          <ul class="pl-bullets" id="pl-d-bullets"></ul>
+        </div>
+        <div class="pl-code">
+          <div class="pl-code-bar">
+            <span class="pl-lights" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="pl-file" id="pl-d-file"></span>
+            <button type="button" class="pl-copy" id="pl-copy">Copy</button>
+          </div>
+          <pre><code id="pl-d-code"></code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRACE VIEWER -->
+    <section class="wrap pl-section" aria-labelledby="pl-trace-h">
+      <div class="pl-bar">
+        <div>
+          <span class="pl-step">02</span>
+          <h2 id="pl-trace-h" class="pl-h2" data-i18n="pl_h2b">Inside a test run</h2>
+          <p class="pl-hint" data-i18n="pl_hint2">A trace-viewer style look at three specs. Pick a spec and a step to see the snapshot, network log and source.</p>
+        </div>
+      </div>
+
+      <div class="pl-trace">
+        <div class="pl-trace-top">
+          <span class="pl-lights" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="pl-mono" data-i18n="pl_tv">Trace viewer &amp; quality report</span>
+          <span class="pl-pill" id="pl-suite-pill"></span>
+        </div>
+        <div class="pl-timeline">
+          <span class="pl-mono pl-muted">0ms</span>
+          <div class="pl-tl-bars" id="pl-tl"></div>
+          <span class="pl-mono pl-ok" id="pl-tl-total"></span>
+        </div>
+
+        <div class="pl-trace-grid">
+          <div class="pl-col">
+            <div class="pl-col-h"><span data-i18n="pl_specs">Specs (3)</span></div>
+            <div class="pl-specs" id="pl-specs"></div>
+          </div>
+          <div class="pl-col">
+            <div class="pl-col-h"><span data-i18n="pl_actions">Actions &amp; assertions</span><span class="pl-info pl-trunc" id="pl-active-spec"></span></div>
+            <div class="pl-steps" id="pl-steps"></div>
+          </div>
+          <div class="pl-col pl-col-last">
+            <div class="pl-col-h">
+              <span data-i18n="pl_snap">Snapshot</span>
+              <span class="pl-trunc pl-muted" id="pl-snap-url"></span>
+            </div>
+            <div class="pl-snap-wrap">
+              <span class="pl-locator" id="pl-snap-loc"></span>
+              <div class="pl-snap" id="pl-snap"></div>
+            </div>
+            <div class="pl-tabs" role="tablist" aria-label="Inspector">
+              <button type="button" role="tab" id="pl-tab-network" data-tab="network" aria-selected="true" aria-controls="pl-tabpanel" data-i18n="pl_tab1">Network &amp; console</button>
+              <button type="button" role="tab" id="pl-tab-source" data-tab="source" aria-selected="false" aria-controls="pl-tabpanel" data-i18n="pl_tab2">Source</button>
+            </div>
+            <div class="pl-tabpanel" id="pl-tabpanel" role="tabpanel" tabindex="0"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- READ MORE -->
+    <section class="wrap pl-section">
+      <div class="pl-bar">
+        <div>
+          <span class="pl-step">03</span>
+          <h2 class="pl-h2" data-i18n="pl_h2c">The thinking behind it</h2>
+          <p class="pl-hint" data-i18n="pl_hint3">Each piece of this pipeline has a longer write-up on the blog.</p>
+        </div>
+      </div>
+      <div class="pl-more">
+        <a class="card glow" href="../blog/sharding-tests-github-actions/"><span class="pl-k" data-i18n="pl_st12">Stage 01–02</span><h3 data-i18n="bt_shard">Splitting a slow test suite across GitHub Actions without losing signal</h3></a>
+        <a class="card glow" href="../blog/asserting-too-early-flaky-playwright-tests/"><span class="pl-k" data-i18n="pl_st2">Stage 02</span><h3 data-i18n="bt_early">Asserting too early: the quiet source of flaky Playwright tests</h3></a>
+        <a class="card glow" href="../blog/maestro-mobile-test-automation/"><span class="pl-k" data-i18n="pl_st3">Stage 03</span><h3 data-i18n="bt_maestro">Writing reliable mobile test automation with Maestro</h3></a>
+        <a class="card glow" href="../llm-testing/"><span class="pl-k" data-i18n="pl_st4">Outside the pipeline</span><h3 data-i18n="bt_llm">How I test a local Llama 3 by hand with 100 expert prompts</h3></a>
+      </div>
+      <div class="cta">
+        <a class="btn primary" href="../#contact"><span data-i18n="contact_cta">Get in touch</span>
+          <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></a>
+        <a class="btn ghost" href="../assets/Marko-Losic-CV.pdf" download data-i18n="cta_cv">Download CV</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../#contact" data-i18n="contact_cta">Get in touch</a>
+    <button type="button" data-consent data-i18n="cookies">Cookie settings</button>
+    <a href="../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="sr.js"></script>
+  <script src="../blog/common.js"></script>
+  <script src="pipeline.js"></script>
+</body>
+</html>

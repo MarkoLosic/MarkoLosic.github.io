@@ -144,7 +144,9 @@ function shell({ depth, title, description, canonical, type = 'website', image =
     <nav class="links" id="links" aria-label="Primary">
       <a href="${root}#top" data-i18n="nav_about">About</a>
       <a href="${root}#skills" data-i18n="nav_skills">Skills</a>
+      <a href="${root}#ai" data-i18n="nav_ai">AI</a>
       <a href="${root}#experience" data-i18n="nav_exp">Experience</a>
+      <a href="${root}#education" data-i18n="nav_edu">Education</a>
       <a href="${root}blog/" class="active" data-i18n="nav_blog">Blog</a>
       <a href="${root}#contact" data-i18n="nav_contact">Contact</a>
     </nav>
@@ -293,10 +295,29 @@ for (const p of posts) {
 /* posts.json (home page + client use) */
 write(rel('blog/posts.json'), JSON.stringify(posts.map(({ slug, title, title_sr, excerpt, excerpt_sr, tags, published_at, reading_time }) => ({ slug, title, titleSr: title_sr, excerpt, excerptSr: excerpt_sr, tags, date: published_at, readingTime: reading_time })), null, 2));
 
+/* home page: the 3 latest posts, written into index.html so they are in the HTML without JavaScript */
+{
+  const home = fs.readFileSync(rel('index.html'), 'utf8');
+  const start = '<!-- LATEST:START -->', end = '<!-- LATEST:END -->';
+  const i = home.indexOf(start), j = home.indexOf(end);
+  if (i < 0 || j < i) throw new Error('index.html: LATEST markers not found');
+  const latest = posts.slice(0, 3).map(p => `
+        <a class="post-card card glow reveal in" href="blog/${p.slug}/">
+            <div class="meta"><span>${fmtShort(p.published_at)}</span><span>·</span><span>${p.reading_time} min read</span></div>
+            <h2>${esc(p.title)}</h2><p>${esc(p.excerpt)}</p>
+            <div class="tags">${tagSpans(p.tags)}</div></a>`).join('');
+  let out = home.slice(0, i + start.length) + latest + '\n      ' + home.slice(j);
+  // no posts: keep the section out of view
+  out = out.replace(/<section id="blog" class="wrap section"( hidden)?>/, `<section id="blog" class="wrap section"${posts.length ? '' : ' hidden'}>`);
+  write(rel('index.html'), out);
+}
+
 /* sitemap, rss, robots */
 const urls = [
   { loc: `${SITE}/`, lastmod: posts[0] ? String(posts[0].updated_at).slice(0, 10) : undefined },
   { loc: `${SITE}/blog/`, lastmod: posts[0] ? String(posts[0].updated_at).slice(0, 10) : undefined },
+  { loc: `${SITE}/pipeline/` },
+  { loc: `${SITE}/llm-testing/` },
   ...posts.map(p => ({ loc: `${SITE}/blog/${p.slug}/`, lastmod: String(p.updated_at).slice(0, 10) }))
 ];
 write(rel('sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u => `  <url><loc>${u.loc}</loc>${u.lastmod ? `<lastmod>${u.lastmod}</lastmod>` : ''}</url>`).join('\n')}\n</urlset>\n`);

@@ -4,14 +4,13 @@ QA Engineer · Test Automation
 Banja Luka, Bosnia and Herzegovina
 
 - Email: markolosic1993@gmail.com
-- Phone: +387 63 759 197
 - Website: https://markolosic.github.io/
 - LinkedIn: https://www.linkedin.com/in/markološić/
 - GitHub: https://github.com/MarkoLosic
 
 ## Summary
 
-QA Engineer with 6+ years of experience in manual and automated testing of web applications, mobile applications and browser extensions. Automates web tests in Playwright (TypeScript, JavaScript, Page Object Model) and mobile flows in Maestro, with earlier Cypress experience, and runs suites in Jenkins and GitHub Actions CI/CD pipelines. Also tests local LLMs and develops database-driven applications in Oracle APEX with SQL and PL/SQL.
+QA Engineer with 6+ years of experience in manual and automated testing of web applications, mobile applications and browser extensions. Automates web tests in Playwright (C#, Page Object Model) and mobile flows in Maestro, with earlier Cypress experience, and runs suites in Jenkins and GitHub Actions CI/CD pipelines. Also tests local LLMs and develops database-driven applications in Oracle APEX with SQL and PL/SQL.
 
 ## Key numbers
 
@@ -25,12 +24,12 @@ QA Engineer with 6+ years of experience in manual and automated testing of web a
 ### QA Engineer, Bravo System, Banja Luka
 Jun 2022 – Present
 
-- Cut regression testing on the Biolink platform from a full day to about 30 minutes by building and maintaining an automated Playwright suite (TypeScript, Page Object Model) that runs in Docker on every pull request via GitHub Actions; on other projects, suites run in Jenkins pipelines.
+- Cut regression testing on the Biolink platform from a full day to about 30 minutes by building and maintaining an automated Playwright suite (C#, Page Object Model) that runs in Docker on every pull request via GitHub Actions; on other projects, suites run in Jenkins pipelines.
 - Automate mobile app flows with Maestro across several projects, including the Biolink platform.
-- Test local LLMs that analyse analytics data on two projects, combining an automated suite of 100 prompts with manual testing.
+- Test a local LLM (Llama 3) for product analytics on two projects: wrote 100 domain-specific prompts and validated every answer in a table for correctness, consistency and safety.
 - Manually test web applications, mobile applications and browser extensions to ensure high quality across releases.
 
-Tools: Playwright, Maestro, TypeScript, JavaScript
+Tools: Playwright, C#, Maestro
 
 ### QA Engineer & Oracle APEX Developer, Krajina Klas, Banja Luka
 Jan 2020 – Jun 2022
@@ -41,7 +40,7 @@ Jan 2020 – Jun 2022
 - Contributed insights and suggestions during development to improve software quality.
 - Designed and developed database-driven applications in Oracle APEX.
 
-Tools: Cypress, Oracle APEX, SQL, PL/SQL
+Tools: Cypress, TypeScript, Oracle APEX, SQL, PL/SQL
 
 ### Earlier experience
 
@@ -60,9 +59,9 @@ Writes about test automation and QA at https://markolosic.github.io/blog/ (35+ a
 ## Skills
 
 - Testing: manual and automated testing; web, mobile and browser extension testing; test planning, strategy and test case design; functional, integration and regression testing; exploratory testing; REST API testing
-- Automation: Playwright, Maestro, Cypress, TypeScript, JavaScript, Page Object Model, Postman
+- Automation: Playwright, C#, Cypress, TypeScript, Maestro YAML flows, Page Object Model, Postman
 - CI/CD and tooling: Jenkins, GitHub Actions, Docker, Git, Bitbucket
-- AI: LLM testing (correctness, consistency, safety), automated prompt suites, AI-assisted test design and automation
+- AI: LLM testing (correctness, consistency, safety), prompt-based evaluation with validation tables, AI-assisted test design and automation
 - Collaboration: Jira, Figma, Agile, Scrum
 - Development: Oracle APEX, SQL, PL/SQL, mobile app development
 - Operating systems: Windows, Linux, macOS

@@ -1,0 +1,38 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "pipeline/index.html"
+        ],
+        "createdAt": "2026-11-10T13:52:52.640Z",
+        "reason": "Claude: reuses the site's existing .grad hero style from index.html for consistency"
+      },
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-11-10T13:53:22.045Z",
+        "reason": "Claude: site-wide brand fonts already used on every page of markolosic.github.io"
+      },
+      {
+        "rule": "overused-font",
+        "value": "space grotesk",
+        "createdAt": "2026-11-10T13:53:22.102Z",
+        "reason": "Claude: site-wide brand fonts already used on every page of markolosic.github.io"
+      },
+      {
+        "rule": "pulsing-dot",
+        "value": "*",
+        "files": [
+          "llm-testing/index.html"
+        ],
+        "createdAt": "2026-11-10T14:29:36.073Z",
+        "reason": "Claude: the gate dot on this page is static (.pl-status .pl-dot has animation:none); blink only applies to .is-running on the pipeline page while a simulated run is in progress"
+      }
+    ]
+  }
+}

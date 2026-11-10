@@ -59,8 +59,8 @@
     sk2_d: 'Alati kojima planiram, automatizujem, pratim i isporučujem.',
     o1_h: 'Automatizacija i API',
     o2_h: 'Saradnja i okruženja',
-    o1_1: 'Playwright i Cypress end-to-end testovi u pretraživaču, pisani u TypeScript-u i JavaScript-u i organizovani po Page Object Model obrascu.',
-    o1_2: 'Maestro za automatizaciju tokova u mobilnim aplikacijama.',
+    o1_1: 'End-to-end testovi u pretraživaču, u Playwright-u sa C#-om i u Cypress-u sa TypeScript-om, organizovani po Page Object Model obrascu.',
+    o1_2: 'Maestro za automatizaciju tokova u mobilnim aplikacijama, pisanih u njegovoj deklarativnoj YAML sintaksi.',
     o1_3: 'Postman za testiranje REST API-ja i provjeru odgovora backenda.',
     o1_4: 'Jenkins i GitHub Actions CI/CD pipeline-ovi za automatsko pokretanje testnih skupova.',
     o2_1: 'Jira za praćenje grešaka i testnih zadataka u Agile timovima.',
@@ -74,9 +74,9 @@
     a1_1: 'Tačnost: da li su odgovori tačni i korisni.',
     a1_2: 'Dosljednost: da li model daje stabilne odgovore na slične upite.',
     a1_3: 'Bezbjednost: kako se model ponaša kod neobičnih ili problematičnih upita.',
-    a2_1: 'Automatizovan skup od 100 zasebnih upita sa očekivanim ponašanjem, uključujući rubne slučajeve.',
+    a2_1: '100 stručnih promptova iz analitike proizvoda koje sam sam napisao, svaki sa tačnim odgovorom utvrđenim iz podataka, uključujući rubne slučajeve.',
     a2_2: 'Poredim rezultate kroz više pokretanja i verzija modela.',
-    a2_3: 'Ručno testiranje uz automatizovani skup, kako bih ocijenio kvalitet same analize.',
+    a2_3: 'Svaki odgovor ručno validiram u tabeli, kako bih ocijenio kvalitet same analize.',
     a2_4: 'Neuspjehe dokumentujem konkretnim primjerima.',
     sk3_d: 'Uz QA projektujem i razvijam aplikacije zasnovane na bazi podataka u Oracle APEX-u, a SQL i PL/SQL su mi dnevni alati.',
     d1_h: 'Oracle APEX',
@@ -100,9 +100,9 @@
     tn_more: 'Pročitaj više →',
     exp_h: 'Gdje sam isporučivao.', present: 'danas',
     j1_role: 'QA inženjer',
-    j1_5: 'Testiram lokalne LLM-ove koji analiziraju analitičke podatke na dva projekta, kombinujući automatizovani skup od 100 upita i ručno testiranje.',
+    j1_5: 'Testiram lokalni LLM (Llama 3) za analitiku proizvoda na dva projekta: napisao sam 100 stručnih promptova i svaki odgovor validirao u tabeli po tačnosti, dosljednosti i bezbjednosti.',
     j1_1: 'Ručno testiram web aplikacije, mobilne aplikacije i ekstenzije za pretraživač kako bi kvalitet bio visok u svakom izdanju.',
-    j1_2: 'Skratio sam regresiono testiranje Biolink platforme sa cijelog dana na oko 30 minuta izgradnjom i održavanjem automatizovanog Playwright suite-a (TypeScript, Page Object Model) koji se u Docker kontejneru pokreće na svaki pull request kroz GitHub Actions; na ostalim projektima suite-ovi se pokreću u Jenkins pipeline-ovima.',
+    j1_2: 'Skratio sam regresiono testiranje Biolink platforme sa cijelog dana na oko 30 minuta izgradnjom i održavanjem automatizovanog Playwright suite-a (C#, Page Object Model) koji se u Docker kontejneru pokreće na svaki pull request kroz GitHub Actions; na ostalim projektima suite-ovi se pokreću u Jenkins pipeline-ovima.',
     j1_6: 'Automatizujem tokove mobilnih aplikacija u Maestru na više projekata, uključujući i Biolink platformu.',
     j2_role: 'QA inženjer i Oracle APEX developer',
     j2_1: 'Izgradio sam QA proces tima od temelja.',
@@ -121,7 +121,9 @@
     ct_h: 'Imate proizvod koji mora biti čvrst kao stijena?',
     ct_p: 'Hajde da razgovaramo o kvalitetu, automatizaciji ili vašem sljedećem izdanju. Rado se povezujem sa kolegama inženjerima, timovima i regruterima.',
     ct_mail: 'Pošalji imejl', ct_copy: 'Kopiraj imejl', ct_copied: 'Kopirano ✓',
-    k_email: 'Imejl', k_phone: 'Telefon', k_loc: 'Lokacija',
+    k_email: 'Imejl', k_loc: 'Lokacija',
+    j1_more: 'Pogledaj kako ovaj pipeline radi', j1_more2: 'Kako testiram LLM-ove',
+    ai_case: 'Testiram i AI: pogledaj kako provjeravam lokalni Llama 3 model kroz 100 promptova iz analitike proizvoda',
     foot: 'Testirano pažljivo. Isporučeno zeleno. ✓', top: 'Na vrh ↑', cookies: 'Postavke kolačića'
   };
   const nodes = $$('[data-i18n]');
@@ -217,7 +219,7 @@
   const term = $('#term');
   let termToken = 0;
   const LINES = [
-    ['cmd', '$ npx playwright test\n'],
+    ['cmd', '$ dotnet test\n'],
     ['dim', 'Running tests on web · mobile · extension · AI\n'],
     ['ok', '  ✓ '], ['', 'login › signs in with valid credentials\n'],
     ['ok', '  ✓ '], ['', 'maestro › onboarding flow on mobile\n'],
@@ -294,7 +296,6 @@
         if (!list.length) return;
         render();
         wrap.hidden = false;
-        io.observe(wrap.querySelector('.sec-head'));
       })
       .catch(() => {});
   })();

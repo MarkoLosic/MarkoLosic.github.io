@@ -1,10 +1,10 @@
 # Marko Lošić
 
-> QA Engineer based in Banja Luka, Bosnia and Herzegovina, with 6+ years in manual and automated testing of web apps, mobile apps and browser extensions. Currently QA Engineer at Bravo System (Playwright, Maestro, TypeScript, JavaScript, LLM testing); previously QA Engineer & Oracle APEX Developer at Krajina Klas (Cypress).
+> QA Engineer based in Banja Luka, Bosnia and Herzegovina, with 6+ years in manual and automated testing of web apps, mobile apps and browser extensions. Currently QA Engineer at Bravo System (Playwright with C#, Maestro, LLM testing); previously QA Engineer & Oracle APEX Developer at Krajina Klas (Cypress).
 
-Highlights: cut regression testing on the Biolink platform from a full day to about 30 minutes; 1000+ releases tested, 500+ automated tests, 50+ products covered; tests local LLMs with an automated suite of 100 prompts plus manual testing.
+Highlights: cut regression testing on the Biolink platform from a full day to about 30 minutes; 1000+ releases tested, 500+ automated tests, 50+ products covered; tests a local LLM (Llama 3) for product analytics with 100 hand-written prompts, every answer validated in a table.
 
-Contact: markolosic1993@gmail.com · +387 63 759 197
+Contact: markolosic1993@gmail.com
 
 ## CV
 
@@ -14,6 +14,8 @@ Contact: markolosic1993@gmail.com · +387 63 759 197
 ## Profiles
 
 - [Website](https://markolosic.github.io/): portfolio, skills and experience
+- [How I ship reliable software](https://markolosic.github.io/pipeline/): interactive walkthrough of the QA pipeline (Playwright with C# in Docker on every PR, Maestro, quality gate)
+- [Testing local LLMs](https://markolosic.github.io/llm-testing/): case study of manually testing a locally hosted Llama 3 model for product analytics: 100 expert prompts, every answer graded in a validation table for correctness, consistency and safety
 - [LinkedIn](https://www.linkedin.com/in/markološić/)
 - [GitHub](https://github.com/MarkoLosic)
 
