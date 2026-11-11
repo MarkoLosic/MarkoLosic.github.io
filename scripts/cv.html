@@ -2,7 +2,9 @@
 <!-- Source for assets/Marko-Losic-CV.pdf. Keep in sync with index.html and cv.txt.
      Single-column on purpose: ATS parsers read PDFs by position, and a sidebar gets interleaved with the main text.
      Render: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --no-pdf-header-footer \
-             --print-to-pdf=assets/Marko-Losic-CV.pdf scripts/cv.html -->
+             --print-to-pdf=assets/Marko-Losic-CV.pdf scripts/cv.html
+     No-photo version (US/UK applications): same command with
+             --print-to-pdf=assets/Marko-Losic-CV-no-photo.pdf "file://$PWD/scripts/cv.html?nophoto" -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -12,7 +14,7 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   :root { --ink: #1d1d1b; --muted: #5d5d58; --accent: #2f6b4f; --rule: #dcdbd4; --paper: #fbfaf6; }
   html, body { width: 210mm; height: 297mm; }
-  body { font: 400 8.6pt/1.38 "Avenir Next", "Helvetica Neue", sans-serif; color: var(--ink); background: var(--paper); -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 9mm 14mm 4mm; }
+  body { font: 400 8.6pt/1.33 "Avenir Next", "Helvetica Neue", sans-serif; color: var(--ink); background: var(--paper); -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 8mm 14mm 3mm; }
   a { color: inherit; text-decoration: none; }
   header { display: flex; justify-content: space-between; align-items: flex-start; gap: 6mm; }
   .photo { flex: none; width: 24mm; height: 24mm; object-fit: cover; border-radius: 3mm; }
@@ -20,13 +22,13 @@
   .role { margin: 2mm 0 2mm; font: 600 9.4pt "Helvetica Neue", Helvetica, sans-serif; color: var(--accent); }
   .contact { color: var(--muted); }
   .contact a { color: var(--accent); }
-  h2 { font: 600 8.8pt "Helvetica Neue", Helvetica, sans-serif; color: var(--accent); margin: 2.8mm 0 1.3mm; border-bottom: 1px solid var(--rule); padding-bottom: 1mm; }
+  h2 { font: 600 8.8pt "Helvetica Neue", Helvetica, sans-serif; color: var(--accent); margin: 2.2mm 0 1.1mm; border-bottom: 1px solid var(--rule); padding-bottom: 1mm; }
   .summary { color: #33332f; margin-top: 2.5mm; }
   .nums { margin-top: 1.6mm; }
   .nums b { color: var(--accent); }
   .rows p { margin-bottom: .6mm; }
   .rows b { font-weight: 600; }
-  .job { margin-bottom: 2.2mm; }
+  .job { margin-bottom: 1.6mm; }
   .job-head { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; }
   .job-head h3 { font: 700 11pt/1.2 Charter, Georgia, serif; }
   .when { color: var(--muted); white-space: nowrap; }
@@ -34,7 +36,7 @@
   ul.b { padding-left: 4mm; }
   ul.b li { margin-bottom: .2mm; }
   .tools { margin-top: .6mm; color: var(--muted); font-size: 8.2pt; }
-  .early { margin-bottom: 1.4mm; }
+  .early { margin-bottom: 1mm; }
   .early .job-head b { font-weight: 600; }
   .org2 { color: var(--muted); }
   .posts a, .rows a { color: var(--accent); }
@@ -45,20 +47,21 @@
   <div>
   <h1>Marko Lošić</h1>
   <p class="role">QA ENGINEER · TEST AUTOMATION</p>
-  <p class="contact">Banja Luka, Bosnia and Herzegovina · +387 63 759 197 · <a href="mailto:markolosic1993@gmail.com">markolosic1993@gmail.com</a></p>
+  <p class="contact">Banja Luka, Bosnia and Herzegovina · <b>Open to remote</b> · +387 63 759 197 · <a href="mailto:markolosic1993@gmail.com">markolosic1993@gmail.com</a></p>
   <p class="contact"><a href="https://markolosic.github.io/">markolosic.github.io</a> · <a href="https://www.linkedin.com/in/markolo%C5%A1i%C4%87/">linkedin.com/in/markološić</a> · <a href="https://github.com/MarkoLosic">github.com/MarkoLosic</a></p>
   </div>
   <img class="photo" src="../assets/marko.jpg" alt="Marko Lošić">
 </header>
+<script>if (location.search.includes('nophoto')) document.querySelector('.photo').remove();</script>
 
-<p class="summary">QA Engineer with 6+ years of experience in manual and automated testing of web applications, mobile applications and browser extensions. Automates web tests in Playwright (C#, Page Object Model) and mobile flows in Maestro, with earlier Cypress experience, and runs suites in Jenkins and GitHub Actions CI/CD pipelines. Also tests local LLMs and develops database-driven applications in Oracle APEX with SQL and PL/SQL.</p>
-<p class="nums"><b>6+</b> years in QA · <b>500+</b> automated tests · regression cut from <b>a full day to ~30 min</b> · <b>100</b> hand-graded LLM prompts</p>
+<p class="summary">QA Engineer with 6+ years of experience in manual and automated testing of web applications, mobile applications and browser extensions, across SaaS creator platforms, e-commerce and product analytics. Automates web tests in Playwright (C#, Page Object Model) and mobile flows in Maestro, with earlier Cypress experience, and runs suites in Jenkins and GitHub Actions CI/CD pipelines. Also tests local LLMs and develops database-driven applications in Oracle APEX with SQL and PL/SQL.</p>
+<p class="nums"><b>6+</b> years in QA · <b>100</b> automated tests · regression cut from <b>a full day to ~30 min</b> · <b>97%+</b> LLM accuracy on 100 hand-graded prompts</p>
 
 <h2>SKILLS</h2>
 <div class="rows">
-  <p><b>Testing:</b> manual and automated testing; web, mobile and browser extension testing; test planning, strategy and case design; functional, integration and regression testing; REST API testing</p>
-  <p><b>Automation:</b> Playwright, C#, Cypress, TypeScript, Maestro YAML flows, Page Object Model, Postman</p>
-  <p><b>CI/CD and tooling:</b> Jenkins, GitHub Actions, Docker, Git, Bitbucket · Windows, Linux, macOS</p>
+  <p><b>Testing:</b> manual, exploratory and automated testing; web, mobile, browser extension and cross-browser testing; test planning, strategy and test case design; functional, integration and regression testing; bug reporting and defect tracking; REST API testing; SQL for data validation</p>
+  <p><b>Automation:</b> Playwright, C#, Cypress, JavaScript, TypeScript, Maestro YAML flows, Page Object Model, Postman</p>
+  <p><b>CI/CD and tooling:</b> Jenkins, GitHub Actions, Docker, Git, Bitbucket, Lighthouse audits · Windows, Linux, macOS</p>
   <p><b>AI:</b> LLM testing, prompt-based evaluation with validation tables, AI-assisted test design</p>
   <p><b>Collaboration:</b> Jira, Figma, Agile, Scrum</p>
   <p><b>Development:</b> Oracle APEX, SQL, PL/SQL</p>
@@ -69,10 +72,10 @@
   <div class="job-head"><h3>QA Engineer</h3><span class="when">Jun 2022 – Present</span></div>
   <p class="org">Bravo System · Banja Luka</p>
   <ul class="b">
-    <li>Cut regression testing on the product from a full day to about 30 minutes by building and maintaining an automated Playwright suite (C#, Page Object Model) that runs in Docker on every pull request via GitHub Actions; on other projects, suites run in Jenkins pipelines.</li>
+    <li>Working in a QA team, cut regression testing on a link-in-bio platform from a full day to about 30 minutes by building and maintaining a suite of 100 automated Playwright tests (C#, Page Object Model) that runs in Docker on every pull request via GitHub Actions; on other projects, suites run in Jenkins pipelines.</li>
     <li>Automate mobile app flows with Maestro across several projects, including the same product.</li>
-    <li>Test a local LLM (Llama 3) for product analytics on two projects: 100 domain-specific prompts, every answer validated in a table.</li>
-    <li>Manually test web applications, mobile applications and browser extensions to ensure high quality across releases.</li>
+    <li>Test a local LLM (Llama 3) for product analytics on two projects: wrote 100 domain-specific prompts and graded every answer in a validation table; hallucinations and wrong answers in early runs drove prompt-template changes that raised accuracy to 97%+, and the table now serves as the regression set after every model or prompt change.</li>
+    <li>Manually test web apps, mobile apps and browser extensions early, on local builds, so most defects are fixed before regression: a regression run now surfaces only 1–2 bugs, and two critical bugs were stopped before production. Every bug report includes steps, expected vs actual, evidence and environment.</li>
   </ul>
   <p class="tools">Playwright · C# · Maestro · LLM testing</p>
 </div>
@@ -80,10 +83,9 @@
   <div class="job-head"><h3>QA Engineer &amp; Oracle APEX Developer</h3><span class="when">Jan 2020 – Jun 2022</span></div>
   <p class="org">Krajina Klas · Banja Luka</p>
   <ul class="b">
-    <li>Built the team's QA process from the ground up.</li>
-    <li>Introduced test automation to the team with Cypress, moving repetitive regression checks from manual runs to automated suites.</li>
-    <li>Performed functional, integration and regression testing to ensure application reliability and stability.</li>
-    <li>Contributed insights and suggestions during development to improve software quality.</li>
+    <li>Built the team's QA process from the ground up: written test cases, a standard bug report template (steps, expected vs actual, evidence) and a Jira workflow for tracking defects.</li>
+    <li>Introduced test automation to the team with Cypress: 30 automated tests took over the repetitive regression checks and brought the regression run down to about 1.5 hours.</li>
+    <li>Took part in feature brainstorming sessions with developers, bringing the testing perspective in before development started.</li>
     <li>Designed and developed database-driven applications in Oracle APEX.</li>
   </ul>
   <p class="tools">Cypress · TypeScript · Oracle APEX · SQL · PL/SQL</p>
@@ -96,27 +98,22 @@
 </div>
 <div class="early">
   <div class="job-head"><span><b>School Teacher</b> <span class="org2">· OŠ Grahovo, Bosansko Grahovo</span></span><span class="when">May 2018 – May 2019</span></div>
-  <p>Planned and delivered engaging lessons for first-grade students.</p>
+  <p>Planned and delivered engaging lessons for first-grade students, which built my skills in explaining things clearly and teaching people.</p>
 </div>
 <div class="early">
   <div class="job-head"><span><b>Technical Support Agent</b> <span class="org2">· Telemach, Banja Luka</span></span><span class="when">May 2014 – May 2018</span></div>
-  <p>Supported internet and EON application users with troubleshooting, and led a team of support agents.</p>
+  <p>Supported internet and EON application users with troubleshooting, and led a team of 8 support agents.</p>
 </div>
 
 <h2>EDUCATION, TRAINING AND LANGUAGES</h2>
 <div class="rows">
   <p><b>University of Banja Luka</b> · Bachelor's degree, Elementary School Teacher · 2012 – 2019</p>
-  <p><b>True North program</b> · Completed the training, then worked as a program trainer</p>
+  <p><b>True North program</b> · Completed the training, then worked as a program trainer, running sessions for teams: hands-on experience in communication and training people</p>
   <p><b>English</b> · C1 (Advanced), used daily</p>
 </div>
 
 <h2>WRITING</h2>
-<p>Writes about test automation and QA at <a href="https://markolosic.github.io/blog/" style="color:var(--accent)">markolosic.github.io/blog</a> (35+ articles). Selected posts:</p>
-<ul class="b posts">
-  <li><a href="https://markolosic.github.io/blog/asserting-too-early-flaky-playwright-tests/">Asserting Too Early: The Quiet Source of Flaky Playwright Tests</a></li>
-  <li><a href="https://markolosic.github.io/blog/testing-idempotency-duplicate-charges/">Testing Idempotency: How to Catch Duplicate-Charge Bugs Before Your Users Do</a></li>
-  <li><a href="https://markolosic.github.io/blog/risk-based-testing-prioritization/">Risk-Based Testing: How to Decide What to Test First When You Can't Test Everything</a></li>
-</ul>
+<p class="posts">Writes about test automation and QA at <a href="https://markolosic.github.io/blog/">markolosic.github.io/blog</a> (35+ articles), e.g. <a href="https://markolosic.github.io/blog/asserting-too-early-flaky-playwright-tests/">flaky Playwright tests</a>, <a href="https://markolosic.github.io/blog/testing-idempotency-duplicate-charges/">testing idempotency</a> and <a href="https://markolosic.github.io/blog/risk-based-testing-prioritization/">risk-based testing</a>.</p>
 
 <h2>INTERESTS</h2>
 <p>Marathon running, photography, guitar, hiking and camping.</p>

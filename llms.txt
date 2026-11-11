@@ -2,7 +2,7 @@
 
 > QA Engineer based in Banja Luka, Bosnia and Herzegovina, with 6+ years in manual and automated testing of web apps, mobile apps and browser extensions. Currently QA Engineer at Bravo System (Playwright with C#, Maestro, LLM testing); previously QA Engineer & Oracle APEX Developer at Krajina Klas (Cypress).
 
-Highlights: cut regression testing on the product from a full day to about 30 minutes; 1000+ releases tested, 500+ automated tests, 50+ products covered; tests a local LLM (Llama 3) for product analytics with 100 hand-written prompts, every answer validated in a table.
+Highlights: working in a QA team, cut regression testing on a link-in-bio platform from a full day to about 30 minutes with a suite of 100 automated Playwright tests; early local testing means a regression run now surfaces only 1–2 bugs, and two critical bugs were stopped before production; tests a local LLM (Llama 3) for product analytics with 100 hand-written prompts, reaching 97%+ answer accuracy after prompt-template fixes. Domains: SaaS creator platforms, e-commerce and product analytics. Open to remote.
 
 Contact: markolosic1993@gmail.com
 
@@ -15,7 +15,7 @@ Contact: markolosic1993@gmail.com
 
 - [Website](https://markolosic.github.io/): portfolio, skills and experience
 - [How I ship reliable software](https://markolosic.github.io/pipeline/): interactive walkthrough of the QA pipeline (Playwright with C# in Docker on every PR, Maestro, quality gate)
-- [Testing local LLMs](https://markolosic.github.io/llm-testing/): case study of manually testing a locally hosted Llama 3 model for product analytics: 100 expert prompts, every answer graded in a validation table for correctness, consistency and safety
+- [Testing local LLMs](https://markolosic.github.io/llm-testing/): case study of manually testing a locally hosted Llama 3 model for product analytics: 100 expert prompts, every answer graded in a validation table for correctness, consistency and safety; the table now serves as the regression set after every model or prompt change
 - [LinkedIn](https://www.linkedin.com/in/markološić/)
 - [GitHub](https://github.com/MarkoLosic)
 
