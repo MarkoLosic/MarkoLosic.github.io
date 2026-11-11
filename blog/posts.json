@@ -1,5 +1,20 @@
 [
   {
+    "slug": "claude-fable-5-2-for-testing",
+    "title": "Claude Fable 5.2 for Testing: Where the Advantages Are Real and Where They Stop",
+    "titleSr": "Claude Fable 5.2 za testiranje: gdje su prednosti stvarne, a gdje prestaju",
+    "excerpt": "What Claude Fable 5.2 changes for QA work: long agentic runs, computer use, vision and cost, with the limits spelled out.",
+    "excerptSr": "Šta Claude Fable 5.2 mijenja u QA radu: duga agentska izvršavanja, upravljanje računarom, vid i cijena, uz jasno navedena ograničenja.",
+    "tags": [
+      "qa",
+      "ai-in-qa",
+      "llm-models",
+      "test-automation"
+    ],
+    "date": "2026-11-11",
+    "readingTime": 6
+  },
+  {
     "slug": "test-pyramid-vs-testing-trophy",
     "title": "Test Pyramid or Testing Trophy: Picking the Shape That Matches Your Risk, Not the Diagram",
     "titleSr": "Test piramida ili testing trofej: birajte oblik koji odgovara vašem riziku, a ne dijagramu",

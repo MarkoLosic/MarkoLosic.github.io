@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://markolosic.github.io/</loc><lastmod>2026-11-09</lastmod></url>
-  <url><loc>https://markolosic.github.io/blog/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://markolosic.github.io/</loc><lastmod>2026-11-11</lastmod></url>
+  <url><loc>https://markolosic.github.io/blog/</loc><lastmod>2026-11-11</lastmod></url>
   <url><loc>https://markolosic.github.io/pipeline/</loc></url>
   <url><loc>https://markolosic.github.io/llm-testing/</loc></url>
+  <url><loc>https://markolosic.github.io/blog/claude-fable-5-2-for-testing/</loc><lastmod>2026-11-11</lastmod></url>
   <url><loc>https://markolosic.github.io/blog/test-pyramid-vs-testing-trophy/</loc><lastmod>2026-11-09</lastmod></url>
   <url><loc>https://markolosic.github.io/blog/chaos-engineering-game-day-qa-teams/</loc><lastmod>2026-11-06</lastmod></url>
   <url><loc>https://markolosic.github.io/blog/pairwise-combinatorial-testing/</loc><lastmod>2026-11-04</lastmod></url>
