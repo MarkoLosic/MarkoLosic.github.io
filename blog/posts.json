@@ -1,5 +1,20 @@
 [
   {
+    "slug": "file-upload-testing-edge-cases",
+    "title": "Testing File Uploads: The Edge Cases a Happy-Path Suite Walks Right Past",
+    "titleSr": "Testiranje otpremanja fajlova: granični slučajevi pored kojih happy-path testovi samo prođu",
+    "excerpt": "Why file upload features break in production and how to test size limits, type spoofing, concurrency, and interrupted transfers.",
+    "excerptSr": "Zašto funkcije za otpremanje fajlova pucaju u produkciji i kako testirati ograničenja veličine, lažiranje tipa fajla, istovremena otpremanja i prekinute prenose.",
+    "tags": [
+      "qa",
+      "real-world-use-case",
+      "file-upload",
+      "security-testing"
+    ],
+    "date": "2026-11-13",
+    "readingTime": 6
+  },
+  {
     "slug": "claude-fable-5-2-for-testing",
     "title": "Claude Fable 5.2 for Testing: Where the Advantages Are Real and Where They Stop",
     "titleSr": "Claude Fable 5.2 za testiranje: gdje su prednosti stvarne, a gdje prestaju",
