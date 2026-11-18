@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Testing RAG Pipelines: Why Your Retrieval Step Needs Its Own Test Suite — Marko Lošić</title>
+  <meta name="description" content="RAG systems fail quietly when retrieval goes wrong. Here's how to test retrieval and generation separately, with a worked example and a metric to watch.">
+  <link rel="canonical" href="https://markolosic.github.io/blog/testing-rag-pipelines-retrieval-evaluation/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Testing RAG Pipelines: Why Your Retrieval Step Needs Its Own Test Suite — Marko Lošić">
+  <meta property="og:description" content="RAG systems fail quietly when retrieval goes wrong. Here's how to test retrieval and generation separately, with a worked example and a metric to watch.">
+  <meta property="og:url" content="https://markolosic.github.io/blog/testing-rag-pipelines-retrieval-evaluation/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/testing-rag-pipelines-retrieval-evaluation.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Testing RAG Pipelines: Why Your Retrieval Step Needs Its Own Test Suite — Marko Lošić">
+  <meta name="twitter:description" content="RAG systems fail quietly when retrieval goes wrong. Here's how to test retrieval and generation separately, with a worked example and a metric to watch.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/testing-rag-pipelines-retrieval-evaluation.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Testing RAG Pipelines: Why Your Retrieval Step Needs Its Own Test Suite","description":"RAG systems fail quietly when retrieval goes wrong. Here's how to test retrieval and generation separately, with a worked example and a metric to watch.","image":"https://markolosic.github.io/assets/blog/testing-rag-pipelines-retrieval-evaluation.jpg","url":"https://markolosic.github.io/blog/testing-rag-pipelines-retrieval-evaluation/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/testing-rag-pipelines-retrieval-evaluation/"},"datePublished":"2026-11-18","dateModified":"2026-11-18T00:00:00.000Z","keywords":"qa, ai-in-qa, rag, llm-testing","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
+  <meta property="article:published_time" content="2026-11-18">
+  <meta property="article:modified_time" content="2026-11-18T00:00:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/fonts.css">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#top" data-i18n="nav_about">About</a>
+      <a href="../../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../../#education" data-i18n="nav_edu">Education</a>
+      <a href="../../blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span data-i18n="all_posts">All posts</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-11-18" data-fmt="long">18 November 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div>
+        <h1 data-title-sr="Testiranje RAG pipeline-a: zašto korak pretrage treba sopstveni skup testova">Testing RAG Pipelines: Why Your Retrieval Step Needs Its Own Test Suite</h1>
+        <p class="lead" data-excerpt-sr="RAG sistemi tiho otkazuju kada pretraga pogriješi. Evo kako testirati pretragu i generisanje odvojeno, uz konkretan primjer i metriku koju vrijedi pratiti.">RAG systems fail quietly when retrieval goes wrong. Here's how to test retrieval and generation separately, with a worked example and a metric to watch.</p>
+        <div class="tags"><span>qa</span><span>ai-in-qa</span><span>rag</span><span>llm-testing</span></div>
+      </header>
+      <div class="prose"><p>A support bot built on retrieval-augmented generation answers a pricing question with total confidence. The number is wrong — it was retired two releases ago. No exception was thrown, no test failed, nothing in the logs looks unusual. The model did exactly what it was built to do: generate a fluent answer from whatever context it was handed. The bug was never in the language model. It was in what got retrieved.</p>
+<p><img src="../../assets/blog/testing-rag-pipelines-retrieval-evaluation.jpg" alt="Isometric illustration of a RAG pipeline: a stack of documents inspected by a magnifying glass, with two irrelevant documents highlighted in red, flowing into a generation layer that produces an answer, each stage under its own verification shield" loading="lazy"></p>
+<p>This is the pattern that trips up teams testing RAG systems for the first time: treating the pipeline as one thing and testing it the way you'd test any AI feature — a handful of prompts, eyeballed outputs, a vibe check. A RAG pipeline is two systems wearing one coat: a retriever that searches a knowledge base, and a generator that writes an answer from what the retriever hands it. Each fails independently, and a single end-to-end &quot;looks right&quot; check can't tell you which one broke.</p>
+<h2 id="why-one-score-isn-t-enough">Why one score isn't enough</h2>
+<p>If you only check whether the final answer sounds correct, you're left guessing at the cause when it isn't. Maybe the retriever pulled the wrong chunks. Maybe it pulled the right ones but the model ignored them and answered from its own training data instead. Maybe the chunks were right but years out of date in the index. Each needs a different fix, and none show up as an error in monitoring — the pipeline runs fine, returns a response on time, and simply hands the user something false.</p>
+<p>The standard remedy is to split evaluation into the two components the pipeline actually has:</p>
+<ul><li><strong>Retrieval quality</strong>: did the system fetch the right documents, and rank them so the relevant ones are near the top?</li><li><strong>Generation quality</strong>: given those documents, did the model produce an answer that's actually grounded in them, and that addresses the question?</li></ul>
+<p>The RAGAS framework (Retrieval Augmented Generation Assessment) is the most common way teams operationalize this split. It scores four things, two per side: <strong>context precision</strong> (what fraction of retrieved chunks were actually relevant) and <strong>context recall</strong> (whether the retrieved set covers everything needed to answer) on the retrieval side; <strong>faithfulness</strong> (whether every claim in the answer is supported by the retrieved context) and <strong>answer relevancy</strong> (whether the answer actually addresses the question) on the generation side.</p>
+<h2 id="a-worked-example">A worked example</h2>
+<p>Say your retriever returns five chunks for a query, and three are actually relevant. Context precision is 0.6 — the retriever is noisy, even if the final answer happens to be fine. Now say the correct answer needs three distinct facts and retrieval only surfaced two. Context recall is roughly 0.67 — a gap the model has no way to fill, however good it is at writing.</p>
+<p>Reading these two together is where the diagnostic value sits:</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Faithfulness</th><th>Context precision/recall</th><th>What it tells you</th></tr></thead>
+<tbody>
+<tr><td>High</td><td>High</td><td>Pipeline is healthy</td></tr>
+<tr><td>High</td><td>Low</td><td>Retrieval is noisy or incomplete; model handles it correctly — fix the retriever</td></tr>
+<tr><td>Low</td><td>High</td><td>Right docs retrieved, model isn't using them — check context truncation or prompt structure</td></tr>
+<tr><td>Low</td><td>Low</td><td>Both halves broken — start with retrieval; generation can't be scored fairly on bad input</td></tr>
+</tbody>
+</table>
+</div>
+<p>A minimal RAGAS test case needs only the query, the retrieved context, and the generated answer — no ground-truth answer required for faithfulness or answer relevancy. Context recall does need a reference answer, which is the thing to budget time for: even 30–50 labeled question/reference-answer pairs from your own domain is what makes this testable at all.</p>
+<pre><code class="lang-python">from ragas import evaluate
+from ragas.metrics import (
+    faithfulness, answer_relevancy,
+    context_precision, context_recall,
+)
+
+results = evaluate(
+    dataset=your_eval_dataset,  # query, retrieved_context, answer, ground_truth
+    metrics=[faithfulness, answer_relevancy, context_precision, context_recall],
+)
+# {'faithfulness': 0.97, 'answer_relevancy': 0.94,
+#  'context_precision': 0.62, 'context_recall': 0.71}</code></pre>
+<p>A result like that — strong generation scores, weak retrieval scores — is the quiet-failure pattern in a nutshell: nothing crashes, nothing looks wrong at a glance, but the system is serving answers built on gaps or noise. Run it as a CI gate with a fixed threshold and you catch regressions the way you'd catch a failing unit test, instead of finding out from a user complaint.</p>
+<h2 id="pitfalls-and-limits">Pitfalls and limits</h2>
+<p>Metric-driven RAG evaluation has real blind spots. Context precision treats a relevant chunk ranked first the same as one ranked fourth, as long as the chunk count and relevance ratio match — but a retriever that buries the right answer near the context window's cutoff behaves worse in practice than the score admits. Pair RAGAS with rank-aware classical metrics (MRR, nDCG) if ranking quality matters to your use case.</p>
+<p>The deeper trap is staleness, invisible to every metric above. A RAGAS score computed today says nothing about whether your index still matches your source documents next month. Source content changes, chunking logic changes, embedding models get upgraded — any of these can leave an index full of vectors that score well on relevance while describing something no longer true, with latency and throughput staying green the whole time. If your knowledge base changes at all, freshness needs its own check, separate from the RAGAS run, because a faithful answer to a stale fact is still wrong.</p>
+<p>LLM-as-judge scoring, which RAGAS relies on for all four metrics, has its own failure mode too: the judge model can be fooled by the same confident, well-structured wrong answer that fools a user. Spot-check a sample of judge verdicts by hand before trusting a dashboard full of green numbers.</p>
+<h2 id="what-to-do-next">What to do next</h2>
+<ol><li>Log retrieved chunks as their own span, separate from the final answer, so each stage can be scored on its own.</li><li>Build a small labeled eval set (30–50 real questions with reference answers) from your own domain rather than synthetic queries — the one-time cost that makes context recall measurable at all.</li><li>Run RAGAS, or an alternative like DeepEval, as a CI gate with explicit thresholds, not a one-off report glanced at after a demo.</li><li>Add a freshness check — periodic re-embed-and-compare of a reference document set, or change-data-capture on your source corpus — so a pipeline that scores well today doesn't quietly rot by next quarter.</li></ol>
+<h2 id="sources">Sources</h2>
+<ul><li><a href="https://www.braintrust.dev/articles/how-to-test-rag-pipeline" target="_blank" rel="noopener noreferrer">Braintrust: How to test your RAG pipeline</a></li><li><a href="https://deepeval.com/docs/getting-started-rag" target="_blank" rel="noopener noreferrer">DeepEval: RAG evaluation metrics</a></li><li><a href="https://www.promptlayer.com/glossary/ragas-metrics" target="_blank" rel="noopener noreferrer">RAGAS documentation via PromptLayer glossary</a></li><li><a href="https://blogs.perficient.com/how-to-test-a-rag-system-ragas-hallucination-detection-and-the-complete-genai-ci-cd-pipeline/" target="_blank" rel="noopener noreferrer">Perficient: How to test a RAG system with RAGAS</a></li><li><a href="https://tianpan.co/blog/2026-04-10-rag-freshness-problem-stale-embeddings-silent-failure" target="_blank" rel="noopener noreferrer">Tian Pan: The RAG freshness problem</a></li></ul></div>
+      <template id="prose-sr"><p>Bot za korisničku podršku izgrađen na retrieval-augmented generation (RAG) arhitekturi odgovara na pitanje o cijenama sa potpunom sigurnošću. Broj je pogrešan — povučen je prije dva izdanja. Nije bačen nijedan izuzetak, nijedan test nije pao, ništa u logovima ne izgleda neobično. Model je uradio tačno ono za šta je napravljen: generisao je tečan odgovor iz konteksta koji mu je predat. Bug nikad nije bio u jezičkom modelu. Bio je u onome što je pronađeno.</p>
+<p><img src="../../assets/blog/testing-rag-pipelines-retrieval-evaluation.jpg" alt="Izometrijska ilustracija RAG pipeline-a: gomila dokumenata koju pregleda lupa, sa dva nerelevantna dokumenta označena crvenom bojom, koji teku ka sloju za generisanje koji proizvodi odgovor, pri čemu je svaka faza pod sopstvenim štitom verifikacije" loading="lazy"></p>
+<p>Ovo je obrazac koji saplete timove koji prvi put testiraju RAG sisteme: pipeline se tretira kao jedna cjelina i testira se kao bilo koja AI funkcionalnost — nekoliko promptova, izlazi provjereni odokativno, testiranje &quot;po osjećaju&quot;. RAG pipeline su zapravo dva sistema u jednom kaputu: retriever koji pretražuje bazu znanja i generator koji piše odgovor na osnovu onoga što mu retriever preda. Svaki od njih otkazuje nezavisno, a jedna end-to-end provjera tipa &quot;izgleda dobro&quot; ne može da vam kaže koji se pokvario.</p>
+<h2 id="zašto-jedna-ocjena-nije-dovoljna">Zašto jedna ocjena nije dovoljna</h2>
+<p>Ako provjeravate samo da li konačni odgovor zvuči tačno, ostaje vam da nagađate uzrok kada nije. Možda je retriever izvukao pogrešne djelove (chunks). Možda je izvukao prave, ali ih je model ignorisao i odgovorio iz sopstvenih podataka za treniranje. Možda su djelovi bili pravi, ali godinama zastarjeli u indeksu. Svaki slučaj traži drugačiju ispravku, a nijedan se ne pojavljuje kao greška u monitoringu — pipeline radi normalno, vraća odgovor na vrijeme i korisniku jednostavno preda nešto netačno.</p>
+<p>Standardno rješenje je podijeliti evaluaciju na dvije komponente koje pipeline zaista ima:</p>
+<ul><li><strong>Kvalitet pretrage</strong>: da li je sistem pronašao prave dokumente i rangirao ih tako da su relevantni pri vrhu?</li><li><strong>Kvalitet generisanja</strong>: s obzirom na te dokumente, da li je model dao odgovor koji je zaista utemeljen u njima i koji odgovara na pitanje?</li></ul>
+<p>RAGAS framework (Retrieval Augmented Generation Assessment) je najčešći način na koji timovi sprovode ovu podjelu u praksi. Ocjenjuje četiri stvari, po dvije sa svake strane: <strong>context precision</strong> (koji udio pronađenih djelova je zaista relevantan) i <strong>context recall</strong> (da li pronađeni skup pokriva sve što je potrebno za odgovor) na strani pretrage; <strong>faithfulness</strong> (da li je svaka tvrdnja u odgovoru potkrijepljena pronađenim kontekstom) i <strong>answer relevancy</strong> (da li odgovor zaista odgovara na pitanje) na strani generisanja.</p>
+<h2 id="konkretan-primjer">Konkretan primjer</h2>
+<p>Recimo da vaš retriever za neki upit vrati pet djelova, od kojih su tri zaista relevantna. Context precision je 0,6 — retriever je &quot;bučan&quot;, čak i ako je konačni odgovor slučajno dobar. Sada recimo da tačan odgovor zahtijeva tri različite činjenice, a pretraga je pronašla samo dvije. Context recall je otprilike 0,67 — rupa koju model nikako ne može da popuni, koliko god dobro pisao.</p>
+<p>Dijagnostička vrijednost je u čitanju ovih metrika zajedno:</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Faithfulness</th><th>Context precision/recall</th><th>Šta vam govori</th></tr></thead>
+<tbody>
+<tr><td>Visok</td><td>Visok</td><td>Pipeline je zdrav</td></tr>
+<tr><td>Visok</td><td>Nizak</td><td>Pretraga je bučna ili nepotpuna; model to ispravno obrađuje — popravite retriever</td></tr>
+<tr><td>Nizak</td><td>Visok</td><td>Pronađeni su pravi dokumenti, ali ih model ne koristi — provjerite odsijecanje konteksta ili strukturu prompta</td></tr>
+<tr><td>Nizak</td><td>Nizak</td><td>Obje polovine su pokvarene — počnite od pretrage; generisanje se ne može pošteno ocijeniti na lošem ulazu</td></tr>
+</tbody>
+</table>
+</div>
+<p>Minimalnom RAGAS test slučaju potrebni su samo upit, pronađeni kontekst i generisani odgovor — za faithfulness i answer relevancy referentni (ground-truth) odgovor nije potreban. Context recall ipak zahtijeva referentni odgovor, i za to treba odvojiti vrijeme: već 30–50 označenih parova pitanje/referentni odgovor iz vašeg domena je ono što ovo uopšte čini mjerljivim.</p>
+<pre><code class="lang-python">from ragas import evaluate
+from ragas.metrics import (
+    faithfulness, answer_relevancy,
+    context_precision, context_recall,
+)
+
+results = evaluate(
+    dataset=your_eval_dataset,  # query, retrieved_context, answer, ground_truth
+    metrics=[faithfulness, answer_relevancy, context_precision, context_recall],
+)
+# {'faithfulness': 0.97, 'answer_relevancy': 0.94,
+#  'context_precision': 0.62, 'context_recall': 0.71}</code></pre>
+<p>Ovakav rezultat — visoke ocjene generisanja, niske ocjene pretrage — je obrazac tihog otkaza u malom: ništa ne puca, ništa na prvi pogled ne izgleda pogrešno, ali sistem servira odgovore izgrađene na rupama ili šumu. Pokrenite ovo kao CI provjeru (gate) sa fiksnim pragom i hvataćete regresije kao što hvatate unit test koji pada, umjesto da za njih saznate iz korisničke žalbe.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Evaluacija RAG-a zasnovana na metrikama ima stvarne slijepe tačke. Context precision tretira relevantan dio rangiran kao prvi isto kao onaj rangiran kao četvrti, sve dok se broj djelova i odnos relevantnosti poklapaju — ali retriever koji zakopa pravi odgovor blizu granice kontekstnog prozora u praksi se ponaša lošije nego što ocjena priznaje. Ako vam je kvalitet rangiranja bitan, kombinujte RAGAS sa klasičnim metrikama koje uzimaju rang u obzir (MRR, nDCG).</p>
+<p>Dublja zamka je zastarjelost, nevidljiva za sve gore navedene metrike. RAGAS ocjena izračunata danas ne govori ništa o tome da li će vaš indeks i sljedećeg mjeseca odgovarati izvornim dokumentima. Izvorni sadržaj se mijenja, logika dijeljenja na djelove se mijenja, embedding modeli se nadograđuju — bilo šta od ovoga može ostaviti indeks pun vektora koji dobro prolaze na relevantnosti, a opisuju nešto što više nije tačno, dok latencija i propusnost sve vrijeme ostaju zelene. Ako se vaša baza znanja uopšte mijenja, svježina treba sopstvenu provjeru, odvojenu od RAGAS pokretanja, jer je vjeran odgovor na zastarjelu činjenicu i dalje pogrešan.</p>
+<p>Ocjenjivanje pomoću LLM-a kao sudije (LLM-as-judge), na koje se RAGAS oslanja za sve četiri metrike, ima i sopstveni način otkazivanja: model-sudiju može da zavara isti samouvjeren, dobro strukturiran pogrešan odgovor koji zavara i korisnika. Ručno provjerite uzorak presuda sudije prije nego što povjerujete dashboard-u punom zelenih brojeva.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ol><li>Logujte pronađene djelove kao poseban span, odvojeno od konačnog odgovora, kako bi se svaka faza mogla ocijeniti zasebno.</li><li>Napravite mali označeni evaluacioni skup (30–50 stvarnih pitanja sa referentnim odgovorima) iz sopstvenog domena umjesto sintetičkih upita — to je jednokratni trošak koji context recall uopšte čini mjerljivim.</li><li>Pokrećite RAGAS, ili alternativu kao što je DeepEval, kao CI gate sa eksplicitnim pragovima, a ne kao jednokratan izvještaj koji se pogleda poslije demo prezentacije.</li><li>Dodajte provjeru svježine — periodično ponovno embedovanje i poređenje referentnog skupa dokumenata, ili change-data-capture na izvornom korpusu — kako pipeline koji danas ima dobre ocjene ne bi tiho istrulio do sljedećeg kvartala.</li></ol>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://www.braintrust.dev/articles/how-to-test-rag-pipeline" target="_blank" rel="noopener noreferrer">Braintrust: How to test your RAG pipeline</a></li><li><a href="https://deepeval.com/docs/getting-started-rag" target="_blank" rel="noopener noreferrer">DeepEval: RAG evaluation metrics</a></li><li><a href="https://www.promptlayer.com/glossary/ragas-metrics" target="_blank" rel="noopener noreferrer">RAGAS documentation via PromptLayer glossary</a></li><li><a href="https://blogs.perficient.com/how-to-test-a-rag-system-ragas-hallucination-detection-and-the-complete-genai-ci-cd-pipeline/" target="_blank" rel="noopener noreferrer">Perficient: How to test a RAG system with RAGAS</a></li><li><a href="https://tianpan.co/blog/2026-04-10-rag-freshness-problem-stale-embeddings-silent-failure" target="_blank" rel="noopener noreferrer">Tian Pan: The RAG freshness problem</a></li></ul></template>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    </div>
+    <section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../file-upload-testing-edge-cases/" data-title-sr="Testiranje otpremanja fajlova: granični slučajevi pored kojih happy-path testovi samo prođu" data-excerpt-sr="Zašto funkcije za otpremanje fajlova pucaju u produkciji i kako testirati ograničenja veličine, lažiranje tipa fajla, istovremena otpremanja i prekinute prenose."><div class="meta"><time datetime="2026-11-13" data-fmt="short">13 Nov 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Testing File Uploads: The Edge Cases a Happy-Path Suite Walks Right Past</h2><p>Why file upload features break in production and how to test size limits, type spoofing, concurrency, and interrupted transfers.</p></a>
+      <a class="post-card card glow" href="../claude-fable-5-2-for-testing/" data-title-sr="Claude Fable 5.2 za testiranje: gdje su prednosti stvarne, a gdje prestaju" data-excerpt-sr="Šta Claude Fable 5.2 mijenja u QA radu: duga agentska izvršavanja, upravljanje računarom, vid i cijena, uz jasno navedena ograničenja."><div class="meta"><time datetime="2026-11-11" data-fmt="short">11 Nov 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Claude Fable 5.2 for Testing: Where the Advantages Are Real and Where They Stop</h2><p>What Claude Fable 5.2 changes for QA work: long agentic runs, computer use, vision and cost, with the limits spelled out.</p></a>
+      <a class="post-card card glow" href="../test-pyramid-vs-testing-trophy/" data-title-sr="Test piramida ili testing trofej: birajte oblik koji odgovara vašem riziku, a ne dijagramu" data-excerpt-sr="Test piramida i testing trofej daju suprotne savjete o tome gdje da uložite testove. Evo kako da odlučite koji oblik zaista odgovara vašem kodu."><div class="meta"><time datetime="2026-11-09" data-fmt="short">9 Nov 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div><h2>Test Pyramid or Testing Trophy: Picking the Shape That Matches Your Risk, Not the Diagram</h2><p>The test pyramid and testing trophy give opposite advice on where to put your tests. Here's how to decide which shape actually fits your codebase.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <button type="button" data-consent data-i18n="cookies">Cookie settings</button>
+    <a href="../../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../blog/common.js"></script>
+  <script src="../post.js"></script>
+</body>
+</html>

@@ -1,5 +1,20 @@
 [
   {
+    "slug": "testing-rag-pipelines-retrieval-evaluation",
+    "title": "Testing RAG Pipelines: Why Your Retrieval Step Needs Its Own Test Suite",
+    "titleSr": "Testiranje RAG pipeline-a: zašto korak pretrage treba sopstveni skup testova",
+    "excerpt": "RAG systems fail quietly when retrieval goes wrong. Here's how to test retrieval and generation separately, with a worked example and a metric to watch.",
+    "excerptSr": "RAG sistemi tiho otkazuju kada pretraga pogriješi. Evo kako testirati pretragu i generisanje odvojeno, uz konkretan primjer i metriku koju vrijedi pratiti.",
+    "tags": [
+      "qa",
+      "ai-in-qa",
+      "rag",
+      "llm-testing"
+    ],
+    "date": "2026-11-18",
+    "readingTime": 6
+  },
+  {
     "slug": "file-upload-testing-edge-cases",
     "title": "Testing File Uploads: The Edge Cases a Happy-Path Suite Walks Right Past",
     "titleSr": "Testiranje otpremanja fajlova: granični slučajevi pored kojih happy-path testovi samo prođu",
