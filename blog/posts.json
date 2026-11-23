@@ -1,5 +1,36 @@
 [
   {
+    "slug": "session-based-exploratory-testing",
+    "title": "Session-Based Exploratory Testing: How to Make Ad Hoc Testing Repeatable and Reportable",
+    "titleSr": "Exploratory testiranje zasnovano na sesijama: kako ad hoc testiranje učiniti ponovljivim i mjerljivim",
+    "excerpt": "How session-based test management turns unscripted exploratory testing into something you can plan, measure, and report on, with a worked charter example.",
+    "excerptSr": "Kako session-based test management pretvara exploratory testiranje bez skripte u nešto što možete planirati, mjeriti i o čemu možete izvještavati, uz konkretan primjer charter-a.",
+    "tags": [
+      "qa",
+      "methodology",
+      "exploratory-testing",
+      "test-strategy"
+    ],
+    "date": "2026-11-23",
+    "readingTime": 5
+  },
+  {
+    "slug": "load-testing-qa-teams-k6-thresholds",
+    "title": "Load Testing for QA Teams: What k6 Catches, and What a Passing Threshold Can Still Hide",
+    "titleSr": "Load testiranje za QA timove: šta k6 hvata, a šta prolazni prag i dalje može da sakrije",
+    "excerpt": "A practical k6 walkthrough for QA teams: scripting a load test, setting thresholds, and the pitfalls that make a green dashboard misleading.",
+    "excerptSr": "Praktičan k6 vodič za QA timove: pisanje load testa, postavljanje pragova i zamke zbog kojih zelen dashboard može da zavara.",
+    "tags": [
+      "qa",
+      "performance-testing",
+      "load-testing",
+      "k6",
+      "tools-and-trends"
+    ],
+    "date": "2026-11-20",
+    "readingTime": 6
+  },
+  {
     "slug": "testing-rag-pipelines-retrieval-evaluation",
     "title": "Testing RAG Pipelines: Why Your Retrieval Step Needs Its Own Test Suite",
     "titleSr": "Testiranje RAG pipeline-a: zašto korak pretrage treba sopstveni skup testova",

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://markolosic.github.io/</loc><lastmod>2026-11-18</lastmod></url>
-  <url><loc>https://markolosic.github.io/blog/</loc><lastmod>2026-11-18</lastmod></url>
+  <url><loc>https://markolosic.github.io/</loc><lastmod>2026-11-23</lastmod></url>
+  <url><loc>https://markolosic.github.io/blog/</loc><lastmod>2026-11-23</lastmod></url>
   <url><loc>https://markolosic.github.io/pipeline/</loc></url>
   <url><loc>https://markolosic.github.io/llm-testing/</loc></url>
+  <url><loc>https://markolosic.github.io/blog/session-based-exploratory-testing/</loc><lastmod>2026-11-23</lastmod></url>
+  <url><loc>https://markolosic.github.io/blog/load-testing-qa-teams-k6-thresholds/</loc><lastmod>2026-11-20</lastmod></url>
   <url><loc>https://markolosic.github.io/blog/testing-rag-pipelines-retrieval-evaluation/</loc><lastmod>2026-11-18</lastmod></url>
   <url><loc>https://markolosic.github.io/blog/file-upload-testing-edge-cases/</loc><lastmod>2026-11-13</lastmod></url>
   <url><loc>https://markolosic.github.io/blog/claude-fable-5-2-for-testing/</loc><lastmod>2026-11-11</lastmod></url>
