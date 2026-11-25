@@ -3,7 +3,7 @@ title: "Risk-Based Testing: How to Decide What to Test First When You Can't Test
 title_sr: "Testiranje zasnovano na riziku: kako odlučiti šta testirati prvo kada ne možete testirati sve"
 date: 2026-10-04
 time: 18:00
-tags: [qa, risk-based-testing, test-strategy]
+tags: [test-strategy]
 excerpt: A practical walkthrough of risk-based testing: how to score features by likelihood and impact, and use that to decide what gets tested before a deadline.
 excerpt_sr: Praktičan vodič kroz testiranje zasnovano na riziku: kako ocijeniti funkcionalnosti po vjerovatnoći i uticaju i na osnovu toga odlučiti šta se testira prije roka.
 image: assets/blog/risk-based-testing-prioritization.jpg
@@ -73,6 +73,9 @@ This approach isn't free, and it's worth being honest about where it fails:
 - Pull your last two or three months of production incidents or hotfixes and check whether they map to areas you'd have rated high risk. If they don't, your risk criteria need adjusting.
 - Add "coverage decision" as a visible line item in release notes or sign-off docs — what got full testing, what got reduced coverage, and why — so the trade-off is a team decision, not a quiet omission.
 - If you're in a regulated space (finance, healthcare, aviation) and need to justify risk ratings formally, look into FMEA as a structured starting point rather than building your own framework from scratch.
+
+Continue with [Risk-Based Testing: What Not to Test](/blog/risk-based-testing-what-not-to-test/), [Test Pyramid or Testing Trophy](/blog/test-pyramid-vs-testing-trophy/), and [Session-Based Exploratory Testing](/blog/session-based-exploratory-testing/).
+
 
 ## Sources
 
@@ -147,6 +150,9 @@ Ovaj pristup nije besplatan, i vrijedi biti iskren o tome gdje ne radi:
 - Izvucite produkcijske incidente ili hotfix-eve iz posljednja dva-tri mjeseca i provjerite da li se poklapaju sa oblastima koje biste ocijenili kao visokorizične. Ako se ne poklapaju, vaše kriterijume za rizik treba prilagoditi.
 - Dodajte „odluku o pokrivenosti" kao vidljivu stavku u release notes ili dokumente za odobrenje objave — šta je dobilo kompletno testiranje, šta smanjenu pokrivenost, i zašto — kako bi kompromis bio odluka tima, a ne tihi propust.
 - Ako radite u regulisanoj oblasti (finansije, zdravstvo, avijacija) i morate formalno da opravdate ocjene rizika, pogledajte FMEA kao strukturiranu polaznu tačku umjesto da gradite sopstveni okvir od nule.
+
+Nastavi sa člancima [Testiranje zasnovano na riziku: šta ne testirati](/sr/blog/risk-based-testing-what-not-to-test/), [Piramida testiranja ili Testing Trophy](/sr/blog/test-pyramid-vs-testing-trophy/) i [Exploratory testiranje zasnovano na sesijama](/sr/blog/session-based-exploratory-testing/).
+
 
 ## Izvori
 

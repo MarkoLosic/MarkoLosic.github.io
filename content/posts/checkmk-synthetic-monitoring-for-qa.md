@@ -2,7 +2,7 @@
 title: "Keep Your Tests Running After Release: Checkmk Synthetic Monitoring for QA Teams"
 title_sr: "Neka testovi rade i poslije objave: Checkmk Synthetic Monitoring za QA timove"
 date: 2026-10-12
-tags: [qa, test-automation, synthetic-monitoring, robot-framework, observability]
+tags: [performance-testing, ci-cd, test-automation]
 excerpt: How QA teams can turn Robot Framework tests into continuous production checks with Checkmk, plus the pitfalls to plan for.
 excerpt_sr: Kako QA timovi mogu da pretvore Robot Framework testove u stalne provjere produkcije uz Checkmk, i na koje zamke treba računati.
 image: assets/blog/checkmk-synthetic-monitoring-for-qa.jpg

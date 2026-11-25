@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="sr" data-theme="dark" data-static-lang="sr" data-alt-url="../../../blog/testing-idempotency-duplicate-charges/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Testiranje idempotentnosti: kako uhvatiti duple naplate prije korisnika — Marko Lošić</title>
+  <meta name="description" content="Praktičan vodič kroz testiranje idempotency ključeva u tokovima plaćanja i checkout-a, sa konkretnim test slučajevima za hvatanje duplih naplata.">
+  <link rel="canonical" href="https://markolosic.github.io/sr/blog/testing-idempotency-duplicate-charges/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/testing-idempotency-duplicate-charges/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/testing-idempotency-duplicate-charges/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/testing-idempotency-duplicate-charges/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Testiranje idempotentnosti: kako uhvatiti duple naplate prije korisnika — Marko Lošić">
+  <meta property="og:description" content="Praktičan vodič kroz testiranje idempotency ključeva u tokovima plaćanja i checkout-a, sa konkretnim test slučajevima za hvatanje duplih naplata.">
+  <meta property="og:url" content="https://markolosic.github.io/sr/blog/testing-idempotency-duplicate-charges/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/testing-idempotency-duplicate-charges.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="646">
+  <meta property="og:image:alt" content="Testiranje idempotentnosti: kako uhvatiti duple naplate prije korisnika">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Testiranje idempotentnosti: kako uhvatiti duple naplate prije korisnika — Marko Lošić">
+  <meta name="twitter:description" content="Praktičan vodič kroz testiranje idempotency ključeva u tokovima plaćanja i checkout-a, sa konkretnim test slučajevima za hvatanje duplih naplata.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/testing-idempotency-duplicate-charges.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/sr/blog/testing-idempotency-duplicate-charges/#article","headline":"Testiranje idempotentnosti: kako uhvatiti duple naplate prije korisnika","description":"Praktičan vodič kroz testiranje idempotency ključeva u tokovima plaćanja i checkout-a, sa konkretnim test slučajevima za hvatanje duplih naplata.","image":"https://markolosic.github.io/assets/blog/testing-idempotency-duplicate-charges.jpg","url":"https://markolosic.github.io/sr/blog/testing-idempotency-duplicate-charges/","inLanguage":"sr","wordCount":1138,"articleSection":"api-testing","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/sr/blog/testing-idempotency-duplicate-charges/"},"datePublished":"2026-09-28T00:00:00.000Z","dateModified":"2026-09-28T00:00:00.000Z","keywords":"api-testing, real-world-bugs","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Početna","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/sr/blog/"},{"@type":"ListItem","position":3,"name":"Testiranje idempotentnosti: kako uhvatiti duple naplate prije korisnika","item":"https://markolosic.github.io/sr/blog/testing-idempotency-duplicate-charges/"}]}]}</script>
+  <meta property="article:published_time" content="2026-09-28T00:00:00.000Z">
+  <meta property="article:modified_time" content="2026-09-28T00:00:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../assets/fonts.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../../#top" data-i18n="nav_about">O meni</a>
+      <a href="../../../#skills" data-i18n="nav_skills">Vještine</a>
+      <a href="../../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../../#experience" data-i18n="nav_exp">Iskustvo</a>
+      <a href="../../../#education" data-i18n="nav_edu">Obrazovanje</a>
+      <a href="../../../sr/blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../../#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span>Svi članci</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-09-28" data-fmt="long">28. septembar 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h1>Testiranje idempotentnosti: kako uhvatiti duple naplate prije korisnika</h1>
+        <p class="lead">Praktičan vodič kroz testiranje idempotency ključeva u tokovima plaćanja i checkout-a, sa konkretnim test slučajevima za hvatanje duplih naplata.</p>
+        <div class="tags"><span>api-testing</span><span>real-world-bugs</span></div>
+      </header>
+      <div class="prose"><p>Kupcu tokom checkout-a na dvije sekunde pukne mobilna veza. Aplikacija, sasvim ispravno, ponovo šalje zahtjev za plaćanje. Negdje na serveru prvi zahtjev je zapravo prošao bez problema — izgubio se samo odgovor. Sada za jednu narudžbu postoje dvije naplate. Ovo je jedan od najčešćih načina na koje fintech i e-commerce sistemi gube povjerenje kupaca, a rijetko ga uzrokuje neispravan payment gateway. Uzrokuje ga logika ponovnih pokušaja koja nikada nije testirana protiv upravo onih kvarova zbog kojih je napravljena.</p>
+<p><img src="../../../assets/blog/testing-idempotency-duplicate-charges.jpg" alt="Ilustracija checkout ekrana kojem pukne veza i koji šalje dva zahtjeva za plaćanje sa istim idempotency ključem kroz idempotency gateway, koji do servera i knjige transakcija u bazi propušta samo jednu naplatu" width="1200" height="646" fetchpriority="high" decoding="async"></p>
+<p>Idempotentnost je mehanizam koji treba da spriječi baš ovo, i dobar je primjer kontrole koja u dizajn dokumentu izgleda čvrsto, a raspadne se čim neko u QA-u zaista pokuša da je slomi.</p>
+<h2 id="šta-idempotentnost-treba-da-garantuje">Šta idempotentnost treba da garantuje</h2>
+<p>Obrazac je na papiru jednostavan: klijent generiše jedinstven idempotency ključ i šalje ga uz zahtjev koji mijenja stanje (naplata kartice, kreiranje narudžbe, povraćaj novca). Ako isti zahtjev treba ponoviti — jer je klijentu isteklo vrijeme, izgubio je vezu ili je server pao usred odgovora — šalje se ponovo sa <em>istim</em> ključem. Server bi trebalo da prepozna ključ, preskoči ponovnu obradu i vrati originalni rezultat, umjesto da napravi drugu naplatu ili drugu narudžbu.</p>
+<p>Stripe-ov inženjerski tekst o ovom obrascu je dobra referenca za osnovni problem: mrežni kvar se može desiti prije nego što server primi zahtjev, dok ga obrađuje, ili nakon što ga završi, a prije nego što odgovor stigne do klijenta. Iz ugla klijenta sva tri slučaja izgledaju isto — kao istek vremena — pa je ponovni pokušaj često jedini razuman potez. Idempotency ključ je ono što serveru omogućava da razlikuje „ovo je stvarni ponovni pokušaj poziva koji sam već obradio&quot; od „ovo je novi, zaseban zahtjev&quot;.</p>
+<p>Zvuči kao riješen problem. U praksi timovi nedovoljno testiraju tri stvari: šta se dešava kada ponovni pokušaj stigne <em>dok je prvi zahtjev još u obradi</em>, šta se dešava kada se ključ ponovo iskoristi sa drugačijim podacima, i šta se dešava ako zapis ključa istekne ili bude izbačen iz keša prije nego što stigne spor ponovni pokušaj.</p>
+<h2 id="konkretan-scenario">Konkretan scenario</h2>
+<p>Zamislite checkout servis online prodavnice. Kupac potvrdi plaćanje, mobilni klijent ima timeout od 5 sekundi, a zahtjevu u danu sa velikim opterećenjem treba 6 sekundi da se završi. Klijent automatski pokušava ponovo sa istim idempotency ključem. Ako server provjerava samo „da li ovaj ključ postoji u mom kešu <em>završenih</em> zahtjeva&quot;, propustiće slučaj u kojem je prvi zahtjev još u obradi, i oba zahtjeva će se utrkivati da naplate karticu. Ovo je upravo slučaj „konflikta u toku obrade&quot; koji je lako ostaviti netestiranim, jer se pojavljuje samo pod opterećenjem ili kašnjenjem, a ne u mirnom staging okruženju gdje se svaki poziv završi za 50ms.</p>
+<p>Koristan način da se ovo namjerno testira, umjesto da se nadate da će load testiranje slučajno naići na problem, jeste da istovremeno pošaljete dva identična zahtjeva i nakon toga provjerite kompletno stanje sistema, a ne samo HTTP odgovor:</p>
+<pre><code class="lang-python">import concurrent.futures
+import requests
+
+idem_key = &quot;test-order-8841&quot;
+payload = {&quot;order_id&quot;: &quot;8841&quot;, &quot;amount_cents&quot;: 4999}
+headers = {&quot;Idempotency-Key&quot;: idem_key}
+
+def send():
+    return requests.post(
+        &quot;https://api.example.com/v1/charges&quot;,
+        json=payload, headers=headers, timeout=10,
+    )
+
+with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
+    r1, r2 = [f.result() for f in
+              [pool.submit(send), pool.submit(send)]]
+
+# Oba poziva treba da vrate ISTI charge id
+assert r1.json()[&quot;charge_id&quot;] == r2.json()[&quot;charge_id&quot;]
+
+# I ledger treba da pokaže tačno jednu naplatu za ovu narudžbu
+charges = requests.get(
+    f&quot;https://api.example.com/v1/orders/8841/charges&quot;
+).json()
+assert len(charges) == 1</code></pre>
+<p>Provjera nad knjigom naplata (ledger), a ne samo nad dva HTTP odgovora, je dio koji timovi najčešće preskoče. Dva identična odgovora 200 i dalje mogu skrivati dva odvojena reda u bazi ako race condition pogodi pogrešno mjesto — API sloj može izgledati idempotentno, dok računovodstveni sloj to nije.</p>
+<p>Pored ponovnog pokušaja na „srećnom putu&quot;, vrijedi testirati i: ponovnu upotrebu istog ključa sa <em>drugačijim</em> payloadom (treba da bude odbijena, a ne tiho obrađena sa novim podacima), slanje ključa sa iznosom promijenjenim za jedan cent kako bi se uhvatila slaba logika poređenja, puštanje da ključ istekne prije nego što stigne legitimno spor ponovni pokušaj, i gašenje serverskog procesa usred zahtjeva kako bi se simulirao slučaj „završeno, ali odgovor izgubljen&quot; koji čisto testiranje timeout-a neće reprodukovati.</p>
+<h2 id="gdje-ovaj-pristup-ne-dostiže">Gdje ovaj pristup ne dostiže</h2>
+<p>Testiranje idempotentnosti ima stvarna ograničenja. Greške istovremenosti zavise od tajminga, pa test koji jednom prođe ne dokazuje da je race condition popravljen — dokazuje samo da taj put niste pogodili prozor. Višestruko pokretanje testa sa istovremenim zahtjevima, ili pod vještačkim opterećenjem, uhvati više od jednog pokretanja, ali je i dalje stvar vjerovatnoće, a ne dokaz.</p>
+<p>Ni ovo nije univerzalno rješenje. Idempotency ključevi štite od ponovnih pokušaja <em>iste logičke operacije</em>; ne štite od korisnika koji dvaput klikne „plati&quot; i tako generiše dva različita ključa za ono što je, za njega, jedna radnja — to mora da se riješi na UI sloju (onemogućavanje dugmeta, debouncing) kao i na API sloju. A idempotency sloj izgrađen na kešu sa kratkim TTL-om može tiho da prestane da radi onog trenutka kada ponovni pokušaj stigne sporije nego što se očekivalo, što je incident u produkciji koji nimalo ne liči na funkcionalnu grešku — liči na povremenu, rijetku duplu naplatu koju je teško reprodukovati na zahtjev.</p>
+<p>Na kraju, ovakvo testiranje ima stvaran trošak. Test okruženja za istovremene zahtjeve i simulacije gašenja procesa traže više pripreme od običnog testa zahtjev/odgovor, i primamljivo ih je preskočiti pod pritiskom rokova. Za sve što dira novac to je obično pogrešan kompromis.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<p>Počnite tako što ćete popisati svaki endpoint u sistemu koji mijenja stanje, a tiče se novca, zaliha ili stanja naloga, i provjerite koji od njih uopšte podržavaju idempotency ključeve — mnogi timovi tu odmah nađu rupe. Za one koji ih podržavaju, napišite test sa istovremenim duplim zahtjevima poput gornjeg i provjerite ledger nizvodno, a ne samo statusni kod. Dodajte test za ponovnu upotrebu ključa sa izmijenjenim payloadom, jer je tiho prepisivanje česta i opasna greška. Na kraju, stavite bar jedan od ovih testova trajno u regresioni skup — zaštite idempotentnosti su upravo ona vrsta stvari koju rutinski refaktoring, izmjena keša ili novi message queue mogu tiho da pokvare mjesecima kasnije.</p>
+<p>Povezane API provjere i testiranje pouzdanosti: <a href="/sr/blog/testing-checkout-retry-race-conditions/">Testiranje race condition-a kod ponovljenog plaćanja</a>, <a href="/sr/blog/api-contract-testing-breaking-changes/">API contract testiranje</a> i <a href="/sr/blog/bola-tenant-isolation-testing/">Testiranje BOLA propusta</a>.</p>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://stripe.com/blog/idempotency" target="_blank" rel="noopener noreferrer">Designing robust and predictable APIs with idempotency — Stripe Engineering</a></li><li><a href="https://www.softwaretestingmagazine.com/knowledge/how-to-check-idempotency-and-duplicates-of-requests-in-web-applications/" target="_blank" rel="noopener noreferrer">How to Check Idempotency and Duplicates of Requests in Web Applications — Software Testing Magazine</a></li><li><a href="https://www.ietf.org/archive/id/draft-ietf-httpapi-idempotency-key-header-07.html" target="_blank" rel="noopener noreferrer">The Idempotency-Key HTTP Header Field — IETF Internet-Draft</a></li></ul></div>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button">Kopiraj link</button>
+      <a class="btn primary" href="../../../#contact">Kontaktiraj me</a>
+    </div>
+    <section class="more-posts"><h2>Slični članci</h2><div class="post-grid">
+      <a class="post-card card glow" href="../bola-tenant-isolation-testing/"><div class="meta"><time datetime="2026-10-09" data-fmt="short">9. okt 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Testiranje Broken Object-Level Authorization: provjera pristupa koju većina test skupova nikad ne proba</h3><p>Zašto funkcionalni testovi redovno propuštaju bug u autorizaciji koji jednom korisniku dozvoljava da vidi ili mijenja tuđe podatke, i kako ga namjerno testirati.</p></a>
+      <a class="post-card card glow" href="../testing-checkout-retry-race-conditions/"><div class="meta"><time datetime="2026-09-25" data-fmt="short">25. sep 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Testiranje dugmeta za ponovni pokušaj: kako uhvatiti duple naplate prije kupaca</h3><p>Zašto sekvencijalni testovi idempotentnosti propuštaju duple naplate na checkout-u i kako napisati test koji otkriva stvarni race condition.</p></a>
+      <a class="post-card card glow" href="../file-upload-testing-edge-cases/"><div class="meta"><time datetime="2026-11-13" data-fmt="short">13. nov 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Testiranje otpremanja fajlova: granični slučajevi pored kojih happy-path testovi samo prođu</h3><p>Zašto funkcije za otpremanje fajlova pucaju u produkciji i kako testirati ograničenja veličine, lažiranje tipa fajla, istovremena otpremanja i prekinute prenose.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../../#contact" data-i18n="contact_cta">Kontaktiraj me</a>
+    <button type="button" data-consent data-i18n="cookies">Postavke kolačića</button>
+    <a href="../../../" data-i18n="back_home">Nazad na početnu ↑</a>
+  </footer>
+  <script src="../../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../../blog/common.js"></script>
+  <script src="../../../blog/post.js"></script>
+</body>
+</html>

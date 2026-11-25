@@ -2,8 +2,8 @@
 title: Why Maestro Deserves a Spot in Your Web Testing Toolkit
 title_sr: Zašto Maestro zaslužuje mjesto u vašem alatu za testiranje web aplikacija
 date: 2026-09-21
-tags: [testing, automation, maestro]
-excerpt: Maestro is known as a mobile UI testing tool, but its browser support quietly closes the gap with web testing. Here's why I reach for it, and how to write your first flow.
+tags: [maestro, test-automation]
+excerpt: Maestro is known for mobile UI testing, but its browser support now covers web apps too. Here's why I reach for it and how to write your first flow.
 excerpt_sr: Maestro je poznat kao alat za testiranje mobilnih aplikacija, ali podrška za pretraživač tiho zatvara jaz prema web testiranju. Evo zašto ga koristim, i kako napisati svoj prvi tok.
 image: assets/blog/maestro-for-web-testing.jpg
 ---

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="sr" data-theme="dark" data-static-lang="sr" data-alt-url="../../../blog/testing-feature-flags-targeting-and-default-bugs/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Testiranje feature flagova: bagovi koji se kriju iza prekidača — Marko Lošić</title>
+  <meta name="description" content="Testiranje feature flagova obično se završava na uključeno/isključeno. Pravi bagovi žive u pravilima targetiranja, podrazumijevanim vrijednostima i onome što s…">
+  <link rel="canonical" href="https://markolosic.github.io/sr/blog/testing-feature-flags-targeting-and-default-bugs/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/testing-feature-flags-targeting-and-default-bugs/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/testing-feature-flags-targeting-and-default-bugs/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/testing-feature-flags-targeting-and-default-bugs/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Testiranje feature flagova: bagovi koji se kriju iza prekidača — Marko Lošić">
+  <meta property="og:description" content="Testiranje feature flagova obično se završava na uključeno/isključeno. Pravi bagovi žive u pravilima targetiranja, podrazumijevanim vrijednostima i onome što s…">
+  <meta property="og:url" content="https://markolosic.github.io/sr/blog/testing-feature-flags-targeting-and-default-bugs/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/testing-feature-flags-targeting-and-default-bugs.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="509">
+  <meta property="og:image:alt" content="Testiranje feature flagova: bagovi koji se kriju iza prekidača">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Testiranje feature flagova: bagovi koji se kriju iza prekidača — Marko Lošić">
+  <meta name="twitter:description" content="Testiranje feature flagova obično se završava na uključeno/isključeno. Pravi bagovi žive u pravilima targetiranja, podrazumijevanim vrijednostima i onome što s…">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/testing-feature-flags-targeting-and-default-bugs.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/sr/blog/testing-feature-flags-targeting-and-default-bugs/#article","headline":"Testiranje feature flagova: bagovi koji se kriju iza prekidača","description":"Testiranje feature flagova obično se završava na uključeno/isključeno. Pravi bagovi žive u pravilima targetiranja, podrazumijevanim vrijednostima i onome što se desi kada flag servis prestane da odgovara.","image":"https://markolosic.github.io/assets/blog/testing-feature-flags-targeting-and-default-bugs.jpg","url":"https://markolosic.github.io/sr/blog/testing-feature-flags-targeting-and-default-bugs/","inLanguage":"sr","wordCount":1116,"articleSection":"real-world-bugs","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/sr/blog/testing-feature-flags-targeting-and-default-bugs/"},"datePublished":"2026-10-30T12:00:00.000Z","dateModified":"2026-10-30T12:00:00.000Z","keywords":"real-world-bugs, ci-cd, test-strategy","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Početna","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/sr/blog/"},{"@type":"ListItem","position":3,"name":"Testiranje feature flagova: bagovi koji se kriju iza prekidača","item":"https://markolosic.github.io/sr/blog/testing-feature-flags-targeting-and-default-bugs/"}]}]}</script>
+  <meta property="article:published_time" content="2026-10-30T12:00:00.000Z">
+  <meta property="article:modified_time" content="2026-10-30T12:00:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../assets/fonts.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../../#top" data-i18n="nav_about">O meni</a>
+      <a href="../../../#skills" data-i18n="nav_skills">Vještine</a>
+      <a href="../../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../../#experience" data-i18n="nav_exp">Iskustvo</a>
+      <a href="../../../#education" data-i18n="nav_edu">Obrazovanje</a>
+      <a href="../../../sr/blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../../#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span>Svi članci</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-10-30" data-fmt="long">30. oktobar 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h1>Testiranje feature flagova: bagovi koji se kriju iza prekidača</h1>
+        <p class="lead">Testiranje feature flagova obično se završava na uključeno/isključeno. Pravi bagovi žive u pravilima targetiranja, podrazumijevanim vrijednostima i onome što se desi kada flag servis prestane da odgovara.</p>
+        <div class="tags"><span>real-world-bugs</span><span>ci-cd</span><span>test-strategy</span></div>
+      </header>
+      <div class="prose"><p>Feature flag bi trebalo da izdanja učini bezbjednijim: kod se isporuči „u mraku&quot;, uključi se za dio korisnika, a vraćanje unazad radi se prekidačem umjesto novim deployem. Većina timova testira tačno dva stanja flaga — uključeno i isključeno — i smatra da je to pokriveno. Incidenti koji zaista obore sisteme rijetko dolaze iz bilo kog od ta dva stanja. Dolaze iz stanja za koja niko nije napisao test: pravilo targetiranja koje obuhvata više korisnika nego što je planirano, evaluacija flaga koja tiho padne na pogrešnu podrazumijevanu vrijednost, ili flag koji se promijeni usred zahtjeva koji je već na pola puta.</p>
+<p><img src="../../../assets/blog/testing-feature-flags-targeting-and-default-bugs.jpg" alt="Svijetleći ON/OFF prekidač feature flaga na štampanoj ploči, sa panelom pravila targetiranja koji prikazuje segment canary-checkout na 100% saobraćaja, matricom evaluacije punom upozorenja, zapetljanim vodovima koji vode do grešaka 404 i timeout, i bubama koje gmižu po ploči" width="1200" height="509" fetchpriority="high" decoding="async"></p>
+<h2 id="zašto-uključeno-i-isključeno-nije-prava-test-matrica">Zašto „uključeno i isključeno&quot; nije prava test matrica</h2>
+<p>Ponašanje flaga ne zavisi samo od njegove boolean vrijednosti. Zavisi od toga kako se ta vrijednost određuje i šta se dešava kada odluka uopšte ne može da se donese. Realna test matrica za jedan flag obuhvata:</p>
+<ul><li>flag se evaluira kao true za ciljani segment</li><li>flag se evaluira kao false za sve van tog segmenta</li><li>flag servis istekne (timeout) ili je nedostupan, pa SDK padne na lokalnu podrazumijevanu ili keširanu vrijednost</li><li>flag se promijeni između dva poziva u okviru istog zahtjeva ili sesije</li><li>flag stupa u interakciju sa drugim flagom koji je takođe aktivan za istog korisnika</li></ul>
+<p>Taj posljednji red timovi najčešće potcjenjuju. Dva flaga, svaki testiran izolovano, mogu da se kombinuju u stanje koje niko nije isprobao. Tri aktivna flaga na checkout stranici već daju osam mogućih kombinacija; pet flagova daje trideset dvije. Niko ne piše trideset dva test slučaja za to, i zato postepena puštanja (staged rollouts) zahtijevaju monitoring, a ne samo testiranje prije izdanja — ali testiranje prije izdanja i dalje treba da pokrije kombinacije za koje je najvjerovatnije da će zajedno otići u produkciju.</p>
+<h2 id="konkretan-primjer-canary-koji-to-nije-bio">Konkretan primjer: canary koji to nije bio</h2>
+<p>Zamislite tim koji pušta novi checkout tok iza flaga <code>new-checkout-flow</code>, targetiranog na 5% korisnika kroz pravilo segmenta u dashboardu flag providera (ili, sve češće, definisanog kao kod i poslatog kroz Terraform ili sličan alat). Pravilo glasi „obuhvati korisnike u segmentu <code>canary-checkout</code>&quot;. Kasnija izmjena te konfiguracije — pregledana kao rutinski infrastrukturni diff, a ne kao izdanje — zamjenjuje poklapanje segmenta pravilom koje obuhvata sve korisnike. CI provjerava da je konfiguracija sintaksno ispravan Terraform; ništa ne provjerava da canary flag i dalje cilja publiku veličine canaryja. Novi checkout tok, još uvijek u razvoju, odlazi na 100% saobraćaja umjesto na 5%. Objavljeni postmortem koji opisuje gotovo tačno ovakav otkaz (pogrešno upisano pravilo targetiranja koje je 5% canary pretvorilo u 100% rollout, nakon što je upravljanje flagovima prešlo sa UI-ja na infrastructure-as-code) nalazi se u izvorima ispod — konkretne brojke u njemu uzmite kao ilustrativne, jer izvještaj nije nezavisno potvrđen, ali sam oblik otkaza je poznat i ponavlja se.</p>
+<p>Rješenje u ovakvom scenariju nije apstraktno „napišite više testova za flagove&quot;. Ono je konkretno: semantička provjera u CI-ju koja odbija izmjenu pravila targetiranja kojom se canary flag proširuje preko dogovorene granice, i korak pregleda za izmjene konfiguracije flagova koji ih tretira sa istom pažnjom kao deploy koda — jer one <em>jesu</em> deploy.</p>
+<h2 id="testirajte-putanju-otkaza-ne-samo-srećnu-putanju">Testirajte putanju otkaza, ne samo srećnu putanju</h2>
+<p>Drugi slučaj koji vrijedi namjerno testirati je šta klijent radi kada uopšte ne može da dođe do servisa za evaluaciju flagova. Svaki flag SDK ima fallback ponašanje — keširanu posljednju poznatu vrijednost, hardkodovanu podrazumijevanu vrijednost ili posebnu „offline&quot; vrijednost — i taj fallback je dio ponašanja vaše aplikacije bez obzira na to da li ste ga testirali. Stvarni incident na Statsigovoj status stranici sredinom 2026. pokazao je zašto je to bitno: izmjena na backendu dovela je do toga da se feature gateovi nekoliko sati evaluiraju kao <code>false</code> umjesto kao njihova predviđena podrazumijevana vrijednost, što je pogodilo korisnike na određenoj verziji API-ja u više regiona. Svako čija je „bezbjedna&quot; podrazumijevana vrijednost za neki flag bila <code>true</code> — obrnuti kill switch ili flag koji uključuje sigurnosnu provjeru — dobio je suprotno ponašanje od očekivanog, tiho, satima.</p>
+<p>Minimalan test za ovo izgleda ovako:</p>
+<pre><code class="lang-javascript">test('checkout falls back safely when flag service is unreachable', async () =&gt; {
+  const flagClient = mockFlagClient({ throwOnEvaluate: true });
+  const result = await getCheckoutFlowVariant(flagClient, { userId: 'u123' });
+  // Assert the SAFE default, not just &quot;no crash&quot;
+  expect(result).toBe('legacy-checkout');
+});</code></pre>
+<p>Asercija koja je bitna nije „aplikacija se nije srušila&quot; — već da je fallback vrijednost upravo ona <em>bezbjedna</em> za taj konkretni flag, što je procjena koju vaš test treba eksplicitno da kodira, umjesto da je ostavi implicitnom u podrazumijevanim vrijednostima SDK-a.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Testiranje flagova ima stvarna ograničenja koja vrijedi imenovati. Kombinatorna pokrivenost se ne skalira — ne možete i ne treba da pokušavate da testirate svaku kombinaciju svakog aktivnog flaga; izaberite kombinacije koje su zaista zajedno aktivne u produkciji i testirajte njih. Mockovanje flag klijenta u unit testovima neophodno je zbog brzine, ali suite koji uvijek samo mockuje klijenta nikada neće uhvatiti pad servisa za evaluaciju, mrežni timeout ili neispravan odgovor — za to je potrebno bar nekoliko integracionih ili chaos testova koji gađaju stvarni (staging) flag servis ili namjerno pokvaren. A zastarjeli flagovi su teret za testiranje, ne samo tehnički dug: flag koji ostane u kodu šest mjeseci nakon punog rollouta je putanja koda koju više niko ne testira, jer se niko ne sjeća da je i dalje uslovna.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ul><li>Dodajte bar jedan test po flagu za putanju „evaluacija nije uspjela&quot;, i neka asercija provjerava <em>konkretnu bezbjednu vrijednost</em> za taj flag, a ne samo izostanak pada.</li><li>Ako je targetiranje flagova definisano kao kod (Terraform, YAML, config repo), dodajte CI provjeru koja hvata semantičko proširenje canary pravila, i za tu izmjenu zahtijevajte isti pregled kao za produkcioni deploy.</li><li>Izaberite dva ili tri flaga za koje je najvjerovatnije da će zajedno biti aktivni u produkciji i dodajte eksplicitne testove kombinacija za njih, umjesto da pokušavate da pokrijete svaku permutaciju.</li><li>Svakom novom flagu postavite datum isteka pri kreiranju, i flagove kojima je taj datum prošao pratite kao stavku u backlogu — netestirana kombinacija flagova često je samo flag koji niko nije uklonio.</li></ul>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://dev.to/johalputt/postmortem-how-a-launchdarkly-2026-misconfiguration-served-new-features-to-100-of-users-5718" target="_blank" rel="noopener noreferrer">Postmortem: How a LaunchDarkly Targeting Misconfiguration Served Unfinished Features to 100% of Users</a> — DEV Community, opis pogrešne konfiguracije canary targetiranja; konkretne brojke uzmite kao ilustrativne.</li><li><a href="https://status.statsig.com/incidents/mfzybgjxdqkq" target="_blank" rel="noopener noreferrer">Statsig Status: Feature Flag Evaluation Errors</a> — izvještaj o incidentu u kojem su se feature gateovi nekoliko sati sredinom 2026. evaluirali na pogrešnu podrazumijevanu vrijednost.</li></ul></div>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button">Kopiraj link</button>
+      <a class="btn primary" href="../../../#contact">Kontaktiraj me</a>
+    </div>
+    <section class="more-posts"><h2>Slični članci</h2><div class="post-grid">
+      <a class="post-card card glow" href="../chaos-engineering-game-day-qa-teams/"><div class="meta"><time datetime="2026-11-06" data-fmt="short">6. nov 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Chaos engineering za QA timove: kako zapravo izgleda game day</h3><p>Praktičan pogled na chaos engineering alate i kako organizovati game day za testiranje otpornosti, a da se on ne pretvori u ispad sistema.</p></a>
+      <a class="post-card card glow" href="../testing-dst-booking-bugs/"><div class="meta"><time datetime="2026-10-16" data-fmt="short">16. okt 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Testiranje kroz pomjeranje sata: bagovi u zakazivanju koji se javljaju samo dva puta godišnje</h3><p>Zašto funkcije zakazivanja i rezervacija pucaju oko prelaska na ljetnje i zimsko računanje vremena i kako napisati testove koji to zaista hvataju.</p></a>
+      <a class="post-card card glow" href="../session-based-exploratory-testing/"><div class="meta"><time datetime="2026-11-23" data-fmt="short">23. nov 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Exploratory testiranje zasnovano na sesijama: kako ad hoc testiranje učiniti ponovljivim i mjerljivim</h3><p>Kako session-based test management pretvara exploratory testiranje bez skripte u nešto što možete planirati, mjeriti i o čemu možete izvještavati, uz konkretan primjer charter-a.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../../#contact" data-i18n="contact_cta">Kontaktiraj me</a>
+    <button type="button" data-consent data-i18n="cookies">Postavke kolačića</button>
+    <a href="../../../" data-i18n="back_home">Nazad na početnu ↑</a>
+  </footer>
+  <script src="../../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../../blog/common.js"></script>
+  <script src="../../../blog/post.js"></script>
+</body>
+</html>

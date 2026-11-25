@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="sr" data-theme="dark" data-static-lang="sr" data-alt-url="../../../blog/property-based-testing-automated-test-generation/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Property-based testiranje: jedan test koji pokriva slučajeve kojih se nikad ne biste sjetili — Marko Lošić</title>
+  <meta name="description" content="Kako property-based testiranje uz Hypothesis ili fast-check pronalazi granične slučajeve koje testovi zasnovani na primjerima propuštaju, i gdje ima svoja ogra…">
+  <link rel="canonical" href="https://markolosic.github.io/sr/blog/property-based-testing-automated-test-generation/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/property-based-testing-automated-test-generation/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/property-based-testing-automated-test-generation/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/property-based-testing-automated-test-generation/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Property-based testiranje: jedan test koji pokriva slučajeve kojih se nikad ne biste sjetili — Marko Lošić">
+  <meta property="og:description" content="Kako property-based testiranje uz Hypothesis ili fast-check pronalazi granične slučajeve koje testovi zasnovani na primjerima propuštaju, i gdje ima svoja ogra…">
+  <meta property="og:url" content="https://markolosic.github.io/sr/blog/property-based-testing-automated-test-generation/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/property-based-testing-automated-test-generation.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="669">
+  <meta property="og:image:alt" content="Property-based testiranje: jedan test koji pokriva slučajeve kojih se nikad ne biste sjetili">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Property-based testiranje: jedan test koji pokriva slučajeve kojih se nikad ne biste sjetili — Marko Lošić">
+  <meta name="twitter:description" content="Kako property-based testiranje uz Hypothesis ili fast-check pronalazi granične slučajeve koje testovi zasnovani na primjerima propuštaju, i gdje ima svoja ogra…">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/property-based-testing-automated-test-generation.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/sr/blog/property-based-testing-automated-test-generation/#article","headline":"Property-based testiranje: jedan test koji pokriva slučajeve kojih se nikad ne biste sjetili","description":"Kako property-based testiranje uz Hypothesis ili fast-check pronalazi granične slučajeve koje testovi zasnovani na primjerima propuštaju, i gdje ima svoja ograničenja.","image":"https://markolosic.github.io/assets/blog/property-based-testing-automated-test-generation.jpg","url":"https://markolosic.github.io/sr/blog/property-based-testing-automated-test-generation/","inLanguage":"sr","wordCount":1115,"articleSection":"test-automation","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/sr/blog/property-based-testing-automated-test-generation/"},"datePublished":"2026-10-26T09:00:00.000Z","dateModified":"2026-10-26T09:00:00.000Z","keywords":"test-automation, test-strategy","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Početna","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/sr/blog/"},{"@type":"ListItem","position":3,"name":"Property-based testiranje: jedan test koji pokriva slučajeve kojih se nikad ne biste sjetili","item":"https://markolosic.github.io/sr/blog/property-based-testing-automated-test-generation/"}]}]}</script>
+  <meta property="article:published_time" content="2026-10-26T09:00:00.000Z">
+  <meta property="article:modified_time" content="2026-10-26T09:00:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../assets/fonts.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../../#top" data-i18n="nav_about">O meni</a>
+      <a href="../../../#skills" data-i18n="nav_skills">Vještine</a>
+      <a href="../../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../../#experience" data-i18n="nav_exp">Iskustvo</a>
+      <a href="../../../#education" data-i18n="nav_edu">Obrazovanje</a>
+      <a href="../../../sr/blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../../#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span>Svi članci</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-10-26" data-fmt="long">26. oktobar 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h1>Property-based testiranje: jedan test koji pokriva slučajeve kojih se nikad ne biste sjetili</h1>
+        <p class="lead">Kako property-based testiranje uz Hypothesis ili fast-check pronalazi granične slučajeve koje testovi zasnovani na primjerima propuštaju, i gdje ima svoja ograničenja.</p>
+        <div class="tags"><span>test-automation</span><span>test-strategy</span></div>
+      </header>
+      <div class="prose"><p>Većina paketa automatizovanih testova gradi se primjer po primjer: test za srećni scenario (happy path), test za prazan ulaz, test za poznati granični slučaj na koji je neko jednom naletio u produkciji. Taj pristup radi sve dok se bag ne nađe u scenariju koji niko nije pomislio da zapiše — lista sa tačno jednim elementom, datum tačno na granici vijeka, string sa karakterom koji niko nije testirao. Property-based testiranje direktno napada tu slijepu tačku. Umjesto da pišete test za svaki ulaz, pišete test za svako pravilo, a generator pri svakom pokretanju baca stotine ulaza na to pravilo.</p>
+<p><img src="../../../assets/blog/property-based-testing-automated-test-generation.jpg" alt="Izometrijska ilustracija haotičnog toka simbola, binarnih matrica i fragmenata koda koji ulaze u svijetleću providnu kapiju na platformi nalik štampanoj ploči, gdje se filtriraju u uređen tok podataka koji se sužava do jedne istaknute crvene tačke" width="1200" height="669" fetchpriority="high" decoding="async"></p>
+<h2 id="šta-je-zapravo-property">Šta je zapravo „property&quot;</h2>
+<p>Property-based test ne kaže „kada je ulaz X, izlaz treba da bude Y&quot;. On iskazuje nešto što treba da važi za svaki validan ulaz: povratno putovanje (round trip) koje vraća originalnu vrijednost, rezultat koji nikada ne prelazi neku granicu, operaciju koja daje isti rezultat bez obzira na redoslijed. Biblioteke poput Hypothesisa (Python), fast-checka (JavaScript/TypeScript) i QuickChecka (Haskell, sa portovima za većinu drugih jezika) generišu ulaze prema strategiji koju definišete, provjeravaju vašu tvrdnju nad svakim od njih i — upravo to tehniku čini korisnom, a ne samo bučnom — smanjuju (shrinking) svaki ulaz koji obori test do najmanjeg slučaja koji i dalje pada.</p>
+<p>Dobra ilustracija, prilagođena iz stvarnog refaktorisanja opisanog u Incrementovom broju posvećenom testiranju: SaaS proizvod ograničava koliko saradnika jedan projekat može da ima. Originalni test pravio je tačno tri fiksna korisnika i provjeravao da je četvrti odbijen. Taj test prolazi, ali dokazuje samo da pravilo važi za tri konkretne osobe. Property verzija iskazuje stvarno pravilo: za bilo koji naziv projekta i bilo koju listu različitih korisnika, dodavanje više od limita treba da bude odbijeno, a dodavanje tačno do limita treba da uspije. Evo te ideje sa fast-checkom:</p>
+<pre><code class="lang-ts">import fc from 'fast-check';
+import { test, expect } from 'vitest';
+
+test('collaborator limit holds for any project and user list', () =&gt; {
+  fc.assert(
+    fc.property(
+      fc.string({ minLength: 1 }),
+      fc.uniqueArray(fc.string({ minLength: 1 }), { minLength: 0, maxLength: 10 }),
+      (projectName, users) =&gt; {
+        const project = createProject(projectName);
+        const results = users.map((u) =&gt; project.addCollaborator(u));
+        const accepted = results.filter(Boolean).length;
+        expect(accepted).toBe(Math.min(users.length, project.collaboratorLimit));
+      }
+    )
+  );
+});</code></pre>
+<p>Taj jedan test zamjenjuje čitavu porodicu testova zasnovanih na primjerima i nastavlja da provjerava pravilo kako se kod mijenja, umjesto samo ona tri slučaja kojih se neko sjetio da ih napiše.</p>
+<h2 id="shrinking-je-ono-što-padove-čini-upotrebljivim">Shrinking je ono što padove čini upotrebljivim</h2>
+<p>Samo nasumično generisanje bilo bi skoro beskorisno za debagovanje — pad sa nizom od 40 besmislenih stringova ne govori vam gotovo ništa. Shrinking je korak koji nasumičan pad pretvara u minimalan, čitljiv primjer. Dokumentacija Hypothesisa opisuje kako je na ovaj način pronađen stvaran bag u Python bindinzima za Argon2: property test koji tvrdi da heširanje, pa zatim verifikacija, uvijek uspijeva otkrio je da dužine heša preko 512 tiho padaju jer prepunjavaju bafer fiksne veličine u C biblioteci ispod. Smanjeni primjer koji pada bio je <code>hash_len=513</code> — jedan broj koji pokazuje pravo na granicu.</p>
+<p>Slično round-trip svojstvo (parsiraj datum, formatiraj ga nazad, očekuj istu vrijednost) uhvatilo je stvaran bag u biblioteci <code>dateutil</code>: ISO 8601 datum <code>0005-01-01T00:00:05</code> parsiran je kao <code>0001-05-01T00:00:05</code> — godina i mjesec su zamijenili mjesta. Niko ne bi ručno izabrao baš taj datum za testiranje; generator ga je pronašao, a shrinking ga je sveo na najmanji ulaz koji i dalje reprodukuje zamjenu.</p>
+<p>Shrinking ima i suptilniji način da zakaže, koji je vrijedno poznavati, a dokumentovao ga je Hypothesis tim: kada svojstvo može da padne iz više od jednog razloga, naivan shrinking može da „sklizne&quot; sa baga koji ste pronašli ka nekom drugom, manje zanimljivom. Test koji provjerava <code>min(xs) &lt;= mean(xs) &lt;= max(xs)</code> nad listom brojeva u pokretnom zarezu može da padne zbog <code>NaN</code> vrijednosti, zbog beskonačnosti ili zbog preciznosti računanja u pokretnom zarezu — ali shrinker koji juri „jednostavnije&quot; često sve sruši na praznu listu, koja pada iz dosadnog razloga (<code>min()</code> nad praznom listom baca grešku) i sakriva zanimljiv bag koji ste zapravo pogodili. Novije verzije Hypothesisa ovo rješavaju tako što prepoznaju i prijavljuju više različitih padova odvojeno, svaki smanjen za sebe, umjesto da ih stope u jedan.</p>
+<h2 id="gdje-ovaj-pristup-ne-ide-dovoljno-daleko">Gdje ovaj pristup ne ide dovoljno daleko</h2>
+<p>Dobra svojstva je zaista teže smisliti nego dobre primjere, a timovi koji su novi u ovoj tehnici često prve pokušaje potroše na svojstva koja su preslaba da bilo šta uhvate („funkcija ne baca izuzetak&quot;) ili na ograničenja koja odbace toliko generisanih ulaza da se test jedva i izvrši. Generatori takođe zahtijevaju pažnju: ako su previše labavi, potrošićete CI budžet na generisanje nevalidnih ulaza koje stvarni sistem nikada ne bi vidio; ako su previše strogi, tiho ste vratili iste slijepe tačke koje je imalo testiranje zasnovano na primjerima. Shrinking može da sakrije bag iza jednostavnijeg, ali manje relevantnog, kao što je opisano gore, pa je property test koji pada polazna tačka za istraživanje, a ne automatski uzrok problema. I property testovi su u CI-ju obično sporiji i bučniji od determinističkih primjera — pad koji izgleda kao flaky, a reprodukuje se samo sa određenim nasumičnim seedom, zahtijeva da se taj seed sačuva i ponovo pusti, a ne samo da se test ponovo pokrene i ignoriše.</p>
+<p>Property-based testiranje takođe nije zamjena za testove zasnovane na primjerima koji dokumentuju konkretne, imenovane poslovne scenarije („VIP kupac dobija besplatnu dostavu preko 50 dolara&quot;). Oni su i dalje jasniji kao eksplicitni primjeri. Ove dvije tehnike najbolje rade jedna uz drugu: primjeri za dokumentovanje namjere, svojstva za hvatanje ulaza koje niko nije pomislio da dokumentuje.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<p>Izaberite jednu čistu funkciju u svom kodu sa očiglednom invarijantom — serijalizator/deserijalizator, sortiranje, parser, bilo šta sa round tripom ili jasnim matematičkim pravilom — i napišite za nju tačno jedan property test uz Hypothesis ili fast-check. Pokrenite ga lokalno nad postojećim kodom prije nego što mu povjerite mjesto u CI-ju, i zaista pročitajte prvih nekoliko padova koje izbaci umjesto da ih otpišete kao šum. Kada pronađe stvaran bag, sačuvajte seed koji pada i dodajte ga kao trajni regresioni primjer uz svojstvo. Na drugu funkciju pređite tek kada prvi property test zasluži svoje mjesto u paketu — prebacivanje čitavog test fajla odjednom obično proizvede poplavu nalaza koju je teško trijažirati.</p>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://fast-check.dev/docs/introduction/" target="_blank" rel="noopener noreferrer">fast-check introduction</a></li><li><a href="https://hypothesis.works/articles/multi-bug-discovery/" target="_blank" rel="noopener noreferrer">Hypothesis: When multiple bugs attack</a></li><li><a href="https://increment.com/testing/in-praise-of-property-based-testing/" target="_blank" rel="noopener noreferrer">In praise of property-based testing — Increment</a></li></ul></div>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button">Kopiraj link</button>
+      <a class="btn primary" href="../../../#contact">Kontaktiraj me</a>
+    </div>
+    <section class="more-posts"><h2>Slični članci</h2><div class="post-grid">
+      <a class="post-card card glow" href="../test-pyramid-vs-testing-trophy/"><div class="meta"><time datetime="2026-11-09" data-fmt="short">9. nov 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Test piramida ili testing trofej: birajte oblik koji odgovara vašem riziku, a ne dijagramu</h3><p>Test piramida i testing trofej daju suprotne savjete o tome gdje da uložite testove. Evo kako da odlučite koji oblik zaista odgovara vašem kodu.</p></a>
+      <a class="post-card card glow" href="../pairwise-combinatorial-testing/"><div class="meta"><time datetime="2026-11-04" data-fmt="short">4. nov 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Pairwise testiranje: kako hiljade kombinacija konfiguracije svesti na test suite koji zaista možete da pokrenete</h3><p>Kako pairwise i kombinatorno testiranje svode kombinatornu eksploziju na mali test suite sa visokom pokrivenošću, uz razrađen primjer i preporuke alata.</p></a>
+      <a class="post-card card glow" href="../mutation-testing-weak-assertions/"><div class="meta"><time datetime="2026-10-19" data-fmt="short">19. okt 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Mutaciono testiranje: kako da saznate da li vaši testovi zaista hvataju bagove</h3><p>Pokrivenost koda pokazuje koje su linije izvršene. Mutaciono testiranje pokazuje da li bi vaši testovi primijetili da je logika pokvarena. Evo kako da ga koristite.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../../#contact" data-i18n="contact_cta">Kontaktiraj me</a>
+    <button type="button" data-consent data-i18n="cookies">Postavke kolačića</button>
+    <a href="../../../" data-i18n="back_home">Nazad na početnu ↑</a>
+  </footer>
+  <script src="../../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../../blog/common.js"></script>
+  <script src="../../../blog/post.js"></script>
+</body>
+</html>

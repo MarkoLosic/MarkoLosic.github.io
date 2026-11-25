@@ -2,7 +2,7 @@
 title: Quality Starts Before the First Line of Code: How I Approach QA
 title_sr: Kvalitet počinje prije prve linije koda: kako pristupam QA-u
 date: 2026-09-24
-tags: [qa, testing-philosophy, test-automation, cypress, playwright]
+tags: [test-strategy, playwright, test-automation]
 excerpt: Why QA that begins at requirements, blends testing types, and closes the loop after release builds real product quality.
 excerpt_sr: Zašto QA koji počinje već kod zahtjeva, kombinuje različite vrste testiranja i zatvara krug nakon objavljivanja gradi stvaran kvalitet proizvoda.
 image: assets/blog/quality-starts-before-testing.jpg

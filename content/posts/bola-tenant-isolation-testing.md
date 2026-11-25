@@ -2,7 +2,7 @@
 title: "Testing for Broken Object-Level Authorization: The Access Check Most Test Suites Never Try"
 title_sr: "Testiranje Broken Object-Level Authorization: provjera pristupa koju većina test skupova nikad ne proba"
 date: 2026-10-09
-tags: [qa, api-testing, security-testing, multi-tenant]
+tags: [security-testing, api-testing, real-world-bugs]
 excerpt: Why functional tests routinely miss the authorization bug that lets one customer see or change another's data, and how to test for it deliberately.
 excerpt_sr: Zašto funkcionalni testovi redovno propuštaju bug u autorizaciji koji jednom korisniku dozvoljava da vidi ili mijenja tuđe podatke, i kako ga namjerno testirati.
 image: assets/blog/bola-tenant-isolation-testing.jpg

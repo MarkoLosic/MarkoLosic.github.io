@@ -2,7 +2,7 @@
 title: "The QA Metrics That Actually Predict Quality (and the Ones That Don't)"
 title_sr: "QA metrike koje zaista predviđaju kvalitet (i one koje ne predviđaju)"
 date: 2026-10-12
-tags: [qa, methodology, metrics]
+tags: [test-strategy]
 excerpt: Pass rate and test count feel reassuring but say little about quality. Here's what to track instead, and how to read it.
 excerpt_sr: Procenat prolaznosti i broj testova djeluju umirujuće, ali malo govore o kvalitetu. Evo šta pratiti umjesto toga i kako to čitati.
 image: assets/blog/qa-metrics-that-matter.jpg

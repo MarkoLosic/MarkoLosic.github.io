@@ -2,7 +2,7 @@
 title: "When Your Page Object Model Stops Scaling: Flow Model and Screenplay Pattern Compared"
 title_sr: "Kada Page Object Model prestane da se skalira: poređenje Flow modela i Screenplay obrasca"
 date: 2026-10-17
-tags: [qa, test-automation, page-object-model, screenplay-pattern]
+tags: [test-automation, playwright]
 excerpt: Page objects work until the suite grows. A look at when to add a flow layer, when Screenplay earns its complexity, and when to just stay put.
 excerpt_sr: Page objekti rade dok paket testova ne naraste. Kada dodati sloj tokova, kada Screenplay opravdava svoju složenost, a kada je najbolje ostati gdje ste.
 image: assets/blog/pom-alternatives-flow-model-screenplay-pattern.jpg
@@ -70,12 +70,17 @@ The flow layer avoids that cost but inherits a different one: because there's no
 
 Count the maintainers on your automation suite and look at how many workflows get copy-pasted across spec files right now — that's a better signal than suite size alone. If it's one to three people and duplication is mild, stay on POM; it's not broken. If workflows are duplicated across five or more specs, write down (literally, in a README) what belongs in a page object versus a flow before adding the flow layer, so it doesn't become its own mess. Only consider Screenplay if the team has four or more maintainers, enough OOP background to keep the discipline, and scenarios that genuinely span UI, API, and database in the same test — otherwise the learning curve will cost more than the suite gains.
 
+For more on keeping automated suites maintainable, see [my Playwright CI pipeline case study](/pipeline/), [Asserting Too Early in Playwright](/blog/asserting-too-early-flaky-playwright-tests/), and [Self-Healing Tests: What They Actually Fix](/blog/self-healing-tests-hidden-risk/).
+
+
 ## Sources
 
 - [Choosing the Right Test Automation Design Pattern: Page Object Model, Flow Model Pattern, or Screenplay Pattern?](https://engineering.cloudflight.io/choosing-the-right-test-automation-design-pattern-page-object-model-flow-model-pattern-or-screenplay-pattern) — Cloudflight Engineering
 - [A Journey to Better Automation with the Screenplay Pattern](https://applitools.com/blog/better-automation-screenplay-pattern/) — Applitools
 - [Playwright Page Object Model](https://www.ssw.com.au/rules/playwright-page-object-model) — SSW Rules
+
 <!--sr-->
+
 Većina paketa za UI automatizaciju počinje na isti način: jedna page object klasa po ekranu, lokatori kao svojstva, metode koje opisuju akcije. To odlično radi za prvih nekoliko desetina testova. Onda paket naraste, checkout, onboarding i podešavanja počnu da dijele korake, i odjednom tri različita spec fajla implementiraju „prijavi se, dodaj artikal, idi na checkout" na tri malo različita načina. Uobičajeno rješenje je da se page klasama dodaju nove metode, sve dok jedna od njih ne dostigne osamsto linija i niko više ne želi da je dira. To je trenutak kada vrijedi znati da postoje dva ustaljena izlaza, a ne samo jedan, i da nijedan nije besplatan.
 
 ![Izometrijska ilustracija koja upoređuje tri arhitekture za automatizaciju testova: slojeviti Page Object Model sa slojevima Page i Locators & Actions, Flow Model sa povezujućim slojem čvorova toka iznad sloja Flow Functions, i Screenplay obrazac sa centralnim Actor-om povezanim sa čvorovima Abilities, Tasks, Questions, UI i API](assets/blog/pom-alternatives-flow-model-screenplay-pattern.jpg)
@@ -138,6 +143,9 @@ Sloj tokova izbjegava taj trošak, ali nasljeđuje drugi: pošto ne postoji form
 ## Šta dalje
 
 Prebrojte ljude koji održavaju vaš paket za automatizaciju i pogledajte koliko se tokova trenutno kopira između spec fajlova — to je bolji signal od same veličine paketa. Ako je u pitanju jedna do tri osobe i dupliranje je blago, ostanite na POM-u; on nije pokvaren. Ako se tokovi ponavljaju u pet ili više spec fajlova, prije uvođenja sloja tokova zapišite (doslovno, u README) šta pripada page objektu, a šta toku, da ne bi i taj sloj postao nered. O Screenplay-u razmišljajte tek ako tim ima četiri ili više ljudi koji održavaju testove, dovoljno OOP iskustva da održi disciplinu i scenarije koji zaista u istom testu obuhvataju UI, API i bazu — u suprotnom će kriva učenja koštati više nego što paket dobije.
+
+Za više o održavanju automatizovanih testova pogledaj [studiju slučaja mog Playwright CI pipeline-a](/pipeline/), [Preuranjene asertacije u Playwright-u](/sr/blog/asserting-too-early-flaky-playwright-tests/) i [Samoiscjeljujući testovi: šta zaista popravljaju](/sr/blog/self-healing-tests-hidden-risk/).
+
 
 ## Izvori
 

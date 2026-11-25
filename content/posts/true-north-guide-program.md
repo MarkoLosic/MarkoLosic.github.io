@@ -2,7 +2,7 @@
 title: What the TrueNorth Program Actually Is, and What It Can Do for a Company
 title_sr: Šta je zapravo TrueNorth program i šta može da donese kompaniji
 date: 2026-09-25
-tags: [true-north, mentorship, career-development, qa, software-development]
+tags: [test-strategy]
 excerpt: Inside the TrueNorth guide-led training model: what it teaches, how the team guide role works, and the real business case for companies.
 excerpt_sr: Iznutra o TrueNorth modelu obuke koju vode guide-ovi: šta uči, kako funkcioniše uloga team guide-a i kakva je stvarna korist za kompanije.
 image: assets/blog/true-north-guide-program.jpg

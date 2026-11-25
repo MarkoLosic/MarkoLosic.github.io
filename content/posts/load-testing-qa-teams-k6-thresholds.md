@@ -3,7 +3,7 @@ title: "Load Testing for QA Teams: What k6 Catches, and What a Passing Threshold
 title_sr: "Load testiranje za QA timove: šta k6 hvata, a šta prolazni prag i dalje može da sakrije"
 date: 2026-11-20
 time: 18:30
-tags: [qa, performance-testing, load-testing, k6, tools-and-trends]
+tags: [performance-testing, test-automation, ci-cd]
 excerpt: A practical k6 walkthrough for QA teams: scripting a load test, setting thresholds, and the pitfalls that make a green dashboard misleading.
 excerpt_sr: Praktičan k6 vodič za QA timove: pisanje load testa, postavljanje pragova i zamke zbog kojih zelen dashboard može da zavara.
 image: assets/blog/load-testing-qa-teams-k6-thresholds.jpg
@@ -74,6 +74,9 @@ Load testing earns its place in a QA suite, but it comes with real failure modes
 - Run your script at a low virtual-user count first and confirm the checks pass before ramping up; a load test that's wrong at 1 VU is just wrong faster at 100.
 - Write your thresholds from an existing SLO or support-ticket history, not from whatever the first run happens to produce.
 - Wire the test into CI against staging, track p95/p99 over time, and document the known gaps between that staging environment and production rather than treating a passing run as a production guarantee.
+
+For testing resilience beyond load scripts, see [Chaos Engineering Game Days for QA Teams](/blog/chaos-engineering-game-day-qa-teams/), [Checkmk Synthetic Monitoring for QA](/blog/checkmk-synthetic-monitoring-for-qa/), and [my CI quality-gate pipeline](/pipeline/).
+
 
 ## Sources
 
@@ -155,6 +158,9 @@ Load testiranje zaslužuje svoje mjesto u QA skupu testova, ali ima i sopstvene 
 - Prvo pokrenite skriptu sa malim brojem virtuelnih korisnika i potvrdite da provjere prolaze prije podizanja opterećenja; load test koji je pogrešan na 1 VU je samo brže pogrešan na 100.
 - Pragove pišite na osnovu postojećeg SLO-a ili istorije tiketa podrške, a ne na osnovu onoga što prvo pokretanje slučajno pokaže.
 - Uvežite test u CI protiv staginga, pratite p95/p99 kroz vrijeme i dokumentujte poznate razlike između tog staging okruženja i produkcije, umjesto da prolazno pokretanje tretirate kao garanciju za produkciju.
+
+Za testiranje otpornosti sistema izvan samih load skripti pogledaj [Chaos engineering Game Day za QA timove](/sr/blog/chaos-engineering-game-day-qa-teams/), [Checkmk sintetički monitoring za QA](/sr/blog/checkmk-synthetic-monitoring-for-qa/) i [prikaz mog CI quality-gate pipeline-a](/pipeline/).
+
 
 ## Izvori
 

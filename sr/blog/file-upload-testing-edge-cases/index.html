@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="sr" data-theme="dark" data-static-lang="sr" data-alt-url="../../../blog/file-upload-testing-edge-cases/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Testiranje otpremanja fajlova: granični slučajevi pored kojih happy-path testovi samo prođu — Marko Lošić</title>
+  <meta name="description" content="Zašto funkcije za otpremanje fajlova pucaju u produkciji i kako testirati ograničenja veličine, lažiranje tipa fajla, istovremena otpremanja i prekinute prenos…">
+  <link rel="canonical" href="https://markolosic.github.io/sr/blog/file-upload-testing-edge-cases/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/file-upload-testing-edge-cases/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/file-upload-testing-edge-cases/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/file-upload-testing-edge-cases/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Testiranje otpremanja fajlova: granični slučajevi pored kojih happy-path testovi samo prođu — Marko Lošić">
+  <meta property="og:description" content="Zašto funkcije za otpremanje fajlova pucaju u produkciji i kako testirati ograničenja veličine, lažiranje tipa fajla, istovremena otpremanja i prekinute prenos…">
+  <meta property="og:url" content="https://markolosic.github.io/sr/blog/file-upload-testing-edge-cases/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/file-upload-testing-edge-cases.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="669">
+  <meta property="og:image:alt" content="Testiranje otpremanja fajlova: granični slučajevi pored kojih happy-path testovi samo prođu">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Testiranje otpremanja fajlova: granični slučajevi pored kojih happy-path testovi samo prođu — Marko Lošić">
+  <meta name="twitter:description" content="Zašto funkcije za otpremanje fajlova pucaju u produkciji i kako testirati ograničenja veličine, lažiranje tipa fajla, istovremena otpremanja i prekinute prenos…">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/file-upload-testing-edge-cases.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/sr/blog/file-upload-testing-edge-cases/#article","headline":"Testiranje otpremanja fajlova: granični slučajevi pored kojih happy-path testovi samo prođu","description":"Zašto funkcije za otpremanje fajlova pucaju u produkciji i kako testirati ograničenja veličine, lažiranje tipa fajla, istovremena otpremanja i prekinute prenose.","image":"https://markolosic.github.io/assets/blog/file-upload-testing-edge-cases.jpg","url":"https://markolosic.github.io/sr/blog/file-upload-testing-edge-cases/","inLanguage":"sr","wordCount":1065,"articleSection":"security-testing","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/sr/blog/file-upload-testing-edge-cases/"},"datePublished":"2026-11-13T18:30:00.000Z","dateModified":"2026-11-13T18:30:00.000Z","keywords":"security-testing, real-world-bugs, manual-testing","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Početna","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/sr/blog/"},{"@type":"ListItem","position":3,"name":"Testiranje otpremanja fajlova: granični slučajevi pored kojih happy-path testovi samo prođu","item":"https://markolosic.github.io/sr/blog/file-upload-testing-edge-cases/"}]}]}</script>
+  <meta property="article:published_time" content="2026-11-13T18:30:00.000Z">
+  <meta property="article:modified_time" content="2026-11-13T18:30:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../assets/fonts.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../../#top" data-i18n="nav_about">O meni</a>
+      <a href="../../../#skills" data-i18n="nav_skills">Vještine</a>
+      <a href="../../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../../#experience" data-i18n="nav_exp">Iskustvo</a>
+      <a href="../../../#education" data-i18n="nav_edu">Obrazovanje</a>
+      <a href="../../../sr/blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../../#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span>Svi članci</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-11-13" data-fmt="long">13. novembar 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h1>Testiranje otpremanja fajlova: granični slučajevi pored kojih happy-path testovi samo prođu</h1>
+        <p class="lead">Zašto funkcije za otpremanje fajlova pucaju u produkciji i kako testirati ograničenja veličine, lažiranje tipa fajla, istovremena otpremanja i prekinute prenose.</p>
+        <div class="tags"><span>security-testing</span><span>real-world-bugs</span><span>manual-testing</span></div>
+      </header>
+      <div class="prose"><p>Polje za otpremanje fajla izgleda kao jedna od najjednostavnijih stvari u aplikaciji: izaberi fajl, pošalji ga, prikaži poruku o uspjehu. Upravo zbog te jednostavnosti se nedovoljno testira. Većina testova za otpremanje pokriva jedan happy path — mali, ispravan fajl koji se otpremi bez problema — i tu staje. U produkciji otpremanja padaju na mnogo zanimljivije načine: preveliki fajlovi kojima istekne vrijeme usred prenosa, imena fajlova koja lome putanje u skladištu, tipovi sadržaja koji lažu o tome šta su, i dva otpremanja koja se utrkuju za isto mjesto. Bilo šta od ovoga može da pretvori &quot;jednostavnu&quot; funkciju u red prijava podršci pun oštećenih dokumenata, ili u bezbjednosni incident.</p>
+<p><img src="../../../assets/blog/file-upload-testing-edge-cases.jpg" alt="Izometrijska ilustracija oblaka sa sočivom skenera koje provjerava fajlove: potvrđen dokument koji se uzdiže na strelici, dokument sa skrivenim bagom, napola prenesen fajl koji se raspada, dva dokumenta koja se sudaraju uz znak upozorenja i napukao dokument na crvenom okviru" width="1200" height="669" fetchpriority="high" decoding="async"></p>
+<h2 id="konkretan-scenario">Konkretan scenario</h2>
+<p>Zamislite tim koji pravi funkciju za dijeljenje dokumenata u B2B proizvodu: korisnici otpremaju PDF-ove i slike koje se kače uz zapise, a kolege ih kasnije preuzimaju. Prvobitni testovi provjeravali su tačno tri stvari: PDF od 200 KB se uspješno otprema, fajl koji nije PDF (<code>.txt</code>) se odbija, a fajl veći od navedenog ograničenja od 25 MB se odbija uz jasnu poruku o grešci. Sva tri testa su prošla i funkcija je puštena.</p>
+<p>U roku od nekoliko sedmica pojavila su se tri odvojena problema. Prvo, korisnik na nestabilnoj mobilnoj vezi otpremio je fajl od 20 MB koji se prekinuo na 12 MB; server je sačuvao djelimičan fajl kao da je otpremanje uspjelo, a sljedeća osoba koja ga je otvorila dobila je oštećen PDF, bez ijedne greške u logovima. Drugo, fajl pod imenom <code>invoice.pdf.exe</code> otpremljen je sa uređaja koji je skrivao ekstenzije fajlova, pa je korisniku izgledao kao običan PDF; validacija na serveru provjeravala je samo ekstenziju, pa je izvršni fajl prošao prerušen u PDF. Treće, dva taba u pregledaču otvorena na istom zapisu otpremila su zamjenski fajl za taj zapis u istoj sekundi, a verzija koja je &quot;pobijedila&quot; bila je praktično nasumična — ona čiji je upis slučajno završio posljednji — bez ikakvog upozorenja nijednom korisniku da je njegovo otpremanje tiho odbačeno.</p>
+<p>Ništa od ovoga nije zahtijevalo posebnu vještinu da se izazove. Bilo je potrebno testirati uslove koje happy-path testovi nikad nisu simulirali: prekinutu vezu, neslaganje između deklarisanog tipa fajla i njegovog stvarnog sadržaja, i istovremene upise u isti resurs.</p>
+<h2 id="šta-zaista-testirati">Šta zaista testirati</h2>
+<p><strong>Veličina i granični uslovi.</strong> Testirajte tačno na ograničenju, jedan bajt preko ograničenja i sa nula bajtova. Iznenađujuće mnogo handlera za otpremanje prihvata prazan fajl bez pogovora, što je rijetko željeno ponašanje.</p>
+<p><strong>Prekinuti i djelimični prenosi.</strong> Pokrenite otpremanje i prekinite vezu na pola puta, pomoću proxy alata ili jednostavno usporavanjem i prekidanjem veze usred zahtjeva. Sistem treba ili da odbaci djelimičan fajl ili da eksplicitno podrži nastavak otpremanja — nikada ne smije da predstavi napola upisan fajl kao završen i ispravan. Ako aplikacija nudi nastavljiva otpremanja za velike fajlove, <a href="https://tus.io/protocols/resumable-upload" target="_blank" rel="noopener noreferrer">tus protokol za nastavljivo otpremanje</a> je koristan orijentir za ono što ispravna implementacija pruža: stabilan URL otpremanja, mogućnost da se upita koliko je bajtova server zaista primio i podršku za nastavak od te pozicije umjesto ponovnog kretanja od nule.</p>
+<p><strong>Tip sadržaja naspram stvarnog sadržaja.</strong> Nikada ne vjerujte samo <code>Content-Type</code> zaglavlju koje šalje klijent ili ekstenziji fajla. Testirajte to direktno: preimenujte izvršni fajl ili skriptu u <code>.jpg</code> i potvrdite da ga server odbija na osnovu stvarnih bajtova fajla (magic numbers), a ne imena ili zaglavlja. <a href="https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html" target="_blank" rel="noopener noreferrer">OWASP File Upload Cheat Sheet</a> i <a href="https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/08-Test_Upload_of_Unexpected_File_Types" target="_blank" rel="noopener noreferrer">testovi otpremanja fajlova iz OWASP Web Security Testing Guide</a> detaljno opisuju ovu vrstu provjera, uključujući dvostruke ekstenzije (<code>invoice.pdf.php</code>), trikove sa null bajtom u imenima fajlova i poliglot fajlove koji su istovremeno ispravni u dva formata.</p>
+<p><strong>Imena fajlova, ne samo sadržaj.</strong> Otpremite fajlove sa razmacima, ne-ASCII znakovima, emotikonima, separatorima putanje (<code>../../etc/passwd</code>) i imenima maksimalne dužine koju dozvoljava operativni sistem ili skladište. Validacija koja se testira samo sa <code>report.pdf</code> propustiće path traversal i bagove u kodiranju znakova koji se pojavljuju tek sa neobičnim imenima.</p>
+<p><strong>Dekompresija i iscrpljivanje resursa.</strong> Ako funkcija prihvata arhive ili bilo koji format koji se raspakuje ili obrađuje na serveru, testirajte sa jako kompresovanim fajlom (&quot;zip bomba&quot;) koji se raspakuje do nesrazmjerne veličine. Cilj nije da srušite produkcijski sistem — ovo pokrećite isključivo na testnom ili staging okruženju — već da potvrdite da postoji ograničenje veličine ili dubine dekompresije prije nego što se do te tačke uopšte stigne.</p>
+<p><strong>Istovremenost.</strong> Pošaljite dva otpremanja na isti cilj (isti zapis, istu korisničku kvotu, isto ime fajla) gotovo u isto vrijeme i provjerite šta se dešava sa onim koji &quot;izgubi&quot;. On treba da dobije jasan odgovor o konfliktu, a ne tihi gubitak podataka.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Ovakvo testiranje ima stvarnu cijenu: simuliranje prekinutih veza i stanja utrkivanja (race conditions) sporije je za pisanje i izvršavanje od obične asertacije, a dio toga (dekompresione bombe, veliki fajlovi) treba da ostane van CI-ja i da se izvršava u izolovanom okruženju, kako bi se izbjegli nestabilni ili opasni buildovi. Ovo takođe ne zamjenjuje pravu bezbjednosnu reviziju — provjere magic numbers i validacija ekstenzija smanjuju rizik, ali ne zamjenjuju antivirus na serveru ili skeniranje fajlova u sandboxu kada aplikacija obrađuje fajlove od nepouzdanih korisnika. I ne treba svakoj aplikaciji sve ovo: alat koji prihvata samo nekoliko pouzdanih internih CSV fajlova ima mnogo manju površinu napada od javne forme za otpremanje, pa trud prilagodite tome koliko je funkcija zaista izložena.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ul><li>Dodajte eksplicitne test slučajeve za prekinuta otpremanja i potvrdite da se djelimični fajlovi nikada ne serviraju kao kompletni.</li><li>Validirajte tip fajla po sadržaju (magic numbers), a ne po ekstenziji ili MIME tipu koji prijavljuje klijent, i napišite test koji dokazuje da server hvata preimenovan fajl.</li><li>Dodajte test istovremenosti za svako otpremanje koje može da prepiše drugo otpremanje na isti cilj ili da se sa njim utrkuje.</li><li>Ako se prihvataju veliki fajlovi ili arhive, testirajte dekompresiju i ograničenja veličine u izolovanom okruženju prije nego što stignu do produkcije.</li></ul>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html" target="_blank" rel="noopener noreferrer">OWASP File Upload Cheat Sheet</a></li><li><a href="https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/10-Business_Logic_Testing/08-Test_Upload_of_Unexpected_File_Types" target="_blank" rel="noopener noreferrer">OWASP Web Security Testing Guide — Test Upload of Unexpected File Types</a></li><li><a href="https://tus.io/protocols/resumable-upload" target="_blank" rel="noopener noreferrer">tus — Resumable Upload Protocol</a></li></ul></div>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button">Kopiraj link</button>
+      <a class="btn primary" href="../../../#contact">Kontaktiraj me</a>
+    </div>
+    <section class="more-posts"><h2>Slični članci</h2><div class="post-grid">
+      <a class="post-card card glow" href="../binance-6-3-billion-hack-devops-laptop/"><div class="meta"><time datetime="2026-10-30" data-fmt="short">30. okt 2026.</time><span>·</span><span>3 min čitanja</span></div><h3>Pljačka stoljeća: kako je jedan laptop koštao Binance 6,3 milijarde dolara</h3><p>Binance je u najvećoj kripto krađi u historiji izgubio oko 6,3 milijarde dolara, a ulaz je bio jedan kompromitovan laptop DevOps inženjera. Šta se desilo i šta iz toga treba ponijeti.</p></a>
+      <a class="post-card card glow" href="../php2shell-rce-qa-testing-gaps/"><div class="meta"><time datetime="2026-10-23" data-fmt="short">23. okt 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>PHP2Shell: kako kritični RCE u jezgru PHP-a otkriva rupe u standardnim QA praksama</h3><p>Šta PHP2Shell ranjivosti za udaljeno izvršavanje koda otkrivaju o slijepim tačkama tipičnih paketa testova i konkretni koraci da se one zatvore.</p></a>
+      <a class="post-card card glow" href="../bola-tenant-isolation-testing/"><div class="meta"><time datetime="2026-10-09" data-fmt="short">9. okt 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Testiranje Broken Object-Level Authorization: provjera pristupa koju većina test skupova nikad ne proba</h3><p>Zašto funkcionalni testovi redovno propuštaju bug u autorizaciji koji jednom korisniku dozvoljava da vidi ili mijenja tuđe podatke, i kako ga namjerno testirati.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../../#contact" data-i18n="contact_cta">Kontaktiraj me</a>
+    <button type="button" data-consent data-i18n="cookies">Postavke kolačića</button>
+    <a href="../../../" data-i18n="back_home">Nazad na početnu ↑</a>
+  </footer>
+  <script src="../../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../../blog/common.js"></script>
+  <script src="../../../blog/post.js"></script>
+</body>
+</html>

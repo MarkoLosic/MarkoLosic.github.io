@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="sr" data-theme="dark" data-static-lang="sr" data-alt-url="../../../blog/pom-alternatives-flow-model-screenplay-pattern/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kada Page Object Model prestane da se skalira: poređenje Flow modela i Screenplay obrasca — Marko Lošić</title>
+  <meta name="description" content="Page objekti rade dok paket testova ne naraste. Kada dodati sloj tokova, kada Screenplay opravdava svoju složenost, a kada je najbolje ostati gdje ste.">
+  <link rel="canonical" href="https://markolosic.github.io/sr/blog/pom-alternatives-flow-model-screenplay-pattern/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/pom-alternatives-flow-model-screenplay-pattern/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/pom-alternatives-flow-model-screenplay-pattern/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/pom-alternatives-flow-model-screenplay-pattern/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Kada Page Object Model prestane da se skalira: poređenje Flow modela i Screenplay obrasca — Marko Lošić">
+  <meta property="og:description" content="Page objekti rade dok paket testova ne naraste. Kada dodati sloj tokova, kada Screenplay opravdava svoju složenost, a kada je najbolje ostati gdje ste.">
+  <meta property="og:url" content="https://markolosic.github.io/sr/blog/pom-alternatives-flow-model-screenplay-pattern/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/pom-alternatives-flow-model-screenplay-pattern.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="669">
+  <meta property="og:image:alt" content="Kada Page Object Model prestane da se skalira: poređenje Flow modela i Screenplay obrasca">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kada Page Object Model prestane da se skalira: poređenje Flow modela i Screenplay obrasca — Marko Lošić">
+  <meta name="twitter:description" content="Page objekti rade dok paket testova ne naraste. Kada dodati sloj tokova, kada Screenplay opravdava svoju složenost, a kada je najbolje ostati gdje ste.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/pom-alternatives-flow-model-screenplay-pattern.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/sr/blog/pom-alternatives-flow-model-screenplay-pattern/#article","headline":"Kada Page Object Model prestane da se skalira: poređenje Flow modela i Screenplay obrasca","description":"Page objekti rade dok paket testova ne naraste. Kada dodati sloj tokova, kada Screenplay opravdava svoju složenost, a kada je najbolje ostati gdje ste.","image":"https://markolosic.github.io/assets/blog/pom-alternatives-flow-model-screenplay-pattern.jpg","url":"https://markolosic.github.io/sr/blog/pom-alternatives-flow-model-screenplay-pattern/","inLanguage":"sr","wordCount":1089,"articleSection":"test-automation","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/sr/blog/pom-alternatives-flow-model-screenplay-pattern/"},"datePublished":"2026-10-17T00:00:00.000Z","dateModified":"2026-10-17T00:00:00.000Z","keywords":"test-automation, playwright","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Početna","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/sr/blog/"},{"@type":"ListItem","position":3,"name":"Kada Page Object Model prestane da se skalira: poređenje Flow modela i Screenplay obrasca","item":"https://markolosic.github.io/sr/blog/pom-alternatives-flow-model-screenplay-pattern/"}]}]}</script>
+  <meta property="article:published_time" content="2026-10-17T00:00:00.000Z">
+  <meta property="article:modified_time" content="2026-10-17T00:00:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../assets/fonts.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../../#top" data-i18n="nav_about">O meni</a>
+      <a href="../../../#skills" data-i18n="nav_skills">Vještine</a>
+      <a href="../../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../../#experience" data-i18n="nav_exp">Iskustvo</a>
+      <a href="../../../#education" data-i18n="nav_edu">Obrazovanje</a>
+      <a href="../../../sr/blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../../#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span>Svi članci</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-10-17" data-fmt="long">17. oktobar 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h1>Kada Page Object Model prestane da se skalira: poređenje Flow modela i Screenplay obrasca</h1>
+        <p class="lead">Page objekti rade dok paket testova ne naraste. Kada dodati sloj tokova, kada Screenplay opravdava svoju složenost, a kada je najbolje ostati gdje ste.</p>
+        <div class="tags"><span>test-automation</span><span>playwright</span></div>
+      </header>
+      <div class="prose"><p>Većina paketa za UI automatizaciju počinje na isti način: jedna page object klasa po ekranu, lokatori kao svojstva, metode koje opisuju akcije. To odlično radi za prvih nekoliko desetina testova. Onda paket naraste, checkout, onboarding i podešavanja počnu da dijele korake, i odjednom tri različita spec fajla implementiraju „prijavi se, dodaj artikal, idi na checkout&quot; na tri malo različita načina. Uobičajeno rješenje je da se page klasama dodaju nove metode, sve dok jedna od njih ne dostigne osamsto linija i niko više ne želi da je dira. To je trenutak kada vrijedi znati da postoje dva ustaljena izlaza, a ne samo jedan, i da nijedan nije besplatan.</p>
+<p><img src="../../../assets/blog/pom-alternatives-flow-model-screenplay-pattern.jpg" alt="Izometrijska ilustracija koja upoređuje tri arhitekture za automatizaciju testova: slojeviti Page Object Model sa slojevima Page i Locators &amp; Actions, Flow Model sa povezujućim slojem čvorova toka iznad sloja Flow Functions, i Screenplay obrazac sa centralnim Actor-om povezanim sa čvorovima Abilities, Tasks, Questions, UI i API" width="1200" height="669" fetchpriority="high" decoding="async"></p>
+<h2 id="gdje-page-object-model-prestaje-da-pomaže">Gdje Page Object Model prestaje da pomaže</h2>
+<p>Page Object Model (POM) sakriva lokatore i interakcije niskog nivoa iza po jedne klase za svaku stranicu, pa test poziva <code>LoginPage.login(user, password)</code> umjesto da piše sirove selektore. Koristi su stvarne: manje dupliranja nego kod direktnih Selenium poziva, zajednički rječnik i blaga kriva učenja, zbog čega je to pravi izbor za male timove i male pakete testova.</p>
+<p>Problemi se pojavljuju kako rastu paket i tim. POM je konvencija, a ne stroga specifikacija, pa ga svaki tim implementira malo drugačije, zbog čega veliki paketi postaju nedosljedni od autora do autora. Poslovni tokovi koji se protežu kroz više stranica (checkout, onboarding, forma u više koraka) nemaju svoje mjesto, pa se kopiraju iz testa u test. Page klase na kraju miješaju lokatore, akcije niskog nivoa i logiku tokova, što krši princip jedne odgovornosti i čini refaktorisanje rizičnim. Ništa od ovoga ne znači da je POM bio pogrešan izbor — znači da je paket prerastao obrazac sa kojim je počeo.</p>
+<h2 id="srednje-rješenje-sloj-tokova">Srednje rješenje: sloj tokova</h2>
+<p>Najjednostavnije rješenje je da se iznad postojećih page objekata doda tanak sloj poslovnih tokova koji se mogu ponovo koristiti, umjesto da se page objekti zamijene. Flow funkcija se čita kao cilj, a page objekti ispod nje ostaju potpuno isti.</p>
+<pre><code class="lang-js">// flows/checkout.js
+export const CheckoutFlow = {
+  async buyItem(item) {
+    await ProductsPage.open(item);
+    await ProductPage.addToCart();
+    await CartPage.goToCheckout();
+    await CheckoutPage.payWithSavedCard();
+  },
+};
+
+// test
+test('guest can buy a single item', async () =&gt; {
+  await CheckoutFlow.buyItem('wireless-mouse');
+  await expect(OrderPage.confirmationBanner).toBeVisible();
+});</code></pre>
+<p>Ovo ne zavisi ni od jednog frejmvorka i ubacuje se u postojeći Playwright, Cypress ili Selenium paket bez prepravljanja. Cijena je to što ne postoji standard koji kaže šta pripada toku, a šta page objektu, pa bez dogovorene konvencije folder sa tokovima može postati smetlište funkcija koje su pola poslovna logika, pola UI detalji — jednako zapetljane kao i prvobitne page klase, samo jedan sloj dalje.</p>
+<h2 id="veći-skok-screenplay-obrazac">Veći skok: Screenplay obrazac</h2>
+<p>Screenplay ide dalje tako što mijenja jedinicu apstrakcije sa „stranice&quot; na „aktera&quot;. Akter dobija sposobnosti (abilities, npr. pretraživanje weba ili pozivanje API-ja), izvršava zadatke (tasks, akcije bez povratne vrijednosti) i postavlja pitanja (questions, čitanja koja vraćaju stanje za provjere). Interakcije su generičke, pa jedna interakcija „popuni polje&quot; ili „klikni&quot; radi nad bilo kojim elementom, umjesto da svaki page objekat ima sopstvenu kopiju.</p>
+<pre><code class="lang-js">const alex = Actor.named('Alex').whoCan(BrowseTheWeb.using(page));
+
+await alex.attemptsTo(
+  Login.withCredentials('alex@example.com', 'secret'),
+  AddItemToCart.named('wireless-mouse'),
+  Checkout.withSavedCard(),
+);
+
+const confirmation = await alex.asks(ConfirmationBanner.text());
+expect(confirmation).toContain('Order confirmed');</code></pre>
+<p>Pošto sposobnosti aktera nisu ograničene na browser, isti akter može da izvršava UI korake, pozove API da pripremi stanje i upita bazu da provjeri sporedni efekat — sve kroz jedan dosljedan rječnik. To je zaista korisno u velikim scenarijima sa više aktera (dva korisnika koja pregovaraju o razmjeni, administrator koji odobrava nešto što je kupac poslao), gdje se POM, pa čak i sloj tokova, obično raspadnu.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Cijena Screenplay-a je stvarna, a ne teorijska. Zahtijeva više dizajna unaprijed i više sigurnosti u OOP-u nego što većina QA timova ima prvog dana, zajednica i alati su manji i uglavnom koncentrisani oko konkretnih implementacija (Serenity/JS, ScreenPy, Boa Constrictor), a uvođenje novog testera u posao traje primjetno duže nego kada mu se samo da page objekat. Timovi koji ga usvoje za mali ili srednji paket obično dobiju više ceremonije nego koristi — obrazac je napravljen za veliki obim, a ispod tog obima je samo dodatni teret.</p>
+<p>Sloj tokova izbjegava taj trošak, ali nasljeđuje drugi: pošto ne postoji formalna specifikacija, dva inženjera u istom timu povući će granicu između „toka&quot; i „page objekta&quot; na različitim mjestima, a bez eksplicitne timske konvencije zapisane negdje, apstrakcija počinje da se razilazi. I bez obzira na to koji obrazac tim izabere, nijedan sam po sebi ne rješava nestabilne (flaky) i spore UI testove — strukturni obrazac utiče na održivost, ne na pouzdanost. Čest savjet timova koji su probali sva tri pristupa: izvršite datu UI akciju jednom da dokažete da radi, a zatim svuda drugdje koristite API pozive za pripremu i promjene stanja, jer to smanjuje nestabilnost i trajanje testova bez obzira na to koji sloj koristite.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<p>Prebrojte ljude koji održavaju vaš paket za automatizaciju i pogledajte koliko se tokova trenutno kopira između spec fajlova — to je bolji signal od same veličine paketa. Ako je u pitanju jedna do tri osobe i dupliranje je blago, ostanite na POM-u; on nije pokvaren. Ako se tokovi ponavljaju u pet ili više spec fajlova, prije uvođenja sloja tokova zapišite (doslovno, u README) šta pripada page objektu, a šta toku, da ne bi i taj sloj postao nered. O Screenplay-u razmišljajte tek ako tim ima četiri ili više ljudi koji održavaju testove, dovoljno OOP iskustva da održi disciplinu i scenarije koji zaista u istom testu obuhvataju UI, API i bazu — u suprotnom će kriva učenja koštati više nego što paket dobije.</p>
+<p>Za više o održavanju automatizovanih testova pogledaj <a href="/pipeline/">studiju slučaja mog Playwright CI pipeline-a</a>, <a href="/sr/blog/asserting-too-early-flaky-playwright-tests/">Preuranjene asertacije u Playwright-u</a> i <a href="/sr/blog/self-healing-tests-hidden-risk/">Samoiscjeljujući testovi: šta zaista popravljaju</a>.</p>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://engineering.cloudflight.io/choosing-the-right-test-automation-design-pattern-page-object-model-flow-model-pattern-or-screenplay-pattern" target="_blank" rel="noopener noreferrer">Choosing the Right Test Automation Design Pattern: Page Object Model, Flow Model Pattern, or Screenplay Pattern?</a> — Cloudflight Engineering</li><li><a href="https://applitools.com/blog/better-automation-screenplay-pattern/" target="_blank" rel="noopener noreferrer">A Journey to Better Automation with the Screenplay Pattern</a> — Applitools</li><li><a href="https://www.ssw.com.au/rules/playwright-page-object-model" target="_blank" rel="noopener noreferrer">Playwright Page Object Model</a> — SSW Rules</li></ul></div>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button">Kopiraj link</button>
+      <a class="btn primary" href="../../../#contact">Kontaktiraj me</a>
+    </div>
+    <section class="more-posts"><h2>Slični članci</h2><div class="post-grid">
+      <a class="post-card card glow" href="../sharding-tests-github-actions/"><div class="meta"><time datetime="2026-10-08" data-fmt="short">8. okt 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Kako podijeliti spor skup testova na GitHub Actions, a ne izgubiti signal</h3><p>Kako sharding testova preko matrice u GitHub Actions zapravo radi, primjer ubrzanja iz prakse, i konkretni načini na koje može tiho da sakrije padove.</p></a>
+      <a class="post-card card glow" href="../quality-starts-before-testing/"><div class="meta"><time datetime="2026-09-24" data-fmt="short">24. sep 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Kvalitet počinje prije prve linije koda: kako pristupam QA-u</h3><p>Zašto QA koji počinje već kod zahtjeva, kombinuje različite vrste testiranja i zatvara krug nakon objavljivanja gradi stvaran kvalitet proizvoda.</p></a>
+      <a class="post-card card glow" href="../asserting-too-early-flaky-playwright-tests/"><div class="meta"><time datetime="2026-09-21" data-fmt="short">21. sep 2026.</time><span>·</span><span>7 min čitanja</span></div><h3>Prerana provjera: tihi izvor nestabilnih Playwright testova</h3><p>Mnogi nestabilni Playwright testovi nisu spori, nego provjeravaju prerano. Kako trenutne provjere i zaboravljeni await uzrokuju lažne padove i lažne prolaze.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../../#contact" data-i18n="contact_cta">Kontaktiraj me</a>
+    <button type="button" data-consent data-i18n="cookies">Postavke kolačića</button>
+    <a href="../../../" data-i18n="back_home">Nazad na početnu ↑</a>
+  </footer>
+  <script src="../../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../../blog/common.js"></script>
+  <script src="../../../blog/post.js"></script>
+</body>
+</html>

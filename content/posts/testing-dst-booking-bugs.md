@@ -2,7 +2,7 @@
 title: "Testing Across Daylight Saving Time: The Booking Bugs That Only Show Up Twice a Year"
 title_sr: "Testiranje kroz pomjeranje sata: bagovi u zakazivanju koji se javljaju samo dva puta godišnje"
 date: 2026-10-16
-tags: [qa, real-world-use-case, timezones, scheduling]
+tags: [real-world-bugs, test-strategy]
 excerpt: Why scheduling and booking features break around DST transitions, and how to write tests that actually catch it.
 excerpt_sr: Zašto funkcije zakazivanja i rezervacija pucaju oko prelaska na ljetnje i zimsko računanje vremena i kako napisati testove koji to zaista hvataju.
 image: assets/blog/testing-dst-booking-bugs.jpg

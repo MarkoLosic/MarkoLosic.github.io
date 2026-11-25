@@ -3,7 +3,7 @@ title: "Testing AI Features That Don't Give the Same Answer Twice"
 title_sr: "Testiranje AI funkcija koje nikad ne daju isti odgovor dvaput"
 date: 2026-10-21
 time: 12:00
-tags: [qa, ai-in-qa, llm-testing, test-automation]
+tags: [ai-testing, test-automation]
 excerpt: Why assert-equal breaks on LLM-powered features, and how to replace it with rubric-based and intent-based checks that actually catch regressions.
 excerpt_sr: Zašto assert-equal ne radi na funkcijama zasnovanim na LLM-u i kako ga zamijeniti provjerama zasnovanim na rubrikama i namjeri, koje zaista hvataju regresije.
 image: assets/blog/testing-non-deterministic-ai-features.jpg
@@ -50,6 +50,9 @@ This approach solves a real problem but creates new ones. LLM-as-judge calls cos
 - Build a small curated set of 50–100 real input/expected-behavior pairs for one of those features, with a written rubric of what counts as correct, partially correct, and wrong — vague criteria produce unreliable grading no matter what checks it.
 - Replace string-match assertions on that feature with rubric or LLM-judge checks, while keeping hard deterministic gates (schema validation, banned terms, PII patterns) as separate, cheaper checks that still run on every change.
 - Wire the rubric suite into CI as a regression gate, and rerun it whenever the prompt, model version, or retrieved data source changes — quality can drift with no code change at all.
+
+To see this evaluation approach applied in practice, check [my local LLM testing case study](/llm-testing/), along with [Testing AI Agents That Take Actions](/blog/testing-ai-agents-tool-calls-side-effects/) and [Testing RAG Pipelines](/blog/testing-rag-pipelines-retrieval-evaluation/).
+
 
 ## Sources
 
@@ -101,6 +104,9 @@ Ovaj pristup rješava stvaran problem, ali stvara nove. Pozivi LLM sudiji košta
 - Za jednu od tih funkcija napravite mali, pažljivo odabran skup od 50–100 stvarnih parova ulaz/očekivano ponašanje, uz napisanu rubriku šta se smatra tačnim, djelimično tačnim i pogrešnim — nejasni kriterijumi daju nepouzdano ocjenjivanje, bez obzira na to ko ili šta ocjenjuje.
 - Na toj funkciji zamijenite provjere poređenja stringova provjerama po rubrici ili LLM sudijom, a tvrde determinističke kapije (validacija šeme, zabranjeni izrazi, obrasci ličnih podataka) zadržite kao odvojene, jeftinije provjere koje i dalje rade na svakoj izmjeni.
 - Uključite paket rubrika u CI kao regresionu kapiju i pokrenite ga ponovo kad god se promijeni prompt, verzija modela ili izvor podataka za retrieval — kvalitet može da odluta i bez ijedne izmjene u kodu.
+
+Kako ovaj pristup evaluaciji izgleda u praksi možeš vidjeti u [studiji slučaja testiranja lokalnog LLM-a](/llm-testing/), uz povezane tekstove [Testiranje AI agenata koji izvršavaju akcije](/sr/blog/testing-ai-agents-tool-calls-side-effects/) i [Testiranje RAG pipeline-a](/sr/blog/testing-rag-pipelines-retrieval-evaluation/).
+
 
 ## Izvori
 

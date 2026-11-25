@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="sr" data-theme="dark" data-static-lang="sr" data-alt-url="../../../blog/testing-non-deterministic-ai-features/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Testiranje AI funkcija koje nikad ne daju isti odgovor dvaput — Marko Lošić</title>
+  <meta name="description" content="Zašto assert-equal ne radi na funkcijama zasnovanim na LLM-u i kako ga zamijeniti provjerama zasnovanim na rubrikama i namjeri, koje zaista hvataju regresije.">
+  <link rel="canonical" href="https://markolosic.github.io/sr/blog/testing-non-deterministic-ai-features/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/testing-non-deterministic-ai-features/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/testing-non-deterministic-ai-features/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/testing-non-deterministic-ai-features/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Testiranje AI funkcija koje nikad ne daju isti odgovor dvaput — Marko Lošić">
+  <meta property="og:description" content="Zašto assert-equal ne radi na funkcijama zasnovanim na LLM-u i kako ga zamijeniti provjerama zasnovanim na rubrikama i namjeri, koje zaista hvataju regresije.">
+  <meta property="og:url" content="https://markolosic.github.io/sr/blog/testing-non-deterministic-ai-features/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/testing-non-deterministic-ai-features.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="669">
+  <meta property="og:image:alt" content="Testiranje AI funkcija koje nikad ne daju isti odgovor dvaput">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Testiranje AI funkcija koje nikad ne daju isti odgovor dvaput — Marko Lošić">
+  <meta name="twitter:description" content="Zašto assert-equal ne radi na funkcijama zasnovanim na LLM-u i kako ga zamijeniti provjerama zasnovanim na rubrikama i namjeri, koje zaista hvataju regresije.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/testing-non-deterministic-ai-features.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/sr/blog/testing-non-deterministic-ai-features/#article","headline":"Testiranje AI funkcija koje nikad ne daju isti odgovor dvaput","description":"Zašto assert-equal ne radi na funkcijama zasnovanim na LLM-u i kako ga zamijeniti provjerama zasnovanim na rubrikama i namjeri, koje zaista hvataju regresije.","image":"https://markolosic.github.io/assets/blog/testing-non-deterministic-ai-features.jpg","url":"https://markolosic.github.io/sr/blog/testing-non-deterministic-ai-features/","inLanguage":"sr","wordCount":1139,"articleSection":"ai-testing","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/sr/blog/testing-non-deterministic-ai-features/"},"datePublished":"2026-10-21T12:00:00.000Z","dateModified":"2026-10-21T12:00:00.000Z","keywords":"ai-testing, test-automation","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Početna","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/sr/blog/"},{"@type":"ListItem","position":3,"name":"Testiranje AI funkcija koje nikad ne daju isti odgovor dvaput","item":"https://markolosic.github.io/sr/blog/testing-non-deterministic-ai-features/"}]}]}</script>
+  <meta property="article:published_time" content="2026-10-21T12:00:00.000Z">
+  <meta property="article:modified_time" content="2026-10-21T12:00:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../assets/fonts.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../../#top" data-i18n="nav_about">O meni</a>
+      <a href="../../../#skills" data-i18n="nav_skills">Vještine</a>
+      <a href="../../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../../#experience" data-i18n="nav_exp">Iskustvo</a>
+      <a href="../../../#education" data-i18n="nav_edu">Obrazovanje</a>
+      <a href="../../../sr/blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../../#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span>Svi članci</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-10-21" data-fmt="long">21. oktobar 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h1>Testiranje AI funkcija koje nikad ne daju isti odgovor dvaput</h1>
+        <p class="lead">Zašto assert-equal ne radi na funkcijama zasnovanim na LLM-u i kako ga zamijeniti provjerama zasnovanim na rubrikama i namjeri, koje zaista hvataju regresije.</p>
+        <div class="tags"><span>ai-testing</span><span>test-automation</span></div>
+      </header>
+      <div class="prose"><p>Chatbot za korisničku podršku u ponedjeljak tačno odgovori na pitanje o povraćaju novca. U utorak, iako se u kodu ništa nije promijenilo, da drugačiji, ali jednako tačan odgovor — druge riječi, iste činjenice. Test koji provjerava da je odgovor jednak fiksnom stringu pada svaki put kada se formulacija promijeni, bez obzira na to da li se nešto zaista pokvarilo. To je suština problema sa testiranjem izlaza koji generiše AI: ono što testirate nema jedan jedini tačan odgovor, pa mora da se promijeni pristup testiranju, a ne samo test podaci.</p>
+<p><img src="../../../assets/blog/testing-non-deterministic-ai-features.jpg" alt="Ilustracija test funkcije sa precrtanim assertEqual(output, expected) i oznakom FAIL s lijeve strane, a s desne strane mnoštvo grananih puteva evaluacije koji prolaze kroz provjere po rubrici, sudiju i bezbjednosne provjere i završavaju zelenim kvačicama i crvenim iksićima" width="1200" height="669" fetchpriority="high" decoding="async"></p>
+<h2 id="zašto-assert-equal-prestaje-da-radi">Zašto assert-equal prestaje da radi</h2>
+<p>Deterministički kod za isti ulaz daje isti izlaz, pa je <code>assertEqual(response, expected)</code> razumna provjera. Generativna funkcija zasnovana na LLM-u ne radi tako. Temperatura uzorkovanja, ažuriranja modela, izmjene u retrieval koraku RAG pipeline-a, pa čak i nepovezane izmjene prompta mogu da promijene tačnu formulaciju ispravnog odgovora. Provjere po ključnim riječima ili regexu to ne rješavaju: daju lažne padove kada se ispravna formulacija promijeni i lažne prolaze kada se prava ključna riječ pojavi unutar pogrešnog odgovora. U praksi timovi ili odustanu od automatskih provjera za AI funkcije i oslone se na ručne provjere uzoraka prije izdanja, ili napišu krhke provjere stringova koje se ugase u roku od mjesec dana jer su stalno crvene.</p>
+<p>Rješenje nije pametnije poređenje stringova. Rješenje je testiranje svojstava izlaza umjesto njegovog tačnog teksta — ono što se ponekad zove testiranje zasnovano na namjeri ili na rubrici.</p>
+<h2 id="šta-provjeravati-umjesto-toga">Šta provjeravati umjesto toga</h2>
+<p>Za funkciju kao što je chatbot za podršku zasnovan na bazi znanja, korisna rubrika obično provjerava:</p>
+<ul><li><strong>Relevantnost</strong> — da li odgovor zaista odgovara na ono što je korisnik pitao?</li><li><strong>Činjeničnu usklađenost</strong> — da li se slaže sa izvornim dokumentima koje je trebalo da koristi, a ne samo da zvuči uvjerljivo?</li><li><strong>Halucinacije</strong> — da li uvodi neku tvrdnju koje nema u bazi znanja (rok za povraćaj, cijenu, izuzetak od pravila)?</li><li><strong>Poštovanje opsega</strong> — da li ostaje u svom domenu i ne odaje podatke drugog korisnika ili interne detalje?</li><li><strong>Bezbjednost</strong> — bez štetnog, pristrasnog sadržaja ili sadržaja koji otkriva lične podatke.</li></ul>
+<p>Uzmimo konkretan primjer: članak u bazi znanja kaže da je povraćaj novca moguć u roku od 30 dana od kupovine, uz račun. Dva odgovora chatbota na pitanje „Mogu li da dobijem povraćaj novca za proizvod koji sam kupio prije tri nedjelje?&quot; mogu da glase:</p>
+<blockquote><p>„Da, pošto ste u roku od 30 dana, imate pravo na povraćaj novca, pod uslovom da imate račun.&quot;</p></blockquote>
+<blockquote><p>„Još ste u periodu za povraćaj (30 dana), tako da je povraćaj moguć — samo ćete morati da pokažete dokaz o kupovini.&quot;</p></blockquote>
+<p>Različite rečenice, iste činjenice, oba odgovora tačna. Test koji poredi stringove obara oba. Provjera po rubrici — da li odgovor tačno kaže da je povraćaj dozvoljen, navodi rok od 30 dana i traži račun? — propušta oba, a uhvatila bi lošu verziju, recimo onu koja izostavi uslov sa računom ili izmisli rok od 60 dana.</p>
+<p>U praksi se ova provjera obično implementira kao LLM-as-judge: drugi poziv modelu koji dobija pitanje korisnika, izvorni dokument i odgovor chatbota, pa ocjenjuje odgovor prema napisanoj rubrici (prolaz/pad po kriterijumu ili skala od 1 do 5). Alati kao što je DeepEval i prilagođeni harnessi zasnovani na pytest-u pakuju ovaj obrazac; neki timovi koriste mjere sličnosti kao što je BERTScore u odnosu na referentni odgovor kao jeftiniji prvi filter prije poziva LLM sudiji. U svakom slučaju, tačnost samog sudije treba povremeno provjeravati u odnosu na ljudske ocjene — nevalidiran model-sudija može da odluta ili da bez razmišljanja odobri loš izlaz, jednako lako kao i čovjek koji ocjenjuje u lošem danu.</p>
+<p>Vrijedi testirati i pipeline, ne samo model. Pogrešan odgovor može da dođe iz retrieval koraka koji povuče pogrešan dokument, iz šablona prompta koji tiho skrati kontekst ili iz baga u parsiranju koji pokvari ispravno formiran odgovor modela — a ništa od toga nije „LLM je pogriješio&quot;. Izolovano testiranje svake faze (retrieval, sklapanje prompta, poziv modelu, parsiranje odgovora) hvata drugu klasu bagova od samog ocjenjivanja konačnog teksta.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Ovaj pristup rješava stvaran problem, ali stvara nove. Pozivi LLM sudiji koštaju i usporavaju test paket, pa pokretanje cijele rubrike na svakom commitu može da postane skupo — evaluacija u slojevima (jeftine determinističke provjere na svakom pokretanju, puno ocjenjivanje sudijom po rasporedu ili prije izdanja) drži to pod kontrolom. Sam model-sudija zahtijeva validaciju, a ne slijepo povjerenje, i njegove ocjene mogu da se razlikuju od pokretanja do pokretanja, pa „prošlo je&quot; tretirajte kao signal za istraživanje, a ne kao garanciju. Halucinacije su posebno opasne jer ne bacaju greške — odgovor može da bude tečan, samouvjeren i jednostavno pogrešan, a prvi znak problema je često žalba korisnika, a ne pao build. U razgovorima od više poruka, pravila koja se poštuju u jednoj razmjeni mogu da erodiraju kroz nekoliko koraka, pa test slučajevi od jedne poruke promaše degradaciju koja se pojavi tek u dužim sesijama. I ništa od ovoga ne zamjenjuje obične testove: tvrda pravila (ne navodi cijenu koje nema u katalogu, nikad ne ispisuj ID drugog korisnika) pripadaju determinističkim provjerama, a ne rubrici, jer su determinističke provjere jeftinije i blagi sudija ne može da ih zaobiđe.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ul><li>Napravite spisak funkcija u vašem proizvodu koje su zaista nedeterminističke (tekst koji generiše LLM, rangirani rezultati modela, sve što ima korak uzorkovanja), za razliku od determinističkog koda koji samo djeluje nejasno jer nije testiran.</li><li>Za jednu od tih funkcija napravite mali, pažljivo odabran skup od 50–100 stvarnih parova ulaz/očekivano ponašanje, uz napisanu rubriku šta se smatra tačnim, djelimično tačnim i pogrešnim — nejasni kriterijumi daju nepouzdano ocjenjivanje, bez obzira na to ko ili šta ocjenjuje.</li><li>Na toj funkciji zamijenite provjere poređenja stringova provjerama po rubrici ili LLM sudijom, a tvrde determinističke kapije (validacija šeme, zabranjeni izrazi, obrasci ličnih podataka) zadržite kao odvojene, jeftinije provjere koje i dalje rade na svakoj izmjeni.</li><li>Uključite paket rubrika u CI kao regresionu kapiju i pokrenite ga ponovo kad god se promijeni prompt, verzija modela ili izvor podataka za retrieval — kvalitet može da odluta i bez ijedne izmjene u kodu.</li></ul>
+<p>Kako ovaj pristup evaluaciji izgleda u praksi možeš vidjeti u <a href="/llm-testing/">studiji slučaja testiranja lokalnog LLM-a</a>, uz povezane tekstove <a href="/sr/blog/testing-ai-agents-tool-calls-side-effects/">Testiranje AI agenata koji izvršavaju akcije</a> i <a href="/sr/blog/testing-rag-pipelines-retrieval-evaluation/">Testiranje RAG pipeline-a</a>.</p>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://www.testsprite.com/blog/testing-ai-chatbots-and-llm-features-why-deterministic-tests-don-t-work" target="_blank" rel="noopener noreferrer">Testing AI Chatbots and LLM Features: Why Deterministic Tests Don't Work</a> — TestSprite</li><li><a href="https://builtin.com/articles/ai-testing-framework-engineers" target="_blank" rel="noopener noreferrer">How Do You Test an AI?</a> — Built In</li><li><a href="https://testomat.io/?p=26046" target="_blank" rel="noopener noreferrer">LLM Testing Frameworks: A Practical Guide for QA Teams</a> — Testomat.io</li></ul></div>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button">Kopiraj link</button>
+      <a class="btn primary" href="../../../#contact">Kontaktiraj me</a>
+    </div>
+    <section class="more-posts"><h2>Slični članci</h2><div class="post-grid">
+      <a class="post-card card glow" href="../vision-ai-testing-image-inputs/"><div class="meta"><time datetime="2026-11-25" data-fmt="short">25. nov 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Testiranje AI funkcionalnosti koje vide: QA za ulazne slike i dokumente</h3><p>Vision AI funkcionalnosti zakazuju na dva načina koje QA fokusiran samo na tekst propušta: loše ulazne slike i samouvjerene halucinacije. Evo kako testirati oba.</p></a>
+      <a class="post-card card glow" href="../testing-rag-pipelines-retrieval-evaluation/"><div class="meta"><time datetime="2026-11-18" data-fmt="short">18. nov 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Testiranje RAG pipeline-a: zašto korak pretrage treba sopstveni skup testova</h3><p>RAG sistemi tiho otkazuju kada pretraga pogriješi. Evo kako testirati pretragu i generisanje odvojeno, uz konkretan primjer i metriku koju vrijedi pratiti.</p></a>
+      <a class="post-card card glow" href="../claude-fable-5-2-for-testing/"><div class="meta"><time datetime="2026-11-11" data-fmt="short">11. nov 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Claude Fable 5.2 za testiranje: gdje su prednosti stvarne, a gdje prestaju</h3><p>Šta Claude Fable 5.2 mijenja u QA radu: duga agentska izvršavanja, upravljanje računarom, vid i cijena, uz jasno navedena ograničenja.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../../#contact" data-i18n="contact_cta">Kontaktiraj me</a>
+    <button type="button" data-consent data-i18n="cookies">Postavke kolačića</button>
+    <a href="../../../" data-i18n="back_home">Nazad na početnu ↑</a>
+  </footer>
+  <script src="../../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../../blog/common.js"></script>
+  <script src="../../../blog/post.js"></script>
+</body>
+</html>

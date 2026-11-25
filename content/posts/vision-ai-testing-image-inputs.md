@@ -3,7 +3,7 @@ title: "Testing AI Features That See: QA for Image and Document Inputs"
 title_sr: "Testiranje AI funkcionalnosti koje vide: QA za ulazne slike i dokumente"
 date: 2026-11-25
 time: 17:00
-tags: [qa, ai-in-qa, multimodal-testing, visual-testing, llm-testing]
+tags: [ai-testing, test-automation]
 excerpt: Vision AI features fail in two ways text-only QA misses: bad input images and confident hallucinations. Here's how to test for both.
 excerpt_sr: Vision AI funkcionalnosti zakazuju na dva načina koje QA fokusiran samo na tekst propušta: loše ulazne slike i samouvjerene halucinacije. Evo kako testirati oba.
 image: assets/blog/vision-ai-testing-image-inputs.jpg
@@ -59,6 +59,9 @@ For QA this means your test set needs negative questions alongside your normal e
 2. Add negative questions to your model eval set that ask about details absent from each test image, and grade responses on whether they flag the absence instead of fabricating an answer.
 3. Test your image quality gate in both directions: confirm it rejects the bad images and does not reject realistic, slightly imperfect ones.
 4. Re-run the hallucination and extraction eval sets whenever the underlying model or prompt changes, not just when the surrounding application code changes.
+
+If you are building out an AI QA practice, see also [my local LLM testing case study](/llm-testing/) (100 domain prompts graded by hand), [Testing AI Features That Don't Give the Same Answer Twice](/blog/testing-non-deterministic-ai-features/), and [Testing RAG Pipelines](/blog/testing-rag-pipelines-retrieval-evaluation/).
+
 
 ## Sources
 
@@ -120,6 +123,9 @@ Za QA to znači da vaš skup testova pored standardnih provjera ekstrakcije mora
 2. Dodajte negativna pitanja u eval skup modela koja pitaju za detalje odsutne sa svake testne slike, i ocjenjujte odgovore prema tome da li označavaju odsustvo umjesto da izmišljaju odgovor.
 3. Testirajte quality gate za slike u oba smjera: potvrdite da odbija loše slike i da ne odbija realistične, blago nesavršene fotografije.
 4. Ponovo pokrećite eval skupove za halucinacije i ekstrakciju kad god se promijeni osnovni model ili prompt, a ne samo kada se mijenja okolni kod aplikacije.
+
+Ako gradiš praksu za testiranje AI sistema, pogledaj i [studiju slučaja testiranja lokalnog LLM-a](/llm-testing/) (100 domenskih promptova ručno ocijenjenih), kao i članke [Testiranje AI funkcionalnosti koje ne daju isti odgovor dvaput](/sr/blog/testing-non-deterministic-ai-features/) i [Testiranje RAG pipeline-a](/sr/blog/testing-rag-pipelines-retrieval-evaluation/).
+
 
 ## Izvori
 

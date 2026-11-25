@@ -3,7 +3,7 @@ title: "Testing File Uploads: The Edge Cases a Happy-Path Suite Walks Right Past
 title_sr: "Testiranje otpremanja fajlova: granični slučajevi pored kojih happy-path testovi samo prođu"
 date: 2026-11-13
 time: 18:30
-tags: [qa, real-world-use-case, file-upload, security-testing]
+tags: [security-testing, real-world-bugs, manual-testing]
 excerpt: Why file upload features break in production and how to test size limits, type spoofing, concurrency, and interrupted transfers.
 excerpt_sr: Zašto funkcije za otpremanje fajlova pucaju u produkciji i kako testirati ograničenja veličine, lažiranje tipa fajla, istovremena otpremanja i prekinute prenose.
 image: assets/blog/file-upload-testing-edge-cases.jpg

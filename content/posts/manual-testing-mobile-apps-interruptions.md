@@ -3,7 +3,7 @@ title: "Manual Testing for Mobile Apps: Why Interruptions Matter More Than Happy
 title_sr: "Ručno testiranje mobilnih aplikacija: zašto su prekidi važniji od klikanja po srećnom scenariju"
 date: 2026-09-29
 time: 20:00
-tags: [qa, manual-testing, mobile, methodology]
+tags: [mobile-testing, manual-testing]
 excerpt: A practical guide to manually testing how mobile apps handle backgrounding, calls, low battery, and dropped connections.
 excerpt_sr: Praktičan vodič za ručno testiranje toga kako se mobilne aplikacije nose sa prelaskom u pozadinu, pozivima, slabom baterijom i prekinutom konekcijom.
 image: assets/blog/manual-testing-mobile-apps-interruptions.jpg

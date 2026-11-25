@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="sr" data-theme="dark" data-static-lang="sr" data-alt-url="../../../blog/vision-ai-testing-image-inputs/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Testiranje AI funkcionalnosti koje vide: QA za ulazne slike i dokumente — Marko Lošić</title>
+  <meta name="description" content="Vision AI funkcionalnosti zakazuju na dva načina koje QA fokusiran samo na tekst propušta: loše ulazne slike i samouvjerene halucinacije. Evo kako testirati ob…">
+  <link rel="canonical" href="https://markolosic.github.io/sr/blog/vision-ai-testing-image-inputs/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/vision-ai-testing-image-inputs/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/vision-ai-testing-image-inputs/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/vision-ai-testing-image-inputs/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Testiranje AI funkcionalnosti koje vide: QA za ulazne slike i dokumente — Marko Lošić">
+  <meta property="og:description" content="Vision AI funkcionalnosti zakazuju na dva načina koje QA fokusiran samo na tekst propušta: loše ulazne slike i samouvjerene halucinacije. Evo kako testirati ob…">
+  <meta property="og:url" content="https://markolosic.github.io/sr/blog/vision-ai-testing-image-inputs/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/vision-ai-testing-image-inputs.jpg">
+  <meta property="og:image:width" content="1024">
+  <meta property="og:image:height" content="571">
+  <meta property="og:image:alt" content="Testiranje AI funkcionalnosti koje vide: QA za ulazne slike i dokumente">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Testiranje AI funkcionalnosti koje vide: QA za ulazne slike i dokumente — Marko Lošić">
+  <meta name="twitter:description" content="Vision AI funkcionalnosti zakazuju na dva načina koje QA fokusiran samo na tekst propušta: loše ulazne slike i samouvjerene halucinacije. Evo kako testirati ob…">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/vision-ai-testing-image-inputs.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/sr/blog/vision-ai-testing-image-inputs/#article","headline":"Testiranje AI funkcionalnosti koje vide: QA za ulazne slike i dokumente","description":"Vision AI funkcionalnosti zakazuju na dva načina koje QA fokusiran samo na tekst propušta: loše ulazne slike i samouvjerene halucinacije. Evo kako testirati oba.","image":"https://markolosic.github.io/assets/blog/vision-ai-testing-image-inputs.jpg","url":"https://markolosic.github.io/sr/blog/vision-ai-testing-image-inputs/","inLanguage":"sr","wordCount":1131,"articleSection":"ai-testing","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/sr/blog/vision-ai-testing-image-inputs/"},"datePublished":"2026-11-25T17:00:00.000Z","dateModified":"2026-11-25T17:00:00.000Z","keywords":"ai-testing, test-automation","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Početna","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/sr/blog/"},{"@type":"ListItem","position":3,"name":"Testiranje AI funkcionalnosti koje vide: QA za ulazne slike i dokumente","item":"https://markolosic.github.io/sr/blog/vision-ai-testing-image-inputs/"}]}]}</script>
+  <meta property="article:published_time" content="2026-11-25T17:00:00.000Z">
+  <meta property="article:modified_time" content="2026-11-25T17:00:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../assets/fonts.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../../#top" data-i18n="nav_about">O meni</a>
+      <a href="../../../#skills" data-i18n="nav_skills">Vještine</a>
+      <a href="../../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../../#experience" data-i18n="nav_exp">Iskustvo</a>
+      <a href="../../../#education" data-i18n="nav_edu">Obrazovanje</a>
+      <a href="../../../sr/blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../../#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span>Svi članci</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-11-25" data-fmt="long">25. novembar 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h1>Testiranje AI funkcionalnosti koje vide: QA za ulazne slike i dokumente</h1>
+        <p class="lead">Vision AI funkcionalnosti zakazuju na dva načina koje QA fokusiran samo na tekst propušta: loše ulazne slike i samouvjerene halucinacije. Evo kako testirati oba.</p>
+        <div class="tags"><span>ai-testing</span><span>test-automation</span></div>
+      </header>
+      <div class="prose"><p>Sve više proizvoda danas stavlja kameru ili otpremanje fotografije ispred AI modela: skenirajte račun, verifikujte lični dokument, fotografišite policu i pitajte šta nedostaje, otpremite screenshot i zatražite rješenje. Navike koje je QA razvio za tekstualne LLM funkcionalnosti — ocjenjivanje pomoću rubrika, poređenje sa referentnim izlazima, regresioni skupovi za promptove — pokrivaju samo polovinu onoga što ovdje može poći po zlu. Funkcionalnost zasnovana na slikama može zakazati zato što je sama fotografija neupotrebljiva, ali može zakazati i na drugi, tiši način: tako što daje samouvjeren, lijepo formatiran, pogrešan odgovor o slici koju zapravo nije ni pažljivo pogledala. Oba problema zahtijevaju sopstveni dizajn testova.</p>
+<p><img src="../../../assets/blog/vision-ai-testing-image-inputs.jpg" alt="Ilustracija testiranja vision AI sistema: svjetleće oko sa sočivom kamere skenira dva računa — narandžasti štit na lijevoj strani blokira zamućeni račun, dok oštar račun na desnoj strani šalje podatke u neuronsku mrežu uz ikone upozorenja koje predstavljaju vizuelne halucinacije" width="1024" height="571" fetchpriority="high" decoding="async"></p>
+<h2 id="zašto-je-dobru-testnu-sliku-teže-napraviti-nego-dobar-testni-tekst">Zašto je dobru testnu sliku teže napraviti nego dobar testni tekst</h2>
+<p>Tekstualni testni slučaj je deterministički: napišete string, model vidi tačno taj string. Fotografija nije takva. Isti račun izgleda drugačije u zavisnosti od modela telefona, osvjetljenja, kompresije i toga da li se korisniku trese ruka. Skup testova sastavljen samo od nekoliko čistih, dobro osvijetljenih uzoraka prolaziće u CI-ju, a onda stalno padati u produkciji, jer su stvarni ulazi neuredniji od svega što QA inženjer fotografiše za svojim stolom.</p>
+<p>Rješenje za kojim timovi sve češće posežu jeste kontrola kvaliteta (quality gate) ispred modela: jeftina provjera koja označava slike kao previše zamućene, preniske rezolucije, pretamne ili sa previše šuma prije nego što stignu do skupog poziva modela. Ovo vrijedi testirati kao zasebnu komponentu, odvojeno od samog modela:</p>
+<pre><code class="lang-python">from imageguard import validate
+
+result = validate(
+    &quot;receipt.jpg&quot;,
+    thresholds={&quot;blur_score&quot;: 60.0, &quot;resolution_score&quot;: 70.0},
+)
+
+if not result.ok:
+    # Model se uopšte ne poziva; od korisnika se traži da ponovo fotografiše
+    raise ValueError(f&quot;Image rejected before model call: {result.reason}&quot;)</code></pre>
+<p>QA pitanje nije samo &quot;da li OCR radi na čistoj fotografiji&quot;, već &quot;da li gate zaustavlja lošu fotografiju prije nego što potroši poziv ka modelu i da li propušta fotografiju koja je realno čitljiva&quot;. Testirajte u oba smjera: namjerno zamućena, zarotirana fotografija sa jakim odsjajem treba biti odbijena; blago nagnuta, ali čitljiva fotografija ne smije biti odbijena samo zato što nije studijski savršena. Timovi koji preskoče drugu provjeru završe sa funkcionalnošću koja &quot;radi&quot;, ali odbija veliki dio stvarnih korisničkih fotografija — bag koji se pojavljuje kao tiket korisničke podrške, a ne kao pao test.</p>
+<h2 id="slanje-kontrolisanih-testnih-slika-modelu-umjesto-ručnog-fotografisanja-papira">Slanje kontrolisanih testnih slika modelu umjesto ručnog fotografisanja papira</h2>
+<p>Kreiranje biblioteke graničnih slučajeva (zamućeno, nagnuto, odsjaj preko teksta, slabo osvjetljenje, ekstremni krupni plan) i ručno fotografisanje za svako pokretanje testova ne skalira. Platforme za testiranje mobilnih uređaja podržavaju image injection: otpremanje testne slike tako da aplikaciji izgleda kao da je došla direktno sa kamere, kroz isti camera API koji aplikacija inače koristi. Aplikacija je obrađuje potpuno isto kao stvarnu fotografiju, ali je ulaz sada fiksan fajl koji vi kontrolišete i možete verzionisati u repozitorijumu.</p>
+<p>Time se testiranje &quot;AI funkcionalnosti zasnovane na kameri&quot; pretvara u nešto bliže uobičajenom regresionom testiranju: folder sa dvadesetak slika graničnih slučajeva, svaka sa očekivanim ishodom (odbij, izvuci tačno, izvuci uz označeno polje niske pouzdanosti), koji se pokreće automatski kad god se pipeline promijeni. To je značajno unapređenje u odnosu na ručno štampanje dokumenta i usmjeravanje telefona pod kancelarijskim svjetlom, što je sporo, nedosljedno između pokretanja i gotovo nemoguće reprodukovati kada se prijavi bag.</p>
+<h2 id="bag-koji-se-pojavljuje-tek-kada-pitate-za-nešto-čega-na-slici-nema">Bag koji se pojavljuje tek kada pitate za nešto čega na slici nema</h2>
+<p>Drugi način zakazivanja specifičan je za vision modele i nema ekvivalent u radu samo sa tekstom: model opisuje detalje koje zapravo nije vidio. Istraživanja ponašanja multimodalnih modela dokumentovala su ovo kao vizuelnu halucinaciju, uključujući obrazac u kom model samouvjereno opisuje vizuelne karakteristike čak i kada slika uopšte nije dostavljena — a u najmanje jednoj studiji ova sklonost bila je izraženija kod novijih verzija modela nego kod starijih. Model ne propušta da pažljivo pročita sliku; on popunjava prazninu uvjerljivim nagađanjem, formatiranim potpuno isto kao tačan odgovor.</p>
+<p>Za QA to znači da vaš skup testova pored standardnih provjera ekstrakcije mora imati i negativna pitanja. Ako skener računa pitate &quot;koliki je iznos napojnice&quot; na računu koji nema stavku za napojnicu, ispravno ponašanje je neki oblik odgovora &quot;ovdje ne vidim iznos napojnice&quot;, a ne izmišljen broj. Napravite nekoliko ovakvih slučajeva po funkcionalnosti: pitajte za polje ili detalj koji namjerno nedostaje na testnoj slici i provjerite da li odgovor ukazuje na odsustvo ili izmišlja podatak. Ova jedna kategorija testova hvata klasu bagova koju skup testova sa čistim slikama i tačnim odgovorima nikad neće otkriti, jer svaka njegova slika zaista sadrži ono za šta se pita.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<ul><li>Image injection testira vision/model pipeline, a ne hardver kamere — autofokus, HDR obrada i specifičnosti stvarnih uređaja i dalje zahtijevaju povremeno testiranje na fizičkim telefonima.</li><li>Skup testova za halucinacije nije jednokratan zadatak; ažuriranja modela i promptova mogu promijeniti ovo ponašanje, ponekad i nagore, pa ga pokrećite ponovo pri svakoj promjeni modela ili prompta, a ne samo jednom.</li><li>Kontrole kvaliteta mogu pretjerati: prag podešen tako da odbije svaku zamućenu testnu sliku odbijaće i fotografije koje stvarni korisnici smatraju sasvim dobrim — čime jedan bag zamjenjujete gorim.</li><li>Ulazne slike troše više tokena i imaju veću latenciju od teksta, pa je veliki eval skup skupo pokretati pri svakoj izmjeni; većini timova treba mali skup visokog signala na svaku promjenu i veći skup povremeno.</li><li>Model koji na svako negativno pitanje odgovara &quot;ne znam&quot; tehnički prolazi provjeru halucinacija dok je istovremeno beskoristan na stvarnim pitanjima — ocjenjujte kalibraciju, a ne samo odsustvo pogrešnih odgovora.</li></ul>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ol><li>Napravite folder od 15 do 30 namjerno loših testnih slika (zamućenje, rotacija, odsjaj, slabo osvjetljenje, niska rezolucija) sa očekivanim ishodom prolaz/odbijanje za svaku, i automatizujte njihovo slanje u pipeline putem image injection-a ili direktnog API testa umjesto ručnog fotografisanja.</li><li>Dodajte negativna pitanja u eval skup modela koja pitaju za detalje odsutne sa svake testne slike, i ocjenjujte odgovore prema tome da li označavaju odsustvo umjesto da izmišljaju odgovor.</li><li>Testirajte quality gate za slike u oba smjera: potvrdite da odbija loše slike i da ne odbija realistične, blago nesavršene fotografije.</li><li>Ponovo pokrećite eval skupove za halucinacije i ekstrakciju kad god se promijeni osnovni model ili prompt, a ne samo kada se mijenja okolni kod aplikacije.</li></ol>
+<p>Ako gradiš praksu za testiranje AI sistema, pogledaj i <a href="/llm-testing/">studiju slučaja testiranja lokalnog LLM-a</a> (100 domenskih promptova ručno ocijenjenih), kao i članke <a href="/sr/blog/testing-non-deterministic-ai-features/">Testiranje AI funkcionalnosti koje ne daju isti odgovor dvaput</a> i <a href="/sr/blog/testing-rag-pipelines-retrieval-evaluation/">Testiranje RAG pipeline-a</a>.</p>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://arxiv.org/html/2603.21687v1" target="_blank" rel="noopener noreferrer">Mirage: The Illusion of Visual Understanding</a></li><li><a href="https://arxiv.org/pdf/2310.14566" target="_blank" rel="noopener noreferrer">HallusionBench: An Advanced Diagnostic Suite for Entangled Language Hallucination and Visual Illusion in Large Vision-Language Models</a></li><li><a href="https://www.pcloudy.com/?p=26989" target="_blank" rel="noopener noreferrer">pCloudy: Image Injection and Camera Input Testing</a></li><li><a href="https://pypi.org/project/imageguard/" target="_blank" rel="noopener noreferrer">imageguard: Validate images before AI pipelines</a></li></ul></div>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button">Kopiraj link</button>
+      <a class="btn primary" href="../../../#contact">Kontaktiraj me</a>
+    </div>
+    <section class="more-posts"><h2>Slični članci</h2><div class="post-grid">
+      <a class="post-card card glow" href="../testing-rag-pipelines-retrieval-evaluation/"><div class="meta"><time datetime="2026-11-18" data-fmt="short">18. nov 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Testiranje RAG pipeline-a: zašto korak pretrage treba sopstveni skup testova</h3><p>RAG sistemi tiho otkazuju kada pretraga pogriješi. Evo kako testirati pretragu i generisanje odvojeno, uz konkretan primjer i metriku koju vrijedi pratiti.</p></a>
+      <a class="post-card card glow" href="../claude-fable-5-2-for-testing/"><div class="meta"><time datetime="2026-11-11" data-fmt="short">11. nov 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Claude Fable 5.2 za testiranje: gdje su prednosti stvarne, a gdje prestaju</h3><p>Šta Claude Fable 5.2 mijenja u QA radu: duga agentska izvršavanja, upravljanje računarom, vid i cijena, uz jasno navedena ograničenja.</p></a>
+      <a class="post-card card glow" href="../reviewing-ai-generated-test-code-anti-patterns/"><div class="meta"><time datetime="2026-10-28" data-fmt="short">28. okt 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Pregled testova koje je napisao AI: anti-obrasci koji promaknu na brzinu</h3><p>AI asistenti pišu testove jednako lako kao i kod, ali mnogi od tih testova prolaze a da ništa ne provjeravaju. Evo na šta treba obratiti pažnju prije nego što ih spojite.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../../#contact" data-i18n="contact_cta">Kontaktiraj me</a>
+    <button type="button" data-consent data-i18n="cookies">Postavke kolačića</button>
+    <a href="../../../" data-i18n="back_home">Nazad na početnu ↑</a>
+  </footer>
+  <script src="../../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../../blog/common.js"></script>
+  <script src="../../../blog/post.js"></script>
+</body>
+</html>

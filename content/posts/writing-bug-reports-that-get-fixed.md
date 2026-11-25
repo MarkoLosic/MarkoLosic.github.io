@@ -3,7 +3,7 @@ title: "The Bug Report Developers Actually Want: A Field Guide"
 title_sr: "Prijava greške kakvu developeri zaista žele: praktični vodič"
 date: 2026-10-05
 time: 18:00
-tags: [qa, manual-testing, bug-reports, methodology]
+tags: [manual-testing, test-strategy]
 excerpt: A practical structure for bug reports a developer can reproduce and fix on the first read, with a before/after example.
 excerpt_sr: Praktična struktura prijave greške koju developer može da reprodukuje i popravi već iz prvog čitanja, uz primjer „prije i poslije".
 image: assets/blog/writing-bug-reports-that-get-fixed.jpg

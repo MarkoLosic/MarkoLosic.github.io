@@ -2,7 +2,7 @@
 title: "Testing the Retry Button: Catching Duplicate-Charge Race Conditions Before Customers Do"
 title_sr: "Testiranje dugmeta za ponovni pokušaj: kako uhvatiti duple naplate prije kupaca"
 date: 2026-09-25
-tags: [qa, api-testing, test-automation, fintech, race-conditions]
+tags: [api-testing, real-world-bugs, test-automation]
 excerpt: Why sequential idempotency tests miss checkout double-charge bugs, and how to design a test that exposes the real race.
 excerpt_sr: Zašto sekvencijalni testovi idempotentnosti propuštaju duple naplate na checkout-u i kako napisati test koji otkriva stvarni race condition.
 image: assets/blog/testing-checkout-retry-race-conditions.jpg
@@ -57,12 +57,17 @@ Concurrent testing like this is noisier and more environment-sensitive than ordi
 
 Audit which of your idempotency or duplicate-prevention tests are actually sequential retries in disguise, and rewrite the ones that matter — payment, order creation, anything with a side effect that costs money to reverse — as concurrent burst tests using `Promise.all` or an equivalent in your stack. Assert against the database or ledger state, not the HTTP response, since that's where a race actually shows up. Add a test case for a changed payload reusing the same key, since a correct implementation should reject that rather than silently processing it. And if your API doesn't document what a duplicate concurrent request is supposed to return — the stored result, a 409, something else — get that written down before writing more tests against it, because right now the test would just be guessing at the contract too.
 
+Pair this with [Testing Idempotency: Catching Duplicate-Charge Bugs](/blog/testing-idempotency-duplicate-charges/) and [Load Testing for QA Teams with k6](/blog/load-testing-qa-teams-k6-thresholds/).
+
+
 ## Sources
 
 - [Testing Idempotency Keys Under Concurrent Requests](https://oneuptime.com/blog/post/2026-08-24-test-idempotency-key-concurrent-requests/view)
 - [Sequential Retries Pass, Concurrent Duplicates Fail: Black-Box Testing for Idempotency-Key Races](https://dev.to/jay_stride/sequential-retries-pass-concurrent-duplicates-fail-black-box-testing-for-idempotency-key-races-3f0j)
 - [The Bug Where a Customer Got Charged Twice for Nothing They Did Wrong](https://dev.to/mangeshmandlik/the-bug-where-a-customer-got-charged-twice-for-nothing-they-did-wrong-gn)
+
 <!--sr-->
+
 Kupac dodirne „Place order", ekran se vrti nekoliko sekundi predugo, pa dodirne ponovo. S njegove strane se ne dešava ništa neobično — sve dok mu se na kartici ne pojave dvije naplate umjesto jedne. Ovo je jedan od najčešćih načina na koje greške u plaćanju stignu do produkcije, a ujedno i jedan od najlakših za propustiti u QA-u, jer testovi koji bi trebalo da ga uhvate često prolaze iz pogrešnog razloga. Primjer koji slijedi je ilustrativan: zamislite tim koji objavljuje checkout tok koji je izgledao dobro pokriven testovima, da bi se ispostavilo da zaštita idempotentnosti ima rupu koju može otkriti samo istovremenost.
 
 ![Izometrijska ilustracija checkout ekrana na kojem dugme Place Order šalje paralelne tokove zahtjeva kroz korak ponovnog pokušaja i validacije idempotency ključa, koji se završavaju duplim naplatama, upozorenjima o greškama i QA kontrolnim tačkama](assets/blog/testing-checkout-retry-race-conditions.jpg)
@@ -112,6 +117,9 @@ Ovakvo istovremeno testiranje je bučnije i osjetljivije na okruženje od običn
 ## Šta dalje
 
 Provjerite koji su vaši testovi idempotentnosti ili zaštite od duplikata zapravo prerušeni sekvencijalni ponovni pokušaji, i one bitne — plaćanje, kreiranje narudžbi, sve što ima posljedicu čije poništavanje košta novca — prepišite kao testove istovremenog naleta pomoću `Promise.all` ili ekvivalenta u vašem stacku. Provjeravajte stanje baze ili ledgera, a ne HTTP odgovor, jer se race condition tu zaista pokaže. Dodajte test slučaj u kojem se isti ključ ponovo koristi sa izmijenjenim payloadom, jer bi ispravna implementacija to trebalo da odbije, a ne da tiho obradi. A ako vaš API ne dokumentuje šta bi dupli istovremeni zahtjev trebalo da vrati — sačuvani rezultat, 409 ili nešto treće — prvo to zapišite, pa tek onda pišite nove testove, jer bi u suprotnom i test samo nagađao kakav je ugovor.
+
+Kombinuj ovo sa tekstovima [Testiranje idempotentnosti i duplih naplata](/sr/blog/testing-idempotency-duplicate-charges/) i [Load testiranje za QA timove uz k6](/sr/blog/load-testing-qa-teams-k6-thresholds/).
+
 
 ## Izvori
 

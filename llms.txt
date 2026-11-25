@@ -2,7 +2,7 @@
 
 > QA Engineer based in Banja Luka, Bosnia and Herzegovina, with 6+ years in manual and automated testing of web apps, mobile apps and browser extensions. Currently QA Engineer at Bravo System (Playwright with C#, Maestro, LLM testing); previously QA Engineer & Oracle APEX Developer at Krajina Klas (Cypress).
 
-Highlights: working in a QA team, cut regression testing on a link-in-bio platform from a full day to about 30 minutes with a suite of 100 automated Playwright tests; early local testing means a regression run now surfaces only 1–2 bugs, and two critical bugs were stopped before production; tests a local LLM (Llama 3) for product analytics with 100 hand-written prompts, reaching 97%+ answer accuracy after prompt-template fixes. Domains: SaaS creator platforms, e-commerce and product analytics. Open to remote.
+Highlights: working in a QA team, cut regression testing on a link-in-bio platform from a full day to about 30 minutes with a suite of 100 automated Playwright tests; early local testing means a regression run now surfaces only 1–2 bugs, and two critical bugs were stopped before production; tests a local LLM (Llama 3) for product analytics with 100 hand-written prompts, reaching 97%+ answer accuracy after prompt-template fixes. Domains: SaaS creator platforms, e-commerce and product analytics. Languages: Serbian (native), English (C1). Open to remote.
 
 Contact: markolosic1993@gmail.com
 
@@ -11,7 +11,7 @@ Contact: markolosic1993@gmail.com
 - [CV (plain text)](https://markolosic.github.io/cv.txt): full CV in clean text, same content as the website and PDF
 - [CV (PDF)](https://markolosic.github.io/assets/Marko-Losic-CV.pdf): one-page A4 CV
 
-## Profiles
+## Profiles & Case Studies
 
 - [Website](https://markolosic.github.io/): portfolio, skills and experience
 - [How I ship reliable software](https://markolosic.github.io/pipeline/): interactive walkthrough of the QA pipeline (Playwright with C# in Docker on every PR, Maestro, quality gate)
@@ -19,15 +19,22 @@ Contact: markolosic1993@gmail.com
 - [LinkedIn](https://www.linkedin.com/in/markološić/)
 - [GitHub](https://github.com/MarkoLosic)
 
-## Optional
+## Blog (47 articles in English and Serbian)
 
-- [Blog](https://markolosic.github.io/blog/): 35+ articles on QA, test automation, mobile and AI testing
-- [Asserting Too Early: The Quiet Source of Flaky Playwright Tests](https://markolosic.github.io/blog/asserting-too-early-flaky-playwright-tests/)
-- [Testing Idempotency: How to Catch Duplicate-Charge Bugs Before Your Users Do](https://markolosic.github.io/blog/testing-idempotency-duplicate-charges/)
-- [Risk-Based Testing: How to Decide What to Test First When You Can't Test Everything](https://markolosic.github.io/blog/risk-based-testing-prioritization/)
-- [OWASP for QA: Turning the Top 10 and ASVS Into Actual Test Cases](https://markolosic.github.io/blog/owasp-for-qa-top10-asvs-test-cases/)
-- [Testing AI Agents That Take Actions: Why a Correct-Sounding Answer Isn't Enough](https://markolosic.github.io/blog/testing-ai-agents-tool-calls-side-effects/)
-- [Testing AI Features That Don't Give the Same Answer Twice](https://markolosic.github.io/blog/testing-non-deterministic-ai-features/)
-- [Writing Reliable Mobile Test Automation with Maestro: A Practical Guide](https://markolosic.github.io/blog/maestro-mobile-test-automation/)
-- [Splitting a Slow Test Suite Across GitHub Actions Without Losing Signal](https://markolosic.github.io/blog/sharding-tests-github-actions/)
+- [Blog (English)](https://markolosic.github.io/blog/): 47 articles on QA, test automation, mobile and AI testing
+- [Blog (Serbian)](https://markolosic.github.io/sr/blog/): 47 articles in Serbian
+- [Full article index for LLMs](https://markolosic.github.io/llms-full.txt): complete catalog with summaries and tags
 - [RSS](https://markolosic.github.io/rss.xml)
+
+### Latest Articles
+
+- [Testing AI Features That See: QA for Image and Document Inputs](https://markolosic.github.io/blog/vision-ai-testing-image-inputs/): Vision AI features fail in two ways text-only QA misses: bad input images and confident hallucinations. Here's how to test for both.
+- [Session-Based Exploratory Testing: How to Make Ad Hoc Testing Repeatable and Reportable](https://markolosic.github.io/blog/session-based-exploratory-testing/): How session-based test management turns unscripted exploratory testing into something you can plan, measure, and report on, with a worked charter example.
+- [Load Testing for QA Teams: What k6 Catches, and What a Passing Threshold Can Still Hide](https://markolosic.github.io/blog/load-testing-qa-teams-k6-thresholds/): A practical k6 walkthrough for QA teams: scripting a load test, setting thresholds, and the pitfalls that make a green dashboard misleading.
+- [Testing RAG Pipelines: Why Your Retrieval Step Needs Its Own Test Suite](https://markolosic.github.io/blog/testing-rag-pipelines-retrieval-evaluation/): RAG systems fail quietly when retrieval goes wrong. Here's how to test retrieval and generation separately, with a worked example and a metric to watch.
+- [Testing File Uploads: The Edge Cases a Happy-Path Suite Walks Right Past](https://markolosic.github.io/blog/file-upload-testing-edge-cases/): Why file upload features break in production and how to test size limits, type spoofing, concurrency, and interrupted transfers.
+- [Claude Fable 5.2 for Testing: Where the Advantages Are Real and Where They Stop](https://markolosic.github.io/blog/claude-fable-5-2-for-testing/): What Claude Fable 5.2 changes for QA work: long agentic runs, computer use, vision and cost, with the limits spelled out.
+- [Test Pyramid or Testing Trophy: Picking the Shape That Matches Your Risk, Not the Diagram](https://markolosic.github.io/blog/test-pyramid-vs-testing-trophy/): The test pyramid and testing trophy give opposite advice on where to put your tests. Here's how to decide which shape actually fits your codebase.
+- [Chaos Engineering for QA Teams: What a Game Day Actually Looks Like](https://markolosic.github.io/blog/chaos-engineering-game-day-qa-teams/): A practical look at chaos engineering tools and how to run a resilience game day without turning it into an outage.
+- [Pairwise Testing: Cutting Thousands of Config Combinations Down to a Suite You Can Actually Run](https://markolosic.github.io/blog/pairwise-combinatorial-testing/): How pairwise and combinatorial testing shrink a combinatorial explosion into a small, high-coverage test suite, with a worked example and tool picks.
+- [Definition of Done for QA: How Teams Agree on What 'Tested' Actually Means](https://markolosic.github.io/blog/definition-of-done-for-qa/): A vague Definition of Done lets everyone assume someone else tested the edge cases. Here's how to write one that actually catches bugs before release.

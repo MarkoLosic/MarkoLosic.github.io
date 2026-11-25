@@ -2,7 +2,7 @@
 title: Self-Healing Tests: What They Actually Fix, and What They Quietly Break
 title_sr: Samoispravljajući testovi: šta zaista rješavaju, a šta tiho pokvare
 date: 2026-09-23
-tags: [qa, ai-in-qa, test-automation, self-healing-tests]
+tags: [ai-testing, test-automation]
 excerpt: Self-healing test tools patch broken selectors automatically, but they can also hide the very defects your suite exists to catch. Here's how to use them safely.
 excerpt_sr: Alati za samoispravljanje testova automatski krpe pokvarene selektore, ali mogu i sakriti baš one greške koje vaš skup testova treba da uhvati. Evo kako ih koristiti na siguran način.
 image: assets/blog/self-healing-tests-hidden-risk.jpg

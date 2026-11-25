@@ -3,7 +3,7 @@ title: "Property-Based Testing: One Test That Covers Cases You'd Never Think to 
 title_sr: "Property-based testiranje: jedan test koji pokriva slučajeve kojih se nikad ne biste sjetili"
 date: 2026-10-26
 time: 09:00
-tags: [qa, test-automation, property-based-testing, methodology]
+tags: [test-automation, test-strategy]
 excerpt: How property-based testing with Hypothesis or fast-check finds edge cases example-based tests miss, and where it falls short.
 excerpt_sr: Kako property-based testiranje uz Hypothesis ili fast-check pronalazi granične slučajeve koje testovi zasnovani na primjerima propuštaju, i gdje ima svoja ograničenja.
 image: assets/blog/property-based-testing-automated-test-generation.jpg

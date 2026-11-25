@@ -2,7 +2,7 @@
 title: "Emulator and Simulator Testing for Mobile Apps: What They Actually Catch, and What They Quietly Miss"
 title_sr: "Testiranje mobilnih aplikacija na emulatorima i simulatorima: šta zaista hvataju, a šta tiho propuštaju"
 date: 2026-09-28
-tags: [qa, mobile-testing, test-automation, android, ios]
+tags: [mobile-testing, test-automation]
 excerpt: A practical look at testing mobile apps on Android emulators and iOS Simulators, and the common misconceptions that let real bugs through.
 excerpt_sr: Praktičan pogled na testiranje mobilnih aplikacija na Android emulatorima i iOS Simulatoru, i na česte zablude zbog kojih stvarne greške prođu.
 image: assets/blog/emulator-testing-misconceptions.jpg

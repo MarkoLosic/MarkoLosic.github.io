@@ -228,7 +228,7 @@
         const excerpt = (lang === 'sr' && p.excerptSr) || p.excerpt || '';
         return `<a class="post-card card glow reveal in" href="blog/${encodeURIComponent(p.slug)}/">
             <div class="meta"><span>${e(date)}</span><span>·</span><span>${p.readingTime || 1} ${minRead()}</span></div>
-            <h2>${e(title)}</h2><p>${e(excerpt)}</p>
+            <h3>${e(title)}</h3><p>${e(excerpt)}</p>
             <div class="tags">${(p.tags || []).map(t => `<span>${e(t)}</span>`).join('')}</div></a>`;
       }).join('');
       grid.querySelectorAll('.card.glow').forEach(c => c.addEventListener('pointermove', ev => {

@@ -3,7 +3,7 @@ title: "Reviewing AI-Generated Test Code: The Anti-Patterns That Slip Past a Qui
 title_sr: "Pregled testova koje je napisao AI: anti-obrasci koji promaknu na brzinu"
 date: 2026-10-28
 time: 09:00
-tags: [qa, ai-in-qa, test-automation, code-review]
+tags: [ai-testing, test-automation]
 excerpt: AI assistants write tests as readily as code, but many of those tests pass without checking anything. Here's what to look for before merging them.
 excerpt_sr: AI asistenti pišu testove jednako lako kao i kod, ali mnogi od tih testova prolaze a da ništa ne provjeravaju. Evo na šta treba obratiti pažnju prije nego što ih spojite.
 image: assets/blog/reviewing-ai-generated-test-code-anti-patterns.jpg

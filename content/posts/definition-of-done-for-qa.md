@@ -3,7 +3,7 @@ title: "Definition of Done for QA: How Teams Agree on What 'Tested' Actually Mea
 title_sr: "Definition of Done za QA: kako se tim dogovori šta zapravo znači „testirano“"
 date: 2026-11-02
 time: 08:00
-tags: [qa, methodology, definition-of-done, scrum]
+tags: [test-strategy, manual-testing]
 excerpt: A vague Definition of Done lets everyone assume someone else tested the edge cases. Here's how to write one that actually catches bugs before release.
 excerpt_sr: Nejasan Definition of Done svima dozvoljava da pretpostave da je neko drugi testirao granične slučajeve. Evo kako napisati onaj koji zaista hvata bagove prije izdanja.
 image: assets/blog/definition-of-done-for-qa.jpg

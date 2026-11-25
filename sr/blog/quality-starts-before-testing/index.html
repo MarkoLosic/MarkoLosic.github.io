@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="sr" data-theme="dark" data-static-lang="sr" data-alt-url="../../../blog/quality-starts-before-testing/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kvalitet počinje prije prve linije koda: kako pristupam QA-u — Marko Lošić</title>
+  <meta name="description" content="Zašto QA koji počinje već kod zahtjeva, kombinuje različite vrste testiranja i zatvara krug nakon objavljivanja gradi stvaran kvalitet proizvoda.">
+  <link rel="canonical" href="https://markolosic.github.io/sr/blog/quality-starts-before-testing/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/quality-starts-before-testing/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/quality-starts-before-testing/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/quality-starts-before-testing/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Kvalitet počinje prije prve linije koda: kako pristupam QA-u — Marko Lošić">
+  <meta property="og:description" content="Zašto QA koji počinje već kod zahtjeva, kombinuje različite vrste testiranja i zatvara krug nakon objavljivanja gradi stvaran kvalitet proizvoda.">
+  <meta property="og:url" content="https://markolosic.github.io/sr/blog/quality-starts-before-testing/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/quality-starts-before-testing.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="654">
+  <meta property="og:image:alt" content="Kvalitet počinje prije prve linije koda: kako pristupam QA-u">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kvalitet počinje prije prve linije koda: kako pristupam QA-u — Marko Lošić">
+  <meta name="twitter:description" content="Zašto QA koji počinje već kod zahtjeva, kombinuje različite vrste testiranja i zatvara krug nakon objavljivanja gradi stvaran kvalitet proizvoda.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/quality-starts-before-testing.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/sr/blog/quality-starts-before-testing/#article","headline":"Kvalitet počinje prije prve linije koda: kako pristupam QA-u","description":"Zašto QA koji počinje već kod zahtjeva, kombinuje različite vrste testiranja i zatvara krug nakon objavljivanja gradi stvaran kvalitet proizvoda.","image":"https://markolosic.github.io/assets/blog/quality-starts-before-testing.jpg","url":"https://markolosic.github.io/sr/blog/quality-starts-before-testing/","inLanguage":"sr","wordCount":1110,"articleSection":"test-strategy","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/sr/blog/quality-starts-before-testing/"},"datePublished":"2026-09-24T00:00:00.000Z","dateModified":"2026-09-24T00:00:00.000Z","keywords":"test-strategy, playwright, test-automation","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Početna","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/sr/blog/"},{"@type":"ListItem","position":3,"name":"Kvalitet počinje prije prve linije koda: kako pristupam QA-u","item":"https://markolosic.github.io/sr/blog/quality-starts-before-testing/"}]}]}</script>
+  <meta property="article:published_time" content="2026-09-24T00:00:00.000Z">
+  <meta property="article:modified_time" content="2026-09-24T00:00:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../assets/fonts.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../../#top" data-i18n="nav_about">O meni</a>
+      <a href="../../../#skills" data-i18n="nav_skills">Vještine</a>
+      <a href="../../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../../#experience" data-i18n="nav_exp">Iskustvo</a>
+      <a href="../../../#education" data-i18n="nav_edu">Obrazovanje</a>
+      <a href="../../../sr/blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../../#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span>Svi članci</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-09-24" data-fmt="long">24. septembar 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h1>Kvalitet počinje prije prve linije koda: kako pristupam QA-u</h1>
+        <p class="lead">Zašto QA koji počinje već kod zahtjeva, kombinuje različite vrste testiranja i zatvara krug nakon objavljivanja gradi stvaran kvalitet proizvoda.</p>
+        <div class="tags"><span>test-strategy</span><span>playwright</span><span>test-automation</span></div>
+      </header>
+      <div class="prose"><p>Većina ljudi zamišlja QA kao fazu neposredno prije objavljivanja: neko prođe kroz build, označi par kućica i da zeleno svjetlo. U praksi, dio posla sa najvećim uticajem dešava se mnogo ranije, i skoro da nema veze sa klikanjem bilo čega. Kvalitet se odlučuje u razgovoru o zahtjevima, održava se kroz kombinaciju pristupa testiranju tokom razvoja, štiti automatizacijom tamo gdje je to najbitnije, i zatvara iskrenim pogledom na ono što je ipak nekome promaklo. Evo kako zapravo prolazim kroz taj ciklus.</p>
+<p><img src="../../../assets/blog/quality-starts-before-testing.jpg" alt="Izometrijski dijagram QA životnog ciklusa: zahtjevi i planiranje, razvoj i kodiranje, automatizacija i testiranje sa Playwright i Cypress alatima, objavljivanje i implementacija, te analiza nakon objavljivanja koja se vraća nazad na zahtjeve" width="1200" height="654" fetchpriority="high" decoding="async"></p>
+<h2 id="uključivanje-prije-nego-što-postoji-ijedna-linija-koda">Uključivanje prije nego što postoji ijedna linija koda</h2>
+<p>Trudim se da budem u prostoriji dok se zahtjevi tek oblikuju, a ne tek pošto su predati kao gotova specifikacija. To je tačka u kojoj je nejasnoću najjeftinije ispraviti. Zahtjev koji kaže &quot;korisnik treba da bude obaviješten&quot; može značiti email, push notifikaciju, banner unutar aplikacije, ili sve troje, i ako to nije precizirano prije nego što razvoj počne, neko napravi jednu interpretaciju, QA testira prema drugoj, a bug report koji nastane zapravo je samo nesporazum obučen u broj tiketa.</p>
+<p>Rano uključivanje znači postavljanje dosadnih, ali neophodnih pitanja: šta tačno znači da je nešto gotovo, koji su kriterijumi prihvatanja, šta se dešava u graničnim slučajevima koje niko nije pomenuo (prazna stanja, istekle sesije, drugi uređaj, spora mreža), i koliki je stvarni rizik ako baš ovaj dio pukne. Kratak razgovor u ovoj fazi — pet minuta na pozivu, nit komentara na tiketu — redovno spriječi da se nešto ponovo gradi dvije nedelje kasnije.</p>
+<p>Vrijeme provedeno u True North programu oblikovalo je kako o ovome razmišljam. Lekcija koja mi je ostala je da se stalno vraćam osobi koja će zaista koristiti proizvod, a ne tiketu koji je opisuje. Zahtjev može biti tehnički potpun, a opet promašiti ono što je bitno stvarnom korisniku — tok koji se koristi neprestano naspram onog koji se koristi jednom godišnje, poruku o grešci koja mora imati smisla nekome ko nije inženjer. Kada tu osobu imate na umu dok se zahtjevi tek pišu, to mijenja koji granični slučajevi budu označeni kao vrijedni obrade, a koji razumno padnu niže na listi prioriteta.</p>
+<h2 id="kombinovanje-vrsta-testiranja-tokom-razvoja">Kombinovanje vrsta testiranja tokom razvoja</h2>
+<p>Kada razvoj počne, nijedan pojedinačni pristup testiranju ne pokriva ono što je zaista potrebno, pa ih vodim nekoliko paralelno. Za nove funkcionalnosti pišem test planove i test slučajeve koji prate kriterijume prihvatanja dogovorene ranije — to je ono što pretvara &quot;o tome smo pričali&quot; u nešto što cijeli tim kasnije može provjeriti. Funkcionalno testiranje potvrđuje da funkcionalnost radi ono što treba; integraciono testiranje provjerava da tiho ne pokvari sisteme oko sebe; regresiono testiranje se stara da jučerašnja ispravka ponovo ne otvori bug od prošlog mjeseca.</p>
+<p>Skriptovano testiranje, međutim, pronalazi samo ono za šta je napisano da traži. Tu istraživačko (exploratory) testiranje dobija svoje mjesto — sjednete uz funkcionalnost i namjerno pokušate da je pokvarite na način koji nijedan test slučaj nije predvidio: promjena naloga usred toka, vraćanje naprijed-nazad kroz istoriju pretraživača, slanje forme dva puta zaredom, promjena veličine prozora u pogrešnom trenutku. To nisu granični slučajevi koje bi iko unaprijed skriptovao, ali su tačno ono na šta stvarni korisnici slučajno nalete, a istraživačke sesije su mjesto gdje se ti problemi obično prvi put pojave.</p>
+<h2 id="gdje-automatizacija-opravdava-svoje-mjesto">Gdje automatizacija opravdava svoje mjesto</h2>
+<p>Automatizujem tokove koji su i kritični i repetitivni — checkout, prijavu, unos ključnih podataka, sve što tim dodiruje kod skoro svake izmjene — koristeći Cypress i Playwright. Cilj nije automatizovati sve; cilj je automatizovati puteve gdje bi regresija bila skupa i gdje ručno ponavljanje iste provjere, iznova i iznova, ne donosi nikakvu novu informaciju. Test prijave koji je prošao juče i ponovo prolazi danas nakon izmjene rutiranja ne uči nikoga ničemu novom time što se pokreće ručno — samo potvrđuje da ništa nije puklo, a skripta to može potvrditi brže i pouzdanije nego osoba koja kroz to klikće po petnaesti put.</p>
+<pre><code class="lang-javascript">// Example: a Playwright smoke check for a critical flow,
+// run on every pull request before deeper manual testing begins
+test('user can complete checkout with a saved card', async ({ page }) =&gt; {
+  await page.goto('/cart');
+  await page.getByRole('button', { name: 'Checkout' }).click();
+  await page.getByLabel('Saved card ending in 4242').check();
+  await page.getByRole('button', { name: 'Place order' }).click();
+  await expect(page.getByText('Order confirmed')).toBeVisible();
+});</code></pre>
+<p>Ta provjera koja se automatski pokreće na svaku izmjenu daje timu brz signal bez toga da je ja ponovo provjeravam ručno — čime ostaje više vremena za istraživačko testiranje i granične slučajeve kojima je zaista potrebna nečija pažnja.</p>
+<h2 id="bug-izvještaji-su-problem-komunikacije-ne-samo-zadatak-dokumentovanja">Bug izvještaji su problem komunikacije, ne samo zadatak dokumentovanja</h2>
+<p>Bug koji je pronađen, ali loše prijavljen, nikome ne pomaže. Trudim se da pišem izvještaje na osnovu kojih developer može da postupi bez dodatnog pitanja: jasni koraci za reprodukciju, očekivano naspram stvarnog ponašanja, i — podjednako bitno — osjećaj prioriteta zasnovan na tome ko je pogođen i koliko ozbiljno. Vizuelni pomak na rijetko korišćenom admin ekranu i pokvareno dugme za checkout nisu ista vrsta buga, a izvještaj koji to ne naglasi tjera tim da sam smisli prioritet, obično pod vremenskim pritiskom. Formulisanje ozbiljnosti u smislu uticaja na korisnika i biznis, a ne samo tehničkog opisa, je ono što obezbjeđuje da se prvo isprave prave stvari, umjesto bilo kog buga koji je slučajno posljednji prijavljen.</p>
+<h2 id="praćenje-nakon-objavljivanja">Praćenje nakon objavljivanja</h2>
+<p>Posao testiranja se ne završava kada release izađe. Kada nešto stigne u produkciju što je trebalo biti uhvaćeno ranije, trudim se da razumijem zašto je promaklo, umjesto da samo prijavim ispravku i idem dalje. Da li uopšte nije postojao test koji pokriva taj put? Da li su kriterijumi prihvatanja od početka bili nejasni? Da li je istraživačkoj sesiji ponestalo vremena prije nego što je stigla do tog toka? Svaki odgovor upućuje na drugačije rješenje — test slučaj koji nedostaje, razgovor o zahtjevima koji je trebalo obaviti ranije, više vremena predviđenog za istraživačko testiranje u sljedećem release-u. Preskakanje ovog koraka znači da se ista vrsta buga obično vraća, samo pod drugim brojem tiketa.</p>
+<h2 id="kvalitet-je-zajednička-odgovornost">Kvalitet je zajednička odgovornost</h2>
+<p>Ništa od ovoga ne funkcioniše ako se QA tretira kao jedna jedina kapija na kraju procesa, koja provjerava posao koji se već smatra završenim. Kvalitet se bolje održi kada je ugrađen u razgovore o zahtjevima, u to kako se funkcionalnosti automatizuju, u to kako se bugovi komuniciraju, i u ono što tim nauči nakon release-a. Moja uloga nije da budem posljednja linija odbrane — nego da pomognem da kvalitet postane nešto što cijeli tim gradi u svakom koraku, a ne nešto što jedna osoba doda na kraju.</p></div>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button">Kopiraj link</button>
+      <a class="btn primary" href="../../../#contact">Kontaktiraj me</a>
+    </div>
+    <section class="more-posts"><h2>Slični članci</h2><div class="post-grid">
+      <a class="post-card card glow" href="../test-pyramid-vs-testing-trophy/"><div class="meta"><time datetime="2026-11-09" data-fmt="short">9. nov 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Test piramida ili testing trofej: birajte oblik koji odgovara vašem riziku, a ne dijagramu</h3><p>Test piramida i testing trofej daju suprotne savjete o tome gdje da uložite testove. Evo kako da odlučite koji oblik zaista odgovara vašem kodu.</p></a>
+      <a class="post-card card glow" href="../pairwise-combinatorial-testing/"><div class="meta"><time datetime="2026-11-04" data-fmt="short">4. nov 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Pairwise testiranje: kako hiljade kombinacija konfiguracije svesti na test suite koji zaista možete da pokrenete</h3><p>Kako pairwise i kombinatorno testiranje svode kombinatornu eksploziju na mali test suite sa visokom pokrivenošću, uz razrađen primjer i preporuke alata.</p></a>
+      <a class="post-card card glow" href="../property-based-testing-automated-test-generation/"><div class="meta"><time datetime="2026-10-26" data-fmt="short">26. okt 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Property-based testiranje: jedan test koji pokriva slučajeve kojih se nikad ne biste sjetili</h3><p>Kako property-based testiranje uz Hypothesis ili fast-check pronalazi granične slučajeve koje testovi zasnovani na primjerima propuštaju, i gdje ima svoja ograničenja.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../../#contact" data-i18n="contact_cta">Kontaktiraj me</a>
+    <button type="button" data-consent data-i18n="cookies">Postavke kolačića</button>
+    <a href="../../../" data-i18n="back_home">Nazad na početnu ↑</a>
+  </footer>
+  <script src="../../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../../blog/common.js"></script>
+  <script src="../../../blog/post.js"></script>
+</body>
+</html>

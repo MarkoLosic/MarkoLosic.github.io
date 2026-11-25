@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="sr" data-theme="dark" data-static-lang="sr" data-alt-url="../../../blog/manual-testing-mobile-apps-interruptions/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ručno testiranje mobilnih aplikacija: zašto su prekidi važniji od klikanja po srećnom scenariju — Marko Lošić</title>
+  <meta name="description" content="Praktičan vodič za ručno testiranje toga kako se mobilne aplikacije nose sa prelaskom u pozadinu, pozivima, slabom baterijom i prekinutom konekcijom.">
+  <link rel="canonical" href="https://markolosic.github.io/sr/blog/manual-testing-mobile-apps-interruptions/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/manual-testing-mobile-apps-interruptions/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/manual-testing-mobile-apps-interruptions/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/manual-testing-mobile-apps-interruptions/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Ručno testiranje mobilnih aplikacija: zašto su prekidi važniji od klikanja po srećnom scenariju — Marko Lošić">
+  <meta property="og:description" content="Praktičan vodič za ručno testiranje toga kako se mobilne aplikacije nose sa prelaskom u pozadinu, pozivima, slabom baterijom i prekinutom konekcijom.">
+  <meta property="og:url" content="https://markolosic.github.io/sr/blog/manual-testing-mobile-apps-interruptions/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/manual-testing-mobile-apps-interruptions.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="669">
+  <meta property="og:image:alt" content="Ručno testiranje mobilnih aplikacija: zašto su prekidi važniji od klikanja po srećnom scenariju">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ručno testiranje mobilnih aplikacija: zašto su prekidi važniji od klikanja po srećnom scenariju — Marko Lošić">
+  <meta name="twitter:description" content="Praktičan vodič za ručno testiranje toga kako se mobilne aplikacije nose sa prelaskom u pozadinu, pozivima, slabom baterijom i prekinutom konekcijom.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/manual-testing-mobile-apps-interruptions.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/sr/blog/manual-testing-mobile-apps-interruptions/#article","headline":"Ručno testiranje mobilnih aplikacija: zašto su prekidi važniji od klikanja po srećnom scenariju","description":"Praktičan vodič za ručno testiranje toga kako se mobilne aplikacije nose sa prelaskom u pozadinu, pozivima, slabom baterijom i prekinutom konekcijom.","image":"https://markolosic.github.io/assets/blog/manual-testing-mobile-apps-interruptions.jpg","url":"https://markolosic.github.io/sr/blog/manual-testing-mobile-apps-interruptions/","inLanguage":"sr","wordCount":1141,"articleSection":"mobile-testing","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/sr/blog/manual-testing-mobile-apps-interruptions/"},"datePublished":"2026-09-29T20:00:00.000Z","dateModified":"2026-09-29T20:00:00.000Z","keywords":"mobile-testing, manual-testing","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Početna","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/sr/blog/"},{"@type":"ListItem","position":3,"name":"Ručno testiranje mobilnih aplikacija: zašto su prekidi važniji od klikanja po srećnom scenariju","item":"https://markolosic.github.io/sr/blog/manual-testing-mobile-apps-interruptions/"}]}]}</script>
+  <meta property="article:published_time" content="2026-09-29T20:00:00.000Z">
+  <meta property="article:modified_time" content="2026-09-29T20:00:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../assets/fonts.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../../#top" data-i18n="nav_about">O meni</a>
+      <a href="../../../#skills" data-i18n="nav_skills">Vještine</a>
+      <a href="../../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../../#experience" data-i18n="nav_exp">Iskustvo</a>
+      <a href="../../../#education" data-i18n="nav_edu">Obrazovanje</a>
+      <a href="../../../sr/blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../../#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span>Svi članci</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-09-29" data-fmt="long">29. septembar 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h1>Ručno testiranje mobilnih aplikacija: zašto su prekidi važniji od klikanja po srećnom scenariju</h1>
+        <p class="lead">Praktičan vodič za ručno testiranje toga kako se mobilne aplikacije nose sa prelaskom u pozadinu, pozivima, slabom baterijom i prekinutom konekcijom.</p>
+        <div class="tags"><span>mobile-testing</span><span>manual-testing</span></div>
+      </header>
+      <div class="prose"><p>Mobilna aplikacija rijetko otkaže u mirnim, neometanim laboratorijskim uslovima koje pretpostavlja većina scenarija za ručno testiranje. Otkaže kada telefonski poziv prekine checkout, kada operativni sistem ugasi aplikaciju u pozadini da oslobodi memoriju, kada konekcija pukne usred otpremanja fajla u vozu, ili kada korisnik zaključa ekran na pola popunjavanja forme. Klikanje kroz svaki ekran na emulatoru priključenom na struju potvrđuje da aplikacija radi kada ništa ne pođe po zlu — a upravo u tom stanju su stvarni korisnici najrjeđe.</p>
+<p><img src="../../../assets/blog/manual-testing-mobile-apps-interruptions.jpg" alt="Ilustracija ruke koja drži telefon sa ekranom za prijavu, okružen dijalogom dolaznog poziva, ikonom prazne baterije, precrtanim Wi-Fi i avionskim ikonama, i tokom životnog ciklusa aplikacije od aktivnog stanja preko pozadine i suspendovanog stanja do prekida rada" width="1200" height="669" fetchpriority="high" decoding="async"></p>
+<h2 id="stanja-u-kojima-vaša-aplikacija-zaista-živi">Stanja u kojima vaša aplikacija zaista živi</h2>
+<p>iOS aplikacija prolazi kroz pet različitih stanja koja vrijedi testirati zasebno: active (aktivno korišćenje), background (i dalje izvršava zadatak, npr. ažuriranje lokacije ili preuzimanje), suspended (u memoriji, ali ne radi ništa), inactive (kratak prelaz tokom prekida kao što je dolazni poziv) i not running (ugašena, zahtijeva novo pokretanje). Pregled Ministry of Testing-a o testiranju životnog ciklusa iOS aplikacija jasno opisuje rizik: aplikacije koje ne obrađuju ove prelaze ispravno dovode do gubitka podataka, padova i ponašanja koje u demo prikazu izgleda dobro, a u stvarnoj upotrebi se raspada.</p>
+<p>Android ima svoju verziju ovog problema, koju sam operativni sistem sprovodi još agresivnije. Google-ova dokumentacija o ograničenjima rada u pozadini opisuje kako sistem može da označi aplikaciju zbog prekomjerne aktivnosti u pozadini — držanja wake lock-a duže od sat vremena sa ugašenim ekranom ili pokretanja previše pozadinskih servisa — a kada je označena, aplikacija gubi mogućnost da pokreće poslove, aktivira alarme ili koristi mrežu van prvog plana. Aplikacija koja pretpostavlja da može da završi sinhronizaciju u pozadini kad god hoće može jednostavno biti prekinuta od strane platforme usred zadatka, a jedini način da to vidite je da aplikaciju stavite upravo u tu situaciju i posmatrate šta se dešava.</p>
+<h2 id="simuliranje-prekida-na-stvarnom-uređaju">Simuliranje prekida na stvarnom uređaju</h2>
+<p>Ručni test koji zaista hvata ove greške nije „otvori aplikaciju i provjeri ekran&quot; — već „pokreni akciju, namjerno je prekini i provjeri šta aplikacija pamti&quot;. Konkretna sesija izgleda ovako:</p>
+<ul><li>Počnite da popunjavate formu sa više polja (narudžbu, profil, tiket za podršku), pa pošaljite aplikaciju u pozadinu prelaskom na drugu aplikaciju ili pritiskom na home dugme. Vratite se nakon minut i potvrdite da su uneseni podaci i dalje tu, a ne tiho odbačeni.</li><li>Započnite otpremanje fajla ili slanje checkout-a, pa usred zahtjeva uključite i ponovo isključite avionski režim. Potvrdite da aplikacija ili nastavlja, ili pokušava ponovo, ili prikazuje jasno stanje greške — a ne spinner koji se nikad ne završi i korisniku ništa ne kaže.</li><li>Izazovite stvaran prekid na fizičkom uređaju — dolazni poziv, obavještenje iz kalendara, upozorenje o slaboj bateriji — dok je u toku kritičan tok kao što je plaćanje ili prijava, pa potvrdite da se aplikacija ispravno nastavlja (odnosno, kod upozorenja o slaboj bateriji, da tiho ne izgubi stanje ako je OS suspenduje).</li><li>Prinudno ugasite aplikaciju iz prebacivača zadataka, pa je pokrenite ispočetka (cold start). Ovo je drugačiji test od odlaska u pozadinu i povratka: potvrdite da je korisnik i dalje prijavljen, da se učitava posljednji ekran ili odgovarajući podrazumijevani, i da nema pada pri pokretanju zbog zastarjelog keširanog stanja.</li></ul>
+<p>Na Android-u neke od ovih pozadinskih uslova možete izazvati direktno, umjesto da čekate da ih OS prirodno pokrene:</p>
+<pre><code class="lang-bash"># Simulirajte da OS ograničava aktivnost aplikacije u pozadini
+adb shell cmd appops set &lt;package_name&gt; RUN_IN_BACKGROUND ignore
+
+# Potvrdite da aplikacija elegantno degradira: bez pada, sa jasnim
+# stanjem &quot;ponovno povezivanje&quot; ili &quot;pauzirano&quot; umjesto tihog zastoja
+
+# Vratite normalno ponašanje u pozadini kada završite provjeru
+adb shell cmd appops set &lt;package_name&gt; RUN_IN_BACKGROUND allow</code></pre>
+<p>Kratka matrica čini pokrivenost eksplicitnom umjesto improvizovanom:</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Stanje aplikacije / okidač</th><th>Ručna akcija</th><th>Šta provjeriti</th></tr></thead>
+<tbody>
+<tr><td>U pozadini usred forme</td><td>Prebacite se na drugu aplikaciju, sačekajte, vratite se</td><td>Uneseni podaci su sačuvani</td></tr>
+<tr><td>U pozadini usred mrežnog poziva</td><td>Uključite/isključite avionski režim tokom zahtjeva</td><td>Jasno stanje ponovnog pokušaja ili greške, bez beskonačnog spinnera</td></tr>
+<tr><td>Stvaran prekid (poziv, obavještenje)</td><td>Izazovite ga tokom kritičnog toka na fizičkom uređaju</td><td>Tok se ispravno nastavlja nakon što prekid prođe</td></tr>
+<tr><td>Prinudno ugašena, pa ponovo pokrenuta</td><td>Ugasite iz prebacivača zadataka, cold start</td><td>Sesija/prijava ostaje; nema pada pri pokretanju</td></tr>
+<tr><td>Malo memorije / ograničenje rada u pozadini</td><td><code>adb shell cmd appops set ... ignore</code> (Android)</td><td>Aplikacija elegantno degradira umjesto da tiho otkaže</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Testiranje prekida je sporije od običnog prolaska klikanjem i ne skalira se na svaku kombinaciju verzije OS-a, uređaja i vrste prekida — zato mu prioritet treba odrediti prema tome gdje greška zaista nešto košta: plaćanje, autentifikacija i sve što prikuplja korisnički unos za čijim bi gubitkom korisnik bio ljut. Emulatori su razuman prvi prolaz, ali ne mogu u potpunosti zamijeniti stvaran uređaj: stvarne dolazne pozive, pravo stanje slabe baterije i specifičan način na koji telefon srednje klase ili stariji telefon oslobađa memoriju pod pritiskom teško je precizno simulirati u virtuelnom okruženju, a greške u vraćanju stanja se nesrazmjerno često javljaju upravo na slabijim uređajima koje mnogi timovi nemaju u svom skupu za testiranje. Takođe je lako testirati odlazak u pozadinu i zaboraviti poseban slučaj prinudnog gašenja i ponovnog pokretanja — ta dva scenarija proizvode različite greške, i to što jedan prolazi ne znači da drugi radi. Ništa od ovoga ne zamjenjuje automatizovanu regresiju za logiku koja se često mijenja; ručno testiranje prekida najbolje je tretirati kao periodičan prolaz kroz kritične tokove, sa prioritetom prema riziku, a ne kao jedinu mrežu koja hvata greške u stanju prije objave.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ul><li>Napravite kratku matricu prekida (kao ova iznad) za svaki kritičan korisnički tok — plaćanje, prijavu i sve što ima formu u više koraka — i pokrećite je kao standardan dio testiranja prije objave, a ne kao povremenu provjeru.</li><li>Držite bar jedan stvaran uređaj koji nije flagship u rotaciji za ovakvo testiranje; uslovi sa malo memorije i stvarni prekidi ponašaju se drugačije nego na simulatoru ili skupom telefonu.</li><li>Testirajte prinudno gašenje i ponovno pokretanje kao zaseban slučaj, odvojeno od običnog odlaska u pozadinu — prolaze kroz različite dijelove koda i otkazuju na različite načine.</li><li>Na Android-u koristite <code>adb shell cmd appops set &lt;package&gt; RUN_IN_BACKGROUND ignore</code> da po potrebi izazovete ograničenje rada u pozadini, umjesto da čekate da ga OS prirodno pokrene tokom test sesije.</li></ul>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://www.ministryoftesting.com/articles/10-ways-to-test-ios-apps-across-different-states-and-lifecycle-stages" target="_blank" rel="noopener noreferrer">Ministry of Testing: 10 ways to test iOS apps across different states and lifecycle stages</a></li><li><a href="https://developer.android.com/develop/background-work/background-tasks/bg-work-restrictions" target="_blank" rel="noopener noreferrer">Android Developers: System restrictions on background tasks</a></li></ul></div>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button">Kopiraj link</button>
+      <a class="btn primary" href="../../../#contact">Kontaktiraj me</a>
+    </div>
+    <section class="more-posts"><h2>Slični članci</h2><div class="post-grid">
+      <a class="post-card card glow" href="../session-based-exploratory-testing/"><div class="meta"><time datetime="2026-11-23" data-fmt="short">23. nov 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Exploratory testiranje zasnovano na sesijama: kako ad hoc testiranje učiniti ponovljivim i mjerljivim</h3><p>Kako session-based test management pretvara exploratory testiranje bez skripte u nešto što možete planirati, mjeriti i o čemu možete izvještavati, uz konkretan primjer charter-a.</p></a>
+      <a class="post-card card glow" href="../file-upload-testing-edge-cases/"><div class="meta"><time datetime="2026-11-13" data-fmt="short">13. nov 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Testiranje otpremanja fajlova: granični slučajevi pored kojih happy-path testovi samo prođu</h3><p>Zašto funkcije za otpremanje fajlova pucaju u produkciji i kako testirati ograničenja veličine, lažiranje tipa fajla, istovremena otpremanja i prekinute prenose.</p></a>
+      <a class="post-card card glow" href="../definition-of-done-for-qa/"><div class="meta"><time datetime="2026-11-02" data-fmt="short">2. nov 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Definition of Done za QA: kako se tim dogovori šta zapravo znači „testirano“</h3><p>Nejasan Definition of Done svima dozvoljava da pretpostave da je neko drugi testirao granične slučajeve. Evo kako napisati onaj koji zaista hvata bagove prije izdanja.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../../#contact" data-i18n="contact_cta">Kontaktiraj me</a>
+    <button type="button" data-consent data-i18n="cookies">Postavke kolačića</button>
+    <a href="../../../" data-i18n="back_home">Nazad na početnu ↑</a>
+  </footer>
+  <script src="../../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../../blog/common.js"></script>
+  <script src="../../../blog/post.js"></script>
+</body>
+</html>

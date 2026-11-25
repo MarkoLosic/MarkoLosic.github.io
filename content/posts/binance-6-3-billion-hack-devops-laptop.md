@@ -3,8 +3,8 @@ title: "The Heist of the Century: How One Laptop Cost Binance $6.3 Billion"
 title_sr: "Pljačka stoljeća: kako je jedan laptop koštao Binance 6,3 milijarde dolara"
 date: 2026-10-30
 time: 18:30
-tags: [security-testing, real-world-use-case, fintech]
-excerpt: Binance lost an estimated $6.3 billion in the largest crypto theft ever, and the way in was a single compromised DevOps laptop. What happened and what to take away from it.
+tags: [security-testing, real-world-bugs]
+excerpt: Binance lost an estimated $6.3B in the largest crypto theft ever, starting with one compromised DevOps laptop. What happened and what QA teams should learn.
 excerpt_sr: Binance je u najvećoj kripto krađi u historiji izgubio oko 6,3 milijarde dolara, a ulaz je bio jedan kompromitovan laptop DevOps inženjera. Šta se desilo i šta iz toga treba ponijeti.
 image: assets/blog/binance-6-3-billion-hack-devops-laptop.jpg
 ---

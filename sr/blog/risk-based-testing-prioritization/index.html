@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="sr" data-theme="dark" data-static-lang="sr" data-alt-url="../../../blog/risk-based-testing-prioritization/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Testiranje zasnovano na riziku: kako odlučiti šta testirati prvo kada ne možete testirati sve — Marko Lošić</title>
+  <meta name="description" content="Praktičan vodič kroz testiranje zasnovano na riziku: kako ocijeniti funkcionalnosti po vjerovatnoći i uticaju i na osnovu toga odlučiti šta se testira prije ro…">
+  <link rel="canonical" href="https://markolosic.github.io/sr/blog/risk-based-testing-prioritization/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/risk-based-testing-prioritization/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/risk-based-testing-prioritization/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/risk-based-testing-prioritization/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Testiranje zasnovano na riziku: kako odlučiti šta testirati prvo kada ne možete testirati sve — Marko Lošić">
+  <meta property="og:description" content="Praktičan vodič kroz testiranje zasnovano na riziku: kako ocijeniti funkcionalnosti po vjerovatnoći i uticaju i na osnovu toga odlučiti šta se testira prije ro…">
+  <meta property="og:url" content="https://markolosic.github.io/sr/blog/risk-based-testing-prioritization/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/risk-based-testing-prioritization.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="669">
+  <meta property="og:image:alt" content="Testiranje zasnovano na riziku: kako odlučiti šta testirati prvo kada ne možete testirati sve">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Testiranje zasnovano na riziku: kako odlučiti šta testirati prvo kada ne možete testirati sve — Marko Lošić">
+  <meta name="twitter:description" content="Praktičan vodič kroz testiranje zasnovano na riziku: kako ocijeniti funkcionalnosti po vjerovatnoći i uticaju i na osnovu toga odlučiti šta se testira prije ro…">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/risk-based-testing-prioritization.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/sr/blog/risk-based-testing-prioritization/#article","headline":"Testiranje zasnovano na riziku: kako odlučiti šta testirati prvo kada ne možete testirati sve","description":"Praktičan vodič kroz testiranje zasnovano na riziku: kako ocijeniti funkcionalnosti po vjerovatnoći i uticaju i na osnovu toga odlučiti šta se testira prije roka.","image":"https://markolosic.github.io/assets/blog/risk-based-testing-prioritization.jpg","url":"https://markolosic.github.io/sr/blog/risk-based-testing-prioritization/","inLanguage":"sr","wordCount":1115,"articleSection":"test-strategy","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/sr/blog/risk-based-testing-prioritization/"},"datePublished":"2026-10-04T18:00:00.000Z","dateModified":"2026-10-04T18:00:00.000Z","keywords":"test-strategy","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Početna","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/sr/blog/"},{"@type":"ListItem","position":3,"name":"Testiranje zasnovano na riziku: kako odlučiti šta testirati prvo kada ne možete testirati sve","item":"https://markolosic.github.io/sr/blog/risk-based-testing-prioritization/"}]}]}</script>
+  <meta property="article:published_time" content="2026-10-04T18:00:00.000Z">
+  <meta property="article:modified_time" content="2026-10-04T18:00:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../assets/fonts.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../../#top" data-i18n="nav_about">O meni</a>
+      <a href="../../../#skills" data-i18n="nav_skills">Vještine</a>
+      <a href="../../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../../#experience" data-i18n="nav_exp">Iskustvo</a>
+      <a href="../../../#education" data-i18n="nav_edu">Obrazovanje</a>
+      <a href="../../../sr/blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../../#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span>Svi članci</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-10-04" data-fmt="long">4. oktobar 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h1>Testiranje zasnovano na riziku: kako odlučiti šta testirati prvo kada ne možete testirati sve</h1>
+        <p class="lead">Praktičan vodič kroz testiranje zasnovano na riziku: kako ocijeniti funkcionalnosti po vjerovatnoći i uticaju i na osnovu toga odlučiti šta se testira prije roka.</p>
+        <div class="tags"><span>test-strategy</span></div>
+      </header>
+      <div class="prose"><p>Svaki QA tim prije ili kasnije udari u isti zid: datum objave koji se ne pomjera, gomila testova koja stalno raste i premalo sati da se svaki test slučaj pokrene nad svakom izmjenom. Uobičajena reakcija je da se sve testira pomalo, što u praksi znači da se najrizičnije stvari testiraju nedovoljno, a najbezbjednije više nego što im treba. Testiranje zasnovano na riziku je izlaz iz te zamke: umjesto da trud ravnomjerno rasporedite, namjerno ga najviše trošite na ono što će se najvjerovatnije pokvariti i što je najskuplje ako se pokvari.</p>
+<p><img src="../../../assets/blog/risk-based-testing-prioritization.jpg" alt="Ilustracija 5×5 matrice rizika sa osama vjerovatnoće i uticaja, poljima koja prelaze iz zelene boje za nizak rizik u užarenu crvenu za visok rizik, ispunjenim ikonama buba, kvačica, štitova i prozora sa kodom, okruženim linijama strujnih kola i ikonama lupe" width="1200" height="669" fetchpriority="high" decoding="async"></p>
+<h2 id="osnovna-ideja-vjerovatnoća-puta-uticaj">Osnovna ideja: vjerovatnoća puta uticaj</h2>
+<p>Testiranje zasnovano na riziku ocjenjuje svaku funkcionalnost, modul ili izmjenu po dvije dimenzije:</p>
+<ul><li><strong>Vjerovatnoća</strong> — koliko je vjerovatno da ovaj dio sistema ima grešku? Složena logika, novi kod, skorašnje izmjene i oblasti sa istorijom grešaka ovdje dobijaju višu ocjenu.</li><li><strong>Uticaj</strong> — ako se pokvari, koliko je to loše? Gubitak prihoda, oštećenje podataka, pravna ili regulatorna izloženost i broj pogođenih korisnika — sve to podiže uticaj.</li></ul>
+<p>Pomnožite (ili kombinujte) ove dvije vrijednosti i dobijate ocjenu rizika po kojoj možete rangirati funkcionalnosti. Timovima rijetko treba precizna matematika — jednostavna skala visoko/srednje/nisko na svakoj osi, pretvorena u mrežu 3x3 ili 5x5, obično je dovoljna da razdvoji „ovo prvo detaljno testiraj&quot; od „ovo samo smoke testiraj i idi dalje&quot;. Formalnije verzije iste ideje postoje u metodama kao što su FMEA (Failure Mode and Effect Analysis, analiza načina i posljedica otkaza) i analiza stabla grešaka, koje su uobičajene u regulisanim industrijama gdje morate dokumentovati zašto je rizik ocijenjen baš tako, ali većini produktnih timova taj dodatni teret nije potreban.</p>
+<h2 id="primjer-iz-prakse">Primjer iz prakse</h2>
+<p>Zamislite online prodavnicu srednje veličine koja objavljuje verziju sa tri izmjene, i QA tim koji ima dva dana umjesto sedmice koju bi inače želio:</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Funkcionalnost</th><th>Vjerovatnoća greške</th><th>Uticaj ako se pokvari</th><th>Rizik</th></tr></thead>
+<tbody>
+<tr><td>Checkout i tok plaćanja</td><td>Srednja (u ovom sprintu su ga dirala dva različita tima)</td><td>Visok (direktan gubitak prihoda, neuspjele narudžbe)</td><td><span class="score hi">Visok</span></td></tr>
+<tr><td>Obračun popusta za promo kodove</td><td>Visoka (nova logika za kombinovanje popusta, granični slučajevi sa isteklim kodovima)</td><td>Srednji (pogrešni iznosi, zahtjevi za povrat novca, ali narudžbe se i dalje završavaju)</td><td><span class="score hi">Visok</span></td></tr>
+<tr><td>Dugme „sačuvaj za kasnije" na listi želja</td><td>Niska (jednostavna UI izmjena, bez backend logike)</td><td>Nizak (kozmetička funkcionalnost, bez uticaja na transakcije)</td><td><span class="score lo">Nizak</span></td></tr>
+</tbody>
+</table>
+</div>
+<p>Sa dva dana umjesto sedmice, tim ne pokušava da sve tri stavke pokrije podjednako. Checkout dobija kompletnu regresionu pokrivenost plus granične slučajeve (istekle kartice, djelimična zaliha, timeout tokom naplate). Logika promo kodova dobija ciljano testiranje novog kombinovanja popusta i konkretnih graničnih slučajeva koji su se promijenili, umjesto ponovnog testiranja cijelog sistema popusta. Dugme na listi želja dobija brz smoke test i stejkholderima se eksplicitno označava kao pokrivenost sa manjim stepenom sigurnosti za ovu objavu — a to je dio koji timovi preskaču, a ne bi trebalo. Testiranje zasnovano na riziku funkcioniše kao kompromis samo ako je taj kompromis vidljiv, a ne prećutan.</p>
+<h2 id="kako-da-ovo-postane-dio-redovnog-rada">Kako da ovo postane dio redovnog rada</h2>
+<p>Matrica iznad je korisna i kao jednokratna vježba, ali se pravo isplati tek kada postane rutina. U praksi to izgleda ovako:</p>
+<pre><code>Tokom planiranja sprinta ili refinementa:
+1. Navedite funkcionalnosti/izmjene koje ulaze u ovu objavu
+2. Za svaku ocijenite vjerovatnoću (složenost koda, veličina izmjene, istorija grešaka)
+3. Za svaku ocijenite uticaj (prihod, broj korisnika, usklađenost, povratnost)
+4. Rangirajte ih i u skladu s tim rasporedite vrijeme za testiranje
+5. Zapišite šta je dobilo manju pokrivenost, i zašto</code></pre>
+<p>Taj posljednji korak — zapisivanje onoga što je namjerno manje testirano — pretvara testiranje zasnovano na riziku u odluku koju stejkholderi mogu da vide i ospore, umjesto da QA tim pod pritiskom roka tiho skraćuje postupak.</p>
+<h2 id="gdje-testiranje-zasnovano-na-riziku-zakazuje">Gdje testiranje zasnovano na riziku zakazuje</h2>
+<p>Ovaj pristup nije besplatan, i vrijedi biti iskren o tome gdje ne radi:</p>
+<p><strong>Dobro je onoliko koliko je dobra procjena rizika.</strong> Ako tim potcijeni koliko je vjerovatno da će izmjena nešto pokvariti — što je česta greška kod koda koji više niko u potpunosti ne razumije — kategorija „nizak rizik&quot; može sakriti ozbiljnu grešku. Ocjene rizika zasnovane na osjećaju umjesto na podacima (skorašnja istorija incidenata, učestalost izmjena koda, gustina grešaka) obično odražavaju onoga ko je najglasniji u prostoriji, a ne stvarni rizik.</p>
+<p><strong>Oblasti niskog rizika ne ostaju zauvijek niskog rizika.</strong> Funkcionalnost ocijenjena kao niskorizična zato što je bila jednostavna kada je objavljena može postati visokorizična čim drugi kod počne da zavisi od nje. Ocjene rizika treba preispitivati, a ne postaviti jednom i koristiti za svaku objavu.</p>
+<p><strong>Loše se uklapa sa istraživačkim testiranjem.</strong> Testiranje zasnovano na riziku je usmjeravajuće — govori vam gdje da gledate. Istraživačko testiranje funkcioniše upravo zato što unaprijed ne znate gdje je greška. Previše oslanjanja na ocjene rizika može navesti tim da prestane da gleda tamo gdje nije predvidio, a baš tu živi određena vrsta grešaka.</p>
+<p><strong>Potreban je neko ko razumije sistem da radi ocjenjivanje.</strong> U timu bez QA lead-a ili seniora koji zna gdje su krhki dijelovi koda, ocjene rizika mogu da odražavaju skorašnje naslove (posljednji pad sistema) umjesto stvarnog strukturnog rizika.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ul><li>Izaberite sljedeću objavu i napravite jednostavnu tabelu vjerovatnoće i uticaja za izmjene koje ulaze u nju, makar neformalno u spreadsheet-u ili u tiketu sprinta.</li><li>Izvucite produkcijske incidente ili hotfix-eve iz posljednja dva-tri mjeseca i provjerite da li se poklapaju sa oblastima koje biste ocijenili kao visokorizične. Ako se ne poklapaju, vaše kriterijume za rizik treba prilagoditi.</li><li>Dodajte „odluku o pokrivenosti&quot; kao vidljivu stavku u release notes ili dokumente za odobrenje objave — šta je dobilo kompletno testiranje, šta smanjenu pokrivenost, i zašto — kako bi kompromis bio odluka tima, a ne tihi propust.</li><li>Ako radite u regulisanoj oblasti (finansije, zdravstvo, avijacija) i morate formalno da opravdate ocjene rizika, pogledajte FMEA kao strukturiranu polaznu tačku umjesto da gradite sopstveni okvir od nule.</li></ul>
+<p>Nastavi sa člancima <a href="/sr/blog/risk-based-testing-what-not-to-test/">Testiranje zasnovano na riziku: šta ne testirati</a>, <a href="/sr/blog/test-pyramid-vs-testing-trophy/">Piramida testiranja ili Testing Trophy</a> i <a href="/sr/blog/session-based-exploratory-testing/">Exploratory testiranje zasnovano na sesijama</a>.</p>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://en.wikipedia.org/wiki/Risk-based_testing" target="_blank" rel="noopener noreferrer">Risk-based testing — Wikipedia</a></li><li><a href="https://www.testrail.com/blog/risk-based-testing/" target="_blank" rel="noopener noreferrer">Understanding the Pros and Cons of Risk-Based Testing — TestRail</a></li><li><a href="https://www.netguru.com/blog/risk-based-testing" target="_blank" rel="noopener noreferrer">Risk-based testing: Guide to prioritizing test cases by risk — Netguru</a></li></ul></div>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button">Kopiraj link</button>
+      <a class="btn primary" href="../../../#contact">Kontaktiraj me</a>
+    </div>
+    <section class="more-posts"><h2>Slični članci</h2><div class="post-grid">
+      <a class="post-card card glow" href="../session-based-exploratory-testing/"><div class="meta"><time datetime="2026-11-23" data-fmt="short">23. nov 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Exploratory testiranje zasnovano na sesijama: kako ad hoc testiranje učiniti ponovljivim i mjerljivim</h3><p>Kako session-based test management pretvara exploratory testiranje bez skripte u nešto što možete planirati, mjeriti i o čemu možete izvještavati, uz konkretan primjer charter-a.</p></a>
+      <a class="post-card card glow" href="../test-pyramid-vs-testing-trophy/"><div class="meta"><time datetime="2026-11-09" data-fmt="short">9. nov 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Test piramida ili testing trofej: birajte oblik koji odgovara vašem riziku, a ne dijagramu</h3><p>Test piramida i testing trofej daju suprotne savjete o tome gdje da uložite testove. Evo kako da odlučite koji oblik zaista odgovara vašem kodu.</p></a>
+      <a class="post-card card glow" href="../chaos-engineering-game-day-qa-teams/"><div class="meta"><time datetime="2026-11-06" data-fmt="short">6. nov 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Chaos engineering za QA timove: kako zapravo izgleda game day</h3><p>Praktičan pogled na chaos engineering alate i kako organizovati game day za testiranje otpornosti, a da se on ne pretvori u ispad sistema.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../../#contact" data-i18n="contact_cta">Kontaktiraj me</a>
+    <button type="button" data-consent data-i18n="cookies">Postavke kolačića</button>
+    <a href="../../../" data-i18n="back_home">Nazad na početnu ↑</a>
+  </footer>
+  <script src="../../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../../blog/common.js"></script>
+  <script src="../../../blog/post.js"></script>
+</body>
+</html>

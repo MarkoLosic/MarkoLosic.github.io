@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="sr" data-theme="dark" data-static-lang="sr" data-alt-url="../../../blog/chaos-engineering-game-day-qa-teams/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chaos engineering za QA timove: kako zapravo izgleda game day — Marko Lošić</title>
+  <meta name="description" content="Praktičan pogled na chaos engineering alate i kako organizovati game day za testiranje otpornosti, a da se on ne pretvori u ispad sistema.">
+  <link rel="canonical" href="https://markolosic.github.io/sr/blog/chaos-engineering-game-day-qa-teams/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/chaos-engineering-game-day-qa-teams/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/chaos-engineering-game-day-qa-teams/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/chaos-engineering-game-day-qa-teams/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Chaos engineering za QA timove: kako zapravo izgleda game day — Marko Lošić">
+  <meta property="og:description" content="Praktičan pogled na chaos engineering alate i kako organizovati game day za testiranje otpornosti, a da se on ne pretvori u ispad sistema.">
+  <meta property="og:url" content="https://markolosic.github.io/sr/blog/chaos-engineering-game-day-qa-teams/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/chaos-engineering-game-day-qa-teams.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="669">
+  <meta property="og:image:alt" content="Chaos engineering za QA timove: kako zapravo izgleda game day">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Chaos engineering za QA timove: kako zapravo izgleda game day — Marko Lošić">
+  <meta name="twitter:description" content="Praktičan pogled na chaos engineering alate i kako organizovati game day za testiranje otpornosti, a da se on ne pretvori u ispad sistema.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/chaos-engineering-game-day-qa-teams.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/sr/blog/chaos-engineering-game-day-qa-teams/#article","headline":"Chaos engineering za QA timove: kako zapravo izgleda game day","description":"Praktičan pogled na chaos engineering alate i kako organizovati game day za testiranje otpornosti, a da se on ne pretvori u ispad sistema.","image":"https://markolosic.github.io/assets/blog/chaos-engineering-game-day-qa-teams.jpg","url":"https://markolosic.github.io/sr/blog/chaos-engineering-game-day-qa-teams/","inLanguage":"sr","wordCount":1057,"articleSection":"performance-testing","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/sr/blog/chaos-engineering-game-day-qa-teams/"},"datePublished":"2026-11-06T08:00:00.000Z","dateModified":"2026-11-06T08:00:00.000Z","keywords":"performance-testing, ci-cd, test-strategy","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Početna","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/sr/blog/"},{"@type":"ListItem","position":3,"name":"Chaos engineering za QA timove: kako zapravo izgleda game day","item":"https://markolosic.github.io/sr/blog/chaos-engineering-game-day-qa-teams/"}]}]}</script>
+  <meta property="article:published_time" content="2026-11-06T08:00:00.000Z">
+  <meta property="article:modified_time" content="2026-11-06T08:00:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../assets/fonts.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../../#top" data-i18n="nav_about">O meni</a>
+      <a href="../../../#skills" data-i18n="nav_skills">Vještine</a>
+      <a href="../../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../../#experience" data-i18n="nav_exp">Iskustvo</a>
+      <a href="../../../#education" data-i18n="nav_edu">Obrazovanje</a>
+      <a href="../../../sr/blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../../#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span>Svi članci</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-11-06" data-fmt="long">6. novembar 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h1>Chaos engineering za QA timove: kako zapravo izgleda game day</h1>
+        <p class="lead">Praktičan pogled na chaos engineering alate i kako organizovati game day za testiranje otpornosti, a da se on ne pretvori u ispad sistema.</p>
+        <div class="tags"><span>performance-testing</span><span>ci-cd</span><span>test-strategy</span></div>
+      </header>
+      <div class="prose"><p>Većina test suiteova provjerava da li se sistem ponaša ispravno kada sve oko njega radi. Rijetko provjeravaju šta se dešava kada zavisnost istekne (timeout), kada se kontejner restartuje usred zahtjeva ili kada baza podataka pređe na rezervnu instancu (failover) u najgorem mogućem trenutku. Upravo takvi uslovi se pojavljuju u stvarnim incidentima, a chaos engineering — namjerno i kontrolisano ubacivanje grešaka da bi se vidjelo kako sistem zaista reaguje — disciplina je izgrađena oko toga da se ovo testira namjerno, umjesto da se otkrije u produkciji.</p>
+<p><img src="../../../assets/blog/chaos-engineering-game-day-qa-teams.jpg" alt="Izometrijska operativna sala u kojoj inženjeri prate telemetrijske dashboarde oko grupe serverskih ormara zaštićenih providnom kupolom, dok nekoliko ormara varniči pod ubačenim greškama" width="1200" height="669" fetchpriority="high" decoding="async"></p>
+<p>QA timovi se često izostavljaju iz chaos engineeringa jer se on predstavlja kao briga SRE ili platform tima. To je greška. Osmišljavanje dobrog scenarija otkaza, definisanje šta znači „i dalje radi&quot; i odlučivanje kada se rezultat računa kao prolaz, a kada kao pad — to su vještine testiranja, a ne vještine infrastrukture.</p>
+<h2 id="ukratko-o-alatima">Ukratko o alatima</h2>
+<p>Nema potrebe počinjati izborom alata. Ekosistem se grubo dijeli u tri grupe: open-source frameworke fokusirane na Kubernetes, poput Chaos Mesh i LitmusChaos, koji unutar klastera ubacuju greške kao što su gašenje podova, mrežno kašnjenje ili I/O opterećenje; komercijalne platforme poput Gremlina i Steadybita, koje na slične tipove grešaka dodaju vođene tokove rada, kontrolu pristupa i izvještaje; i cloud-native servise poput AWS Fault Injection Service (FIS), koji pokreće potpuno upravljane eksperimente — zaustavljanje instance, ograničavanje API poziva, failover baze — bez instaliranja ikakvih agenata, i dolazi sa bibliotekom scenarija sa unaprijed pripremljenim testovima za stvari poput usporavanja jedne Availability Zone ili prekida konekcije između regiona.</p>
+<p>Detalj vrijedan pažnje, koji god alat na kraju koristili, jeste sigurnosni mehanizam: FIS omogućava da se eksperiment ograniči po tagu (tako da su, recimo, samo resursi označeni sa <code>environment: staging</code> kvalifikovani) i da se postave uslovi zaustavljanja vezani za CloudWatch alarme, pa se eksperiment automatski prekida ako, na primjer, vrijeme odziva pređe prihvatljivi prag. Ta kombinacija — usko ciljanje plus automatski prekidač — je ono što razdvaja „kontrolisani eksperiment&quot; od „samoizazvanog ispada&quot;.</p>
+<h2 id="kako-izgleda-game-day">Kako izgleda game day</h2>
+<p>„Game day&quot; je zakazana sesija u kojoj tim zajedno, uživo, pokreće chaos eksperimente, umjesto da ih pušta kao posao bez nadzora. Struktura koja se u praksi pokazala dobrom izgleda ovako:</p>
+<ol><li><strong>Izaberite scenario sa razlogom iza njega</strong> — reprodukcija ranijeg incidenta, stres-test funkcionalnosti koja je upravo puštena, ponovno testiranje ispravke sa prethodnog game daya ili vraćanje na post-mortem koji tim i dalje brine.</li><li><strong>Zapišite stabilno stanje (steady state) prije nego što bilo šta dirate.</strong> Na primjer: „5.000 zahtjeva u minuti ka početnoj stranici uspijeva u 99% slučajeva za manje od jedne sekunde.&quot; Ako ovo ne možete da formulišete, još ne znate kako bi izgledalo „pokvareno&quot;.</li><li><strong>Napišite hipotezu</strong>, a ne samo akciju. Ne „ugasi kontejner&quot;, nego „kada se jedan kontejner restartuje, stabilno stanje i dalje važi.&quot; Testira se hipoteza; ubacivanje greške je samo mehanizam.</li><li><strong>Počnite sa najmanjim radijusom uticaja (blast radius) iz kog možete nešto da naučite</strong> — jedna instanca, jedan nekritičan servis, kratak vremenski prozor, u satima slabog saobraćaja — i proširujte ga tek kada taj manji test uspije.</li><li><strong>Pokrenite, posmatrajte, zapišite.</strong> Potvrdite da stabilno stanje važi prije nego što išta ubacite (sistem koji je već nestabilan neće vam dati koristan rezultat), a zatim pratite i metu i sve što je ispred ili iza nje u lancu zbog mogućih iznenađenja.</li><li><strong>Uradite debrief kao kontrolisani post-mortem.</strong> Pregledajte svaki eksperiment, počevši od onih koji nisu prošli kako je očekivano, prijavite bagove za ono što ste pronašli i odlučite da li je uspješan eksperiment vrijedan automatizacije, tako da se redovno pokreće.</li></ol>
+<p>Jednostavan način da se test slučaj zapiše, prije nego što uopšte dođe do alata, je ovaj:</p>
+<pre><code>Scenario: Primary database instance fails over
+Steady state: 95% of checkout requests complete in &lt; 200ms
+Hypothesis: failover completes with no checkout requests lost,
+            though latency may briefly exceed the 200ms target
+Blast radius: single staging replica, 15-minute window, off-peak
+Stop condition: error rate &gt; 5% for 60 seconds -&gt; abort</code></pre>
+<p>To je test slučaj koji QA inženjer može da napiše i pregleda sa istom rigoroznošću kao i bilo koji drugi test, prije nego što iko otvori ijedan chaos alat.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Chaos engineering najčešće ne uspije iz razloga koji nemaju nikakve veze sa alatima. Procjenjivanje alata prije nego što se pokrene ijedan ručni eksperiment česta je prva greška — prijava u konzolu i ručno gašenje jednog servera nauči vas više, i brže, od upoređivanja alata. Preskakanje ograničenja radijusa uticaja je druga: eksperimenti nad cijelom produkcijom, bez najave, nešto su do čega zreli timovi vremenom stignu, a ne početna tačka. Pokretanje eksperimenta bez zapisane hipoteze pretvara ga u nasumično čačkanje, pa je kasnije teško znati da li se išta zaista naučilo. A pokretanje eksperimenata bez dovoljno observabilityja da se vidi šta se dešavalo tokom testa — a ne samo da li je „prošao&quot; — znači da ne možete da odgovorite na najkorisnije pitanje nakon toga, a to je obično „zašto&quot;.</p>
+<p>Postoje i tvrđa ograničenja. Chaos eksperiment nad sistemom koji je već nestabilan uglavnom vam kaže da je sistem nestabilan, što ste vjerovatno već znali. U regulisanim ili čvrsto povezanim produkcijskim okruženjima trošak i rizik eksperimentisanja mogu biti stvarni, pa neki timovi nikada ne odu dalje od staginga — i to je legitimna tačka zaustavljanja, a ne neuspjeh. I uspješan rezultat game daya je samo snimak trenutnog stanja: kaže da je sistem podnio ovaj otkaz, ovog dana, pod ovim opterećenjem — a ne da će zauvijek podnijeti svaki otkaz.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ul><li>Ove sedmice pokrenite jedan ručni eksperiment bez ikakvih alata: isključite jednu nekritičnu instancu u neprodukcijskom okruženju i posmatrajte šta se dešava.</li><li>Za sljedeći planirani game day zapišite stabilno stanje i hipotezu prije nego što izaberete grešku koju ćete ubaciti — format iznad je dovoljan.</li><li>Počnite sa najmanjim radijusom uticaja iz kog možete nešto da naučite i proširujte ga tek kada se taj eksperiment ponaša kako je očekivano.</li><li>Ako je vaš stack AWS-native, isprobajte FIS biblioteku scenarija za prvi vođeni eksperiment sa ugrađenim uslovom zaustavljanja, umjesto da ga pravite ručno.</li></ul>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://www.thoughtworks.com/en-us/insights/blog/agile-engineering-practices/four-chaos-engineering-mistakes-to-avoid" target="_blank" rel="noopener noreferrer">Four chaos engineering mistakes to avoid — Thoughtworks</a></li><li><a href="https://aws.amazon.com/fis/features/" target="_blank" rel="noopener noreferrer">AWS Fault Injection Service — Features</a></li><li><a href="https://steadybit.com/blog/how-to-run-chaosengineering-gameday/" target="_blank" rel="noopener noreferrer">How to run a Chaos Engineering GameDay — Steadybit</a></li></ul></div>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button">Kopiraj link</button>
+      <a class="btn primary" href="../../../#contact">Kontaktiraj me</a>
+    </div>
+    <section class="more-posts"><h2>Slični članci</h2><div class="post-grid">
+      <a class="post-card card glow" href="../load-testing-qa-teams-k6-thresholds/"><div class="meta"><time datetime="2026-11-20" data-fmt="short">20. nov 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Load testiranje za QA timove: šta k6 hvata, a šta prolazni prag i dalje može da sakrije</h3><p>Praktičan k6 vodič za QA timove: pisanje load testa, postavljanje pragova i zamke zbog kojih zelen dashboard može da zavara.</p></a>
+      <a class="post-card card glow" href="../testing-feature-flags-targeting-and-default-bugs/"><div class="meta"><time datetime="2026-10-30" data-fmt="short">30. okt 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Testiranje feature flagova: bagovi koji se kriju iza prekidača</h3><p>Testiranje feature flagova obično se završava na uključeno/isključeno. Pravi bagovi žive u pravilima targetiranja, podrazumijevanim vrijednostima i onome što se desi kada flag servis prestane da odgovara.</p></a>
+      <a class="post-card card glow" href="../checkmk-synthetic-monitoring-for-qa/"><div class="meta"><time datetime="2026-10-12" data-fmt="short">12. okt 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Neka testovi rade i poslije objave: Checkmk Synthetic Monitoring za QA timove</h3><p>Kako QA timovi mogu da pretvore Robot Framework testove u stalne provjere produkcije uz Checkmk, i na koje zamke treba računati.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../../#contact" data-i18n="contact_cta">Kontaktiraj me</a>
+    <button type="button" data-consent data-i18n="cookies">Postavke kolačića</button>
+    <a href="../../../" data-i18n="back_home">Nazad na početnu ↑</a>
+  </footer>
+  <script src="../../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../../blog/common.js"></script>
+  <script src="../../../blog/post.js"></script>
+</body>
+</html>

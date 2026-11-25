@@ -3,7 +3,7 @@ title: "AI Is Rewriting the QA Job Description, Not Deleting It"
 title_sr: "AI prepisuje opis QA posla, ali ga ne briše"
 date: 2026-10-18
 time: 12:00
-tags: [qa, ai-in-qa, career, test-strategy]
+tags: [ai-testing, test-strategy]
 excerpt: AI already drafts test cases and triages failures. Here's what that actually changes about QA work, and where the role is heading next.
 excerpt_sr: AI već piše nacrte test slučajeva i sortira padove testova. Evo šta to zaista mijenja u QA poslu i kuda ta uloga ide.
 image: assets/blog/ai-rewriting-qa-job-description.jpg

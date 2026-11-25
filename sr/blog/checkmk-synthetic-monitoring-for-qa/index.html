@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="sr" data-theme="dark" data-static-lang="sr" data-alt-url="../../../blog/checkmk-synthetic-monitoring-for-qa/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Neka testovi rade i poslije objave: Checkmk Synthetic Monitoring za QA timove — Marko Lošić</title>
+  <meta name="description" content="Kako QA timovi mogu da pretvore Robot Framework testove u stalne provjere produkcije uz Checkmk, i na koje zamke treba računati.">
+  <link rel="canonical" href="https://markolosic.github.io/sr/blog/checkmk-synthetic-monitoring-for-qa/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/checkmk-synthetic-monitoring-for-qa/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/checkmk-synthetic-monitoring-for-qa/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/checkmk-synthetic-monitoring-for-qa/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Neka testovi rade i poslije objave: Checkmk Synthetic Monitoring za QA timove — Marko Lošić">
+  <meta property="og:description" content="Kako QA timovi mogu da pretvore Robot Framework testove u stalne provjere produkcije uz Checkmk, i na koje zamke treba računati.">
+  <meta property="og:url" content="https://markolosic.github.io/sr/blog/checkmk-synthetic-monitoring-for-qa/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/checkmk-synthetic-monitoring-for-qa.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="669">
+  <meta property="og:image:alt" content="Neka testovi rade i poslije objave: Checkmk Synthetic Monitoring za QA timove">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Neka testovi rade i poslije objave: Checkmk Synthetic Monitoring za QA timove — Marko Lošić">
+  <meta name="twitter:description" content="Kako QA timovi mogu da pretvore Robot Framework testove u stalne provjere produkcije uz Checkmk, i na koje zamke treba računati.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/checkmk-synthetic-monitoring-for-qa.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/sr/blog/checkmk-synthetic-monitoring-for-qa/#article","headline":"Neka testovi rade i poslije objave: Checkmk Synthetic Monitoring za QA timove","description":"Kako QA timovi mogu da pretvore Robot Framework testove u stalne provjere produkcije uz Checkmk, i na koje zamke treba računati.","image":"https://markolosic.github.io/assets/blog/checkmk-synthetic-monitoring-for-qa.jpg","url":"https://markolosic.github.io/sr/blog/checkmk-synthetic-monitoring-for-qa/","inLanguage":"sr","wordCount":1102,"articleSection":"performance-testing","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/sr/blog/checkmk-synthetic-monitoring-for-qa/"},"datePublished":"2026-10-12T00:00:00.000Z","dateModified":"2026-10-12T00:00:00.000Z","keywords":"performance-testing, ci-cd, test-automation","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Početna","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/sr/blog/"},{"@type":"ListItem","position":3,"name":"Neka testovi rade i poslije objave: Checkmk Synthetic Monitoring za QA timove","item":"https://markolosic.github.io/sr/blog/checkmk-synthetic-monitoring-for-qa/"}]}]}</script>
+  <meta property="article:published_time" content="2026-10-12T00:00:00.000Z">
+  <meta property="article:modified_time" content="2026-10-12T00:00:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../assets/fonts.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../../#top" data-i18n="nav_about">O meni</a>
+      <a href="../../../#skills" data-i18n="nav_skills">Vještine</a>
+      <a href="../../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../../#experience" data-i18n="nav_exp">Iskustvo</a>
+      <a href="../../../#education" data-i18n="nav_edu">Obrazovanje</a>
+      <a href="../../../sr/blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../../#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span>Svi članci</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-10-12" data-fmt="long">12. oktobar 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h1>Neka testovi rade i poslije objave: Checkmk Synthetic Monitoring za QA timove</h1>
+        <p class="lead">Kako QA timovi mogu da pretvore Robot Framework testove u stalne provjere produkcije uz Checkmk, i na koje zamke treba računati.</p>
+        <div class="tags"><span>performance-testing</span><span>ci-cd</span><span>test-automation</span></div>
+      </header>
+      <div class="prose"><p>Zamislite regresioni skup testova koji prođe u petak. Objava ode u produkciju, a u nedjelju se login pokvari jer je eksterni identity provider nešto promijenio. U nedjelju se nijedan test ne pokreće, pa je prvi signal tiket korisničke podrške. Većina skupova testova staje na deployment kapiji, a najrizičniji period za korisnički tok je sve ono što se dešava poslije nje. Checkmk nudi jedan način da mali broj vaših end-to-end testova nastavi da radi nad produkcijom i da se njihovi padovi tretiraju kao svaki drugi operativni alarm.</p>
+<p><img src="../../../assets/blog/checkmk-synthetic-monitoring-for-qa.jpg" alt="Synthetic monitoring: Robot Framework login test koji napaja stalne provjere produkcije" width="1200" height="669" fetchpriority="high" decoding="async"></p>
+<h2 id="šta-je-checkmk-iz-ugla-testera">Šta je Checkmk iz ugla testera</h2>
+<p>Checkmk je platforma za monitoring i observability hibridnih okruženja: servera, mreža, baza podataka, cloud servisa, Kubernetesa i aplikacija, sa katalogom od preko 2.000 integracija. Postoji besplatno, open-source Community izdanje namijenjeno manjim okruženjima (otprilike do 100 hostova) i nekoliko komercijalnih izdanja.</p>
+<p>Za QA posao su bitna tri dijela:</p>
+<ul><li><strong>Synthetic Monitoring</strong>, koji pokreće Robot Framework testove po rasporedu i svaki test prikazuje kao nadgledani servis. Dio je komercijalnih izdanja i zahtijeva dodatnu pretplatu.</li><li><strong>Kontekst infrastrukture.</strong> Kada test padne, metrike hosta, baze ili mreže možete pogledati u istom alatu umjesto da nagađate.</li><li><strong>Integracije i API-ji</strong> za Jiru, Slack, ServiceNow i REST API, tako da alarmi stižu tamo gdje vaš tim već radi.</li></ul>
+<h2 id="kako-se-dijelovi-uklapaju">Kako se dijelovi uklapaju</h2>
+<p>Tok je jednostavan kada ga jednom vidite:</p>
+<ol><li>Napišete skup testova u Robot Frameworku.</li><li>Na test čvoru (Linux ili Windows) <strong>Robotmk scheduler</strong> pravi izolovano Python okruženje za skup i pokreće ga prema <em>planu</em> koji definiše interval i opcije poput automatskog ponovnog pokretanja.</li><li>Rezultati se upisuju u fajl sistem, a prikuplja ih Robotmk agent plugin.</li><li>U Checkmku se svaki test pojavljuje kao servis sa stanjem OK, WARN ili CRIT, a sve se podešava kroz Robotmk scheduler pravilo i distribuira preko Agent Bakery-ja.</li></ol>
+<p>Detalj koji vrijedi znati prije početka: prve verzije su za pravljenje okruženja koristile RCC od Robocorpa. Robocorp je ugasio RCC 2024. godine, a Checkmk dokumentacija za nova podešavanja preporučuje noviji CSM/Micromamba pristup. Stariji tutorijali koji pominju <code>robot.yaml</code> i RCC opisuju zastarjeli put.</p>
+<h2 id="konkretan-primjer-nadgledanje-login-toka">Konkretan primjer: nadgledanje login toka</h2>
+<p>Evo malog skupa napisanog uz Robot Framework Browser biblioteku. Namjerno je podijeljen na korisničke ključne riječi (keywords), jer se ta struktura kasnije isplati.</p>
+<pre><code class="lang-robotframework">*** Settings ***
+Library        Browser
+Suite Setup    New Browser    chromium    headless=True
+
+*** Variables ***
+${BASE_URL}    https://shop.example.com
+
+*** Test Cases ***
+Customer Can Log In
+    Open Login Page
+    Submit Login
+    Get Text    h1    ==    My account
+
+*** Keywords ***
+Open Login Page
+    New Page    ${BASE_URL}/login
+
+Submit Login
+    Fill Text      id=username    ${MONITOR_USER}
+    Fill Secret    id=password    $MONITOR_PASSWORD
+    Click          button[type=&quot;submit&quot;]</code></pre>
+<p>Kredencijali dolaze kao varijable izvan skupa, pa nikada ne završe u repozitorijumu. <code>Fill Secret</code> drži lozinku van Robot loga.</p>
+<p>Kada ovo radi pod Robotmk-om, Checkmk vam daje servis za <code>Customer Can Log In</code> koji prati tri stvari: da li ulazna stranica odgovara (dostupnost), da li se tok završava očekivanim rezultatom (funkcionalnost) i koliko traje (vrijeme izvršavanja). Zatim dodate pragove, na primjer upozorenje kada cijeli tok traje duže od nekoliko sekundi i kritično stanje kada padne ili traje mnogo duže. Prave vrijednosti zavise od vaše polazne osnove, pa mjerite sedmicu dana prije nego što se obavežete na njih.</p>
+<p>Podjela na ključne riječi je bitna zbog <strong>KPI monitoringa</strong>. Uz KPI discovery pravilo možete pojedinačne ključne riječi, poput <code>Submit Login</code>, pretvoriti u zasebne servise (do pet po testu). Kada se tok uspori, odmah vidite da li vrijeme odlazi na učitavanje stranice ili na autentifikaciju, što vas usmjerava ka frontendu, backendu ili identity provideru.</p>
+<p>Uključite automatsko ponovno pokretanje za ovaj plan. Jedan pad izazvan kratkim prekidom mreže ne bi trebalo nikoga da probudi; dva uzastopna pada vjerovatno bi trebalo.</p>
+<h2 id="gdje-se-ovo-uklapa-u-strategiju-testiranja">Gdje se ovo uklapa u strategiju testiranja</h2>
+<p>Synthetic monitoring ne zamjenjuje testove u pipeline-u. On odgovara na drugo pitanje.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th></th><th>Regresija prije objave</th><th>Checkmk sintetički monitor</th></tr></thead>
+<tbody>
+<tr><td>Pitanje</td><td>Da li novi build radi?</td><td>Da li živi sistem i dalje radi?</td></tr>
+<tr><td>Kada se pokreće</td><td>Na svaki build ili prije objave</td><td>Stalno, u fiksnom intervalu</td></tr>
+<tr><td>Obim</td><td>Širok, mnogo scenarija</td><td>Nekoliko kritičnih tokova</td></tr>
+<tr><td>Podaci</td><td>Pripremljeni test podaci</td><td>Namjenski monitor nalozi u produkciji</td></tr>
+<tr><td>Ko reaguje na pad</td><td>Developeri i QA</td><td>Dežurni operativni tim, a QA je vlasnik testa</td></tr>
+</tbody>
+</table>
+</div>
+<p>Postoji i druga, manje očigledna primjena: nadgledanje vaših <strong>test okruženja</strong>. Velik dio „nestabilnih&quot; padova na stagingu dolazi od samog okruženja: pun disk, preopterećena baza, istekao sertifikat. Ako Checkmk (čak i besplatno Community izdanje) usmjerite na staging hostove, možete provjeriti stanje infrastrukture u trenutku kada je test pao, prije nego što počnete da debagujete sam test.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<ul><li><strong>Sporedni efekti u produkciji.</strong> Checkout monitor koji pravi prave narudžbe pravi i prave probleme. Koristite namjenske naloge, zaustavite se prije nepovratnog koraka ili pokrećite tokove plaćanja nad sandbox provajderom gdje on postoji.</li><li><strong>Nestabilni monitori brzo troše povjerenje.</strong> U CI-ju nestabilan test košta jedno ponovno pokretanje. U monitoringu uči dežurni tim da ignoriše alarme. Koristite stabilne selektore, ponovna pokretanja i realne pragove, i radije uklonite monitor nego da ga ostavite da stvara buku.</li><li><strong>Vlasništvo nakon UI izmjena.</strong> Svaka objava može pokvariti monitor, a da proizvod ostane ispravan. Unaprijed se dogovorite ko ažurira skup i uključite monitor skupove u definition of done za UI izmjene.</li><li><strong>Trošak i ograničenja izdanja.</strong> Synthetic Monitoring nije dio Community izdanja i zahtijeva posebnu pretplatu. Za jedan javni sajt možda je dovoljna jednostavnija uptime ili HTTP provjera.</li><li><strong>Održavanje čvorova.</strong> Test čvorovima trebaju ažuriranja browsera, kredencijali i mrežni pristup. Tretirajte ih kao produkcione sisteme, uključujući način na koji se na njima čuvaju tajne.</li><li><strong>Iluzija pokrivenosti.</strong> Pet zelenih monitora ne govori ništa o stotinu tokova koje niste skriptovali.</li></ul>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ol><li>Istražite javni demo na play.checkmk.com da vidite kako se testovi prikazuju kao servisi, bez ikakve instalacije.</li><li>Izaberite dva ili tri poslovno kritična toka iz postojećih Robot Framework skupova i uklonite sve korake sa sporednim efektima.</li><li>Instalirajte Community izdanje na slobodnu mašinu i nadgledajte staging hostove, kako bi podaci o infrastrukturi bili dostupni sljedeći put kada test neočekivano padne.</li><li>Ako vaša organizacija ima komercijalno izdanje, pratite Robotmk vodič zasnovan na CSM-u i podesite jedan plan sa ponovnim pokretanjima i pragovima trajanja prije nego što proširite postavku.</li></ol>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://checkmk.com/" target="_blank" rel="noopener noreferrer">Checkmk pregled proizvoda</a></li><li><a href="https://checkmk.com/solutions/synthetic-monitoring-checkmk" target="_blank" rel="noopener noreferrer">Checkmk Synthetic Monitoring</a></li><li><a href="https://docs.checkmk.com/latest/en/robotmk_mm.html" target="_blank" rel="noopener noreferrer">Checkmk dokumentacija — Synthetic Monitoring sa Robotmk (CSM/Micromamba)</a></li><li><a href="https://docs.checkmk.com/latest/en/robotmk.html" target="_blank" rel="noopener noreferrer">Checkmk dokumentacija — Synthetic Monitoring sa Robotmk (zastarjeli RCC)</a></li><li><a href="https://robotframework-browser.org/" target="_blank" rel="noopener noreferrer">Robot Framework Browser biblioteka</a></li></ul></div>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button">Kopiraj link</button>
+      <a class="btn primary" href="../../../#contact">Kontaktiraj me</a>
+    </div>
+    <section class="more-posts"><h2>Slični članci</h2><div class="post-grid">
+      <a class="post-card card glow" href="../load-testing-qa-teams-k6-thresholds/"><div class="meta"><time datetime="2026-11-20" data-fmt="short">20. nov 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Load testiranje za QA timove: šta k6 hvata, a šta prolazni prag i dalje može da sakrije</h3><p>Praktičan k6 vodič za QA timove: pisanje load testa, postavljanje pragova i zamke zbog kojih zelen dashboard može da zavara.</p></a>
+      <a class="post-card card glow" href="../chaos-engineering-game-day-qa-teams/"><div class="meta"><time datetime="2026-11-06" data-fmt="short">6. nov 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Chaos engineering za QA timove: kako zapravo izgleda game day</h3><p>Praktičan pogled na chaos engineering alate i kako organizovati game day za testiranje otpornosti, a da se on ne pretvori u ispad sistema.</p></a>
+      <a class="post-card card glow" href="../visual-regression-testing-ui-bugs/"><div class="meta"><time datetime="2026-10-23" data-fmt="short">23. okt 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Vizuelno regresiono testiranje: kako uhvatiti UI bagove pored kojih vaši funkcionalni testovi prolaze</h3><p>Zašto provjere na nivou piksela hvataju greške u rasporedu koje funkcionalni testovi propuštaju, kako ih spriječiti da budu nestabilne i koji alati se zaista uklapaju u vaš pipeline.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../../#contact" data-i18n="contact_cta">Kontaktiraj me</a>
+    <button type="button" data-consent data-i18n="cookies">Postavke kolačića</button>
+    <a href="../../../" data-i18n="back_home">Nazad na početnu ↑</a>
+  </footer>
+  <script src="../../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../../blog/common.js"></script>
+  <script src="../../../blog/post.js"></script>
+</body>
+</html>

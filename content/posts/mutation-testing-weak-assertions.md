@@ -2,7 +2,7 @@
 title: "Mutation Testing: How to Tell If Your Test Suite Actually Catches Bugs"
 title_sr: "Mutaciono testiranje: kako da saznate da li vaši testovi zaista hvataju bagove"
 date: 2026-10-19
-tags: [qa, test-automation, mutation-testing, test-design]
+tags: [test-automation, test-strategy]
 excerpt: Code coverage shows which lines ran. Mutation testing shows whether your tests would notice if the logic broke. Here's how to use it.
 excerpt_sr: Pokrivenost koda pokazuje koje su linije izvršene. Mutaciono testiranje pokazuje da li bi vaši testovi primijetili da je logika pokvarena. Evo kako da ga koristite.
 image: assets/blog/mutation-testing-weak-assertions.jpg

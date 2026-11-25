@@ -1,27 +1,36 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="dark" data-alt-url="../../sr/blog/maestro-for-web-testing/">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Why Maestro Deserves a Spot in Your Web Testing Toolkit — Marko Lošić</title>
-  <meta name="description" content="Maestro is known as a mobile UI testing tool, but its browser support quietly closes the gap with web testing. Here's why I reach for it, and how to write your…">
+  <meta name="description" content="Maestro is known for mobile UI testing, but its browser support now covers web apps too. Here's why I reach for it and how to write your first flow.">
   <link rel="canonical" href="https://markolosic.github.io/blog/maestro-for-web-testing/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/maestro-for-web-testing/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/maestro-for-web-testing/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/maestro-for-web-testing/">
   <meta name="author" content="Marko Lošić">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="theme-color" content="#07090d">
   <meta property="og:site_name" content="Marko Lošić">
   <meta property="og:type" content="article">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="sr_RS">
   <meta property="og:title" content="Why Maestro Deserves a Spot in Your Web Testing Toolkit — Marko Lošić">
-  <meta property="og:description" content="Maestro is known as a mobile UI testing tool, but its browser support quietly closes the gap with web testing. Here's why I reach for it, and how to write your…">
+  <meta property="og:description" content="Maestro is known for mobile UI testing, but its browser support now covers web apps too. Here's why I reach for it and how to write your first flow.">
   <meta property="og:url" content="https://markolosic.github.io/blog/maestro-for-web-testing/">
   <meta property="og:image" content="https://markolosic.github.io/assets/blog/maestro-for-web-testing.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="669">
+  <meta property="og:image:alt" content="Why Maestro Deserves a Spot in Your Web Testing Toolkit">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Why Maestro Deserves a Spot in Your Web Testing Toolkit — Marko Lošić">
-  <meta name="twitter:description" content="Maestro is known as a mobile UI testing tool, but its browser support quietly closes the gap with web testing. Here's why I reach for it, and how to write your…">
+  <meta name="twitter:description" content="Maestro is known for mobile UI testing, but its browser support now covers web apps too. Here's why I reach for it and how to write your first flow.">
   <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/maestro-for-web-testing.jpg">
   <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Why Maestro Deserves a Spot in Your Web Testing Toolkit","description":"Maestro is known as a mobile UI testing tool, but its browser support quietly closes the gap with web testing. Here's why I reach for it, and how to write your first flow.","image":"https://markolosic.github.io/assets/blog/maestro-for-web-testing.jpg","url":"https://markolosic.github.io/blog/maestro-for-web-testing/","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/maestro-for-web-testing/"},"datePublished":"2026-09-21","dateModified":"2026-09-21T00:00:00.000Z","keywords":"testing, automation, maestro","author":{"@type":"Person","name":"Marko Lošić","url":"https://markolosic.github.io/"},"publisher":{"@type":"Person","name":"Marko Lošić"}}</script>
-  <meta property="article:published_time" content="2026-09-21">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/blog/maestro-for-web-testing/#article","headline":"Why Maestro Deserves a Spot in Your Web Testing Toolkit","description":"Maestro is known for mobile UI testing, but its browser support now covers web apps too. Here's why I reach for it and how to write your first flow.","image":"https://markolosic.github.io/assets/blog/maestro-for-web-testing.jpg","url":"https://markolosic.github.io/blog/maestro-for-web-testing/","inLanguage":"en","wordCount":738,"articleSection":"maestro","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/maestro-for-web-testing/"},"datePublished":"2026-09-21T00:00:00.000Z","dateModified":"2026-09-21T00:00:00.000Z","keywords":"maestro, test-automation","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/blog/"},{"@type":"ListItem","position":3,"name":"Why Maestro Deserves a Spot in Your Web Testing Toolkit","item":"https://markolosic.github.io/blog/maestro-for-web-testing/"}]}]}</script>
+  <meta property="article:published_time" content="2026-09-21T00:00:00.000Z">
   <meta property="article:modified_time" content="2026-09-21T00:00:00.000Z">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
   <link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -74,8 +83,8 @@
       <header class="post-head">
         <div class="meta"><time datetime="2026-09-21" data-fmt="long">21 September 2026</time><span>·</span><span>4 <span data-i18n="min_read">min read</span></span></div>
         <h1 data-title-sr="Zašto Maestro zaslužuje mjesto u vašem alatu za testiranje web aplikacija">Why Maestro Deserves a Spot in Your Web Testing Toolkit</h1>
-        <p class="lead" data-excerpt-sr="Maestro je poznat kao alat za testiranje mobilnih aplikacija, ali podrška za pretraživač tiho zatvara jaz prema web testiranju. Evo zašto ga koristim, i kako napisati svoj prvi tok.">Maestro is known as a mobile UI testing tool, but its browser support quietly closes the gap with web testing. Here's why I reach for it, and how to write your first flow.</p>
-        <div class="tags"><span>testing</span><span>automation</span><span>maestro</span></div>
+        <p class="lead" data-excerpt-sr="Maestro je poznat kao alat za testiranje mobilnih aplikacija, ali podrška za pretraživač tiho zatvara jaz prema web testiranju. Evo zašto ga koristim, i kako napisati svoj prvi tok.">Maestro is known for mobile UI testing, but its browser support now covers web apps too. Here's why I reach for it and how to write your first flow.</p>
+        <div class="tags"><span>maestro</span><span>test-automation</span></div>
       </header>
       <div class="prose"><p>I've used Maestro for a while now to automate mobile flows — onboarding, login, the usual suspects. What changed my mind about it recently is that the same tool now speaks browser too. Not as a Playwright replacement, but as something genuinely useful sitting next to it. Here's the case for giving it a try on your web app.</p>
 <h2 id="what-maestro-actually-is">What Maestro actually is</h2>
@@ -136,10 +145,10 @@
       <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
       <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
     </div>
-    <section class="more-posts"><h2 data-i18n="more_posts">More posts</h2><div class="post-grid">
-      <a class="post-card card glow" href="../vision-ai-testing-image-inputs/" data-title-sr="Testiranje AI funkcionalnosti koje vide: QA za ulazne slike i dokumente" data-excerpt-sr="Vision AI funkcionalnosti zakazuju na dva načina koje QA fokusiran samo na tekst propušta: loše ulazne slike i samouvjerene halucinacije. Evo kako testirati oba."><div class="meta"><time datetime="2026-11-25" data-fmt="short">25 Nov 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Testing AI Features That See: QA for Image and Document Inputs</h2><p>Vision AI features fail in two ways text-only QA misses: bad input images and confident hallucinations. Here's how to test for both.</p></a>
-      <a class="post-card card glow" href="../session-based-exploratory-testing/" data-title-sr="Exploratory testiranje zasnovano na sesijama: kako ad hoc testiranje učiniti ponovljivim i mjerljivim" data-excerpt-sr="Kako session-based test management pretvara exploratory testiranje bez skripte u nešto što možete planirati, mjeriti i o čemu možete izvještavati, uz konkretan primjer charter-a."><div class="meta"><time datetime="2026-11-23" data-fmt="short">23 Nov 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div><h2>Session-Based Exploratory Testing: How to Make Ad Hoc Testing Repeatable and Reportable</h2><p>How session-based test management turns unscripted exploratory testing into something you can plan, measure, and report on, with a worked charter example.</p></a>
-      <a class="post-card card glow" href="../load-testing-qa-teams-k6-thresholds/" data-title-sr="Load testiranje za QA timove: šta k6 hvata, a šta prolazni prag i dalje može da sakrije" data-excerpt-sr="Praktičan k6 vodič za QA timove: pisanje load testa, postavljanje pragova i zamke zbog kojih zelen dashboard može da zavara."><div class="meta"><time datetime="2026-11-20" data-fmt="short">20 Nov 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h2>Load Testing for QA Teams: What k6 Catches, and What a Passing Threshold Can Still Hide</h2><p>A practical k6 walkthrough for QA teams: scripting a load test, setting thresholds, and the pitfalls that make a green dashboard misleading.</p></a></div></section>
+    <section class="more-posts"><h2 data-i18n="more_posts">Related posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../maestro-mobile-test-automation/" data-title-sr="Pouzdana automatizacija testiranja mobilnih aplikacija uz Maestro: praktični vodič" data-excerpt-sr="Kako Maestro YAML tokovi pojednostavljuju E2E testiranje mobilnih aplikacija, uz radni primjer login toka i dobre prakse koje ga čine održivim."><div class="meta"><time datetime="2026-10-06" data-fmt="short">6 Oct 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div><h3>Writing Reliable Mobile Test Automation with Maestro: A Practical Guide</h3><p>How Maestro's YAML flows simplify mobile E2E testing, with a working login flow example and the best practices that keep it maintainable.</p></a>
+      <a class="post-card card glow" href="../vision-ai-testing-image-inputs/" data-title-sr="Testiranje AI funkcionalnosti koje vide: QA za ulazne slike i dokumente" data-excerpt-sr="Vision AI funkcionalnosti zakazuju na dva načina koje QA fokusiran samo na tekst propušta: loše ulazne slike i samouvjerene halucinacije. Evo kako testirati oba."><div class="meta"><time datetime="2026-11-25" data-fmt="short">25 Nov 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h3>Testing AI Features That See: QA for Image and Document Inputs</h3><p>Vision AI features fail in two ways text-only QA misses: bad input images and confident hallucinations. Here's how to test for both.</p></a>
+      <a class="post-card card glow" href="../load-testing-qa-teams-k6-thresholds/" data-title-sr="Load testiranje za QA timove: šta k6 hvata, a šta prolazni prag i dalje može da sakrije" data-excerpt-sr="Praktičan k6 vodič za QA timove: pisanje load testa, postavljanje pragova i zamke zbog kojih zelen dashboard može da zavara."><div class="meta"><time datetime="2026-11-20" data-fmt="short">20 Nov 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h3>Load Testing for QA Teams: What k6 Catches, and What a Passing Threshold Can Still Hide</h3><p>A practical k6 walkthrough for QA teams: scripting a load test, setting thresholds, and the pitfalls that make a green dashboard misleading.</p></a></div></section>
   </main>
   <footer class="footer wrap">
     <span>© <span id="year">2026</span> Marko Lošić</span>

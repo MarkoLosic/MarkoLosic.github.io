@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="sr" data-theme="dark" data-static-lang="sr" data-alt-url="../../../blog/maestro-for-web-testing/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zašto Maestro zaslužuje mjesto u vašem alatu za testiranje web aplikacija — Marko Lošić</title>
+  <meta name="description" content="Maestro je poznat kao alat za testiranje mobilnih aplikacija, ali podrška za pretraživač tiho zatvara jaz prema web testiranju. Evo zašto ga koristim, i kako n…">
+  <link rel="canonical" href="https://markolosic.github.io/sr/blog/maestro-for-web-testing/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/maestro-for-web-testing/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/maestro-for-web-testing/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/maestro-for-web-testing/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Zašto Maestro zaslužuje mjesto u vašem alatu za testiranje web aplikacija — Marko Lošić">
+  <meta property="og:description" content="Maestro je poznat kao alat za testiranje mobilnih aplikacija, ali podrška za pretraživač tiho zatvara jaz prema web testiranju. Evo zašto ga koristim, i kako n…">
+  <meta property="og:url" content="https://markolosic.github.io/sr/blog/maestro-for-web-testing/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/maestro-for-web-testing.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="669">
+  <meta property="og:image:alt" content="Zašto Maestro zaslužuje mjesto u vašem alatu za testiranje web aplikacija">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Zašto Maestro zaslužuje mjesto u vašem alatu za testiranje web aplikacija — Marko Lošić">
+  <meta name="twitter:description" content="Maestro je poznat kao alat za testiranje mobilnih aplikacija, ali podrška za pretraživač tiho zatvara jaz prema web testiranju. Evo zašto ga koristim, i kako n…">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/maestro-for-web-testing.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/sr/blog/maestro-for-web-testing/#article","headline":"Zašto Maestro zaslužuje mjesto u vašem alatu za testiranje web aplikacija","description":"Maestro je poznat kao alat za testiranje mobilnih aplikacija, ali podrška za pretraživač tiho zatvara jaz prema web testiranju. Evo zašto ga koristim, i kako napisati svoj prvi tok.","image":"https://markolosic.github.io/assets/blog/maestro-for-web-testing.jpg","url":"https://markolosic.github.io/sr/blog/maestro-for-web-testing/","inLanguage":"sr","wordCount":708,"articleSection":"maestro","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/sr/blog/maestro-for-web-testing/"},"datePublished":"2026-09-21T00:00:00.000Z","dateModified":"2026-09-21T00:00:00.000Z","keywords":"maestro, test-automation","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Početna","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/sr/blog/"},{"@type":"ListItem","position":3,"name":"Zašto Maestro zaslužuje mjesto u vašem alatu za testiranje web aplikacija","item":"https://markolosic.github.io/sr/blog/maestro-for-web-testing/"}]}]}</script>
+  <meta property="article:published_time" content="2026-09-21T00:00:00.000Z">
+  <meta property="article:modified_time" content="2026-09-21T00:00:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../assets/fonts.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../../#top" data-i18n="nav_about">O meni</a>
+      <a href="../../../#skills" data-i18n="nav_skills">Vještine</a>
+      <a href="../../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../../#experience" data-i18n="nav_exp">Iskustvo</a>
+      <a href="../../../#education" data-i18n="nav_edu">Obrazovanje</a>
+      <a href="../../../sr/blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../../#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span>Svi članci</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-09-21" data-fmt="long">21. septembar 2026.</time><span>·</span><span>4 min čitanja</span></div>
+        <h1>Zašto Maestro zaslužuje mjesto u vašem alatu za testiranje web aplikacija</h1>
+        <p class="lead">Maestro je poznat kao alat za testiranje mobilnih aplikacija, ali podrška za pretraživač tiho zatvara jaz prema web testiranju. Evo zašto ga koristim, i kako napisati svoj prvi tok.</p>
+        <div class="tags"><span>maestro</span><span>test-automation</span></div>
+      </header>
+      <div class="prose"><p>Maestro već neko vrijeme koristim za automatizaciju mobilnih tokova — uvodni tok, prijava, uobičajene stvari. Ono što me nedavno navelo da ga sagledam drugačije jeste da isti alat sada &quot;govori&quot; i jezik pretraživača. Ne kao zamjena za Playwright, nego kao nešto što ozbiljno ima smisla postaviti pored njega. Evo zašto vrijedi probati na vašoj web aplikaciji.</p>
+<h2 id="šta-je-maestro-zapravo">Šta je Maestro zapravo</h2>
+<p>Maestro je alat za testiranje korisničkog interfejsa izgrađen oko jedne ideje: opisujete <em>šta</em> korisnik radi, a ne <em>kako</em> alat treba da pronađe i klikne dugme. Tok je obična YAML datoteka, koja se čita od vrha ka dnu kao spisak koraka:</p>
+<pre><code class="lang-yaml">url: https://example.com
+---
+- launchApp
+- tapOn: &quot;Sign in&quot;
+- inputText: &quot;user@example.com&quot;
+- tapOn: &quot;Password&quot;
+- inputText: &quot;correct horse battery staple&quot;
+- tapOn: &quot;Log in&quot;
+- assertVisible: &quot;Welcome back&quot;</code></pre>
+<p>Nema traženja selektora, nema eksplicitnih čekanja. Maestro ponavlja svaki korak dok se element koji traži ne pojavi ili dok ne istekne vrijeme, čime se tiho uklanja velik dio nestabilnosti koja se inače uvuče u UI testove — one situacije kad test padne jer se dugme pojavilo 300ms kasnije nego obično, a ne zato što je nešto zaista pokvareno.</p>
+<h2 id="od-mobilnih-tokova-do-pretraživača">Od mobilnih tokova do pretraživača</h2>
+<p>Maestro je počeo kao alat isključivo za mobilne aplikacije, i mobilni dio mu je i dalje najzreliji. Ali podrška za pretraživač (trenutno u beta verziji, na Chromium-u) znači da ista sintaksa sada radi i na sajtu: umjesto aplikacionog <code>appId</code>, upišete <code>url</code>, a komande ispod — <code>tapOn</code>, <code>inputText</code>, <code>assertVisible</code> — ponašaju se isto kao na Android emulatoru ili iOS simulatoru.</p>
+<p>To spajanje je zapravo suština priče. Ako vaš proizvod ima i mobilnu i web aplikaciju — što opisuje većinu proizvoda koje sam testirao — više vam ne trebaju dva odvojena načina razmišljanja da biste &quot;dimno&quot; (smoke) testirali ključne tokove na oba. Jedan format toka, jedan CLI, jedno mjesto gdje gledate kad izdanje nešto pokvari.</p>
+<h2 id="gdje-se-uklapa-pored-playwright-a-i-cypress-a">Gdje se uklapa pored Playwright-a i Cypress-a</h2>
+<p>Ne penzionišem Playwright ni Cypress, i mislim da ni vi ne biste trebali. Ali Maestro popunjava prazninu koju oni ne pokrivaju:</p>
+<ul><li><strong>Čitljiv svakome.</strong> Maestro tok se čita kao skripta koju bi mogla pregledati, pa i napisati, osoba koja nije programer. To je bitno kad ručni tester ili product owner želi da provjeri šta &quot;automatizovano&quot; zapravo pokriva.</li><li><strong>Rješavanje nestabilnosti je podrazumijevano, ne nešto što se dodatno podešava.</strong> Ponašanje &quot;pokušavaj dok se ne pojavi&quot; je ugrađeno, pa manje vremena trošite na borbu s tajmingom, a više na pisanje sljedećeg toka.</li><li><strong>Maestro Studio.</strong> Usmjerite ga na pokrenutu aplikaciju ili stranicu i on vam dozvoljava da klikćete okolo dok on sam generiše YAML. Brz je način da napravite nacrt toka ili istražite nepoznat ekran prije nego ručno pišete provjere.</li><li><strong>Jedan alat za uvođenje novih testera.</strong> Naučiti nekoga desetak Maestro komandi mnogo je kraći put nego naučiti ga konvencijama cijelog Playwright testnog skupa.</li></ul>
+<h2 id="gdje-još-ne-zamjenjuje-vaš-web-testni-skup">Gdje (još) ne zamjenjuje vaš web testni skup</h2>
+<p>Vrijedi biti iskren oko ovoga, jer preprodavanje alata samo oduzima svima vrijeme:</p>
+<ul><li>Podrška za pretraživač radi samo na Chromium-u i i dalje je beta. Nema pokrivenosti više pretraživača, pa ne može biti jedini alat za regresiju ako vam Firefox ili Safari specifičnosti nešto znače.</li><li>Nema Playwright-ovu dubinu presretanja zahtjeva, praćenja (tracing) ili mokovanja mreže. Za dublju funkcionalnu pokrivenost rubnih slučajeva i dalje posežem za Playwright-om.</li><li>Tretiram ga kao alat za dimne testove (smoke test) i ključne tokove — prijava, plaćanje, tok čiji bi tihi kvar bio produkcioni incident — a ne kao zamjenu za pun, provjerama bogat regresioni skup.</li></ul>
+<h2 id="pisanje-i-pokretanje-prvog-web-toka">Pisanje i pokretanje prvog web toka</h2>
+<p>Početak traje oko pet minuta:</p>
+<ol><li>Instalirajte CLI: <code>curl -Ls &quot;https://get.maestro.mobile.dev&quot; | bash</code></li><li>Otvorite Maestro Studio da istražite stranicu i generišete komande dok klikćete: <code>maestro studio</code></li><li>Sačuvajte tok kao <code>.yaml</code> datoteku i pokrenite ga: <code>maestro test login.yaml</code></li><li>Uključite istu komandu u CI, odmah pored postojećih mobilnih Maestro tokova, tako da pokvarena stranica za prijavu obori build isto kao što bi to učinio pokvaren ekran za prijavu na mobilnom.</li></ol>
+<h2 id="moj-zaključak">Moj zaključak</h2>
+<p>I dalje pišem duboke, provjerama bogate web regresione skupove u Playwright-u. Ali za onu šačicu tokova gdje kvar znači &quot;sajt je stvarno nedostupan korisnicima&quot;, Maestro-ova podrška za pretraživač daje mi iste čitljive provjere s malo održavanja kojima već vjerujem na mobilnom — bez potrebe da tim uči drugi alat samo za web stranu. To je dobra razmjena.</p></div>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button">Kopiraj link</button>
+      <a class="btn primary" href="../../../#contact">Kontaktiraj me</a>
+    </div>
+    <section class="more-posts"><h2>Slični članci</h2><div class="post-grid">
+      <a class="post-card card glow" href="../maestro-mobile-test-automation/"><div class="meta"><time datetime="2026-10-06" data-fmt="short">6. okt 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Pouzdana automatizacija testiranja mobilnih aplikacija uz Maestro: praktični vodič</h3><p>Kako Maestro YAML tokovi pojednostavljuju E2E testiranje mobilnih aplikacija, uz radni primjer login toka i dobre prakse koje ga čine održivim.</p></a>
+      <a class="post-card card glow" href="../vision-ai-testing-image-inputs/"><div class="meta"><time datetime="2026-11-25" data-fmt="short">25. nov 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Testiranje AI funkcionalnosti koje vide: QA za ulazne slike i dokumente</h3><p>Vision AI funkcionalnosti zakazuju na dva načina koje QA fokusiran samo na tekst propušta: loše ulazne slike i samouvjerene halucinacije. Evo kako testirati oba.</p></a>
+      <a class="post-card card glow" href="../load-testing-qa-teams-k6-thresholds/"><div class="meta"><time datetime="2026-11-20" data-fmt="short">20. nov 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Load testiranje za QA timove: šta k6 hvata, a šta prolazni prag i dalje može da sakrije</h3><p>Praktičan k6 vodič za QA timove: pisanje load testa, postavljanje pragova i zamke zbog kojih zelen dashboard može da zavara.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../../#contact" data-i18n="contact_cta">Kontaktiraj me</a>
+    <button type="button" data-consent data-i18n="cookies">Postavke kolačića</button>
+    <a href="../../../" data-i18n="back_home">Nazad na početnu ↑</a>
+  </footer>
+  <script src="../../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../../blog/common.js"></script>
+  <script src="../../../blog/post.js"></script>
+</body>
+</html>

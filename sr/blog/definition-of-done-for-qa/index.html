@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="sr" data-theme="dark" data-static-lang="sr" data-alt-url="../../../blog/definition-of-done-for-qa/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Definition of Done za QA: kako se tim dogovori šta zapravo znači „testirano“ — Marko Lošić</title>
+  <meta name="description" content="Nejasan Definition of Done svima dozvoljava da pretpostave da je neko drugi testirao granične slučajeve. Evo kako napisati onaj koji zaista hvata bagove prije…">
+  <link rel="canonical" href="https://markolosic.github.io/sr/blog/definition-of-done-for-qa/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/definition-of-done-for-qa/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/definition-of-done-for-qa/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/definition-of-done-for-qa/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Definition of Done za QA: kako se tim dogovori šta zapravo znači „testirano“ — Marko Lošić">
+  <meta property="og:description" content="Nejasan Definition of Done svima dozvoljava da pretpostave da je neko drugi testirao granične slučajeve. Evo kako napisati onaj koji zaista hvata bagove prije…">
+  <meta property="og:url" content="https://markolosic.github.io/sr/blog/definition-of-done-for-qa/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/definition-of-done-for-qa.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="669">
+  <meta property="og:image:alt" content="Definition of Done za QA: kako se tim dogovori šta zapravo znači „testirano“">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Definition of Done za QA: kako se tim dogovori šta zapravo znači „testirano“ — Marko Lošić">
+  <meta name="twitter:description" content="Nejasan Definition of Done svima dozvoljava da pretpostave da je neko drugi testirao granične slučajeve. Evo kako napisati onaj koji zaista hvata bagove prije…">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/definition-of-done-for-qa.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/sr/blog/definition-of-done-for-qa/#article","headline":"Definition of Done za QA: kako se tim dogovori šta zapravo znači „testirano“","description":"Nejasan Definition of Done svima dozvoljava da pretpostave da je neko drugi testirao granične slučajeve. Evo kako napisati onaj koji zaista hvata bagove prije izdanja.","image":"https://markolosic.github.io/assets/blog/definition-of-done-for-qa.jpg","url":"https://markolosic.github.io/sr/blog/definition-of-done-for-qa/","inLanguage":"sr","wordCount":1141,"articleSection":"test-strategy","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/sr/blog/definition-of-done-for-qa/"},"datePublished":"2026-11-02T08:00:00.000Z","dateModified":"2026-11-02T08:00:00.000Z","keywords":"test-strategy, manual-testing","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Početna","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/sr/blog/"},{"@type":"ListItem","position":3,"name":"Definition of Done za QA: kako se tim dogovori šta zapravo znači „testirano“","item":"https://markolosic.github.io/sr/blog/definition-of-done-for-qa/"}]}]}</script>
+  <meta property="article:published_time" content="2026-11-02T08:00:00.000Z">
+  <meta property="article:modified_time" content="2026-11-02T08:00:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../assets/fonts.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../../#top" data-i18n="nav_about">O meni</a>
+      <a href="../../../#skills" data-i18n="nav_skills">Vještine</a>
+      <a href="../../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../../#experience" data-i18n="nav_exp">Iskustvo</a>
+      <a href="../../../#education" data-i18n="nav_edu">Obrazovanje</a>
+      <a href="../../../sr/blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../../#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span>Svi članci</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-11-02" data-fmt="long">2. novembar 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h1>Definition of Done za QA: kako se tim dogovori šta zapravo znači „testirano“</h1>
+        <p class="lead">Nejasan Definition of Done svima dozvoljava da pretpostave da je neko drugi testirao granične slučajeve. Evo kako napisati onaj koji zaista hvata bagove prije izdanja.</p>
+        <div class="tags"><span>test-strategy</span><span>manual-testing</span></div>
+      </header>
+      <div class="prose"><p>Pitajte tri osobe iz istog tima šta znači „testirano&quot; za završen tiket, i često ćete dobiti tri različita odgovora: „acceptance kriterijumi prolaze&quot;, „QA je odobrio&quot; i „radi kod mene i ništa nije puklo u CI-ju&quot;. Nijedan od tih odgovora nije baš pogrešan, ali nijedan nije ni zajednički standard — a upravo kroz prazninu između njih provlače se regresije. Definition of Done (DoD) bi trebalo da zatvori tu prazninu. U praksi ga većina timova napiše jednom, na početku projekta, i više nikad ne provjeri da li još uvijek odgovara načinu na koji zaista isporučuju.</p>
+<p><img src="../../../assets/blog/definition-of-done-for-qa.jpg" alt="Izometrijska ilustracija tabli sa štikliranim checklistama i kanban tablom, lupa koja otkriva bagove skrivene u panelu sa kodom, okružena štitovima, zupčanicima i dijagramima grananja" width="1200" height="669" fetchpriority="high" decoding="async"></p>
+<h2 id="čemu-definition-of-done-zapravo-služi">Čemu Definition of Done zapravo služi</h2>
+<p>Scrum Guide opisuje Definition of Done kao formalan opis stanja koje dio posla mora da dostigne da bi se smatrao završenim — ne „iskodiran&quot;, ne „demonstriran&quot;, nego spreman za izdanje. Posao koji ga ne ispunjava nije završen; vraća se u backlog. To zvuči strogo, i tako je i zamišljeno: često citiran skup principa na ovu temu kaže to direktno — „ne pokazujte i ne isporučujte nezavršen posao&quot; i „nikada ne odustajte od Definition of Done&quot; da biste stigli do roka. Isti izvor ističe nešto na šta QA timovi stalno nailaze: pisanje DoD-a nije posao samo testera. To je dogovor cijelog tima, što znači da product, developeri i QA moraju zaista da ispregovaraju šta „testirano&quot; pokriva — a ne da QA naknadno, u tišini, popunjava definiciju.</p>
+<p>Problem je u tome što je „testirano&quot; riječ koju svaka uloga u timu može iskreno da koristi, a da pod njom podrazumijeva nešto drugo.</p>
+<h2 id="konkretan-primjer-dod-u-kojem-piše-testirano-i-ništa-više">Konkretan primjer: DoD u kojem piše „testirano&quot; i ništa više</h2>
+<p>Zamislite tim koji isporučuje samostalni reset lozinke. Njihov Definition of Done, napisan godinu dana ranije dok je tim imao dva developera i nijednog posvećenog QA-a, kaže samo: „kod pregledan, unit testovi prolaze, testirano, deployovano na staging&quot;. Svi se slažu da tiket to ispunjava. Developer piše unit testove za logiku generisanja tokena. QA ručno prolazi srećnu putanju na stagingu — zatraži reset, klikne link iz mejla, postavi novu lozinku — i sve radi. Tiket prelazi u done.</p>
+<p>Ono što DoD nikad nije precizirao: šta se dešava sa reset tokenom nakon što se jednom iskoristi, šta se dešava ako korisnik zatraži dva reset mejla zaredom i klikne na stariji, i šta se dešava ako je nalog obrisan između zahtjeva i klika. Nijedan od tih scenarija nije egzotičan — to su prve tri stvari koje bi iskusan tester inače provjerio na bilo kom reset toku — ali „testirano&quot; u DoD-u ovog tima nije reklo <em>koje</em> slučajeve, pa ih niko nije tretirao kao obavezne. Tri sedmice nakon izdanja stiže tiket od podrške: korisnik je ponovo iskoristio stari reset link od prije sedmicu dana i on je i dalje radio, jer token nije imao provjeru isteka u toj jednoj sporednoj putanji koda. Acceptance kriterijum je glasio „korisnik može da resetuje lozinku&quot;, što je test srećne putanje u potpunosti zadovoljio. Bag je bio stvaran, ali po samom tekstu DoD-a, tiket je zaista bio završen.</p>
+<p>To je obrazac iza većine bagova koji promaknu zbog „nejasnog DoD-a&quot;: rijetko je problem u tome što niko ništa nije testirao. Problem je što je DoD opisivao ishod („testirano&quot;) umjesto standarda (šta se računa kao da je nešto testirano), pa je svako popunio prazninu svojom razumnom podrazumijevanom pretpostavkom.</p>
+<h2 id="kako-napisati-dod-koji-zaista-precizira-šta-testirano-pokriva">Kako napisati DoD koji zaista precizira šta „testirano&quot; pokriva</h2>
+<p>Stavka u DoD-u koja kaže samo „testirano&quot; ili „QA odobrio&quot; je čuvar mjesta, ne standard. Verzija koja zaista funkcioniše kao standard obično je konkretna u vezi sa <em>vrstom</em> očekivane pokrivenosti, na primjer:</p>
+<pre><code>Priča je Done kada:
+- Acceptance kriterijumi prolaze, I
+- Pokriven je bar jedan negativan slučaj / slučaj nevalidnog unosa po polju
+  (prazno, neispravan format, isteklo, već iskorišteno, gdje je primjenjivo)
+- Svaka promjena stanja u tiketu (npr. token iskorišten -&gt; token nevažeći)
+  ima eksplicitan test, automatizovan ili ručni
+- Provjera na više browsera/uređaja samo ako tiket dira prikaz UI-ja
+- Izmjenu je isprobao tester koji nije onaj ko ju je implementirao</code></pre>
+<p>Ništa od ovoga nije egzotično — to su iste četiri ili pet kategorija (nevalidan unos, promjene stanja, konkurentnost, dozvole i ponašanje u različitim okruženjima) koje u praksi čine većinu bagova koji promaknu. Vrijednost nije u konkretnoj listi; vrijednost je u tome da se zapiše <em>koje</em> kategorije važe za <em>ovu vrstu</em> tiketa, kako „testirano&quot; ne bi više bila riječ koju ljudi popunjavaju iz sjećanja pod pritiskom roka.</p>
+<p>Inženjerski tim iz Xebie naišao je na srodnu prazninu kada je shvatio da njihov jedinstveni DoD dobro radi za nove funkcionalnosti, ali da nakon ispravki bagova stalno ostavlja korisnike sa neodgovorenim pitanjima — npr. koje verzije su pogođene i da li postoji zaobilazno rješenje. Njihovo rješenje nije bio strožiji DoD u cjelini; bio je to drugi DoD, posebno za bagove, koji postavlja drugačiji skup pitanja od DoD-a za funkcionalnosti. Pouka važi i šire: jedan DoD rijetko odgovara svakoj vrsti radnog zadatka, a pokušaj da se to nametne često proizvede dokument dovoljno nejasan da tehnički odgovara svemu.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Detaljna DoD checklista može postati problem sama po sebi ako se tretira kao zamjena za rasuđivanje: checklista od 20 stavki koju tester štiklira bez razmišljanja nije ništa bolja od golog „testirano&quot; — samo je sporija. DoD takođe ne može da pokrije slučajeve kojih se niko u timu još nije sjetio — on kodifikuje poznate kategorije rizika, ne nepoznate, i zato ga treba preispitati nakon svakog baga koji promakne, a ne samo na početku projekta. A DoD koji „pripada&quot; samo QA-u ostatak tima pod pritiskom roka obično tiho zaobiđe, jer se niko drugi ne osjeća obaveznim da ga poštuje; on opstaje samo ako su ga product i inženjering zajedno pisali i spremni su da pomjere rok umjesto da isporuče mimo njega.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ul><li>Otvorite trenutni DoD vašeg tima i provjerite da li iza riječi „testirano&quot; stoji bilo kakva konkretizacija. Ako ne stoji, to je praznina koju prvu treba zatvoriti.</li><li>Nakon sljedećeg baga koji stigne do produkcije, eksplicitno pitajte: da li bi ga naš trenutni DoD uhvatio, ili je tiket zaista ispunio tekst onako kako je napisan? Prepišite stavku koja ga je propustila.</li><li>Ako vaš tim isporučuje i funkcionalnosti i ispravke bagova, provjerite da li jedan DoD pokušava da pokrije oboje — razmislite o kratkom, zasebnom DoD-u za bagove, poput Xebijinog, fokusiranom na uticaj i rizik od regresije umjesto na pokrivenost novih funkcionalnosti.</li><li>Neka sljedeći pregled DoD-a bude razgovor cijelog tima, a ne QA memo — i sam Scrum Guide ga posmatra kao obavezu tima, a pod pritiskom roka opstaje samo ako su se svi oko njega dogovorili.</li></ul>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://www.scrum.org/resources/blog/definition-done-theses" target="_blank" rel="noopener noreferrer">Definition of Done Theses: 10 Simple Principles of a Critical Scrum Success Factor</a> — Scrum.org</li><li><a href="https://xebia.com/blog/definition-of-done-for-user-stories-vs-bugs/" target="_blank" rel="noopener noreferrer">Definition of Done for User Stories vs. Bugs</a> — Xebia</li></ul></div>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button">Kopiraj link</button>
+      <a class="btn primary" href="../../../#contact">Kontaktiraj me</a>
+    </div>
+    <section class="more-posts"><h2>Slični članci</h2><div class="post-grid">
+      <a class="post-card card glow" href="../session-based-exploratory-testing/"><div class="meta"><time datetime="2026-11-23" data-fmt="short">23. nov 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Exploratory testiranje zasnovano na sesijama: kako ad hoc testiranje učiniti ponovljivim i mjerljivim</h3><p>Kako session-based test management pretvara exploratory testiranje bez skripte u nešto što možete planirati, mjeriti i o čemu možete izvještavati, uz konkretan primjer charter-a.</p></a>
+      <a class="post-card card glow" href="../writing-bug-reports-that-get-fixed/"><div class="meta"><time datetime="2026-10-05" data-fmt="short">5. okt 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Prijava greške kakvu developeri zaista žele: praktični vodič</h3><p>Praktična struktura prijave greške koju developer može da reprodukuje i popravi već iz prvog čitanja, uz primjer „prije i poslije&quot;.</p></a>
+      <a class="post-card card glow" href="../manually-testing-chrome-edge-extensions/"><div class="meta"><time datetime="2026-09-29" data-fmt="short">29. sep 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Ručno testiranje Chrome i Edge ekstenzija: gdje uobičajeni pristup prestaje da radi</h3><p>Zašto ručno testiranje ekstenzija za pretraživač traži drugačiju čeklistu od testiranja web sajta, i šta provjeriti na Chrome-u i Edge-u.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../../#contact" data-i18n="contact_cta">Kontaktiraj me</a>
+    <button type="button" data-consent data-i18n="cookies">Postavke kolačića</button>
+    <a href="../../../" data-i18n="back_home">Nazad na početnu ↑</a>
+  </footer>
+  <script src="../../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../../blog/common.js"></script>
+  <script src="../../../blog/post.js"></script>
+</body>
+</html>

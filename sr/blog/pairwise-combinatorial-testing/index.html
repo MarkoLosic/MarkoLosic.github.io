@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="sr" data-theme="dark" data-static-lang="sr" data-alt-url="../../../blog/pairwise-combinatorial-testing/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pairwise testiranje: kako hiljade kombinacija konfiguracije svesti na test suite koji zaista možete da pokrenete — Marko Lošić</title>
+  <meta name="description" content="Kako pairwise i kombinatorno testiranje svode kombinatornu eksploziju na mali test suite sa visokom pokrivenošću, uz razrađen primjer i preporuke alata.">
+  <link rel="canonical" href="https://markolosic.github.io/sr/blog/pairwise-combinatorial-testing/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/pairwise-combinatorial-testing/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/pairwise-combinatorial-testing/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/pairwise-combinatorial-testing/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Pairwise testiranje: kako hiljade kombinacija konfiguracije svesti na test suite koji zaista možete da pokrenete — Marko Lošić">
+  <meta property="og:description" content="Kako pairwise i kombinatorno testiranje svode kombinatornu eksploziju na mali test suite sa visokom pokrivenošću, uz razrađen primjer i preporuke alata.">
+  <meta property="og:url" content="https://markolosic.github.io/sr/blog/pairwise-combinatorial-testing/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/pairwise-combinatorial-testing.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="669">
+  <meta property="og:image:alt" content="Pairwise testiranje: kako hiljade kombinacija konfiguracije svesti na test suite koji zaista možete da pokrenete">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Pairwise testiranje: kako hiljade kombinacija konfiguracije svesti na test suite koji zaista možete da pokrenete — Marko Lošić">
+  <meta name="twitter:description" content="Kako pairwise i kombinatorno testiranje svode kombinatornu eksploziju na mali test suite sa visokom pokrivenošću, uz razrađen primjer i preporuke alata.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/pairwise-combinatorial-testing.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/sr/blog/pairwise-combinatorial-testing/#article","headline":"Pairwise testiranje: kako hiljade kombinacija konfiguracije svesti na test suite koji zaista možete da pokrenete","description":"Kako pairwise i kombinatorno testiranje svode kombinatornu eksploziju na mali test suite sa visokom pokrivenošću, uz razrađen primjer i preporuke alata.","image":"https://markolosic.github.io/assets/blog/pairwise-combinatorial-testing.jpg","url":"https://markolosic.github.io/sr/blog/pairwise-combinatorial-testing/","inLanguage":"sr","wordCount":1138,"articleSection":"test-strategy","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/sr/blog/pairwise-combinatorial-testing/"},"datePublished":"2026-11-04T08:00:00.000Z","dateModified":"2026-11-04T08:00:00.000Z","keywords":"test-strategy, test-automation","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Početna","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/sr/blog/"},{"@type":"ListItem","position":3,"name":"Pairwise testiranje: kako hiljade kombinacija konfiguracije svesti na test suite koji zaista možete da pokrenete","item":"https://markolosic.github.io/sr/blog/pairwise-combinatorial-testing/"}]}]}</script>
+  <meta property="article:published_time" content="2026-11-04T08:00:00.000Z">
+  <meta property="article:modified_time" content="2026-11-04T08:00:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../assets/fonts.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../../#top" data-i18n="nav_about">O meni</a>
+      <a href="../../../#skills" data-i18n="nav_skills">Vještine</a>
+      <a href="../../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../../#experience" data-i18n="nav_exp">Iskustvo</a>
+      <a href="../../../#education" data-i18n="nav_edu">Obrazovanje</a>
+      <a href="../../../sr/blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../../#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span>Svi članci</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-11-04" data-fmt="long">4. novembar 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h1>Pairwise testiranje: kako hiljade kombinacija konfiguracije svesti na test suite koji zaista možete da pokrenete</h1>
+        <p class="lead">Kako pairwise i kombinatorno testiranje svode kombinatornu eksploziju na mali test suite sa visokom pokrivenošću, uz razrađen primjer i preporuke alata.</p>
+        <div class="tags"><span>test-strategy</span><span>test-automation</span></div>
+      </header>
+      <div class="prose"><p>Uzmite formu sa četiri dimenzije konfiguracije — recimo operativni sistem, browser, lokalizaciju i način plaćanja, svaka sa po tri opcije — i potpun kombinatorni prostor već iznosi 81 test slučaj. Dodajte petu dimenziju i broj skače preko 200. Nijedan tim ne pokreće 81 end-to-end slučaj za jednu checkout formu, pa većina timova tiho izabere šačicu kombinacija po osjećaju i nazove to „dovoljno dobrom pokrivenošću&quot;. Pairwise testiranje je način da se to nagađanje zamijeni test suiteom koji je istovremeno manji i sistematičniji.</p>
+<p><img src="../../../assets/blog/pairwise-combinatorial-testing.jpg" alt="Gusta, haotična mreža povezanih čvorova sa lijeve strane koja se kroz strelice koje se spajaju sliva u malu, urednu heksagonalnu mrežu čvorova sa desne strane" width="1200" height="669" fetchpriority="high" decoding="async"></p>
+<h2 id="problem-sa-ručnim-biranjem-kombinacija">Problem sa ručnim biranjem kombinacija</h2>
+<p>Ručno izabrane kombinacije obično testiraju svaku vrijednost zasebno, jednu po jednu: Windows sa Chromeom, pa macOS sa Firefoxom, pa Linux sa Safarijem. Tako se svaka vrijednost provjeri izolovano, ali se rijetko provjeri kako vrijednosti međusobno djeluju — a upravo bagovi u interakciji su oni koji promaknu ručnom pregledu. Date picker koji puca samo kad je lokalizacija <code>de-DE</code> <strong>i</strong> browser Safari nevidljiv je za test plan sastavljen vrijednost po vrijednost.</p>
+<p>Istraživanje grešaka u softveru iz NIST-a (Kuhn, Lei i Kacker) standardna je referentna tačka za ovu temu. Njihov rad o kombinatornom testiranju jasno kaže da pairwise, odnosno 2-way pokrivenost „nije dovoljna za garanciju kvaliteta softvera od kritične važnosti&quot; i da izlazak van pairwise nivoa zahtijeva znatno više test slučajeva — i upravo zato njihovi alati, kao i slični alati, podržavaju pokrivenost sve do 6-way kombinacija kada sistemu zaista treba toliki nivo sigurnosti. Ipak, za većinu svakodnevnih funkcionalnosti, 2-way (pairwise) pokrivenost je praktična optimalna tačka: hvata veliku klasu bagova nastalih kada jedna vrijednost loše djeluje sa drugom, uz djelić cijene potpune kombinatorne pokrivenosti.</p>
+<h2 id="razrađen-primjer">Razrađen primjer</h2>
+<p>Uzmimo formu sa četiri dimenzije od gore: OS (Windows, macOS, Linux), lokalizacija (en-US, de-DE, ja-JP), browser (Chrome, Firefox, Safari), plaćanje (kartica, PayPal, Apple Pay). Potpuna pokrivenost je 3 × 3 × 3 × 3 = 81 slučaj. Pairwise skup — napravljen tako da se svaki mogući par vrijednosti iz bilo koja dva parametra pojavi zajedno bar jednom — može to da svede na 9 slučajeva:</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Pokretanje</th><th>OS</th><th>Lokalizacija</th><th>Browser</th><th>Plaćanje</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><td>Windows</td><td>en-US</td><td>Chrome</td><td>Kartica</td></tr>
+<tr><td class="num">2</td><td>Windows</td><td>de-DE</td><td>Firefox</td><td>PayPal</td></tr>
+<tr><td class="num">3</td><td>Windows</td><td>ja-JP</td><td>Safari</td><td>Apple Pay</td></tr>
+<tr><td class="num">4</td><td>macOS</td><td>en-US</td><td>Firefox</td><td>Apple Pay</td></tr>
+<tr><td class="num">5</td><td>macOS</td><td>de-DE</td><td>Safari</td><td>Kartica</td></tr>
+<tr><td class="num">6</td><td>macOS</td><td>ja-JP</td><td>Chrome</td><td>PayPal</td></tr>
+<tr><td class="num">7</td><td>Linux</td><td>en-US</td><td>Safari</td><td>PayPal</td></tr>
+<tr><td class="num">8</td><td>Linux</td><td>de-DE</td><td>Chrome</td><td>Apple Pay</td></tr>
+<tr><td class="num">9</td><td>Linux</td><td>ja-JP</td><td>Firefox</td><td>Kartica</td></tr>
+</tbody>
+</table></div>
+<p>Uporedite bilo koje dvije kolone i svaki par vrijednosti pojavljuje se bar jednom — Windows u paru sa svakom lokalizacijom, svakim browserom i svakim načinom plaćanja; <code>de-DE</code> u paru sa svakim browserom; i tako dalje. To je otprilike 9 puta manje pokretanja, a i dalje se provjerava svaka dvosmjerna interakcija, a upravo tu živi većina bagova u interakciji.</p>
+<p>Ovakvu tabelu rijetko treba praviti ručno. Gornja konstrukcija je standardan ortogonalni niz, a besplatni alati je automatski generišu iz tekstualnog modela vaših parametara: Microsoftov open-source <a href="https://github.com/microsoft/pict" target="_blank" rel="noopener noreferrer">PICT</a> uzima kratak fajl sa parametrima i za nekoliko sekundi izbacuje pairwise suite razdvojen tabovima; NIST-ov alat <a href="https://www.nist.gov/node/565361" target="_blank" rel="noopener noreferrer">ACTS</a> ide korak dalje i generiše covering nizove od 1-way do 6-way kroz GUI, CLI ili API, kada pairwise pokrivenost zaista nije dovoljna; a komercijalne platforme poput Hexawise-a dodaju web interfejs i izvještaje na istu ideju. Za većinu timova, jednom propustiti listu parametara kroz PICT i commitovati izlaz u repo pored test suitea je cijeli trošak postavke.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Pairwise testiranje mijenja potpunost za efikasnost, a ta razmjena ima stvarne granice.</p>
+<ul><li><strong>Garantuje samo 2-way pokrivenost.</strong> Bagovi koji se javljaju samo uz određenu kombinaciju tri ili četiri vrijednosti (određeni OS, na određenom browseru, sa određenom lokalizacijom <strong>i</strong> načinom plaćanja istovremeno) mogu potpuno da promaknu pairwise suiteu. Rjeđi su od 2-way bagova u interakciji, ali postoje, naročito u čvrsto povezanim podsistemima kao što su obrada plaćanja ili dozvole uređaja.</li><li><strong>Pretpostavlja da su parametri zaista nezavisni ulazi.</strong> Ako su dva „parametra&quot; zapravo povezana (određeni načini plaćanja nisu dostupni u određenim lokalizacijama), ubacivanje u generički pairwise alat bez zadavanja tog ograničenja daje nevalidne ili protraćene test slučajeve. Većina alata podržava ograničenja (constraints), ali neko mora da ih zada, a taj korak se lako preskoči pod pritiskom roka.</li><li><strong>Ne govori ništa o prioritetu.</strong> Pairwise algoritam tretira svaki parametar i vrijednost kao jednako važne. Ako jedan način plaćanja obrađuje 90% stvarnog saobraćaja, a drugi koristi šačica korisnika, pairwise suite im i dalje daje istu težinu — možda ćete morati da dodate procjenu zasnovanu na riziku umjesto da izlazu algoritma vjerujete onakvom kakav jeste.</li><li><strong>To je tehnika generisanja, ne test oracle.</strong> Alat proizvodi kombinacije ulaza, ne očekivane izlaze. Asercije i dalje morate sami da napišete, a loše izabran skup asercija potkopava savršeno dobar pairwise suite isto kao i bilo koji drugi.</li><li><strong>To nije isto što i property-based testiranje.</strong> Property-based testiranje generiše veliki broj polunasumičnih ulaza da bi provjerilo da li neka invarijanta važi; pairwise testiranje sistematski pokriva interakcije između fiksnog skupa diskretnih parametara. Rješavaju različite probleme i vrijedi ih kombinovati, a ne zamijeniti jedno drugim.</li></ul>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ol><li>Izaberite jednu funkcionalnost sa više od tri nezavisne dimenzije konfiguracije — lokalizacija, uređaj, nivo pretplate, stanje feature flaga, provajder plaćanja — i izlistajte svaki parametar i njegove moguće vrijednosti.</li><li>Propustite tu listu kroz PICT ili ACTS (oba su besplatna) i uporedite veličinu generisanog suitea sa punim kombinatornim brojem. Ta razlika je obično najjasniji argument koji možete da iznesete skeptičnom kolegi ili menadžeru.</li><li>Prije nego što se obavežete na generisani suite, provjerite ga u odnosu na poznate zavisnosti između parametara (nepodržane kombinacije, opcije ograničene na region) i zadajte ih kao ograničenja umjesto da naknadno ručno filtrirate rezultate.</li><li>Ako je funkcionalnost visokog rizika (plaćanja, autentifikacija, migracija podataka), razmislite o generisanju 3-way covering niza umjesto 2-way baš za tu funkcionalnost, i uporedite povećanje broja slučajeva prije nego što odlučite da li je vrijedno dodatnog vremena izvršavanja.</li></ol>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://www.nist.gov/node/565361" target="_blank" rel="noopener noreferrer">NIST — Practical Combinatorial Testing: Beyond Pairwise</a></li><li><a href="https://www.nist.gov/node/565371" target="_blank" rel="noopener noreferrer">NIST — Automated Combinatorial Test Methods: Beyond Pairwise Testing</a></li><li><a href="https://github.com/microsoft/pict" target="_blank" rel="noopener noreferrer">Microsoft PICT (GitHub)</a></li><li><a href="https://www.testrail.com/blog/pairwise-testing/" target="_blank" rel="noopener noreferrer">TestRail — Pairwise Testing Explained with Tools &amp; Examples</a></li><li><a href="https://www.browserstack.com/guide/combinatorial-testing" target="_blank" rel="noopener noreferrer">BrowserStack — What is Combinatorial Testing?</a></li></ul></div>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button">Kopiraj link</button>
+      <a class="btn primary" href="../../../#contact">Kontaktiraj me</a>
+    </div>
+    <section class="more-posts"><h2>Slični članci</h2><div class="post-grid">
+      <a class="post-card card glow" href="../test-pyramid-vs-testing-trophy/"><div class="meta"><time datetime="2026-11-09" data-fmt="short">9. nov 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Test piramida ili testing trofej: birajte oblik koji odgovara vašem riziku, a ne dijagramu</h3><p>Test piramida i testing trofej daju suprotne savjete o tome gdje da uložite testove. Evo kako da odlučite koji oblik zaista odgovara vašem kodu.</p></a>
+      <a class="post-card card glow" href="../property-based-testing-automated-test-generation/"><div class="meta"><time datetime="2026-10-26" data-fmt="short">26. okt 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Property-based testiranje: jedan test koji pokriva slučajeve kojih se nikad ne biste sjetili</h3><p>Kako property-based testiranje uz Hypothesis ili fast-check pronalazi granične slučajeve koje testovi zasnovani na primjerima propuštaju, i gdje ima svoja ograničenja.</p></a>
+      <a class="post-card card glow" href="../mutation-testing-weak-assertions/"><div class="meta"><time datetime="2026-10-19" data-fmt="short">19. okt 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Mutaciono testiranje: kako da saznate da li vaši testovi zaista hvataju bagove</h3><p>Pokrivenost koda pokazuje koje su linije izvršene. Mutaciono testiranje pokazuje da li bi vaši testovi primijetili da je logika pokvarena. Evo kako da ga koristite.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../../#contact" data-i18n="contact_cta">Kontaktiraj me</a>
+    <button type="button" data-consent data-i18n="cookies">Postavke kolačića</button>
+    <a href="../../../" data-i18n="back_home">Nazad na početnu ↑</a>
+  </footer>
+  <script src="../../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../../blog/common.js"></script>
+  <script src="../../../blog/post.js"></script>
+</body>
+</html>

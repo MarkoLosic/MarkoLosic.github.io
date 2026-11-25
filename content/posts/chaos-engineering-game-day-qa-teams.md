@@ -3,7 +3,7 @@ title: "Chaos Engineering for QA Teams: What a Game Day Actually Looks Like"
 title_sr: "Chaos engineering za QA timove: kako zapravo izgleda game day"
 date: 2026-11-06
 time: 08:00
-tags: [qa, tools-and-trends, chaos-engineering, resilience-testing]
+tags: [performance-testing, ci-cd, test-strategy]
 excerpt: A practical look at chaos engineering tools and how to run a resilience game day without turning it into an outage.
 excerpt_sr: Praktičan pogled na chaos engineering alate i kako organizovati game day za testiranje otpornosti, a da se on ne pretvori u ispad sistema.
 image: assets/blog/chaos-engineering-game-day-qa-teams.jpg

@@ -3,7 +3,7 @@ title: "Testing RAG Pipelines: Why Your Retrieval Step Needs Its Own Test Suite"
 title_sr: "Testiranje RAG pipeline-a: zašto korak pretrage treba sopstveni skup testova"
 date: 2026-11-18
 time: 18:30
-tags: [qa, ai-in-qa, rag, llm-testing]
+tags: [ai-testing, test-automation]
 excerpt: RAG systems fail quietly when retrieval goes wrong. Here's how to test retrieval and generation separately, with a worked example and a metric to watch.
 excerpt_sr: RAG sistemi tiho otkazuju kada pretraga pogriješi. Evo kako testirati pretragu i generisanje odvojeno, uz konkretan primjer i metriku koju vrijedi pratiti.
 image: assets/blog/testing-rag-pipelines-retrieval-evaluation.jpg
@@ -78,6 +78,9 @@ LLM-as-judge scoring, which RAGAS relies on for all four metrics, has its own fa
 2. Build a small labeled eval set (30–50 real questions with reference answers) from your own domain rather than synthetic queries — the one-time cost that makes context recall measurable at all.
 3. Run RAGAS, or an alternative like DeepEval, as a CI gate with explicit thresholds, not a one-off report glanced at after a demo.
 4. Add a freshness check — periodic re-embed-and-compare of a reference document set, or change-data-capture on your source corpus — so a pipeline that scores well today doesn't quietly rot by next quarter.
+
+For related AI QA patterns, see [how I test a local Llama 3 model with 100 prompts](/llm-testing/), [Testing AI Features That See](/blog/vision-ai-testing-image-inputs/), and [Testing AI Features That Don't Give the Same Answer Twice](/blog/testing-non-deterministic-ai-features/).
+
 
 ## Sources
 
@@ -159,6 +162,9 @@ Ocjenjivanje pomoću LLM-a kao sudije (LLM-as-judge), na koje se RAGAS oslanja z
 2. Napravite mali označeni evaluacioni skup (30–50 stvarnih pitanja sa referentnim odgovorima) iz sopstvenog domena umjesto sintetičkih upita — to je jednokratni trošak koji context recall uopšte čini mjerljivim.
 3. Pokrećite RAGAS, ili alternativu kao što je DeepEval, kao CI gate sa eksplicitnim pragovima, a ne kao jednokratan izvještaj koji se pogleda poslije demo prezentacije.
 4. Dodajte provjeru svježine — periodično ponovno embedovanje i poređenje referentnog skupa dokumenata, ili change-data-capture na izvornom korpusu — kako pipeline koji danas ima dobre ocjene ne bi tiho istrulio do sljedećeg kvartala.
+
+Za povezane obrasce u testiranju AI sistema, pogledaj [kako testiram lokalni Llama 3 model sa 100 promptova](/llm-testing/), kao i članke [Testiranje AI funkcionalnosti koje vide](/sr/blog/vision-ai-testing-image-inputs/) i [Testiranje AI funkcionalnosti koje ne daju isti odgovor dvaput](/sr/blog/testing-non-deterministic-ai-features/).
+
 
 ## Izvori
 

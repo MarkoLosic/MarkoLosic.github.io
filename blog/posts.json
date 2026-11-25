@@ -6,11 +6,8 @@
     "excerpt": "Vision AI features fail in two ways text-only QA misses: bad input images and confident hallucinations. Here's how to test for both.",
     "excerptSr": "Vision AI funkcionalnosti zakazuju na dva načina koje QA fokusiran samo na tekst propušta: loše ulazne slike i samouvjerene halucinacije. Evo kako testirati oba.",
     "tags": [
-      "qa",
-      "ai-in-qa",
-      "multimodal-testing",
-      "visual-testing",
-      "llm-testing"
+      "ai-testing",
+      "test-automation"
     ],
     "date": "2026-11-25",
     "readingTime": 6
@@ -22,9 +19,7 @@
     "excerpt": "How session-based test management turns unscripted exploratory testing into something you can plan, measure, and report on, with a worked charter example.",
     "excerptSr": "Kako session-based test management pretvara exploratory testiranje bez skripte u nešto što možete planirati, mjeriti i o čemu možete izvještavati, uz konkretan primjer charter-a.",
     "tags": [
-      "qa",
-      "methodology",
-      "exploratory-testing",
+      "manual-testing",
       "test-strategy"
     ],
     "date": "2026-11-23",
@@ -37,11 +32,9 @@
     "excerpt": "A practical k6 walkthrough for QA teams: scripting a load test, setting thresholds, and the pitfalls that make a green dashboard misleading.",
     "excerptSr": "Praktičan k6 vodič za QA timove: pisanje load testa, postavljanje pragova i zamke zbog kojih zelen dashboard može da zavara.",
     "tags": [
-      "qa",
       "performance-testing",
-      "load-testing",
-      "k6",
-      "tools-and-trends"
+      "test-automation",
+      "ci-cd"
     ],
     "date": "2026-11-20",
     "readingTime": 6
@@ -53,10 +46,8 @@
     "excerpt": "RAG systems fail quietly when retrieval goes wrong. Here's how to test retrieval and generation separately, with a worked example and a metric to watch.",
     "excerptSr": "RAG sistemi tiho otkazuju kada pretraga pogriješi. Evo kako testirati pretragu i generisanje odvojeno, uz konkretan primjer i metriku koju vrijedi pratiti.",
     "tags": [
-      "qa",
-      "ai-in-qa",
-      "rag",
-      "llm-testing"
+      "ai-testing",
+      "test-automation"
     ],
     "date": "2026-11-18",
     "readingTime": 6
@@ -68,10 +59,9 @@
     "excerpt": "Why file upload features break in production and how to test size limits, type spoofing, concurrency, and interrupted transfers.",
     "excerptSr": "Zašto funkcije za otpremanje fajlova pucaju u produkciji i kako testirati ograničenja veličine, lažiranje tipa fajla, istovremena otpremanja i prekinute prenose.",
     "tags": [
-      "qa",
-      "real-world-use-case",
-      "file-upload",
-      "security-testing"
+      "security-testing",
+      "real-world-bugs",
+      "manual-testing"
     ],
     "date": "2026-11-13",
     "readingTime": 6
@@ -83,9 +73,7 @@
     "excerpt": "What Claude Fable 5.2 changes for QA work: long agentic runs, computer use, vision and cost, with the limits spelled out.",
     "excerptSr": "Šta Claude Fable 5.2 mijenja u QA radu: duga agentska izvršavanja, upravljanje računarom, vid i cijena, uz jasno navedena ograničenja.",
     "tags": [
-      "qa",
-      "ai-in-qa",
-      "llm-models",
+      "ai-testing",
       "test-automation"
     ],
     "date": "2026-11-11",
@@ -98,10 +86,8 @@
     "excerpt": "The test pyramid and testing trophy give opposite advice on where to put your tests. Here's how to decide which shape actually fits your codebase.",
     "excerptSr": "Test piramida i testing trofej daju suprotne savjete o tome gdje da uložite testove. Evo kako da odlučite koji oblik zaista odgovara vašem kodu.",
     "tags": [
-      "qa",
-      "test-automation",
-      "methodology",
-      "test-strategy"
+      "test-strategy",
+      "test-automation"
     ],
     "date": "2026-11-09",
     "readingTime": 5
@@ -113,10 +99,9 @@
     "excerpt": "A practical look at chaos engineering tools and how to run a resilience game day without turning it into an outage.",
     "excerptSr": "Praktičan pogled na chaos engineering alate i kako organizovati game day za testiranje otpornosti, a da se on ne pretvori u ispad sistema.",
     "tags": [
-      "qa",
-      "tools-and-trends",
-      "chaos-engineering",
-      "resilience-testing"
+      "performance-testing",
+      "ci-cd",
+      "test-strategy"
     ],
     "date": "2026-11-06",
     "readingTime": 5
@@ -128,11 +113,8 @@
     "excerpt": "How pairwise and combinatorial testing shrink a combinatorial explosion into a small, high-coverage test suite, with a worked example and tool picks.",
     "excerptSr": "Kako pairwise i kombinatorno testiranje svode kombinatornu eksploziju na mali test suite sa visokom pokrivenošću, uz razrađen primjer i preporuke alata.",
     "tags": [
-      "qa",
-      "test-automation",
-      "test-design",
-      "methodology",
-      "combinatorial-testing"
+      "test-strategy",
+      "test-automation"
     ],
     "date": "2026-11-04",
     "readingTime": 6
@@ -144,10 +126,8 @@
     "excerpt": "A vague Definition of Done lets everyone assume someone else tested the edge cases. Here's how to write one that actually catches bugs before release.",
     "excerptSr": "Nejasan Definition of Done svima dozvoljava da pretpostave da je neko drugi testirao granične slučajeve. Evo kako napisati onaj koji zaista hvata bagove prije izdanja.",
     "tags": [
-      "qa",
-      "methodology",
-      "definition-of-done",
-      "scrum"
+      "test-strategy",
+      "manual-testing"
     ],
     "date": "2026-11-02",
     "readingTime": 6
@@ -156,12 +136,11 @@
     "slug": "binance-6-3-billion-hack-devops-laptop",
     "title": "The Heist of the Century: How One Laptop Cost Binance $6.3 Billion",
     "titleSr": "Pljačka stoljeća: kako je jedan laptop koštao Binance 6,3 milijarde dolara",
-    "excerpt": "Binance lost an estimated $6.3 billion in the largest crypto theft ever, and the way in was a single compromised DevOps laptop. What happened and what to take away from it.",
+    "excerpt": "Binance lost an estimated $6.3B in the largest crypto theft ever, starting with one compromised DevOps laptop. What happened and what QA teams should learn.",
     "excerptSr": "Binance je u najvećoj kripto krađi u historiji izgubio oko 6,3 milijarde dolara, a ulaz je bio jedan kompromitovan laptop DevOps inženjera. Šta se desilo i šta iz toga treba ponijeti.",
     "tags": [
       "security-testing",
-      "real-world-use-case",
-      "fintech"
+      "real-world-bugs"
     ],
     "date": "2026-10-30",
     "readingTime": 4
@@ -173,10 +152,9 @@
     "excerpt": "Feature flag testing usually stops at on/off. The real bugs live in targeting rules, default values, and what happens when the flag service goes dark.",
     "excerptSr": "Testiranje feature flagova obično se završava na uključeno/isključeno. Pravi bagovi žive u pravilima targetiranja, podrazumijevanim vrijednostima i onome što se desi kada flag servis prestane da odgovara.",
     "tags": [
-      "qa",
-      "feature-flags",
-      "real-world-use-case",
-      "release-testing"
+      "real-world-bugs",
+      "ci-cd",
+      "test-strategy"
     ],
     "date": "2026-10-30",
     "readingTime": 6
@@ -188,10 +166,8 @@
     "excerpt": "\"Test for OWASP\" is a vague instruction. Here's how the Top 10, ASVS and ZAP fit together into test cases a QA engineer can actually run.",
     "excerptSr": "„Testirajte za OWASP\" je nejasno uputstvo. Evo kako se Top 10, ASVS i ZAP uklapaju u test slučajeve koje QA inženjer zaista može da izvrši.",
     "tags": [
-      "qa",
       "security-testing",
-      "owasp",
-      "asvs"
+      "test-strategy"
     ],
     "date": "2026-10-28",
     "readingTime": 6
@@ -203,10 +179,8 @@
     "excerpt": "AI assistants write tests as readily as code, but many of those tests pass without checking anything. Here's what to look for before merging them.",
     "excerptSr": "AI asistenti pišu testove jednako lako kao i kod, ali mnogi od tih testova prolaze a da ništa ne provjeravaju. Evo na šta treba obratiti pažnju prije nego što ih spojite.",
     "tags": [
-      "qa",
-      "ai-in-qa",
-      "test-automation",
-      "code-review"
+      "ai-testing",
+      "test-automation"
     ],
     "date": "2026-10-28",
     "readingTime": 6
@@ -218,10 +192,8 @@
     "excerpt": "How property-based testing with Hypothesis or fast-check finds edge cases example-based tests miss, and where it falls short.",
     "excerptSr": "Kako property-based testiranje uz Hypothesis ili fast-check pronalazi granične slučajeve koje testovi zasnovani na primjerima propuštaju, i gdje ima svoja ograničenja.",
     "tags": [
-      "qa",
       "test-automation",
-      "property-based-testing",
-      "methodology"
+      "test-strategy"
     ],
     "date": "2026-10-26",
     "readingTime": 6
@@ -233,10 +205,8 @@
     "excerpt": "What the PHP2Shell remote code execution bugs reveal about blind spots in typical test suites, and concrete steps to close them.",
     "excerptSr": "Šta PHP2Shell ranjivosti za udaljeno izvršavanje koda otkrivaju o slijepim tačkama tipičnih paketa testova i konkretni koraci da se one zatvore.",
     "tags": [
-      "qa",
       "security-testing",
-      "php",
-      "incident-response"
+      "real-world-bugs"
     ],
     "date": "2026-10-23",
     "readingTime": 6
@@ -248,10 +218,8 @@
     "excerpt": "Why pixel-level checks catch layout bugs functional tests miss, how to stop them from flaking, and which tools actually fit your pipeline.",
     "excerptSr": "Zašto provjere na nivou piksela hvataju greške u rasporedu koje funkcionalni testovi propuštaju, kako ih spriječiti da budu nestabilne i koji alati se zaista uklapaju u vaš pipeline.",
     "tags": [
-      "qa",
-      "visual-testing",
-      "ui-testing",
-      "tools-and-trends"
+      "test-automation",
+      "ci-cd"
     ],
     "date": "2026-10-23",
     "readingTime": 5
@@ -263,9 +231,7 @@
     "excerpt": "A checklist for testing AI agents that call tools and change real systems, beyond just grading the final text answer.",
     "excerptSr": "Lista provjera za testiranje AI agenata koji pozivaju alate i mijenjaju stvarne sisteme, koja ide dalje od ocjenjivanja konačnog tekstualnog odgovora.",
     "tags": [
-      "qa",
-      "ai-in-qa",
-      "agentic-ai",
+      "ai-testing",
       "test-automation"
     ],
     "date": "2026-10-23",
@@ -278,9 +244,7 @@
     "excerpt": "Why assert-equal breaks on LLM-powered features, and how to replace it with rubric-based and intent-based checks that actually catch regressions.",
     "excerptSr": "Zašto assert-equal ne radi na funkcijama zasnovanim na LLM-u i kako ga zamijeniti provjerama zasnovanim na rubrikama i namjeri, koje zaista hvataju regresije.",
     "tags": [
-      "qa",
-      "ai-in-qa",
-      "llm-testing",
+      "ai-testing",
       "test-automation"
     ],
     "date": "2026-10-21",
@@ -293,10 +257,8 @@
     "excerpt": "Code coverage shows which lines ran. Mutation testing shows whether your tests would notice if the logic broke. Here's how to use it.",
     "excerptSr": "Pokrivenost koda pokazuje koje su linije izvršene. Mutaciono testiranje pokazuje da li bi vaši testovi primijetili da je logika pokvarena. Evo kako da ga koristite.",
     "tags": [
-      "qa",
       "test-automation",
-      "mutation-testing",
-      "test-design"
+      "test-strategy"
     ],
     "date": "2026-10-19",
     "readingTime": 5
@@ -308,9 +270,7 @@
     "excerpt": "AI already drafts test cases and triages failures. Here's what that actually changes about QA work, and where the role is heading next.",
     "excerptSr": "AI već piše nacrte test slučajeva i sortira padove testova. Evo šta to zaista mijenja u QA poslu i kuda ta uloga ide.",
     "tags": [
-      "qa",
-      "ai-in-qa",
-      "career",
+      "ai-testing",
       "test-strategy"
     ],
     "date": "2026-10-18",
@@ -323,10 +283,8 @@
     "excerpt": "Page objects work until the suite grows. A look at when to add a flow layer, when Screenplay earns its complexity, and when to just stay put.",
     "excerptSr": "Page objekti rade dok paket testova ne naraste. Kada dodati sloj tokova, kada Screenplay opravdava svoju složenost, a kada je najbolje ostati gdje ste.",
     "tags": [
-      "qa",
       "test-automation",
-      "page-object-model",
-      "screenplay-pattern"
+      "playwright"
     ],
     "date": "2026-10-17",
     "readingTime": 5
@@ -338,10 +296,8 @@
     "excerpt": "Why scheduling and booking features break around DST transitions, and how to write tests that actually catch it.",
     "excerptSr": "Zašto funkcije zakazivanja i rezervacija pucaju oko prelaska na ljetnje i zimsko računanje vremena i kako napisati testove koji to zaista hvataju.",
     "tags": [
-      "qa",
-      "real-world-use-case",
-      "timezones",
-      "scheduling"
+      "real-world-bugs",
+      "test-strategy"
     ],
     "date": "2026-10-16",
     "readingTime": 6
@@ -353,8 +309,7 @@
     "excerpt": "Scanners like axe-core catch only a portion of real accessibility failures. Here's how to wire them into CI sensibly and what still needs a human.",
     "excerptSr": "Skeneri poput axe-core hvataju samo dio stvarnih problema sa pristupačnošću. Evo kako da ih razumno uvežete u CI i šta i dalje zahtijeva čovjeka.",
     "tags": [
-      "qa",
-      "accessibility",
+      "manual-testing",
       "test-automation",
       "ci-cd"
     ],
@@ -368,9 +323,8 @@
     "excerpt": "GenAI test data generation is everywhere, but trust in it at scale is low. Here's why realistic-looking data still misses the edge cases that break systems.",
     "excerptSr": "Generisanje testnih podataka GenAI-jem je svuda, ali povjerenje u njega na većem obimu je nisko. Evo zašto realistični podaci i dalje promaše granične slučajeve koji ruše sisteme.",
     "tags": [
-      "qa",
-      "ai-in-qa",
-      "test-data"
+      "ai-testing",
+      "test-strategy"
     ],
     "date": "2026-10-14",
     "readingTime": 5
@@ -382,11 +336,9 @@
     "excerpt": "How QA teams can turn Robot Framework tests into continuous production checks with Checkmk, plus the pitfalls to plan for.",
     "excerptSr": "Kako QA timovi mogu da pretvore Robot Framework testove u stalne provjere produkcije uz Checkmk, i na koje zamke treba računati.",
     "tags": [
-      "qa",
-      "test-automation",
-      "synthetic-monitoring",
-      "robot-framework",
-      "observability"
+      "performance-testing",
+      "ci-cd",
+      "test-automation"
     ],
     "date": "2026-10-12",
     "readingTime": 6
@@ -398,9 +350,7 @@
     "excerpt": "Pass rate and test count feel reassuring but say little about quality. Here's what to track instead, and how to read it.",
     "excerptSr": "Procenat prolaznosti i broj testova djeluju umirujuće, ali malo govore o kvalitetu. Evo šta pratiti umjesto toga i kako to čitati.",
     "tags": [
-      "qa",
-      "methodology",
-      "metrics"
+      "test-strategy"
     ],
     "date": "2026-10-12",
     "readingTime": 6
@@ -412,10 +362,9 @@
     "excerpt": "Why functional tests routinely miss the authorization bug that lets one customer see or change another's data, and how to test for it deliberately.",
     "excerptSr": "Zašto funkcionalni testovi redovno propuštaju bug u autorizaciji koji jednom korisniku dozvoljava da vidi ili mijenja tuđe podatke, i kako ga namjerno testirati.",
     "tags": [
-      "qa",
-      "api-testing",
       "security-testing",
-      "multi-tenant"
+      "api-testing",
+      "real-world-bugs"
     ],
     "date": "2026-10-09",
     "readingTime": 6
@@ -427,11 +376,9 @@
     "excerpt": "How matrix-based test sharding in GitHub Actions actually works, a real-world speedup example, and the specific ways it can quietly hide failures.",
     "excerptSr": "Kako sharding testova preko matrice u GitHub Actions zapravo radi, primjer ubrzanja iz prakse, i konkretni načini na koje može tiho da sakrije padove.",
     "tags": [
-      "qa",
-      "test-automation",
+      "playwright",
       "ci-cd",
-      "github-actions",
-      "playwright"
+      "test-automation"
     ],
     "date": "2026-10-08",
     "readingTime": 5
@@ -443,10 +390,9 @@
     "excerpt": "How Maestro's YAML flows simplify mobile E2E testing, with a working login flow example and the best practices that keep it maintainable.",
     "excerptSr": "Kako Maestro YAML tokovi pojednostavljuju E2E testiranje mobilnih aplikacija, uz radni primjer login toka i dobre prakse koje ga čine održivim.",
     "tags": [
-      "qa",
-      "test-automation",
-      "mobile",
-      "maestro"
+      "maestro",
+      "mobile-testing",
+      "test-automation"
     ],
     "date": "2026-10-06",
     "readingTime": 5
@@ -458,10 +404,8 @@
     "excerpt": "A practical structure for bug reports a developer can reproduce and fix on the first read, with a before/after example.",
     "excerptSr": "Praktična struktura prijave greške koju developer može da reprodukuje i popravi već iz prvog čitanja, uz primjer „prije i poslije\".",
     "tags": [
-      "qa",
       "manual-testing",
-      "bug-reports",
-      "methodology"
+      "test-strategy"
     ],
     "date": "2026-10-05",
     "readingTime": 5
@@ -473,8 +417,6 @@
     "excerpt": "A practical walkthrough of risk-based testing: how to score features by likelihood and impact, and use that to decide what gets tested before a deadline.",
     "excerptSr": "Praktičan vodič kroz testiranje zasnovano na riziku: kako ocijeniti funkcionalnosti po vjerovatnoći i uticaju i na osnovu toga odlučiti šta se testira prije roka.",
     "tags": [
-      "qa",
-      "risk-based-testing",
       "test-strategy"
     ],
     "date": "2026-10-04",
@@ -484,13 +426,11 @@
     "slug": "petlink-claude-code-gemini-ai-workflow",
     "title": "Building PetLink: AI as Architect, Coder and Reviewer",
     "titleSr": "Kako sam gradio PetLink: AI kao arhitekta, pisac koda i recenzent",
-    "excerpt": "The story behind PetLink, an all-in-one app for pet owners, and how I split the work between Claude Code for planning, Gemini for coding and Claude Code again for code review.",
+    "excerpt": "How I built PetLink, an all-in-one app for pet owners, splitting planning and code review with Claude Code and implementation with Gemini.",
     "excerptSr": "Priča o razvoju PetLink-a, all-in-one aplikacije za vlasnike kućnih ljubimaca, i o tome kako sam podijelio posao između Claude Code-a za planiranje, Gemini-ja za pisanje koda i ponovo Claude Code-a za code review.",
     "tags": [
-      "product-development",
-      "ai-assistants",
-      "claude-code",
-      "react-native"
+      "ai-testing",
+      "mobile-testing"
     ],
     "date": "2026-10-02",
     "readingTime": 6
@@ -502,10 +442,9 @@
     "excerpt": "How consumer-driven contract testing catches breaking API changes between services before they hit production, with a concrete example.",
     "excerptSr": "Kako ugovorno testiranje vođeno potrošačem hvata promjene koje lome API između servisa prije nego što stignu do produkcije, uz konkretan primjer.",
     "tags": [
-      "qa",
       "api-testing",
-      "contract-testing",
-      "microservices"
+      "ci-cd",
+      "test-automation"
     ],
     "date": "2026-10-02",
     "readingTime": 5
@@ -514,13 +453,11 @@
     "slug": "omarchy-linux-agentic-qa",
     "title": "Omarchy Linux, Explained: What It Is, Why It's Worth Trying, and a Real Agentic-QA Use Case",
     "titleSr": "Omarchy Linux ukratko: šta je, zašto vrijedi probati i jedan stvaran primjer agentskog QA-ja",
-    "excerpt": "What Omarchy Linux actually is, why developers and testers like it, and how its own release process uses fleets of AI agents in VMs as a QA pattern worth stealing.",
+    "excerpt": "What Omarchy Linux is, why developers and testers like it, and how its release process uses fleets of AI agents in VMs as a QA pattern worth stealing.",
     "excerptSr": "Šta je zapravo Omarchy Linux, zašto ga developeri i testeri vole i kako njegov proces izdavanja koristi flote AI agenata u virtuelnim mašinama — QA obrazac koji vrijedi preuzeti.",
     "tags": [
-      "qa",
-      "tools",
-      "linux",
-      "ai-in-qa"
+      "ai-testing",
+      "ci-cd"
     ],
     "date": "2026-09-30",
     "readingTime": 6
@@ -532,10 +469,8 @@
     "excerpt": "The newest Anthropic and OpenAI models bring cheaper agentic coding and direct GUI control — here's what that means for QA, and what it doesn't.",
     "excerptSr": "Najnoviji modeli kompanija Anthropic i OpenAI donose jeftinije agentsko kodiranje i direktnu kontrolu grafičkog interfejsa — evo šta to znači za QA, a šta ne.",
     "tags": [
-      "qa",
-      "ai-in-qa",
-      "test-automation",
-      "llm-models"
+      "ai-testing",
+      "test-automation"
     ],
     "date": "2026-09-30",
     "readingTime": 6
@@ -547,10 +482,8 @@
     "excerpt": "A practical guide to manually testing how mobile apps handle backgrounding, calls, low battery, and dropped connections.",
     "excerptSr": "Praktičan vodič za ručno testiranje toga kako se mobilne aplikacije nose sa prelaskom u pozadinu, pozivima, slabom baterijom i prekinutom konekcijom.",
     "tags": [
-      "qa",
-      "manual-testing",
-      "mobile",
-      "methodology"
+      "mobile-testing",
+      "manual-testing"
     ],
     "date": "2026-09-29",
     "readingTime": 6
@@ -562,10 +495,8 @@
     "excerpt": "Why manual testing of browser extensions needs a different checklist than testing a website, and what to check on Chrome and Edge.",
     "excerptSr": "Zašto ručno testiranje ekstenzija za pretraživač traži drugačiju čeklistu od testiranja web sajta, i šta provjeriti na Chrome-u i Edge-u.",
     "tags": [
-      "qa",
       "manual-testing",
-      "browser-extensions",
-      "methodology"
+      "test-strategy"
     ],
     "date": "2026-09-29",
     "readingTime": 6
@@ -577,10 +508,8 @@
     "excerpt": "A practical guide to prioritizing QA coverage by risk when there isn't time to test everything before a release.",
     "excerptSr": "Praktičan vodič za određivanje prioriteta QA pokrivenosti prema riziku kada nema vremena da se prije objave testira sve.",
     "tags": [
-      "qa",
-      "test-automation",
-      "methodology",
-      "risk-based-testing"
+      "test-strategy",
+      "test-automation"
     ],
     "date": "2026-09-28",
     "readingTime": 5
@@ -592,11 +521,8 @@
     "excerpt": "A practical look at testing mobile apps on Android emulators and iOS Simulators, and the common misconceptions that let real bugs through.",
     "excerptSr": "Praktičan pogled na testiranje mobilnih aplikacija na Android emulatorima i iOS Simulatoru, i na česte zablude zbog kojih stvarne greške prođu.",
     "tags": [
-      "qa",
       "mobile-testing",
-      "test-automation",
-      "android",
-      "ios"
+      "test-automation"
     ],
     "date": "2026-09-28",
     "readingTime": 6
@@ -608,10 +534,8 @@
     "excerpt": "A practical walkthrough of testing idempotency keys in payment and checkout flows, with concrete test cases for catching duplicate charges.",
     "excerptSr": "Praktičan vodič kroz testiranje idempotency ključeva u tokovima plaćanja i checkout-a, sa konkretnim test slučajevima za hvatanje duplih naplata.",
     "tags": [
-      "qa",
-      "real-world-testing",
-      "fintech",
-      "api-testing"
+      "api-testing",
+      "real-world-bugs"
     ],
     "date": "2026-09-28",
     "readingTime": 6
@@ -623,11 +547,9 @@
     "excerpt": "Why sequential idempotency tests miss checkout double-charge bugs, and how to design a test that exposes the real race.",
     "excerptSr": "Zašto sekvencijalni testovi idempotentnosti propuštaju duple naplate na checkout-u i kako napisati test koji otkriva stvarni race condition.",
     "tags": [
-      "qa",
       "api-testing",
-      "test-automation",
-      "fintech",
-      "race-conditions"
+      "real-world-bugs",
+      "test-automation"
     ],
     "date": "2026-09-25",
     "readingTime": 6
@@ -639,11 +561,7 @@
     "excerpt": "Inside the TrueNorth guide-led training model: what it teaches, how the team guide role works, and the real business case for companies.",
     "excerptSr": "Iznutra o TrueNorth modelu obuke koju vode guide-ovi: šta uči, kako funkcioniše uloga team guide-a i kakva je stvarna korist za kompanije.",
     "tags": [
-      "true-north",
-      "mentorship",
-      "career-development",
-      "qa",
-      "software-development"
+      "test-strategy"
     ],
     "date": "2026-09-25",
     "readingTime": 6
@@ -655,11 +573,9 @@
     "excerpt": "Why QA that begins at requirements, blends testing types, and closes the loop after release builds real product quality.",
     "excerptSr": "Zašto QA koji počinje već kod zahtjeva, kombinuje različite vrste testiranja i zatvara krug nakon objavljivanja gradi stvaran kvalitet proizvoda.",
     "tags": [
-      "qa",
-      "testing-philosophy",
-      "test-automation",
-      "cypress",
-      "playwright"
+      "test-strategy",
+      "playwright",
+      "test-automation"
     ],
     "date": "2026-09-24",
     "readingTime": 6
@@ -671,10 +587,8 @@
     "excerpt": "Self-healing test tools patch broken selectors automatically, but they can also hide the very defects your suite exists to catch. Here's how to use them safely.",
     "excerptSr": "Alati za samoispravljanje testova automatski krpe pokvarene selektore, ali mogu i sakriti baš one greške koje vaš skup testova treba da uhvati. Evo kako ih koristiti na siguran način.",
     "tags": [
-      "qa",
-      "ai-in-qa",
-      "test-automation",
-      "self-healing-tests"
+      "ai-testing",
+      "test-automation"
     ],
     "date": "2026-09-23",
     "readingTime": 5
@@ -686,10 +600,8 @@
     "excerpt": "Many flaky Playwright tests aren't slow, they check too early. How instant checks and missing awaits cause false failures and false passes.",
     "excerptSr": "Mnogi nestabilni Playwright testovi nisu spori, nego provjeravaju prerano. Kako trenutne provjere i zaboravljeni await uzrokuju lažne padove i lažne prolaze.",
     "tags": [
-      "qa",
-      "test-automation",
       "playwright",
-      "flaky-tests"
+      "test-automation"
     ],
     "date": "2026-09-21",
     "readingTime": 7
@@ -698,12 +610,11 @@
     "slug": "maestro-for-web-testing",
     "title": "Why Maestro Deserves a Spot in Your Web Testing Toolkit",
     "titleSr": "Zašto Maestro zaslužuje mjesto u vašem alatu za testiranje web aplikacija",
-    "excerpt": "Maestro is known as a mobile UI testing tool, but its browser support quietly closes the gap with web testing. Here's why I reach for it, and how to write your first flow.",
+    "excerpt": "Maestro is known for mobile UI testing, but its browser support now covers web apps too. Here's why I reach for it and how to write your first flow.",
     "excerptSr": "Maestro je poznat kao alat za testiranje mobilnih aplikacija, ali podrška za pretraživač tiho zatvara jaz prema web testiranju. Evo zašto ga koristim, i kako napisati svoj prvi tok.",
     "tags": [
-      "testing",
-      "automation",
-      "maestro"
+      "maestro",
+      "test-automation"
     ],
     "date": "2026-09-21",
     "readingTime": 4

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="sr" data-theme="dark" data-static-lang="sr" data-alt-url="../../../blog/api-contract-testing-breaking-changes/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kako ugovorno testiranje hvata promjene koje lome API prije nego što stignu do produkcije — Marko Lošić</title>
+  <meta name="description" content="Kako ugovorno testiranje vođeno potrošačem hvata promjene koje lome API između servisa prije nego što stignu do produkcije, uz konkretan primjer.">
+  <link rel="canonical" href="https://markolosic.github.io/sr/blog/api-contract-testing-breaking-changes/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/api-contract-testing-breaking-changes/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/api-contract-testing-breaking-changes/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/api-contract-testing-breaking-changes/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Kako ugovorno testiranje hvata promjene koje lome API prije nego što stignu do produkcije — Marko Lošić">
+  <meta property="og:description" content="Kako ugovorno testiranje vođeno potrošačem hvata promjene koje lome API između servisa prije nego što stignu do produkcije, uz konkretan primjer.">
+  <meta property="og:url" content="https://markolosic.github.io/sr/blog/api-contract-testing-breaking-changes/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/api-contract-testing-breaking-changes.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="669">
+  <meta property="og:image:alt" content="Kako ugovorno testiranje hvata promjene koje lome API prije nego što stignu do produkcije">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kako ugovorno testiranje hvata promjene koje lome API prije nego što stignu do produkcije — Marko Lošić">
+  <meta name="twitter:description" content="Kako ugovorno testiranje vođeno potrošačem hvata promjene koje lome API između servisa prije nego što stignu do produkcije, uz konkretan primjer.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/api-contract-testing-breaking-changes.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/sr/blog/api-contract-testing-breaking-changes/#article","headline":"Kako ugovorno testiranje hvata promjene koje lome API prije nego što stignu do produkcije","description":"Kako ugovorno testiranje vođeno potrošačem hvata promjene koje lome API između servisa prije nego što stignu do produkcije, uz konkretan primjer.","image":"https://markolosic.github.io/assets/blog/api-contract-testing-breaking-changes.jpg","url":"https://markolosic.github.io/sr/blog/api-contract-testing-breaking-changes/","inLanguage":"sr","wordCount":988,"articleSection":"api-testing","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/sr/blog/api-contract-testing-breaking-changes/"},"datePublished":"2026-10-02T18:00:00.000Z","dateModified":"2026-10-02T18:00:00.000Z","keywords":"api-testing, ci-cd, test-automation","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Početna","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/sr/blog/"},{"@type":"ListItem","position":3,"name":"Kako ugovorno testiranje hvata promjene koje lome API prije nego što stignu do produkcije","item":"https://markolosic.github.io/sr/blog/api-contract-testing-breaking-changes/"}]}]}</script>
+  <meta property="article:published_time" content="2026-10-02T18:00:00.000Z">
+  <meta property="article:modified_time" content="2026-10-02T18:00:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../assets/fonts.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../../#top" data-i18n="nav_about">O meni</a>
+      <a href="../../../#skills" data-i18n="nav_skills">Vještine</a>
+      <a href="../../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../../#experience" data-i18n="nav_exp">Iskustvo</a>
+      <a href="../../../#education" data-i18n="nav_edu">Obrazovanje</a>
+      <a href="../../../sr/blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../../#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span>Svi članci</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-10-02" data-fmt="long">2. oktobar 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h1>Kako ugovorno testiranje hvata promjene koje lome API prije nego što stignu do produkcije</h1>
+        <p class="lead">Kako ugovorno testiranje vođeno potrošačem hvata promjene koje lome API između servisa prije nego što stignu do produkcije, uz konkretan primjer.</p>
+        <div class="tags"><span>api-testing</span><span>ci-cd</span><span>test-automation</span></div>
+      </header>
+      <div class="prose"><p>Servis za plaćanje preimenuje polje iz <code>amount_cents</code> u <code>amountMinorUnits</code>. Svi postojeći testovi za taj servis i dalje prolaze, jer provjeravaju servis samo u odnosu na njega samog. Problem se pokaže tek kada checkout servis, koji zavisi od njega, počne da baca greške na stagingu ili, još gore, u produkciji. Ovo je jedan od najčešćih i najlakše spriječivih načina na koje mikroservisna arhitektura puca, i upravo tu rupu ugovorno testiranje (contract testing) treba da zatvori.</p>
+<p><img src="../../../assets/blog/api-contract-testing-breaking-changes.jpg" alt="Izometrijska ilustracija servisa potrošača i servisa provajdera povezanih tokom podataka; na sredini stoji stakleni &quot;ugovorni zid&quot; sa natpisom kapija za verifikaciju API ugovora, koji zaustavlja crvenu promjenu koja lomi API, gdje je polje amount_cents preimenovano u amountMinorUnits" width="1200" height="669" fetchpriority="high" decoding="async"></p>
+<h2 id="zašto-end-to-end-testovi-ovdje-nisu-dovoljni">Zašto end-to-end testovi ovdje nisu dovoljni</h2>
+<p>Puni end-to-end testovi koji podignu svaki servis i provuku stvarnu transakciju kroz sistem jesu vrijedni, ali su spori, krhki i skupi za održavanje kako broj servisa raste. Uz to često padaju iz razloga koji nemaju veze sa onim što zapravo pokušavate da provjerite: nestabilan treći servis, zajedničko testno okruženje koje ne radi, problem sa tajmingom. Timovi na to često reaguju tako što pišu manje takvih testova, a to znači i manje prilika da se neusklađenost interfejsa poput opisane uhvati prije izdavanja.</p>
+<p>Ugovorno testiranje se nalazi između unit testova i punih integracionih testova. Provjerava jednu konkretnu stvar: da li provajder (servis koji se poziva) i dalje poštuje očekivanja svojih potrošača (servisa koji ga pozivaju)? I to radi bez potrebe da oba servisa budu pokrenuta u isto vrijeme.</p>
+<h2 id="kako-radi-ugovorno-testiranje-vođeno-potrošačem">Kako radi ugovorno testiranje vođeno potrošačem</h2>
+<p>Najčešća implementacija ove ideje je ugovorno testiranje vođeno potrošačem (consumer-driven contract testing), koje je popularizovao Pact framework. Tok izgleda ovako:</p>
+<ol><li>Tim potrošača (recimo, checkout servis) piše test protiv mocka provajdera, u kojem tačno opisuje zahtjev koji će poslati i oblik odgovora koji očekuje nazad.</li><li>Pokretanje tog testa generiše &quot;pact&quot; fajl: JSON dokument koji bilježi očekivanu interakciju.</li><li>Taj pact fajl se objavljuje na zajedničko mjesto (najčešće Pact Broker ili hostovani servis kao što je PactFlow).</li><li>Tim provajdera (servis za plaćanje) preuzima svaki pact fajl objavljen za njega i ponavlja svaki zabilježeni zahtjev nad svojim stvarnim, pokrenutim API-jem. Ako se stvarni odgovor ne poklapa sa onim što potrošač očekuje, build provajdera pada.</li></ol>
+<p>Pojednostavljen test na strani potrošača mogao bi da izgleda ovako:</p>
+<pre><code class="lang-javascript">const { like } = require('@pact-foundation/pact').Matchers;
+
+describe('Checkout service talking to Payment API', () =&gt; {
+  it('requests a payment and expects a settled status', async () =&gt; {
+    await provider.addInteraction({
+      state: 'a valid card is provided',
+      uponReceiving: 'a payment request',
+      withRequest: {
+        method: 'POST',
+        path: '/payments',
+        body: { amount_cents: 1999, currency: 'USD' },
+      },
+      willRespondWith: {
+        status: 201,
+        body: { status: 'settled', id: like('pay_123') },
+      },
+    });
+
+    const result = await checkoutClient.charge(1999, 'USD');
+    expect(result.status).toBe('settled');
+  });
+});</code></pre>
+<p>Ništa ovdje ne razgovara sa stvarnim servisom za plaćanje. Test samo bilježi oblik interakcije, uključujući i to da checkout šalje <code>amount_cents</code>. CI pipeline tima za plaćanja zatim pri svakoj izmjeni, prije merge-a, provjerava svoj stvarni API u odnosu na taj zabilježeni oblik, pa se preimenovanje u <code>amountMinorUnits</code> pokaže kao pao build na strani provajdera — danima ili sedmicama prije nego što bi isplivalo kao incident u produkciji.</p>
+<h2 id="gdje-se-ovo-uklapa-u-odnosu-na-druge-pristupe">Gdje se ovo uklapa u odnosu na druge pristupe</h2>
+<p>| Pristup | Šta hvata | Brzina | Cijena održavanja |<br>|---|---|---|---|<br>| Unit testovi sa mockovima | Internu logiku, ne i stvarno odstupanje interfejsa | Brzo | Niska |<br>| Ugovorni testovi | Odstupanje interfejsa između konkretnog potrošača i provajdera | Brzo | Umjerena |<br>| Puni end-to-end testovi | Stvarno ponašanje kroz cijeli sistem | Sporo | Visoka |</p>
+<p>Nijedan od ovih pristupa ne zamjenjuje ostale. Razumna podjela je mnogo unit testova, fokusiran skup ugovornih testova oko granica servisa koje se često mijenjaju ili su već izazvale incidente, i mali broj end-to-end testova koji pokrivaju nekoliko tokova koji apsolutno ne smiju da puknu.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Ugovorno testiranje nije besplatna nadogradnja i ima stvarna ograničenja koja vrijedi znati prije uvođenja.</p>
+<p>Hvata samo neusklađenost interfejsa, ne i greške u poslovnoj logici. Ako servis za plaćanje ispravno vrati oblik koji potrošač očekuje, ali izračuna pogrešan iznos, ugovorni test to neće primijetiti. Za to su vam i dalje potrebni funkcionalni i integracioni testovi.</p>
+<p>Zahtijeva koordinaciju. Neko mora da održava broker (ili da plati hostovani), poveže webhookove tako da novi ugovor pokrene verifikacioni build provajdera, i da dobije podršku i tima potrošača i tima provajdera. U organizacijama u kojima timovi ne razgovaraju međusobno, uvođenje ugovornog testiranja će taj problem prije razotkriti nego riješiti.</p>
+<p>Ugovori mogu da zastare. Ako potrošač prestane da ažurira svoj pact fajl dok mu se stvarna upotreba mijenja, provajder &quot;bezbjedno&quot; prolazi verifikaciju nad ugovorom na koji se više niko ne oslanja, dok neki drugi, nedokumentovani potrošač puca u produkciji. Alati štite samo ono što je zaista zabilježeno.</p>
+<p>Najprirodnije je za sinhrone HTTP ili gRPC API-je. I interakcije zasnovane na događajima i asinhronim porukama mogu se modelovati na ovaj način, ali je potrebno više podešavanja i discipline da se uopšte definiše šta je &quot;ugovor&quot; za red poruka.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<p>Izaberite jedan par potrošač–provajder koji je već pucao ili se često mijenja i napišite jedan ugovorni test za njega, umjesto da pokušavate da odjednom pokrijete sve servise. Podignite Pact Broker (self-hosted verzija je besplatna) ili probnu verziju hostovane alternative, da ugovori imaju gdje da žive. Dodajte verifikaciju provajdera kao obaveznu CI provjeru prije svakog deploya tog servisa, a ne kao opcioni korak koji se lako ignoriše. Kada taj jedan par počne pouzdano da radi, proširite se na sljedeću granicu sa najvećim rizikom, umjesto da sve uvodite svuda istovremeno.</p>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://docs.pact.io/getting_started/how_pact_works" target="_blank" rel="noopener noreferrer">How Pact works</a></li><li><a href="https://martinfowler.com/articles/microservice-testing/" target="_blank" rel="noopener noreferrer">Testing Strategies in a Microservice Architecture (Martin Fowler)</a></li><li><a href="https://pactflow.io/blog/contract-testing-vs-integration-testing/" target="_blank" rel="noopener noreferrer">Contract Testing vs Integration Testing (PactFlow)</a></li></ul></div>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button">Kopiraj link</button>
+      <a class="btn primary" href="../../../#contact">Kontaktiraj me</a>
+    </div>
+    <section class="more-posts"><h2>Slični članci</h2><div class="post-grid">
+      <a class="post-card card glow" href="../load-testing-qa-teams-k6-thresholds/"><div class="meta"><time datetime="2026-11-20" data-fmt="short">20. nov 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Load testiranje za QA timove: šta k6 hvata, a šta prolazni prag i dalje može da sakrije</h3><p>Praktičan k6 vodič za QA timove: pisanje load testa, postavljanje pragova i zamke zbog kojih zelen dashboard može da zavara.</p></a>
+      <a class="post-card card glow" href="../visual-regression-testing-ui-bugs/"><div class="meta"><time datetime="2026-10-23" data-fmt="short">23. okt 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Vizuelno regresiono testiranje: kako uhvatiti UI bagove pored kojih vaši funkcionalni testovi prolaze</h3><p>Zašto provjere na nivou piksela hvataju greške u rasporedu koje funkcionalni testovi propuštaju, kako ih spriječiti da budu nestabilne i koji alati se zaista uklapaju u vaš pipeline.</p></a>
+      <a class="post-card card glow" href="../accessibility-testing-automation-coverage-gap/"><div class="meta"><time datetime="2026-10-15" data-fmt="short">15. okt 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Automatsko testiranje pristupačnosti hvata samo dio problema — evo šta zatvara jaz</h3><p>Skeneri poput axe-core hvataju samo dio stvarnih problema sa pristupačnošću. Evo kako da ih razumno uvežete u CI i šta i dalje zahtijeva čovjeka.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../../#contact" data-i18n="contact_cta">Kontaktiraj me</a>
+    <button type="button" data-consent data-i18n="cookies">Postavke kolačića</button>
+    <a href="../../../" data-i18n="back_home">Nazad na početnu ↑</a>
+  </footer>
+  <script src="../../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../../blog/common.js"></script>
+  <script src="../../../blog/post.js"></script>
+</body>
+</html>

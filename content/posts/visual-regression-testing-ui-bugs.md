@@ -3,7 +3,7 @@ title: "Visual Regression Testing: Catching the UI Bugs Your Functional Tests Wa
 title_sr: "Vizuelno regresiono testiranje: kako uhvatiti UI bagove pored kojih vaši funkcionalni testovi prolaze"
 date: 2026-10-23
 time: 12:00
-tags: [qa, visual-testing, ui-testing, tools-and-trends]
+tags: [test-automation, ci-cd]
 excerpt: Why pixel-level checks catch layout bugs functional tests miss, how to stop them from flaking, and which tools actually fit your pipeline.
 excerpt_sr: Zašto provjere na nivou piksela hvataju greške u rasporedu koje funkcionalni testovi propuštaju, kako ih spriječiti da budu nestabilne i koji alati se zaista uklapaju u vaš pipeline.
 image: assets/blog/visual-regression-testing-ui-bugs.jpg

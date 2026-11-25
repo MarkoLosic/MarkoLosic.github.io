@@ -2,7 +2,7 @@
 title: "Automated Accessibility Testing Catches Only Part of Your Problems — Here's What Closes the Gap"
 title_sr: "Automatsko testiranje pristupačnosti hvata samo dio problema — evo šta zatvara jaz"
 date: 2026-10-15
-tags: [qa, accessibility, test-automation, ci-cd]
+tags: [manual-testing, test-automation, ci-cd]
 excerpt: Scanners like axe-core catch only a portion of real accessibility failures. Here's how to wire them into CI sensibly and what still needs a human.
 excerpt_sr: Skeneri poput axe-core hvataju samo dio stvarnih problema sa pristupačnošću. Evo kako da ih razumno uvežete u CI i šta i dalje zahtijeva čovjeka.
 image: assets/blog/accessibility-testing-automation-coverage-gap.jpg

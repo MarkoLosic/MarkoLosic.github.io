@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="sr" data-theme="dark" data-static-lang="sr" data-alt-url="../../blog/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog — Marko Lošić</title>
+  <meta name="description" content="Tekstovi o QA-u, automatizaciji testiranja, mobilnom i AI testiranju i razvoju softvera — Marko Lošić.">
+  <link rel="canonical" href="https://markolosic.github.io/sr/blog/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Blog — Marko Lošić">
+  <meta property="og:description" content="Tekstovi o QA-u, automatizaciji testiranja, mobilnom i AI testiranju i razvoju softvera — Marko Lošić.">
+  <meta property="og:url" content="https://markolosic.github.io/sr/blog/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/marko.jpg">
+  <meta property="og:image:width" content="400">
+  <meta property="og:image:height" content="400">
+  <meta property="og:image:alt" content="Marko Lošić — QA inženjer">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Blog — Marko Lošić">
+  <meta name="twitter:description" content="Tekstovi o QA-u, automatizaciji testiranja, mobilnom i AI testiranju i razvoju softvera — Marko Lošić.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/marko.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Blog","@id":"https://markolosic.github.io/sr/blog/#blog","name":"Marko Lošić — Blog","inLanguage":"sr","url":"https://markolosic.github.io/sr/blog/","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"blogPost":[{"@type":"BlogPosting","headline":"Testiranje AI funkcionalnosti koje vide: QA za ulazne slike i dokumente","url":"https://markolosic.github.io/sr/blog/vision-ai-testing-image-inputs/","datePublished":"2026-11-25"},{"@type":"BlogPosting","headline":"Exploratory testiranje zasnovano na sesijama: kako ad hoc testiranje učiniti ponovljivim i mjerljivim","url":"https://markolosic.github.io/sr/blog/session-based-exploratory-testing/","datePublished":"2026-11-23"},{"@type":"BlogPosting","headline":"Load testiranje za QA timove: šta k6 hvata, a šta prolazni prag i dalje može da sakrije","url":"https://markolosic.github.io/sr/blog/load-testing-qa-teams-k6-thresholds/","datePublished":"2026-11-20"},{"@type":"BlogPosting","headline":"Testiranje RAG pipeline-a: zašto korak pretrage treba sopstveni skup testova","url":"https://markolosic.github.io/sr/blog/testing-rag-pipelines-retrieval-evaluation/","datePublished":"2026-11-18"},{"@type":"BlogPosting","headline":"Testiranje otpremanja fajlova: granični slučajevi pored kojih happy-path testovi samo prođu","url":"https://markolosic.github.io/sr/blog/file-upload-testing-edge-cases/","datePublished":"2026-11-13"},{"@type":"BlogPosting","headline":"Claude Fable 5.2 za testiranje: gdje su prednosti stvarne, a gdje prestaju","url":"https://markolosic.github.io/sr/blog/claude-fable-5-2-for-testing/","datePublished":"2026-11-11"},{"@type":"BlogPosting","headline":"Test piramida ili testing trofej: birajte oblik koji odgovara vašem riziku, a ne dijagramu","url":"https://markolosic.github.io/sr/blog/test-pyramid-vs-testing-trophy/","datePublished":"2026-11-09"},{"@type":"BlogPosting","headline":"Chaos engineering za QA timove: kako zapravo izgleda game day","url":"https://markolosic.github.io/sr/blog/chaos-engineering-game-day-qa-teams/","datePublished":"2026-11-06"},{"@type":"BlogPosting","headline":"Pairwise testiranje: kako hiljade kombinacija konfiguracije svesti na test suite koji zaista možete da pokrenete","url":"https://markolosic.github.io/sr/blog/pairwise-combinatorial-testing/","datePublished":"2026-11-04"},{"@type":"BlogPosting","headline":"Definition of Done za QA: kako se tim dogovori šta zapravo znači „testirano“","url":"https://markolosic.github.io/sr/blog/definition-of-done-for-qa/","datePublished":"2026-11-02"},{"@type":"BlogPosting","headline":"Pljačka stoljeća: kako je jedan laptop koštao Binance 6,3 milijarde dolara","url":"https://markolosic.github.io/sr/blog/binance-6-3-billion-hack-devops-laptop/","datePublished":"2026-10-30"},{"@type":"BlogPosting","headline":"Testiranje feature flagova: bagovi koji se kriju iza prekidača","url":"https://markolosic.github.io/sr/blog/testing-feature-flags-targeting-and-default-bugs/","datePublished":"2026-10-30"},{"@type":"BlogPosting","headline":"OWASP za QA: kako Top 10 i ASVS pretvoriti u konkretne test slučajeve","url":"https://markolosic.github.io/sr/blog/owasp-for-qa-top10-asvs-test-cases/","datePublished":"2026-10-28"},{"@type":"BlogPosting","headline":"Pregled testova koje je napisao AI: anti-obrasci koji promaknu na brzinu","url":"https://markolosic.github.io/sr/blog/reviewing-ai-generated-test-code-anti-patterns/","datePublished":"2026-10-28"},{"@type":"BlogPosting","headline":"Property-based testiranje: jedan test koji pokriva slučajeve kojih se nikad ne biste sjetili","url":"https://markolosic.github.io/sr/blog/property-based-testing-automated-test-generation/","datePublished":"2026-10-26"},{"@type":"BlogPosting","headline":"PHP2Shell: kako kritični RCE u jezgru PHP-a otkriva rupe u standardnim QA praksama","url":"https://markolosic.github.io/sr/blog/php2shell-rce-qa-testing-gaps/","datePublished":"2026-10-23"},{"@type":"BlogPosting","headline":"Vizuelno regresiono testiranje: kako uhvatiti UI bagove pored kojih vaši funkcionalni testovi prolaze","url":"https://markolosic.github.io/sr/blog/visual-regression-testing-ui-bugs/","datePublished":"2026-10-23"},{"@type":"BlogPosting","headline":"Testiranje AI agenata koji izvršavaju akcije: zašto odgovor koji zvuči tačno nije dovoljan","url":"https://markolosic.github.io/sr/blog/testing-ai-agents-tool-calls-side-effects/","datePublished":"2026-10-23"},{"@type":"BlogPosting","headline":"Testiranje AI funkcija koje nikad ne daju isti odgovor dvaput","url":"https://markolosic.github.io/sr/blog/testing-non-deterministic-ai-features/","datePublished":"2026-10-21"},{"@type":"BlogPosting","headline":"Mutaciono testiranje: kako da saznate da li vaši testovi zaista hvataju bagove","url":"https://markolosic.github.io/sr/blog/mutation-testing-weak-assertions/","datePublished":"2026-10-19"},{"@type":"BlogPosting","headline":"AI prepisuje opis QA posla, ali ga ne briše","url":"https://markolosic.github.io/sr/blog/ai-rewriting-qa-job-description/","datePublished":"2026-10-18"},{"@type":"BlogPosting","headline":"Kada Page Object Model prestane da se skalira: poređenje Flow modela i Screenplay obrasca","url":"https://markolosic.github.io/sr/blog/pom-alternatives-flow-model-screenplay-pattern/","datePublished":"2026-10-17"},{"@type":"BlogPosting","headline":"Testiranje kroz pomjeranje sata: bagovi u zakazivanju koji se javljaju samo dva puta godišnje","url":"https://markolosic.github.io/sr/blog/testing-dst-booking-bugs/","datePublished":"2026-10-16"},{"@type":"BlogPosting","headline":"Automatsko testiranje pristupačnosti hvata samo dio problema — evo šta zatvara jaz","url":"https://markolosic.github.io/sr/blog/accessibility-testing-automation-coverage-gap/","datePublished":"2026-10-15"},{"@type":"BlogPosting","headline":"Testni podaci generisani AI-jem: zašto izgledaju ispravno, a ipak promaše bitne bagove","url":"https://markolosic.github.io/sr/blog/ai-generated-test-data-blind-spots/","datePublished":"2026-10-14"},{"@type":"BlogPosting","headline":"Neka testovi rade i poslije objave: Checkmk Synthetic Monitoring za QA timove","url":"https://markolosic.github.io/sr/blog/checkmk-synthetic-monitoring-for-qa/","datePublished":"2026-10-12"},{"@type":"BlogPosting","headline":"QA metrike koje zaista predviđaju kvalitet (i one koje ne predviđaju)","url":"https://markolosic.github.io/sr/blog/qa-metrics-that-matter/","datePublished":"2026-10-12"},{"@type":"BlogPosting","headline":"Testiranje Broken Object-Level Authorization: provjera pristupa koju većina test skupova nikad ne proba","url":"https://markolosic.github.io/sr/blog/bola-tenant-isolation-testing/","datePublished":"2026-10-09"},{"@type":"BlogPosting","headline":"Kako podijeliti spor skup testova na GitHub Actions, a ne izgubiti signal","url":"https://markolosic.github.io/sr/blog/sharding-tests-github-actions/","datePublished":"2026-10-08"},{"@type":"BlogPosting","headline":"Pouzdana automatizacija testiranja mobilnih aplikacija uz Maestro: praktični vodič","url":"https://markolosic.github.io/sr/blog/maestro-mobile-test-automation/","datePublished":"2026-10-06"},{"@type":"BlogPosting","headline":"Prijava greške kakvu developeri zaista žele: praktični vodič","url":"https://markolosic.github.io/sr/blog/writing-bug-reports-that-get-fixed/","datePublished":"2026-10-05"},{"@type":"BlogPosting","headline":"Testiranje zasnovano na riziku: kako odlučiti šta testirati prvo kada ne možete testirati sve","url":"https://markolosic.github.io/sr/blog/risk-based-testing-prioritization/","datePublished":"2026-10-04"},{"@type":"BlogPosting","headline":"Kako sam gradio PetLink: AI kao arhitekta, pisac koda i recenzent","url":"https://markolosic.github.io/sr/blog/petlink-claude-code-gemini-ai-workflow/","datePublished":"2026-10-02"},{"@type":"BlogPosting","headline":"Kako ugovorno testiranje hvata promjene koje lome API prije nego što stignu do produkcije","url":"https://markolosic.github.io/sr/blog/api-contract-testing-breaking-changes/","datePublished":"2026-10-02"},{"@type":"BlogPosting","headline":"Omarchy Linux ukratko: šta je, zašto vrijedi probati i jedan stvaran primjer agentskog QA-ja","url":"https://markolosic.github.io/sr/blog/omarchy-linux-agentic-qa/","datePublished":"2026-09-30"},{"@type":"BlogPosting","headline":"Šta Claude Sonnet 5.5 i GPT-6 Astra zaista mijenjaju u automatizaciji testiranja","url":"https://markolosic.github.io/sr/blog/claude-sonnet-5-5-gpt-6-astra-testing/","datePublished":"2026-09-30"},{"@type":"BlogPosting","headline":"Ručno testiranje mobilnih aplikacija: zašto su prekidi važniji od klikanja po srećnom scenariju","url":"https://markolosic.github.io/sr/blog/manual-testing-mobile-apps-interruptions/","datePublished":"2026-09-29"},{"@type":"BlogPosting","headline":"Ručno testiranje Chrome i Edge ekstenzija: gdje uobičajeni pristup prestaje da radi","url":"https://markolosic.github.io/sr/blog/manually-testing-chrome-edge-extensions/","datePublished":"2026-09-29"},{"@type":"BlogPosting","headline":"Testiranje zasnovano na riziku: kako odlučiti šta nećete testirati pred rok","url":"https://markolosic.github.io/sr/blog/risk-based-testing-what-not-to-test/","datePublished":"2026-09-28"},{"@type":"BlogPosting","headline":"Testiranje mobilnih aplikacija na emulatorima i simulatorima: šta zaista hvataju, a šta tiho propuštaju","url":"https://markolosic.github.io/sr/blog/emulator-testing-misconceptions/","datePublished":"2026-09-28"},{"@type":"BlogPosting","headline":"Testiranje idempotentnosti: kako uhvatiti duple naplate prije korisnika","url":"https://markolosic.github.io/sr/blog/testing-idempotency-duplicate-charges/","datePublished":"2026-09-28"},{"@type":"BlogPosting","headline":"Testiranje dugmeta za ponovni pokušaj: kako uhvatiti duple naplate prije kupaca","url":"https://markolosic.github.io/sr/blog/testing-checkout-retry-race-conditions/","datePublished":"2026-09-25"},{"@type":"BlogPosting","headline":"Šta je zapravo TrueNorth program i šta može da donese kompaniji","url":"https://markolosic.github.io/sr/blog/true-north-guide-program/","datePublished":"2026-09-25"},{"@type":"BlogPosting","headline":"Kvalitet počinje prije prve linije koda: kako pristupam QA-u","url":"https://markolosic.github.io/sr/blog/quality-starts-before-testing/","datePublished":"2026-09-24"},{"@type":"BlogPosting","headline":"Samoispravljajući testovi: šta zaista rješavaju, a šta tiho pokvare","url":"https://markolosic.github.io/sr/blog/self-healing-tests-hidden-risk/","datePublished":"2026-09-23"},{"@type":"BlogPosting","headline":"Prerana provjera: tihi izvor nestabilnih Playwright testova","url":"https://markolosic.github.io/sr/blog/asserting-too-early-flaky-playwright-tests/","datePublished":"2026-09-21"},{"@type":"BlogPosting","headline":"Zašto Maestro zaslužuje mjesto u vašem alatu za testiranje web aplikacija","url":"https://markolosic.github.io/sr/blog/maestro-for-web-testing/","datePublished":"2026-09-21"}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Početna","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/sr/blog/"}]}]}</script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/fonts.css">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#top" data-i18n="nav_about">O meni</a>
+      <a href="../../#skills" data-i18n="nav_skills">Vještine</a>
+      <a href="../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../#experience" data-i18n="nav_exp">Iskustvo</a>
+      <a href="../../#education" data-i18n="nav_edu">Obrazovanje</a>
+      <a href="../../sr/blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap blog-wrap">
+    <section class="blog-hero">
+      <span class="eyebrow">Blog</span>
+      <h1 class="blog-title">Bilješke sa <span class="grad">testerske klupe</span>.</h1>
+      <p class="lead">Pišem o QA-u, automatizaciji testiranja, mobilnom i AI testiranju, i o tome šta učim gradeći softver.</p>
+    </section>
+    <div class="blog-tools">
+      <label class="search"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M1 0h4v1h-4zM0 1h1v1h-1zM5 1h1v1h-1zM0 2h1v1h-1zM5 2h1v1h-1zM0 3h1v1h-1zM5 3h1v1h-1zM0 4h1v1h-1zM5 4h1v1h-1zM1 5h4v1h-4zM5 6h2v1h-2zM6 7h2v1h-2zM7 8h2v1h-2z"/></svg><input id="q" type="search" placeholder="Pretraži članke…" aria-label="Pretraži članke" autocomplete="off"></label>
+      <div class="tag-row" id="tags" aria-label="Filtriraj po tagu"><button type="button" class="tag on" data-t="">Sve</button><button type="button" class="tag" data-t="ai-testing">ai-testing</button><button type="button" class="tag" data-t="api-testing">api-testing</button><button type="button" class="tag" data-t="ci-cd">ci-cd</button><button type="button" class="tag" data-t="maestro">maestro</button><button type="button" class="tag" data-t="manual-testing">manual-testing</button><button type="button" class="tag" data-t="mobile-testing">mobile-testing</button><button type="button" class="tag" data-t="performance-testing">performance-testing</button><button type="button" class="tag" data-t="playwright">playwright</button><button type="button" class="tag" data-t="real-world-bugs">real-world-bugs</button><button type="button" class="tag" data-t="security-testing">security-testing</button><button type="button" class="tag" data-t="test-automation">test-automation</button><button type="button" class="tag" data-t="test-strategy">test-strategy</button></div>
+    </div>
+    <div class="post-grid" id="posts">
+      <a class="post-card card glow featured" href="vision-ai-testing-image-inputs/" data-search="testiranje ai funkcionalnosti koje vide: qa za ulazne slike i dokumente testing ai features that see: qa for image and document inputs vision ai funkcionalnosti zakazuju na dva načina koje qa fokusiran samo na tekst propušta: loše ulazne slike i samouvjerene halucinacije. evo kako testirati oba. vision ai features fail in two ways text-only qa misses: bad input images and confident hallucinations. here's how to test for both. ai-testing test-automation" data-tags="ai-testing|test-automation">
+        <div class="meta"><time datetime="2026-11-25" data-fmt="short">25. nov 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h2>Testiranje AI funkcionalnosti koje vide: QA za ulazne slike i dokumente</h2>
+        <p>Vision AI funkcionalnosti zakazuju na dva načina koje QA fokusiran samo na tekst propušta: loše ulazne slike i samouvjerene halucinacije. Evo kako testirati oba.</p>
+        <div class="tags"><span>ai-testing</span><span>test-automation</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="session-based-exploratory-testing/" data-search="exploratory testiranje zasnovano na sesijama: kako ad hoc testiranje učiniti ponovljivim i mjerljivim session-based exploratory testing: how to make ad hoc testing repeatable and reportable kako session-based test management pretvara exploratory testiranje bez skripte u nešto što možete planirati, mjeriti i o čemu možete izvještavati, uz konkretan primjer charter-a. how session-based test management turns unscripted exploratory testing into something you can plan, measure, and report on, with a worked charter example. manual-testing test-strategy" data-tags="manual-testing|test-strategy">
+        <div class="meta"><time datetime="2026-11-23" data-fmt="short">23. nov 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h2>Exploratory testiranje zasnovano na sesijama: kako ad hoc testiranje učiniti ponovljivim i mjerljivim</h2>
+        <p>Kako session-based test management pretvara exploratory testiranje bez skripte u nešto što možete planirati, mjeriti i o čemu možete izvještavati, uz konkretan primjer charter-a.</p>
+        <div class="tags"><span>manual-testing</span><span>test-strategy</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="load-testing-qa-teams-k6-thresholds/" data-search="load testiranje za qa timove: šta k6 hvata, a šta prolazni prag i dalje može da sakrije load testing for qa teams: what k6 catches, and what a passing threshold can still hide praktičan k6 vodič za qa timove: pisanje load testa, postavljanje pragova i zamke zbog kojih zelen dashboard može da zavara. a practical k6 walkthrough for qa teams: scripting a load test, setting thresholds, and the pitfalls that make a green dashboard misleading. performance-testing test-automation ci-cd" data-tags="performance-testing|test-automation|ci-cd">
+        <div class="meta"><time datetime="2026-11-20" data-fmt="short">20. nov 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h2>Load testiranje za QA timove: šta k6 hvata, a šta prolazni prag i dalje može da sakrije</h2>
+        <p>Praktičan k6 vodič za QA timove: pisanje load testa, postavljanje pragova i zamke zbog kojih zelen dashboard može da zavara.</p>
+        <div class="tags"><span>performance-testing</span><span>test-automation</span><span>ci-cd</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="testing-rag-pipelines-retrieval-evaluation/" data-search="testiranje rag pipeline-a: zašto korak pretrage treba sopstveni skup testova testing rag pipelines: why your retrieval step needs its own test suite rag sistemi tiho otkazuju kada pretraga pogriješi. evo kako testirati pretragu i generisanje odvojeno, uz konkretan primjer i metriku koju vrijedi pratiti. rag systems fail quietly when retrieval goes wrong. here's how to test retrieval and generation separately, with a worked example and a metric to watch. ai-testing test-automation" data-tags="ai-testing|test-automation">
+        <div class="meta"><time datetime="2026-11-18" data-fmt="short">18. nov 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h2>Testiranje RAG pipeline-a: zašto korak pretrage treba sopstveni skup testova</h2>
+        <p>RAG sistemi tiho otkazuju kada pretraga pogriješi. Evo kako testirati pretragu i generisanje odvojeno, uz konkretan primjer i metriku koju vrijedi pratiti.</p>
+        <div class="tags"><span>ai-testing</span><span>test-automation</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="file-upload-testing-edge-cases/" data-search="testiranje otpremanja fajlova: granični slučajevi pored kojih happy-path testovi samo prođu testing file uploads: the edge cases a happy-path suite walks right past zašto funkcije za otpremanje fajlova pucaju u produkciji i kako testirati ograničenja veličine, lažiranje tipa fajla, istovremena otpremanja i prekinute prenose. why file upload features break in production and how to test size limits, type spoofing, concurrency, and interrupted transfers. security-testing real-world-bugs manual-testing" data-tags="security-testing|real-world-bugs|manual-testing">
+        <div class="meta"><time datetime="2026-11-13" data-fmt="short">13. nov 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h2>Testiranje otpremanja fajlova: granični slučajevi pored kojih happy-path testovi samo prođu</h2>
+        <p>Zašto funkcije za otpremanje fajlova pucaju u produkciji i kako testirati ograničenja veličine, lažiranje tipa fajla, istovremena otpremanja i prekinute prenose.</p>
+        <div class="tags"><span>security-testing</span><span>real-world-bugs</span><span>manual-testing</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="claude-fable-5-2-for-testing/" data-search="claude fable 5.2 za testiranje: gdje su prednosti stvarne, a gdje prestaju claude fable 5.2 for testing: where the advantages are real and where they stop šta claude fable 5.2 mijenja u qa radu: duga agentska izvršavanja, upravljanje računarom, vid i cijena, uz jasno navedena ograničenja. what claude fable 5.2 changes for qa work: long agentic runs, computer use, vision and cost, with the limits spelled out. ai-testing test-automation" data-tags="ai-testing|test-automation">
+        <div class="meta"><time datetime="2026-11-11" data-fmt="short">11. nov 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h2>Claude Fable 5.2 za testiranje: gdje su prednosti stvarne, a gdje prestaju</h2>
+        <p>Šta Claude Fable 5.2 mijenja u QA radu: duga agentska izvršavanja, upravljanje računarom, vid i cijena, uz jasno navedena ograničenja.</p>
+        <div class="tags"><span>ai-testing</span><span>test-automation</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="test-pyramid-vs-testing-trophy/" data-search="test piramida ili testing trofej: birajte oblik koji odgovara vašem riziku, a ne dijagramu test pyramid or testing trophy: picking the shape that matches your risk, not the diagram test piramida i testing trofej daju suprotne savjete o tome gdje da uložite testove. evo kako da odlučite koji oblik zaista odgovara vašem kodu. the test pyramid and testing trophy give opposite advice on where to put your tests. here's how to decide which shape actually fits your codebase. test-strategy test-automation" data-tags="test-strategy|test-automation">
+        <div class="meta"><time datetime="2026-11-09" data-fmt="short">9. nov 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h2>Test piramida ili testing trofej: birajte oblik koji odgovara vašem riziku, a ne dijagramu</h2>
+        <p>Test piramida i testing trofej daju suprotne savjete o tome gdje da uložite testove. Evo kako da odlučite koji oblik zaista odgovara vašem kodu.</p>
+        <div class="tags"><span>test-strategy</span><span>test-automation</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="chaos-engineering-game-day-qa-teams/" data-search="chaos engineering za qa timove: kako zapravo izgleda game day chaos engineering for qa teams: what a game day actually looks like praktičan pogled na chaos engineering alate i kako organizovati game day za testiranje otpornosti, a da se on ne pretvori u ispad sistema. a practical look at chaos engineering tools and how to run a resilience game day without turning it into an outage. performance-testing ci-cd test-strategy" data-tags="performance-testing|ci-cd|test-strategy">
+        <div class="meta"><time datetime="2026-11-06" data-fmt="short">6. nov 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h2>Chaos engineering za QA timove: kako zapravo izgleda game day</h2>
+        <p>Praktičan pogled na chaos engineering alate i kako organizovati game day za testiranje otpornosti, a da se on ne pretvori u ispad sistema.</p>
+        <div class="tags"><span>performance-testing</span><span>ci-cd</span><span>test-strategy</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="pairwise-combinatorial-testing/" data-search="pairwise testiranje: kako hiljade kombinacija konfiguracije svesti na test suite koji zaista možete da pokrenete pairwise testing: cutting thousands of config combinations down to a suite you can actually run kako pairwise i kombinatorno testiranje svode kombinatornu eksploziju na mali test suite sa visokom pokrivenošću, uz razrađen primjer i preporuke alata. how pairwise and combinatorial testing shrink a combinatorial explosion into a small, high-coverage test suite, with a worked example and tool picks. test-strategy test-automation" data-tags="test-strategy|test-automation">
+        <div class="meta"><time datetime="2026-11-04" data-fmt="short">4. nov 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h2>Pairwise testiranje: kako hiljade kombinacija konfiguracije svesti na test suite koji zaista možete da pokrenete</h2>
+        <p>Kako pairwise i kombinatorno testiranje svode kombinatornu eksploziju na mali test suite sa visokom pokrivenošću, uz razrađen primjer i preporuke alata.</p>
+        <div class="tags"><span>test-strategy</span><span>test-automation</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="definition-of-done-for-qa/" data-search="definition of done za qa: kako se tim dogovori šta zapravo znači „testirano“ definition of done for qa: how teams agree on what 'tested' actually means nejasan definition of done svima dozvoljava da pretpostave da je neko drugi testirao granične slučajeve. evo kako napisati onaj koji zaista hvata bagove prije izdanja. a vague definition of done lets everyone assume someone else tested the edge cases. here's how to write one that actually catches bugs before release. test-strategy manual-testing" data-tags="test-strategy|manual-testing">
+        <div class="meta"><time datetime="2026-11-02" data-fmt="short">2. nov 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h2>Definition of Done za QA: kako se tim dogovori šta zapravo znači „testirano“</h2>
+        <p>Nejasan Definition of Done svima dozvoljava da pretpostave da je neko drugi testirao granične slučajeve. Evo kako napisati onaj koji zaista hvata bagove prije izdanja.</p>
+        <div class="tags"><span>test-strategy</span><span>manual-testing</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="binance-6-3-billion-hack-devops-laptop/" data-search="pljačka stoljeća: kako je jedan laptop koštao binance 6,3 milijarde dolara the heist of the century: how one laptop cost binance $6.3 billion binance je u najvećoj kripto krađi u historiji izgubio oko 6,3 milijarde dolara, a ulaz je bio jedan kompromitovan laptop devops inženjera. šta se desilo i šta iz toga treba ponijeti. binance lost an estimated $6.3b in the largest crypto theft ever, starting with one compromised devops laptop. what happened and what qa teams should learn. security-testing real-world-bugs" data-tags="security-testing|real-world-bugs">
+        <div class="meta"><time datetime="2026-10-30" data-fmt="short">30. okt 2026.</time><span>·</span><span>3 min čitanja</span></div>
+        <h2>Pljačka stoljeća: kako je jedan laptop koštao Binance 6,3 milijarde dolara</h2>
+        <p>Binance je u najvećoj kripto krađi u historiji izgubio oko 6,3 milijarde dolara, a ulaz je bio jedan kompromitovan laptop DevOps inženjera. Šta se desilo i šta iz toga treba ponijeti.</p>
+        <div class="tags"><span>security-testing</span><span>real-world-bugs</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="testing-feature-flags-targeting-and-default-bugs/" data-search="testiranje feature flagova: bagovi koji se kriju iza prekidača testing feature flags: the bugs that hide behind the switch testiranje feature flagova obično se završava na uključeno/isključeno. pravi bagovi žive u pravilima targetiranja, podrazumijevanim vrijednostima i onome što se desi kada flag servis prestane da odgovara. feature flag testing usually stops at on/off. the real bugs live in targeting rules, default values, and what happens when the flag service goes dark. real-world-bugs ci-cd test-strategy" data-tags="real-world-bugs|ci-cd|test-strategy">
+        <div class="meta"><time datetime="2026-10-30" data-fmt="short">30. okt 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h2>Testiranje feature flagova: bagovi koji se kriju iza prekidača</h2>
+        <p>Testiranje feature flagova obično se završava na uključeno/isključeno. Pravi bagovi žive u pravilima targetiranja, podrazumijevanim vrijednostima i onome što se desi kada flag servis prestane da odgovara.</p>
+        <div class="tags"><span>real-world-bugs</span><span>ci-cd</span><span>test-strategy</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="owasp-for-qa-top10-asvs-test-cases/" data-search="owasp za qa: kako top 10 i asvs pretvoriti u konkretne test slučajeve owasp for qa: turning the top 10 and asvs into actual test cases „testirajte za owasp&quot; je nejasno uputstvo. evo kako se top 10, asvs i zap uklapaju u test slučajeve koje qa inženjer zaista može da izvrši. &quot;test for owasp&quot; is a vague instruction. here's how the top 10, asvs and zap fit together into test cases a qa engineer can actually run. security-testing test-strategy" data-tags="security-testing|test-strategy">
+        <div class="meta"><time datetime="2026-10-28" data-fmt="short">28. okt 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h2>OWASP za QA: kako Top 10 i ASVS pretvoriti u konkretne test slučajeve</h2>
+        <p>„Testirajte za OWASP&quot; je nejasno uputstvo. Evo kako se Top 10, ASVS i ZAP uklapaju u test slučajeve koje QA inženjer zaista može da izvrši.</p>
+        <div class="tags"><span>security-testing</span><span>test-strategy</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="reviewing-ai-generated-test-code-anti-patterns/" data-search="pregled testova koje je napisao ai: anti-obrasci koji promaknu na brzinu reviewing ai-generated test code: the anti-patterns that slip past a quick look ai asistenti pišu testove jednako lako kao i kod, ali mnogi od tih testova prolaze a da ništa ne provjeravaju. evo na šta treba obratiti pažnju prije nego što ih spojite. ai assistants write tests as readily as code, but many of those tests pass without checking anything. here's what to look for before merging them. ai-testing test-automation" data-tags="ai-testing|test-automation">
+        <div class="meta"><time datetime="2026-10-28" data-fmt="short">28. okt 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h2>Pregled testova koje je napisao AI: anti-obrasci koji promaknu na brzinu</h2>
+        <p>AI asistenti pišu testove jednako lako kao i kod, ali mnogi od tih testova prolaze a da ništa ne provjeravaju. Evo na šta treba obratiti pažnju prije nego što ih spojite.</p>
+        <div class="tags"><span>ai-testing</span><span>test-automation</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="property-based-testing-automated-test-generation/" data-search="property-based testiranje: jedan test koji pokriva slučajeve kojih se nikad ne biste sjetili property-based testing: one test that covers cases you'd never think to write kako property-based testiranje uz hypothesis ili fast-check pronalazi granične slučajeve koje testovi zasnovani na primjerima propuštaju, i gdje ima svoja ograničenja. how property-based testing with hypothesis or fast-check finds edge cases example-based tests miss, and where it falls short. test-automation test-strategy" data-tags="test-automation|test-strategy">
+        <div class="meta"><time datetime="2026-10-26" data-fmt="short">26. okt 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h2>Property-based testiranje: jedan test koji pokriva slučajeve kojih se nikad ne biste sjetili</h2>
+        <p>Kako property-based testiranje uz Hypothesis ili fast-check pronalazi granične slučajeve koje testovi zasnovani na primjerima propuštaju, i gdje ima svoja ograničenja.</p>
+        <div class="tags"><span>test-automation</span><span>test-strategy</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="php2shell-rce-qa-testing-gaps/" data-search="php2shell: kako kritični rce u jezgru php-a otkriva rupe u standardnim qa praksama php2shell: how a critical php core rce exposes gaps in standard qa practices šta php2shell ranjivosti za udaljeno izvršavanje koda otkrivaju o slijepim tačkama tipičnih paketa testova i konkretni koraci da se one zatvore. what the php2shell remote code execution bugs reveal about blind spots in typical test suites, and concrete steps to close them. security-testing real-world-bugs" data-tags="security-testing|real-world-bugs">
+        <div class="meta"><time datetime="2026-10-23" data-fmt="short">23. okt 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h2>PHP2Shell: kako kritični RCE u jezgru PHP-a otkriva rupe u standardnim QA praksama</h2>
+        <p>Šta PHP2Shell ranjivosti za udaljeno izvršavanje koda otkrivaju o slijepim tačkama tipičnih paketa testova i konkretni koraci da se one zatvore.</p>
+        <div class="tags"><span>security-testing</span><span>real-world-bugs</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="visual-regression-testing-ui-bugs/" data-search="vizuelno regresiono testiranje: kako uhvatiti ui bagove pored kojih vaši funkcionalni testovi prolaze visual regression testing: catching the ui bugs your functional tests walk right past zašto provjere na nivou piksela hvataju greške u rasporedu koje funkcionalni testovi propuštaju, kako ih spriječiti da budu nestabilne i koji alati se zaista uklapaju u vaš pipeline. why pixel-level checks catch layout bugs functional tests miss, how to stop them from flaking, and which tools actually fit your pipeline. test-automation ci-cd" data-tags="test-automation|ci-cd">
+        <div class="meta"><time datetime="2026-10-23" data-fmt="short">23. okt 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h2>Vizuelno regresiono testiranje: kako uhvatiti UI bagove pored kojih vaši funkcionalni testovi prolaze</h2>
+        <p>Zašto provjere na nivou piksela hvataju greške u rasporedu koje funkcionalni testovi propuštaju, kako ih spriječiti da budu nestabilne i koji alati se zaista uklapaju u vaš pipeline.</p>
+        <div class="tags"><span>test-automation</span><span>ci-cd</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="testing-ai-agents-tool-calls-side-effects/" data-search="testiranje ai agenata koji izvršavaju akcije: zašto odgovor koji zvuči tačno nije dovoljan testing ai agents that take actions: why a correct-sounding answer isn't enough lista provjera za testiranje ai agenata koji pozivaju alate i mijenjaju stvarne sisteme, koja ide dalje od ocjenjivanja konačnog tekstualnog odgovora. a checklist for testing ai agents that call tools and change real systems, beyond just grading the final text answer. ai-testing test-automation" data-tags="ai-testing|test-automation">
+        <div class="meta"><time datetime="2026-10-23" data-fmt="short">23. okt 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h2>Testiranje AI agenata koji izvršavaju akcije: zašto odgovor koji zvuči tačno nije dovoljan</h2>
+        <p>Lista provjera za testiranje AI agenata koji pozivaju alate i mijenjaju stvarne sisteme, koja ide dalje od ocjenjivanja konačnog tekstualnog odgovora.</p>
+        <div class="tags"><span>ai-testing</span><span>test-automation</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="testing-non-deterministic-ai-features/" data-search="testiranje ai funkcija koje nikad ne daju isti odgovor dvaput testing ai features that don't give the same answer twice zašto assert-equal ne radi na funkcijama zasnovanim na llm-u i kako ga zamijeniti provjerama zasnovanim na rubrikama i namjeri, koje zaista hvataju regresije. why assert-equal breaks on llm-powered features, and how to replace it with rubric-based and intent-based checks that actually catch regressions. ai-testing test-automation" data-tags="ai-testing|test-automation">
+        <div class="meta"><time datetime="2026-10-21" data-fmt="short">21. okt 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h2>Testiranje AI funkcija koje nikad ne daju isti odgovor dvaput</h2>
+        <p>Zašto assert-equal ne radi na funkcijama zasnovanim na LLM-u i kako ga zamijeniti provjerama zasnovanim na rubrikama i namjeri, koje zaista hvataju regresije.</p>
+        <div class="tags"><span>ai-testing</span><span>test-automation</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="mutation-testing-weak-assertions/" data-search="mutaciono testiranje: kako da saznate da li vaši testovi zaista hvataju bagove mutation testing: how to tell if your test suite actually catches bugs pokrivenost koda pokazuje koje su linije izvršene. mutaciono testiranje pokazuje da li bi vaši testovi primijetili da je logika pokvarena. evo kako da ga koristite. code coverage shows which lines ran. mutation testing shows whether your tests would notice if the logic broke. here's how to use it. test-automation test-strategy" data-tags="test-automation|test-strategy">
+        <div class="meta"><time datetime="2026-10-19" data-fmt="short">19. okt 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h2>Mutaciono testiranje: kako da saznate da li vaši testovi zaista hvataju bagove</h2>
+        <p>Pokrivenost koda pokazuje koje su linije izvršene. Mutaciono testiranje pokazuje da li bi vaši testovi primijetili da je logika pokvarena. Evo kako da ga koristite.</p>
+        <div class="tags"><span>test-automation</span><span>test-strategy</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="ai-rewriting-qa-job-description/" data-search="ai prepisuje opis qa posla, ali ga ne briše ai is rewriting the qa job description, not deleting it ai već piše nacrte test slučajeva i sortira padove testova. evo šta to zaista mijenja u qa poslu i kuda ta uloga ide. ai already drafts test cases and triages failures. here's what that actually changes about qa work, and where the role is heading next. ai-testing test-strategy" data-tags="ai-testing|test-strategy">
+        <div class="meta"><time datetime="2026-10-18" data-fmt="short">18. okt 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h2>AI prepisuje opis QA posla, ali ga ne briše</h2>
+        <p>AI već piše nacrte test slučajeva i sortira padove testova. Evo šta to zaista mijenja u QA poslu i kuda ta uloga ide.</p>
+        <div class="tags"><span>ai-testing</span><span>test-strategy</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="pom-alternatives-flow-model-screenplay-pattern/" data-search="kada page object model prestane da se skalira: poređenje flow modela i screenplay obrasca when your page object model stops scaling: flow model and screenplay pattern compared page objekti rade dok paket testova ne naraste. kada dodati sloj tokova, kada screenplay opravdava svoju složenost, a kada je najbolje ostati gdje ste. page objects work until the suite grows. a look at when to add a flow layer, when screenplay earns its complexity, and when to just stay put. test-automation playwright" data-tags="test-automation|playwright">
+        <div class="meta"><time datetime="2026-10-17" data-fmt="short">17. okt 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h2>Kada Page Object Model prestane da se skalira: poređenje Flow modela i Screenplay obrasca</h2>
+        <p>Page objekti rade dok paket testova ne naraste. Kada dodati sloj tokova, kada Screenplay opravdava svoju složenost, a kada je najbolje ostati gdje ste.</p>
+        <div class="tags"><span>test-automation</span><span>playwright</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="testing-dst-booking-bugs/" data-search="testiranje kroz pomjeranje sata: bagovi u zakazivanju koji se javljaju samo dva puta godišnje testing across daylight saving time: the booking bugs that only show up twice a year zašto funkcije zakazivanja i rezervacija pucaju oko prelaska na ljetnje i zimsko računanje vremena i kako napisati testove koji to zaista hvataju. why scheduling and booking features break around dst transitions, and how to write tests that actually catch it. real-world-bugs test-strategy" data-tags="real-world-bugs|test-strategy">
+        <div class="meta"><time datetime="2026-10-16" data-fmt="short">16. okt 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h2>Testiranje kroz pomjeranje sata: bagovi u zakazivanju koji se javljaju samo dva puta godišnje</h2>
+        <p>Zašto funkcije zakazivanja i rezervacija pucaju oko prelaska na ljetnje i zimsko računanje vremena i kako napisati testove koji to zaista hvataju.</p>
+        <div class="tags"><span>real-world-bugs</span><span>test-strategy</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="accessibility-testing-automation-coverage-gap/" data-search="automatsko testiranje pristupačnosti hvata samo dio problema — evo šta zatvara jaz automated accessibility testing catches only part of your problems — here's what closes the gap skeneri poput axe-core hvataju samo dio stvarnih problema sa pristupačnošću. evo kako da ih razumno uvežete u ci i šta i dalje zahtijeva čovjeka. scanners like axe-core catch only a portion of real accessibility failures. here's how to wire them into ci sensibly and what still needs a human. manual-testing test-automation ci-cd" data-tags="manual-testing|test-automation|ci-cd">
+        <div class="meta"><time datetime="2026-10-15" data-fmt="short">15. okt 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h2>Automatsko testiranje pristupačnosti hvata samo dio problema — evo šta zatvara jaz</h2>
+        <p>Skeneri poput axe-core hvataju samo dio stvarnih problema sa pristupačnošću. Evo kako da ih razumno uvežete u CI i šta i dalje zahtijeva čovjeka.</p>
+        <div class="tags"><span>manual-testing</span><span>test-automation</span><span>ci-cd</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="ai-generated-test-data-blind-spots/" data-search="testni podaci generisani ai-jem: zašto izgledaju ispravno, a ipak promaše bitne bagove ai-generated test data: why it looks right and still misses the bugs that matter generisanje testnih podataka genai-jem je svuda, ali povjerenje u njega na većem obimu je nisko. evo zašto realistični podaci i dalje promaše granične slučajeve koji ruše sisteme. genai test data generation is everywhere, but trust in it at scale is low. here's why realistic-looking data still misses the edge cases that break systems. ai-testing test-strategy" data-tags="ai-testing|test-strategy">
+        <div class="meta"><time datetime="2026-10-14" data-fmt="short">14. okt 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h2>Testni podaci generisani AI-jem: zašto izgledaju ispravno, a ipak promaše bitne bagove</h2>
+        <p>Generisanje testnih podataka GenAI-jem je svuda, ali povjerenje u njega na većem obimu je nisko. Evo zašto realistični podaci i dalje promaše granične slučajeve koji ruše sisteme.</p>
+        <div class="tags"><span>ai-testing</span><span>test-strategy</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="checkmk-synthetic-monitoring-for-qa/" data-search="neka testovi rade i poslije objave: checkmk synthetic monitoring za qa timove keep your tests running after release: checkmk synthetic monitoring for qa teams kako qa timovi mogu da pretvore robot framework testove u stalne provjere produkcije uz checkmk, i na koje zamke treba računati. how qa teams can turn robot framework tests into continuous production checks with checkmk, plus the pitfalls to plan for. performance-testing ci-cd test-automation" data-tags="performance-testing|ci-cd|test-automation">
+        <div class="meta"><time datetime="2026-10-12" data-fmt="short">12. okt 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h2>Neka testovi rade i poslije objave: Checkmk Synthetic Monitoring za QA timove</h2>
+        <p>Kako QA timovi mogu da pretvore Robot Framework testove u stalne provjere produkcije uz Checkmk, i na koje zamke treba računati.</p>
+        <div class="tags"><span>performance-testing</span><span>ci-cd</span><span>test-automation</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="qa-metrics-that-matter/" data-search="qa metrike koje zaista predviđaju kvalitet (i one koje ne predviđaju) the qa metrics that actually predict quality (and the ones that don't) procenat prolaznosti i broj testova djeluju umirujuće, ali malo govore o kvalitetu. evo šta pratiti umjesto toga i kako to čitati. pass rate and test count feel reassuring but say little about quality. here's what to track instead, and how to read it. test-strategy" data-tags="test-strategy">
+        <div class="meta"><time datetime="2026-10-12" data-fmt="short">12. okt 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h2>QA metrike koje zaista predviđaju kvalitet (i one koje ne predviđaju)</h2>
+        <p>Procenat prolaznosti i broj testova djeluju umirujuće, ali malo govore o kvalitetu. Evo šta pratiti umjesto toga i kako to čitati.</p>
+        <div class="tags"><span>test-strategy</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="bola-tenant-isolation-testing/" data-search="testiranje broken object-level authorization: provjera pristupa koju većina test skupova nikad ne proba testing for broken object-level authorization: the access check most test suites never try zašto funkcionalni testovi redovno propuštaju bug u autorizaciji koji jednom korisniku dozvoljava da vidi ili mijenja tuđe podatke, i kako ga namjerno testirati. why functional tests routinely miss the authorization bug that lets one customer see or change another's data, and how to test for it deliberately. security-testing api-testing real-world-bugs" data-tags="security-testing|api-testing|real-world-bugs">
+        <div class="meta"><time datetime="2026-10-09" data-fmt="short">9. okt 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h2>Testiranje Broken Object-Level Authorization: provjera pristupa koju većina test skupova nikad ne proba</h2>
+        <p>Zašto funkcionalni testovi redovno propuštaju bug u autorizaciji koji jednom korisniku dozvoljava da vidi ili mijenja tuđe podatke, i kako ga namjerno testirati.</p>
+        <div class="tags"><span>security-testing</span><span>api-testing</span><span>real-world-bugs</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="sharding-tests-github-actions/" data-search="kako podijeliti spor skup testova na github actions, a ne izgubiti signal splitting a slow test suite across github actions without losing signal kako sharding testova preko matrice u github actions zapravo radi, primjer ubrzanja iz prakse, i konkretni načini na koje može tiho da sakrije padove. how matrix-based test sharding in github actions actually works, a real-world speedup example, and the specific ways it can quietly hide failures. playwright ci-cd test-automation" data-tags="playwright|ci-cd|test-automation">
+        <div class="meta"><time datetime="2026-10-08" data-fmt="short">8. okt 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h2>Kako podijeliti spor skup testova na GitHub Actions, a ne izgubiti signal</h2>
+        <p>Kako sharding testova preko matrice u GitHub Actions zapravo radi, primjer ubrzanja iz prakse, i konkretni načini na koje može tiho da sakrije padove.</p>
+        <div class="tags"><span>playwright</span><span>ci-cd</span><span>test-automation</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="maestro-mobile-test-automation/" data-search="pouzdana automatizacija testiranja mobilnih aplikacija uz maestro: praktični vodič writing reliable mobile test automation with maestro: a practical guide kako maestro yaml tokovi pojednostavljuju e2e testiranje mobilnih aplikacija, uz radni primjer login toka i dobre prakse koje ga čine održivim. how maestro's yaml flows simplify mobile e2e testing, with a working login flow example and the best practices that keep it maintainable. maestro mobile-testing test-automation" data-tags="maestro|mobile-testing|test-automation">
+        <div class="meta"><time datetime="2026-10-06" data-fmt="short">6. okt 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h2>Pouzdana automatizacija testiranja mobilnih aplikacija uz Maestro: praktični vodič</h2>
+        <p>Kako Maestro YAML tokovi pojednostavljuju E2E testiranje mobilnih aplikacija, uz radni primjer login toka i dobre prakse koje ga čine održivim.</p>
+        <div class="tags"><span>maestro</span><span>mobile-testing</span><span>test-automation</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="writing-bug-reports-that-get-fixed/" data-search="prijava greške kakvu developeri zaista žele: praktični vodič the bug report developers actually want: a field guide praktična struktura prijave greške koju developer može da reprodukuje i popravi već iz prvog čitanja, uz primjer „prije i poslije&quot;. a practical structure for bug reports a developer can reproduce and fix on the first read, with a before/after example. manual-testing test-strategy" data-tags="manual-testing|test-strategy">
+        <div class="meta"><time datetime="2026-10-05" data-fmt="short">5. okt 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h2>Prijava greške kakvu developeri zaista žele: praktični vodič</h2>
+        <p>Praktična struktura prijave greške koju developer može da reprodukuje i popravi već iz prvog čitanja, uz primjer „prije i poslije&quot;.</p>
+        <div class="tags"><span>manual-testing</span><span>test-strategy</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="risk-based-testing-prioritization/" data-search="testiranje zasnovano na riziku: kako odlučiti šta testirati prvo kada ne možete testirati sve risk-based testing: how to decide what to test first when you can't test everything praktičan vodič kroz testiranje zasnovano na riziku: kako ocijeniti funkcionalnosti po vjerovatnoći i uticaju i na osnovu toga odlučiti šta se testira prije roka. a practical walkthrough of risk-based testing: how to score features by likelihood and impact, and use that to decide what gets tested before a deadline. test-strategy" data-tags="test-strategy">
+        <div class="meta"><time datetime="2026-10-04" data-fmt="short">4. okt 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h2>Testiranje zasnovano na riziku: kako odlučiti šta testirati prvo kada ne možete testirati sve</h2>
+        <p>Praktičan vodič kroz testiranje zasnovano na riziku: kako ocijeniti funkcionalnosti po vjerovatnoći i uticaju i na osnovu toga odlučiti šta se testira prije roka.</p>
+        <div class="tags"><span>test-strategy</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="petlink-claude-code-gemini-ai-workflow/" data-search="kako sam gradio petlink: ai kao arhitekta, pisac koda i recenzent building petlink: ai as architect, coder and reviewer priča o razvoju petlink-a, all-in-one aplikacije za vlasnike kućnih ljubimaca, i o tome kako sam podijelio posao između claude code-a za planiranje, gemini-ja za pisanje koda i ponovo claude code-a za code review. how i built petlink, an all-in-one app for pet owners, splitting planning and code review with claude code and implementation with gemini. ai-testing mobile-testing" data-tags="ai-testing|mobile-testing">
+        <div class="meta"><time datetime="2026-10-02" data-fmt="short">2. okt 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h2>Kako sam gradio PetLink: AI kao arhitekta, pisac koda i recenzent</h2>
+        <p>Priča o razvoju PetLink-a, all-in-one aplikacije za vlasnike kućnih ljubimaca, i o tome kako sam podijelio posao između Claude Code-a za planiranje, Gemini-ja za pisanje koda i ponovo Claude Code-a za code review.</p>
+        <div class="tags"><span>ai-testing</span><span>mobile-testing</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="api-contract-testing-breaking-changes/" data-search="kako ugovorno testiranje hvata promjene koje lome api prije nego što stignu do produkcije catching breaking api changes before they reach production with contract testing kako ugovorno testiranje vođeno potrošačem hvata promjene koje lome api između servisa prije nego što stignu do produkcije, uz konkretan primjer. how consumer-driven contract testing catches breaking api changes between services before they hit production, with a concrete example. api-testing ci-cd test-automation" data-tags="api-testing|ci-cd|test-automation">
+        <div class="meta"><time datetime="2026-10-02" data-fmt="short">2. okt 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h2>Kako ugovorno testiranje hvata promjene koje lome API prije nego što stignu do produkcije</h2>
+        <p>Kako ugovorno testiranje vođeno potrošačem hvata promjene koje lome API između servisa prije nego što stignu do produkcije, uz konkretan primjer.</p>
+        <div class="tags"><span>api-testing</span><span>ci-cd</span><span>test-automation</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="omarchy-linux-agentic-qa/" data-search="omarchy linux ukratko: šta je, zašto vrijedi probati i jedan stvaran primjer agentskog qa-ja omarchy linux, explained: what it is, why it's worth trying, and a real agentic-qa use case šta je zapravo omarchy linux, zašto ga developeri i testeri vole i kako njegov proces izdavanja koristi flote ai agenata u virtuelnim mašinama — qa obrazac koji vrijedi preuzeti. what omarchy linux is, why developers and testers like it, and how its release process uses fleets of ai agents in vms as a qa pattern worth stealing. ai-testing ci-cd" data-tags="ai-testing|ci-cd">
+        <div class="meta"><time datetime="2026-09-30" data-fmt="short">30. sep 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h2>Omarchy Linux ukratko: šta je, zašto vrijedi probati i jedan stvaran primjer agentskog QA-ja</h2>
+        <p>Šta je zapravo Omarchy Linux, zašto ga developeri i testeri vole i kako njegov proces izdavanja koristi flote AI agenata u virtuelnim mašinama — QA obrazac koji vrijedi preuzeti.</p>
+        <div class="tags"><span>ai-testing</span><span>ci-cd</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="claude-sonnet-5-5-gpt-6-astra-testing/" data-search="šta claude sonnet 5.5 i gpt-6 astra zaista mijenjaju u automatizaciji testiranja what claude sonnet 5.5 and gpt-6 astra actually change for test automation najnoviji modeli kompanija anthropic i openai donose jeftinije agentsko kodiranje i direktnu kontrolu grafičkog interfejsa — evo šta to znači za qa, a šta ne. the newest anthropic and openai models bring cheaper agentic coding and direct gui control — here's what that means for qa, and what it doesn't. ai-testing test-automation" data-tags="ai-testing|test-automation">
+        <div class="meta"><time datetime="2026-09-30" data-fmt="short">30. sep 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h2>Šta Claude Sonnet 5.5 i GPT-6 Astra zaista mijenjaju u automatizaciji testiranja</h2>
+        <p>Najnoviji modeli kompanija Anthropic i OpenAI donose jeftinije agentsko kodiranje i direktnu kontrolu grafičkog interfejsa — evo šta to znači za QA, a šta ne.</p>
+        <div class="tags"><span>ai-testing</span><span>test-automation</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="manual-testing-mobile-apps-interruptions/" data-search="ručno testiranje mobilnih aplikacija: zašto su prekidi važniji od klikanja po srećnom scenariju manual testing for mobile apps: why interruptions matter more than happy-path clicks praktičan vodič za ručno testiranje toga kako se mobilne aplikacije nose sa prelaskom u pozadinu, pozivima, slabom baterijom i prekinutom konekcijom. a practical guide to manually testing how mobile apps handle backgrounding, calls, low battery, and dropped connections. mobile-testing manual-testing" data-tags="mobile-testing|manual-testing">
+        <div class="meta"><time datetime="2026-09-29" data-fmt="short">29. sep 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h2>Ručno testiranje mobilnih aplikacija: zašto su prekidi važniji od klikanja po srećnom scenariju</h2>
+        <p>Praktičan vodič za ručno testiranje toga kako se mobilne aplikacije nose sa prelaskom u pozadinu, pozivima, slabom baterijom i prekinutom konekcijom.</p>
+        <div class="tags"><span>mobile-testing</span><span>manual-testing</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="manually-testing-chrome-edge-extensions/" data-search="ručno testiranje chrome i edge ekstenzija: gdje uobičajeni pristup prestaje da radi manually testing chrome and edge extensions: where the usual playbook breaks down zašto ručno testiranje ekstenzija za pretraživač traži drugačiju čeklistu od testiranja web sajta, i šta provjeriti na chrome-u i edge-u. why manual testing of browser extensions needs a different checklist than testing a website, and what to check on chrome and edge. manual-testing test-strategy" data-tags="manual-testing|test-strategy">
+        <div class="meta"><time datetime="2026-09-29" data-fmt="short">29. sep 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h2>Ručno testiranje Chrome i Edge ekstenzija: gdje uobičajeni pristup prestaje da radi</h2>
+        <p>Zašto ručno testiranje ekstenzija za pretraživač traži drugačiju čeklistu od testiranja web sajta, i šta provjeriti na Chrome-u i Edge-u.</p>
+        <div class="tags"><span>manual-testing</span><span>test-strategy</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="risk-based-testing-what-not-to-test/" data-search="testiranje zasnovano na riziku: kako odlučiti šta nećete testirati pred rok risk-based testing: how to decide what not to test before a deadline praktičan vodič za određivanje prioriteta qa pokrivenosti prema riziku kada nema vremena da se prije objave testira sve. a practical guide to prioritizing qa coverage by risk when there isn't time to test everything before a release. test-strategy test-automation" data-tags="test-strategy|test-automation">
+        <div class="meta"><time datetime="2026-09-28" data-fmt="short">28. sep 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h2>Testiranje zasnovano na riziku: kako odlučiti šta nećete testirati pred rok</h2>
+        <p>Praktičan vodič za određivanje prioriteta QA pokrivenosti prema riziku kada nema vremena da se prije objave testira sve.</p>
+        <div class="tags"><span>test-strategy</span><span>test-automation</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="emulator-testing-misconceptions/" data-search="testiranje mobilnih aplikacija na emulatorima i simulatorima: šta zaista hvataju, a šta tiho propuštaju emulator and simulator testing for mobile apps: what they actually catch, and what they quietly miss praktičan pogled na testiranje mobilnih aplikacija na android emulatorima i ios simulatoru, i na česte zablude zbog kojih stvarne greške prođu. a practical look at testing mobile apps on android emulators and ios simulators, and the common misconceptions that let real bugs through. mobile-testing test-automation" data-tags="mobile-testing|test-automation">
+        <div class="meta"><time datetime="2026-09-28" data-fmt="short">28. sep 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h2>Testiranje mobilnih aplikacija na emulatorima i simulatorima: šta zaista hvataju, a šta tiho propuštaju</h2>
+        <p>Praktičan pogled na testiranje mobilnih aplikacija na Android emulatorima i iOS Simulatoru, i na česte zablude zbog kojih stvarne greške prođu.</p>
+        <div class="tags"><span>mobile-testing</span><span>test-automation</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="testing-idempotency-duplicate-charges/" data-search="testiranje idempotentnosti: kako uhvatiti duple naplate prije korisnika testing idempotency: how to catch duplicate-charge bugs before your users do praktičan vodič kroz testiranje idempotency ključeva u tokovima plaćanja i checkout-a, sa konkretnim test slučajevima za hvatanje duplih naplata. a practical walkthrough of testing idempotency keys in payment and checkout flows, with concrete test cases for catching duplicate charges. api-testing real-world-bugs" data-tags="api-testing|real-world-bugs">
+        <div class="meta"><time datetime="2026-09-28" data-fmt="short">28. sep 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h2>Testiranje idempotentnosti: kako uhvatiti duple naplate prije korisnika</h2>
+        <p>Praktičan vodič kroz testiranje idempotency ključeva u tokovima plaćanja i checkout-a, sa konkretnim test slučajevima za hvatanje duplih naplata.</p>
+        <div class="tags"><span>api-testing</span><span>real-world-bugs</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="testing-checkout-retry-race-conditions/" data-search="testiranje dugmeta za ponovni pokušaj: kako uhvatiti duple naplate prije kupaca testing the retry button: catching duplicate-charge race conditions before customers do zašto sekvencijalni testovi idempotentnosti propuštaju duple naplate na checkout-u i kako napisati test koji otkriva stvarni race condition. why sequential idempotency tests miss checkout double-charge bugs, and how to design a test that exposes the real race. api-testing real-world-bugs test-automation" data-tags="api-testing|real-world-bugs|test-automation">
+        <div class="meta"><time datetime="2026-09-25" data-fmt="short">25. sep 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h2>Testiranje dugmeta za ponovni pokušaj: kako uhvatiti duple naplate prije kupaca</h2>
+        <p>Zašto sekvencijalni testovi idempotentnosti propuštaju duple naplate na checkout-u i kako napisati test koji otkriva stvarni race condition.</p>
+        <div class="tags"><span>api-testing</span><span>real-world-bugs</span><span>test-automation</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="true-north-guide-program/" data-search="šta je zapravo truenorth program i šta može da donese kompaniji what the truenorth program actually is, and what it can do for a company iznutra o truenorth modelu obuke koju vode guide-ovi: šta uči, kako funkcioniše uloga team guide-a i kakva je stvarna korist za kompanije. inside the truenorth guide-led training model: what it teaches, how the team guide role works, and the real business case for companies. test-strategy" data-tags="test-strategy">
+        <div class="meta"><time datetime="2026-09-25" data-fmt="short">25. sep 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h2>Šta je zapravo TrueNorth program i šta može da donese kompaniji</h2>
+        <p>Iznutra o TrueNorth modelu obuke koju vode guide-ovi: šta uči, kako funkcioniše uloga team guide-a i kakva je stvarna korist za kompanije.</p>
+        <div class="tags"><span>test-strategy</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="quality-starts-before-testing/" data-search="kvalitet počinje prije prve linije koda: kako pristupam qa-u quality starts before the first line of code: how i approach qa zašto qa koji počinje već kod zahtjeva, kombinuje različite vrste testiranja i zatvara krug nakon objavljivanja gradi stvaran kvalitet proizvoda. why qa that begins at requirements, blends testing types, and closes the loop after release builds real product quality. test-strategy playwright test-automation" data-tags="test-strategy|playwright|test-automation">
+        <div class="meta"><time datetime="2026-09-24" data-fmt="short">24. sep 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h2>Kvalitet počinje prije prve linije koda: kako pristupam QA-u</h2>
+        <p>Zašto QA koji počinje već kod zahtjeva, kombinuje različite vrste testiranja i zatvara krug nakon objavljivanja gradi stvaran kvalitet proizvoda.</p>
+        <div class="tags"><span>test-strategy</span><span>playwright</span><span>test-automation</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="self-healing-tests-hidden-risk/" data-search="samoispravljajući testovi: šta zaista rješavaju, a šta tiho pokvare self-healing tests: what they actually fix, and what they quietly break alati za samoispravljanje testova automatski krpe pokvarene selektore, ali mogu i sakriti baš one greške koje vaš skup testova treba da uhvati. evo kako ih koristiti na siguran način. self-healing test tools patch broken selectors automatically, but they can also hide the very defects your suite exists to catch. here's how to use them safely. ai-testing test-automation" data-tags="ai-testing|test-automation">
+        <div class="meta"><time datetime="2026-09-23" data-fmt="short">23. sep 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h2>Samoispravljajući testovi: šta zaista rješavaju, a šta tiho pokvare</h2>
+        <p>Alati za samoispravljanje testova automatski krpe pokvarene selektore, ali mogu i sakriti baš one greške koje vaš skup testova treba da uhvati. Evo kako ih koristiti na siguran način.</p>
+        <div class="tags"><span>ai-testing</span><span>test-automation</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="asserting-too-early-flaky-playwright-tests/" data-search="prerana provjera: tihi izvor nestabilnih playwright testova asserting too early: the quiet source of flaky playwright tests mnogi nestabilni playwright testovi nisu spori, nego provjeravaju prerano. kako trenutne provjere i zaboravljeni await uzrokuju lažne padove i lažne prolaze. many flaky playwright tests aren't slow, they check too early. how instant checks and missing awaits cause false failures and false passes. playwright test-automation" data-tags="playwright|test-automation">
+        <div class="meta"><time datetime="2026-09-21" data-fmt="short">21. sep 2026.</time><span>·</span><span>7 min čitanja</span></div>
+        <h2>Prerana provjera: tihi izvor nestabilnih Playwright testova</h2>
+        <p>Mnogi nestabilni Playwright testovi nisu spori, nego provjeravaju prerano. Kako trenutne provjere i zaboravljeni await uzrokuju lažne padove i lažne prolaze.</p>
+        <div class="tags"><span>playwright</span><span>test-automation</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+      <a class="post-card card glow" href="maestro-for-web-testing/" data-search="zašto maestro zaslužuje mjesto u vašem alatu za testiranje web aplikacija why maestro deserves a spot in your web testing toolkit maestro je poznat kao alat za testiranje mobilnih aplikacija, ali podrška za pretraživač tiho zatvara jaz prema web testiranju. evo zašto ga koristim, i kako napisati svoj prvi tok. maestro is known for mobile ui testing, but its browser support now covers web apps too. here's why i reach for it and how to write your first flow. maestro test-automation" data-tags="maestro|test-automation">
+        <div class="meta"><time datetime="2026-09-21" data-fmt="short">21. sep 2026.</time><span>·</span><span>4 min čitanja</span></div>
+        <h2>Zašto Maestro zaslužuje mjesto u vašem alatu za testiranje web aplikacija</h2>
+        <p>Maestro je poznat kao alat za testiranje mobilnih aplikacija, ali podrška za pretraživač tiho zatvara jaz prema web testiranju. Evo zašto ga koristim, i kako napisati svoj prvi tok.</p>
+        <div class="tags"><span>maestro</span><span>test-automation</span></div>
+        <span class="more">Pročitaj članak <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></span>
+      </a>
+    <p class="state" id="none" hidden>Nijedan članak ne odgovara pretrazi.</p></div>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Kontaktiraj me</a>
+    <button type="button" data-consent data-i18n="cookies">Postavke kolačića</button>
+    <a href="../../" data-i18n="back_home">Nazad na početnu ↑</a>
+  </footer>
+  <script src="../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../blog/common.js"></script>
+  <script src="../../blog/blog.js"></script>
+</body>
+</html>

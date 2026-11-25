@@ -3,7 +3,7 @@ title: "Testing Feature Flags: The Bugs That Hide Behind the Switch"
 title_sr: "Testiranje feature flagova: bagovi koji se kriju iza prekidača"
 date: 2026-10-30
 time: 12:00
-tags: [qa, feature-flags, real-world-use-case, release-testing]
+tags: [real-world-bugs, ci-cd, test-strategy]
 excerpt: Feature flag testing usually stops at on/off. The real bugs live in targeting rules, default values, and what happens when the flag service goes dark.
 excerpt_sr: Testiranje feature flagova obično se završava na uključeno/isključeno. Pravi bagovi žive u pravilima targetiranja, podrazumijevanim vrijednostima i onome što se desi kada flag servis prestane da odgovara.
 image: assets/blog/testing-feature-flags-targeting-and-default-bugs.jpg

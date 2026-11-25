@@ -3,7 +3,7 @@ title: "OWASP for QA: Turning the Top 10 and ASVS Into Actual Test Cases"
 title_sr: "OWASP za QA: kako Top 10 i ASVS pretvoriti u konkretne test slučajeve"
 date: 2026-10-28
 time: 12:00
-tags: [qa, security-testing, owasp, asvs]
+tags: [security-testing, test-strategy]
 excerpt: "Test for OWASP" is a vague instruction. Here's how the Top 10, ASVS and ZAP fit together into test cases a QA engineer can actually run.
 excerpt_sr: „Testirajte za OWASP" je nejasno uputstvo. Evo kako se Top 10, ASVS i ZAP uklapaju u test slučajeve koje QA inženjer zaista može da izvrši.
 image: assets/blog/owasp-for-qa-top10-asvs-test-cases.jpg
@@ -54,6 +54,9 @@ Passing a Top 10 checklist is not the same as being secure; it's a prioritized l
 - Take one Top 10 category this sprint and translate one or two of its matching ASVS requirements into actual, repeatable test cases, rather than trying to cover the whole list at once.
 - Add a ZAP baseline scan to CI as a first pass for configuration-level issues, and route its findings into your normal backlog instead of treating a clean scan as a security sign-off.
 - Revisit which Top 10 categories apply to your systems when a new version ships; the 2025 list added supply-chain and exception-handling risk that many existing test plans don't cover yet.
+
+For concrete security test scenarios, see [Testing for Broken Object-Level Authorization (BOLA)](/blog/bola-tenant-isolation-testing/), [Testing File Uploads: Edge Cases](/blog/file-upload-testing-edge-cases/), and [PHP2Shell and QA Testing Gaps](/blog/php2shell-rce-qa-testing-gaps/).
+
 
 ## Sources
 
@@ -108,6 +111,9 @@ Prolazak kroz Top 10 checklistu nije isto što i bezbjednost; to je prioritizova
 - U ovom sprintu uzmite jednu Top 10 kategoriju i jedan ili dva odgovarajuća ASVS zahtjeva pretvorite u stvarne, ponovljive test slučajeve, umjesto da pokušavate da odjednom pokrijete cijelu listu.
 - Dodajte ZAP baseline skeniranje u CI kao prvi prolaz za probleme na nivou konfiguracije i njegove nalaze usmjerite u svoj uobičajeni backlog, umjesto da čisto skeniranje tretirate kao bezbjednosno odobrenje.
 - Kada izađe nova verzija, ponovo procijenite koje se Top 10 kategorije odnose na vaše sisteme; lista iz 2025. dodala je rizike lanca snabdijevanja i rukovanja izuzecima koje mnogi postojeći test planovi još ne pokrivaju.
+
+Za konkretne bezbjednosne scenarije pogledaj članke [Testiranje BOLA propusta i izolacije tenanata](/sr/blog/bola-tenant-isolation-testing/), [Testiranje uploada fajlova: granični slučajevi](/sr/blog/file-upload-testing-edge-cases/) i [PHP2Shell i rupe u standardnoj QA praksi](/sr/blog/php2shell-rce-qa-testing-gaps/).
+
 
 ## Izvori
 

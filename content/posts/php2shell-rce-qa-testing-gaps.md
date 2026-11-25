@@ -3,7 +3,7 @@ title: "PHP2Shell: How a Critical PHP Core RCE Exposes Gaps in Standard QA Pract
 title_sr: "PHP2Shell: kako kritični RCE u jezgru PHP-a otkriva rupe u standardnim QA praksama"
 date: 2026-10-23
 time: 15:00
-tags: [qa, security-testing, php, incident-response]
+tags: [security-testing, real-world-bugs]
 excerpt: What the PHP2Shell remote code execution bugs reveal about blind spots in typical test suites, and concrete steps to close them.
 excerpt_sr: Šta PHP2Shell ranjivosti za udaljeno izvršavanje koda otkrivaju o slijepim tačkama tipičnih paketa testova i konkretni koraci da se one zatvore.
 image: assets/blog/php2shell-rce-qa-testing-gaps.jpg

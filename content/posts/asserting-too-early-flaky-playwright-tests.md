@@ -2,7 +2,7 @@
 title: Asserting Too Early: The Quiet Source of Flaky Playwright Tests
 title_sr: Prerana provjera: tihi izvor nestabilnih Playwright testova
 date: 2026-09-21
-tags: [qa, test-automation, playwright, flaky-tests]
+tags: [playwright, test-automation]
 excerpt: Many flaky Playwright tests aren't slow, they check too early. How instant checks and missing awaits cause false failures and false passes.
 excerpt_sr: Mnogi nestabilni Playwright testovi nisu spori, nego provjeravaju prerano. Kako trenutne provjere i zaboravljeni await uzrokuju lažne padove i lažne prolaze.
 image: assets/blog/asserting-too-early-flaky-playwright-tests.png
@@ -116,12 +116,17 @@ BrowserStack's guide on Playwright waits suggests choosing the wait that matches
 3. Pair every negative assertion with a positive one that proves the operation finished.
 4. Keep traces on failure paths. The docs suggest recording a trace on the first retry in CI rather than for every test, because tracing everything is heavy. In `playwright.config.ts`, set `use: { trace: 'on-first-retry' }`, then open the trace to see what the page looked like at the moment of failure.
 
+To see how Playwright fits into a full CI quality gate, read [my QA pipeline walkthrough](/pipeline/), as well as [Splitting a Slow Test Suite Across GitHub Actions](/blog/sharding-tests-github-actions/) and [When Your Page Object Model Stops Scaling](/blog/pom-alternatives-flow-model-screenplay-pattern/).
+
+
 ## Sources
 
 - Best Practices | Playwright
 - Playwright Waits: Auto-Waiting, Assertions, and Best Practices | BrowserStack
 - How to Detect and Avoid Playwright Flaky Tests | BrowserStack
+
 <!--sr-->
+
 Kad Playwright test padne jednom u dvadeset pokretanja, uobičajeni savjet je da se doda čekanje. Ali dublji problem je često drugačiji: test gleda stranicu u pogrešnom trenutku. Aplikaciju provjeri jednom, odmah, umjesto da provjerava sve dok se aplikacija ne smiri. Ta jedna navika proizvodi dvije vrste nestabilnosti, a drugu je mnogo teže uočiti.
 
 ## Problem: test koji pogleda samo jednom
@@ -230,6 +235,9 @@ BrowserStack-ov vodič o Playwright čekanjima predlaže da izaberete čekanje k
 2. Uključite pravilo `no-floating-promises` da zaboravljen `await` obori lint korak umjesto da tiho prođe.
 3. Uz svaku negativnu provjeru stavite pozitivnu koja dokazuje da je operacija završena.
 4. Zadržite trace za putanje s greškom. Dokumentacija predlaže snimanje trace-a pri prvom ponovnom pokušaju na CI-ju, a ne za svaki test, jer je snimanje svega zahtjevno. U `playwright.config.ts` postavite `use: { trace: 'on-first-retry' }`, pa otvorite trace da vidite kako je stranica izgledala u trenutku pada.
+
+Kako se Playwright uklapa u kompletan CI quality gate možeš vidjeti u [prikazu mog QA pipeline-a](/pipeline/), uz povezane članke [Kako podijeliti spor skup testova kroz GitHub Actions](/sr/blog/sharding-tests-github-actions/) i [Kada Page Object Model prestane da skalira](/sr/blog/pom-alternatives-flow-model-screenplay-pattern/).
+
 
 ## Izvori
 

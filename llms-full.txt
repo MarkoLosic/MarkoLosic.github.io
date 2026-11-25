@@ -1,0 +1,342 @@
+# Marko Lošić — Complete Site & Blog Index
+
+> QA Engineer in Banja Luka, Bosnia and Herzegovina (6+ years). Playwright (C#), Maestro, Cypress, Docker, GitHub Actions, Jenkins, LLM testing, Oracle APEX / SQL.
+
+- Portfolio: https://markolosic.github.io/
+- CV (text): https://markolosic.github.io/cv.txt
+- Case Study — QA Pipeline: https://markolosic.github.io/pipeline/
+- Case Study — Testing Local LLMs: https://markolosic.github.io/llm-testing/
+- Blog (EN): https://markolosic.github.io/blog/
+- Blog (SR): https://markolosic.github.io/sr/blog/
+- RSS: https://markolosic.github.io/rss.xml
+
+## All Blog Articles (47)
+
+### Testing AI Features That See: QA for Image and Document Inputs
+- URL (EN): https://markolosic.github.io/blog/vision-ai-testing-image-inputs/
+- URL (SR): https://markolosic.github.io/sr/blog/vision-ai-testing-image-inputs/
+- Date: 2026-11-25
+- Tags: ai-testing, test-automation
+- Summary: Vision AI features fail in two ways text-only QA misses: bad input images and confident hallucinations. Here's how to test for both.
+
+### Session-Based Exploratory Testing: How to Make Ad Hoc Testing Repeatable and Reportable
+- URL (EN): https://markolosic.github.io/blog/session-based-exploratory-testing/
+- URL (SR): https://markolosic.github.io/sr/blog/session-based-exploratory-testing/
+- Date: 2026-11-23
+- Tags: manual-testing, test-strategy
+- Summary: How session-based test management turns unscripted exploratory testing into something you can plan, measure, and report on, with a worked charter example.
+
+### Load Testing for QA Teams: What k6 Catches, and What a Passing Threshold Can Still Hide
+- URL (EN): https://markolosic.github.io/blog/load-testing-qa-teams-k6-thresholds/
+- URL (SR): https://markolosic.github.io/sr/blog/load-testing-qa-teams-k6-thresholds/
+- Date: 2026-11-20
+- Tags: performance-testing, test-automation, ci-cd
+- Summary: A practical k6 walkthrough for QA teams: scripting a load test, setting thresholds, and the pitfalls that make a green dashboard misleading.
+
+### Testing RAG Pipelines: Why Your Retrieval Step Needs Its Own Test Suite
+- URL (EN): https://markolosic.github.io/blog/testing-rag-pipelines-retrieval-evaluation/
+- URL (SR): https://markolosic.github.io/sr/blog/testing-rag-pipelines-retrieval-evaluation/
+- Date: 2026-11-18
+- Tags: ai-testing, test-automation
+- Summary: RAG systems fail quietly when retrieval goes wrong. Here's how to test retrieval and generation separately, with a worked example and a metric to watch.
+
+### Testing File Uploads: The Edge Cases a Happy-Path Suite Walks Right Past
+- URL (EN): https://markolosic.github.io/blog/file-upload-testing-edge-cases/
+- URL (SR): https://markolosic.github.io/sr/blog/file-upload-testing-edge-cases/
+- Date: 2026-11-13
+- Tags: security-testing, real-world-bugs, manual-testing
+- Summary: Why file upload features break in production and how to test size limits, type spoofing, concurrency, and interrupted transfers.
+
+### Claude Fable 5.2 for Testing: Where the Advantages Are Real and Where They Stop
+- URL (EN): https://markolosic.github.io/blog/claude-fable-5-2-for-testing/
+- URL (SR): https://markolosic.github.io/sr/blog/claude-fable-5-2-for-testing/
+- Date: 2026-11-11
+- Tags: ai-testing, test-automation
+- Summary: What Claude Fable 5.2 changes for QA work: long agentic runs, computer use, vision and cost, with the limits spelled out.
+
+### Test Pyramid or Testing Trophy: Picking the Shape That Matches Your Risk, Not the Diagram
+- URL (EN): https://markolosic.github.io/blog/test-pyramid-vs-testing-trophy/
+- URL (SR): https://markolosic.github.io/sr/blog/test-pyramid-vs-testing-trophy/
+- Date: 2026-11-09
+- Tags: test-strategy, test-automation
+- Summary: The test pyramid and testing trophy give opposite advice on where to put your tests. Here's how to decide which shape actually fits your codebase.
+
+### Chaos Engineering for QA Teams: What a Game Day Actually Looks Like
+- URL (EN): https://markolosic.github.io/blog/chaos-engineering-game-day-qa-teams/
+- URL (SR): https://markolosic.github.io/sr/blog/chaos-engineering-game-day-qa-teams/
+- Date: 2026-11-06
+- Tags: performance-testing, ci-cd, test-strategy
+- Summary: A practical look at chaos engineering tools and how to run a resilience game day without turning it into an outage.
+
+### Pairwise Testing: Cutting Thousands of Config Combinations Down to a Suite You Can Actually Run
+- URL (EN): https://markolosic.github.io/blog/pairwise-combinatorial-testing/
+- URL (SR): https://markolosic.github.io/sr/blog/pairwise-combinatorial-testing/
+- Date: 2026-11-04
+- Tags: test-strategy, test-automation
+- Summary: How pairwise and combinatorial testing shrink a combinatorial explosion into a small, high-coverage test suite, with a worked example and tool picks.
+
+### Definition of Done for QA: How Teams Agree on What 'Tested' Actually Means
+- URL (EN): https://markolosic.github.io/blog/definition-of-done-for-qa/
+- URL (SR): https://markolosic.github.io/sr/blog/definition-of-done-for-qa/
+- Date: 2026-11-02
+- Tags: test-strategy, manual-testing
+- Summary: A vague Definition of Done lets everyone assume someone else tested the edge cases. Here's how to write one that actually catches bugs before release.
+
+### The Heist of the Century: How One Laptop Cost Binance $6.3 Billion
+- URL (EN): https://markolosic.github.io/blog/binance-6-3-billion-hack-devops-laptop/
+- URL (SR): https://markolosic.github.io/sr/blog/binance-6-3-billion-hack-devops-laptop/
+- Date: 2026-10-30
+- Tags: security-testing, real-world-bugs
+- Summary: Binance lost an estimated $6.3B in the largest crypto theft ever, starting with one compromised DevOps laptop. What happened and what QA teams should learn.
+
+### Testing Feature Flags: The Bugs That Hide Behind the Switch
+- URL (EN): https://markolosic.github.io/blog/testing-feature-flags-targeting-and-default-bugs/
+- URL (SR): https://markolosic.github.io/sr/blog/testing-feature-flags-targeting-and-default-bugs/
+- Date: 2026-10-30
+- Tags: real-world-bugs, ci-cd, test-strategy
+- Summary: Feature flag testing usually stops at on/off. The real bugs live in targeting rules, default values, and what happens when the flag service goes dark.
+
+### OWASP for QA: Turning the Top 10 and ASVS Into Actual Test Cases
+- URL (EN): https://markolosic.github.io/blog/owasp-for-qa-top10-asvs-test-cases/
+- URL (SR): https://markolosic.github.io/sr/blog/owasp-for-qa-top10-asvs-test-cases/
+- Date: 2026-10-28
+- Tags: security-testing, test-strategy
+- Summary: "Test for OWASP" is a vague instruction. Here's how the Top 10, ASVS and ZAP fit together into test cases a QA engineer can actually run.
+
+### Reviewing AI-Generated Test Code: The Anti-Patterns That Slip Past a Quick Look
+- URL (EN): https://markolosic.github.io/blog/reviewing-ai-generated-test-code-anti-patterns/
+- URL (SR): https://markolosic.github.io/sr/blog/reviewing-ai-generated-test-code-anti-patterns/
+- Date: 2026-10-28
+- Tags: ai-testing, test-automation
+- Summary: AI assistants write tests as readily as code, but many of those tests pass without checking anything. Here's what to look for before merging them.
+
+### Property-Based Testing: One Test That Covers Cases You'd Never Think to Write
+- URL (EN): https://markolosic.github.io/blog/property-based-testing-automated-test-generation/
+- URL (SR): https://markolosic.github.io/sr/blog/property-based-testing-automated-test-generation/
+- Date: 2026-10-26
+- Tags: test-automation, test-strategy
+- Summary: How property-based testing with Hypothesis or fast-check finds edge cases example-based tests miss, and where it falls short.
+
+### PHP2Shell: How a Critical PHP Core RCE Exposes Gaps in Standard QA Practices
+- URL (EN): https://markolosic.github.io/blog/php2shell-rce-qa-testing-gaps/
+- URL (SR): https://markolosic.github.io/sr/blog/php2shell-rce-qa-testing-gaps/
+- Date: 2026-10-23
+- Tags: security-testing, real-world-bugs
+- Summary: What the PHP2Shell remote code execution bugs reveal about blind spots in typical test suites, and concrete steps to close them.
+
+### Visual Regression Testing: Catching the UI Bugs Your Functional Tests Walk Right Past
+- URL (EN): https://markolosic.github.io/blog/visual-regression-testing-ui-bugs/
+- URL (SR): https://markolosic.github.io/sr/blog/visual-regression-testing-ui-bugs/
+- Date: 2026-10-23
+- Tags: test-automation, ci-cd
+- Summary: Why pixel-level checks catch layout bugs functional tests miss, how to stop them from flaking, and which tools actually fit your pipeline.
+
+### Testing AI Agents That Take Actions: Why a Correct-Sounding Answer Isn't Enough
+- URL (EN): https://markolosic.github.io/blog/testing-ai-agents-tool-calls-side-effects/
+- URL (SR): https://markolosic.github.io/sr/blog/testing-ai-agents-tool-calls-side-effects/
+- Date: 2026-10-23
+- Tags: ai-testing, test-automation
+- Summary: A checklist for testing AI agents that call tools and change real systems, beyond just grading the final text answer.
+
+### Testing AI Features That Don't Give the Same Answer Twice
+- URL (EN): https://markolosic.github.io/blog/testing-non-deterministic-ai-features/
+- URL (SR): https://markolosic.github.io/sr/blog/testing-non-deterministic-ai-features/
+- Date: 2026-10-21
+- Tags: ai-testing, test-automation
+- Summary: Why assert-equal breaks on LLM-powered features, and how to replace it with rubric-based and intent-based checks that actually catch regressions.
+
+### Mutation Testing: How to Tell If Your Test Suite Actually Catches Bugs
+- URL (EN): https://markolosic.github.io/blog/mutation-testing-weak-assertions/
+- URL (SR): https://markolosic.github.io/sr/blog/mutation-testing-weak-assertions/
+- Date: 2026-10-19
+- Tags: test-automation, test-strategy
+- Summary: Code coverage shows which lines ran. Mutation testing shows whether your tests would notice if the logic broke. Here's how to use it.
+
+### AI Is Rewriting the QA Job Description, Not Deleting It
+- URL (EN): https://markolosic.github.io/blog/ai-rewriting-qa-job-description/
+- URL (SR): https://markolosic.github.io/sr/blog/ai-rewriting-qa-job-description/
+- Date: 2026-10-18
+- Tags: ai-testing, test-strategy
+- Summary: AI already drafts test cases and triages failures. Here's what that actually changes about QA work, and where the role is heading next.
+
+### When Your Page Object Model Stops Scaling: Flow Model and Screenplay Pattern Compared
+- URL (EN): https://markolosic.github.io/blog/pom-alternatives-flow-model-screenplay-pattern/
+- URL (SR): https://markolosic.github.io/sr/blog/pom-alternatives-flow-model-screenplay-pattern/
+- Date: 2026-10-17
+- Tags: test-automation, playwright
+- Summary: Page objects work until the suite grows. A look at when to add a flow layer, when Screenplay earns its complexity, and when to just stay put.
+
+### Testing Across Daylight Saving Time: The Booking Bugs That Only Show Up Twice a Year
+- URL (EN): https://markolosic.github.io/blog/testing-dst-booking-bugs/
+- URL (SR): https://markolosic.github.io/sr/blog/testing-dst-booking-bugs/
+- Date: 2026-10-16
+- Tags: real-world-bugs, test-strategy
+- Summary: Why scheduling and booking features break around DST transitions, and how to write tests that actually catch it.
+
+### Automated Accessibility Testing Catches Only Part of Your Problems — Here's What Closes the Gap
+- URL (EN): https://markolosic.github.io/blog/accessibility-testing-automation-coverage-gap/
+- URL (SR): https://markolosic.github.io/sr/blog/accessibility-testing-automation-coverage-gap/
+- Date: 2026-10-15
+- Tags: manual-testing, test-automation, ci-cd
+- Summary: Scanners like axe-core catch only a portion of real accessibility failures. Here's how to wire them into CI sensibly and what still needs a human.
+
+### AI-Generated Test Data: Why It Looks Right and Still Misses the Bugs That Matter
+- URL (EN): https://markolosic.github.io/blog/ai-generated-test-data-blind-spots/
+- URL (SR): https://markolosic.github.io/sr/blog/ai-generated-test-data-blind-spots/
+- Date: 2026-10-14
+- Tags: ai-testing, test-strategy
+- Summary: GenAI test data generation is everywhere, but trust in it at scale is low. Here's why realistic-looking data still misses the edge cases that break systems.
+
+### Keep Your Tests Running After Release: Checkmk Synthetic Monitoring for QA Teams
+- URL (EN): https://markolosic.github.io/blog/checkmk-synthetic-monitoring-for-qa/
+- URL (SR): https://markolosic.github.io/sr/blog/checkmk-synthetic-monitoring-for-qa/
+- Date: 2026-10-12
+- Tags: performance-testing, ci-cd, test-automation
+- Summary: How QA teams can turn Robot Framework tests into continuous production checks with Checkmk, plus the pitfalls to plan for.
+
+### The QA Metrics That Actually Predict Quality (and the Ones That Don't)
+- URL (EN): https://markolosic.github.io/blog/qa-metrics-that-matter/
+- URL (SR): https://markolosic.github.io/sr/blog/qa-metrics-that-matter/
+- Date: 2026-10-12
+- Tags: test-strategy
+- Summary: Pass rate and test count feel reassuring but say little about quality. Here's what to track instead, and how to read it.
+
+### Testing for Broken Object-Level Authorization: The Access Check Most Test Suites Never Try
+- URL (EN): https://markolosic.github.io/blog/bola-tenant-isolation-testing/
+- URL (SR): https://markolosic.github.io/sr/blog/bola-tenant-isolation-testing/
+- Date: 2026-10-09
+- Tags: security-testing, api-testing, real-world-bugs
+- Summary: Why functional tests routinely miss the authorization bug that lets one customer see or change another's data, and how to test for it deliberately.
+
+### Splitting a Slow Test Suite Across GitHub Actions Without Losing Signal
+- URL (EN): https://markolosic.github.io/blog/sharding-tests-github-actions/
+- URL (SR): https://markolosic.github.io/sr/blog/sharding-tests-github-actions/
+- Date: 2026-10-08
+- Tags: playwright, ci-cd, test-automation
+- Summary: How matrix-based test sharding in GitHub Actions actually works, a real-world speedup example, and the specific ways it can quietly hide failures.
+
+### Writing Reliable Mobile Test Automation with Maestro: A Practical Guide
+- URL (EN): https://markolosic.github.io/blog/maestro-mobile-test-automation/
+- URL (SR): https://markolosic.github.io/sr/blog/maestro-mobile-test-automation/
+- Date: 2026-10-06
+- Tags: maestro, mobile-testing, test-automation
+- Summary: How Maestro's YAML flows simplify mobile E2E testing, with a working login flow example and the best practices that keep it maintainable.
+
+### The Bug Report Developers Actually Want: A Field Guide
+- URL (EN): https://markolosic.github.io/blog/writing-bug-reports-that-get-fixed/
+- URL (SR): https://markolosic.github.io/sr/blog/writing-bug-reports-that-get-fixed/
+- Date: 2026-10-05
+- Tags: manual-testing, test-strategy
+- Summary: A practical structure for bug reports a developer can reproduce and fix on the first read, with a before/after example.
+
+### Risk-Based Testing: How to Decide What to Test First When You Can't Test Everything
+- URL (EN): https://markolosic.github.io/blog/risk-based-testing-prioritization/
+- URL (SR): https://markolosic.github.io/sr/blog/risk-based-testing-prioritization/
+- Date: 2026-10-04
+- Tags: test-strategy
+- Summary: A practical walkthrough of risk-based testing: how to score features by likelihood and impact, and use that to decide what gets tested before a deadline.
+
+### Building PetLink: AI as Architect, Coder and Reviewer
+- URL (EN): https://markolosic.github.io/blog/petlink-claude-code-gemini-ai-workflow/
+- URL (SR): https://markolosic.github.io/sr/blog/petlink-claude-code-gemini-ai-workflow/
+- Date: 2026-10-02
+- Tags: ai-testing, mobile-testing
+- Summary: How I built PetLink, an all-in-one app for pet owners, splitting planning and code review with Claude Code and implementation with Gemini.
+
+### Catching Breaking API Changes Before They Reach Production With Contract Testing
+- URL (EN): https://markolosic.github.io/blog/api-contract-testing-breaking-changes/
+- URL (SR): https://markolosic.github.io/sr/blog/api-contract-testing-breaking-changes/
+- Date: 2026-10-02
+- Tags: api-testing, ci-cd, test-automation
+- Summary: How consumer-driven contract testing catches breaking API changes between services before they hit production, with a concrete example.
+
+### Omarchy Linux, Explained: What It Is, Why It's Worth Trying, and a Real Agentic-QA Use Case
+- URL (EN): https://markolosic.github.io/blog/omarchy-linux-agentic-qa/
+- URL (SR): https://markolosic.github.io/sr/blog/omarchy-linux-agentic-qa/
+- Date: 2026-09-30
+- Tags: ai-testing, ci-cd
+- Summary: What Omarchy Linux is, why developers and testers like it, and how its release process uses fleets of AI agents in VMs as a QA pattern worth stealing.
+
+### What Claude Sonnet 5.5 and GPT-6 Astra Actually Change for Test Automation
+- URL (EN): https://markolosic.github.io/blog/claude-sonnet-5-5-gpt-6-astra-testing/
+- URL (SR): https://markolosic.github.io/sr/blog/claude-sonnet-5-5-gpt-6-astra-testing/
+- Date: 2026-09-30
+- Tags: ai-testing, test-automation
+- Summary: The newest Anthropic and OpenAI models bring cheaper agentic coding and direct GUI control — here's what that means for QA, and what it doesn't.
+
+### Manual Testing for Mobile Apps: Why Interruptions Matter More Than Happy-Path Clicks
+- URL (EN): https://markolosic.github.io/blog/manual-testing-mobile-apps-interruptions/
+- URL (SR): https://markolosic.github.io/sr/blog/manual-testing-mobile-apps-interruptions/
+- Date: 2026-09-29
+- Tags: mobile-testing, manual-testing
+- Summary: A practical guide to manually testing how mobile apps handle backgrounding, calls, low battery, and dropped connections.
+
+### Manually Testing Chrome and Edge Extensions: Where the Usual Playbook Breaks Down
+- URL (EN): https://markolosic.github.io/blog/manually-testing-chrome-edge-extensions/
+- URL (SR): https://markolosic.github.io/sr/blog/manually-testing-chrome-edge-extensions/
+- Date: 2026-09-29
+- Tags: manual-testing, test-strategy
+- Summary: Why manual testing of browser extensions needs a different checklist than testing a website, and what to check on Chrome and Edge.
+
+### Risk-Based Testing: How to Decide What Not to Test Before a Deadline
+- URL (EN): https://markolosic.github.io/blog/risk-based-testing-what-not-to-test/
+- URL (SR): https://markolosic.github.io/sr/blog/risk-based-testing-what-not-to-test/
+- Date: 2026-09-28
+- Tags: test-strategy, test-automation
+- Summary: A practical guide to prioritizing QA coverage by risk when there isn't time to test everything before a release.
+
+### Emulator and Simulator Testing for Mobile Apps: What They Actually Catch, and What They Quietly Miss
+- URL (EN): https://markolosic.github.io/blog/emulator-testing-misconceptions/
+- URL (SR): https://markolosic.github.io/sr/blog/emulator-testing-misconceptions/
+- Date: 2026-09-28
+- Tags: mobile-testing, test-automation
+- Summary: A practical look at testing mobile apps on Android emulators and iOS Simulators, and the common misconceptions that let real bugs through.
+
+### Testing Idempotency: How to Catch Duplicate-Charge Bugs Before Your Users Do
+- URL (EN): https://markolosic.github.io/blog/testing-idempotency-duplicate-charges/
+- URL (SR): https://markolosic.github.io/sr/blog/testing-idempotency-duplicate-charges/
+- Date: 2026-09-28
+- Tags: api-testing, real-world-bugs
+- Summary: A practical walkthrough of testing idempotency keys in payment and checkout flows, with concrete test cases for catching duplicate charges.
+
+### Testing the Retry Button: Catching Duplicate-Charge Race Conditions Before Customers Do
+- URL (EN): https://markolosic.github.io/blog/testing-checkout-retry-race-conditions/
+- URL (SR): https://markolosic.github.io/sr/blog/testing-checkout-retry-race-conditions/
+- Date: 2026-09-25
+- Tags: api-testing, real-world-bugs, test-automation
+- Summary: Why sequential idempotency tests miss checkout double-charge bugs, and how to design a test that exposes the real race.
+
+### What the TrueNorth Program Actually Is, and What It Can Do for a Company
+- URL (EN): https://markolosic.github.io/blog/true-north-guide-program/
+- URL (SR): https://markolosic.github.io/sr/blog/true-north-guide-program/
+- Date: 2026-09-25
+- Tags: test-strategy
+- Summary: Inside the TrueNorth guide-led training model: what it teaches, how the team guide role works, and the real business case for companies.
+
+### Quality Starts Before the First Line of Code: How I Approach QA
+- URL (EN): https://markolosic.github.io/blog/quality-starts-before-testing/
+- URL (SR): https://markolosic.github.io/sr/blog/quality-starts-before-testing/
+- Date: 2026-09-24
+- Tags: test-strategy, playwright, test-automation
+- Summary: Why QA that begins at requirements, blends testing types, and closes the loop after release builds real product quality.
+
+### Self-Healing Tests: What They Actually Fix, and What They Quietly Break
+- URL (EN): https://markolosic.github.io/blog/self-healing-tests-hidden-risk/
+- URL (SR): https://markolosic.github.io/sr/blog/self-healing-tests-hidden-risk/
+- Date: 2026-09-23
+- Tags: ai-testing, test-automation
+- Summary: Self-healing test tools patch broken selectors automatically, but they can also hide the very defects your suite exists to catch. Here's how to use them safely.
+
+### Asserting Too Early: The Quiet Source of Flaky Playwright Tests
+- URL (EN): https://markolosic.github.io/blog/asserting-too-early-flaky-playwright-tests/
+- URL (SR): https://markolosic.github.io/sr/blog/asserting-too-early-flaky-playwright-tests/
+- Date: 2026-09-21
+- Tags: playwright, test-automation
+- Summary: Many flaky Playwright tests aren't slow, they check too early. How instant checks and missing awaits cause false failures and false passes.
+
+### Why Maestro Deserves a Spot in Your Web Testing Toolkit
+- URL (EN): https://markolosic.github.io/blog/maestro-for-web-testing/
+- URL (SR): https://markolosic.github.io/sr/blog/maestro-for-web-testing/
+- Date: 2026-09-21
+- Tags: maestro, test-automation
+- Summary: Maestro is known for mobile UI testing, but its browser support now covers web apps too. Here's why I reach for it and how to write your first flow.

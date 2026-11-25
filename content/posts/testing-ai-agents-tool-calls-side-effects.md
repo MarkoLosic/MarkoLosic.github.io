@@ -2,7 +2,7 @@
 title: "Testing AI Agents That Take Actions: Why a Correct-Sounding Answer Isn't Enough"
 title_sr: "Testiranje AI agenata koji izvršavaju akcije: zašto odgovor koji zvuči tačno nije dovoljan"
 date: 2026-10-23
-tags: [qa, ai-in-qa, agentic-ai, test-automation]
+tags: [ai-testing, test-automation]
 excerpt: A checklist for testing AI agents that call tools and change real systems, beyond just grading the final text answer.
 excerpt_sr: Lista provjera za testiranje AI agenata koji pozivaju alate i mijenjaju stvarne sisteme, koja ide dalje od ocjenjivanja konačnog tekstualnog odgovora.
 image: assets/blog/testing-ai-agents-tool-calls-side-effects.jpg
@@ -63,11 +63,16 @@ None of this replaces ordinary contract and integration testing of the tools the
 3. Build in a fixed, injected "current time" for any test involving relative dates, so results are reproducible.
 4. Before the next release, review your test suite for cases where you're only asserting on the final message. Convert the highest-risk ones into state-based assertions.
 
+Related reading on AI QA: [my local Llama 3 evaluation case study](/llm-testing/), [Testing AI Features That Don't Give the Same Answer Twice](/blog/testing-non-deterministic-ai-features/), and [Reviewing AI-Generated Test Code](/blog/reviewing-ai-generated-test-code-anti-patterns/).
+
+
 ## Sources
 
 - [Evaluate Tool-Calling Agents: Tools, Arguments, and Final Answers](https://oneuptime.com/blog/post/2026-08-31-evaluate-tool-calling-agents/markdown) — OneUptime
 - [How to Evaluate AI Agents: A Practical Checklist for Production](https://www.getmaxim.ai/articles/how-to-evaluate-ai-agents-a-practical-checklist-for-production) — Maxim AI
+
 <!--sr-->
+
 Većina timova koji testiraju AI funkcije i dalje ih ocjenjuje onako kako bi ocjenjivali polje za pretragu: da li odgovor izgleda dobro. To prilično dobro funkcioniše za chatbot koji samo priča. Ali ne funkcioniše za sve veću kategoriju AI funkcija koje djeluju — pomjeraju termin, ažuriraju zapis u CRM-u, izdaju povraćaj novca, mijenjaju red u bazi podataka. Agent može da napiše tečnu, samouvjerenu i potpuno uvjerljivu završnu poruku, a da je pritom pozvao pogrešan alat, poslao pogrešne argumente ili nije promijenio baš ništa. Ako vaš paket testova čita samo transkript razgovora, taj propust je nevidljiv.
 
 ![Izometrijska ilustracija svijetlećeg prozora za čet u kojem korisnik traži „Reschedule and refund my booking", a agent odgovara „Done — your appointment is moved to Thursday at 2pm!", dok ispod površine pokidane cijevi povezuju čvorove cancel_booking i refund_booking sa zastavicama „404 FAILED" i tabelom punom grešaka DUPLICATE_ID](assets/blog/testing-ai-agents-tool-calls-side-effects.jpg)
@@ -123,6 +128,9 @@ Ništa od ovoga ne zamjenjuje uobičajeno contract i integraciono testiranje sam
 2. Za bar jedan test slučaj dodajte kratku listu zabranjenih poziva alata i provjerite da ih agent nikada ne pravi, čak ni kada ga korisnik pokušava nagovoriti na to.
 3. Za svaki test koji uključuje relativne datume ugradite fiksno, ubačeno „trenutno vrijeme", kako bi rezultati bili ponovljivi.
 4. Prije sljedećeg izdanja pregledajte paket testova i pronađite slučajeve u kojima provjeravate samo konačnu poruku. Najrizičnije među njima pretvorite u provjere zasnovane na stanju.
+
+Povezano štivo o testiranju AI sistema: [studija slučaja evaluacije lokalnog Llama 3 modela](/llm-testing/), [Testiranje AI funkcionalnosti koje ne daju isti odgovor dvaput](/sr/blog/testing-non-deterministic-ai-features/) i [Pregled AI-generisanog test koda](/sr/blog/reviewing-ai-generated-test-code-anti-patterns/).
+
 
 ## Izvori
 

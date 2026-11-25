@@ -29,7 +29,7 @@ jobs:
       - run: node scripts/build-blog.mjs
       - name: Commit generated files
         run: |
-          git add -A blog index.html sitemap.xml rss.xml robots.txt
+          git add -A blog sr index.html sitemap.xml rss.xml robots.txt llms.txt llms-full.txt
           if git diff --cached --quiet; then
             echo "Generated files already up to date."
           else

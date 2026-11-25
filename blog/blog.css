@@ -15,7 +15,7 @@
 .post-card { display: flex; flex-direction: column; gap: 12px; padding: 26px; }
 .post-card.featured { grid-column: 1 / -1; padding: 34px; }
 .post-card.featured h2 { font-size: clamp(26px, 3.4vw, 38px); }
-.post-card h2 { font: 700 22px/1.25 var(--font-head); letter-spacing: -.02em; }
+.post-card h2, .post-card h3 { font: 700 22px/1.25 var(--font-head); letter-spacing: -.02em; }
 .post-card p { color: var(--muted); font-size: 15.5px; }
 .post-card .more { display: inline-flex; align-items: center; gap: 8px; margin-top: auto; padding-top: 6px; color: var(--accent); font-weight: 600; font-size: 14.5px; }
 .post-card .more svg { transition: transform .2s; }

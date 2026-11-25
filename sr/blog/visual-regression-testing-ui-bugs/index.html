@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="sr" data-theme="dark" data-static-lang="sr" data-alt-url="../../../blog/visual-regression-testing-ui-bugs/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vizuelno regresiono testiranje: kako uhvatiti UI bagove pored kojih vaši funkcionalni testovi prolaze — Marko Lošić</title>
+  <meta name="description" content="Zašto provjere na nivou piksela hvataju greške u rasporedu koje funkcionalni testovi propuštaju, kako ih spriječiti da budu nestabilne i koji alati se zaista u…">
+  <link rel="canonical" href="https://markolosic.github.io/sr/blog/visual-regression-testing-ui-bugs/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/visual-regression-testing-ui-bugs/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/visual-regression-testing-ui-bugs/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/visual-regression-testing-ui-bugs/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Vizuelno regresiono testiranje: kako uhvatiti UI bagove pored kojih vaši funkcionalni testovi prolaze — Marko Lošić">
+  <meta property="og:description" content="Zašto provjere na nivou piksela hvataju greške u rasporedu koje funkcionalni testovi propuštaju, kako ih spriječiti da budu nestabilne i koji alati se zaista u…">
+  <meta property="og:url" content="https://markolosic.github.io/sr/blog/visual-regression-testing-ui-bugs/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/visual-regression-testing-ui-bugs.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="669">
+  <meta property="og:image:alt" content="Vizuelno regresiono testiranje: kako uhvatiti UI bagove pored kojih vaši funkcionalni testovi prolaze">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Vizuelno regresiono testiranje: kako uhvatiti UI bagove pored kojih vaši funkcionalni testovi prolaze — Marko Lošić">
+  <meta name="twitter:description" content="Zašto provjere na nivou piksela hvataju greške u rasporedu koje funkcionalni testovi propuštaju, kako ih spriječiti da budu nestabilne i koji alati se zaista u…">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/visual-regression-testing-ui-bugs.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/sr/blog/visual-regression-testing-ui-bugs/#article","headline":"Vizuelno regresiono testiranje: kako uhvatiti UI bagove pored kojih vaši funkcionalni testovi prolaze","description":"Zašto provjere na nivou piksela hvataju greške u rasporedu koje funkcionalni testovi propuštaju, kako ih spriječiti da budu nestabilne i koji alati se zaista uklapaju u vaš pipeline.","image":"https://markolosic.github.io/assets/blog/visual-regression-testing-ui-bugs.jpg","url":"https://markolosic.github.io/sr/blog/visual-regression-testing-ui-bugs/","inLanguage":"sr","wordCount":1123,"articleSection":"test-automation","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/sr/blog/visual-regression-testing-ui-bugs/"},"datePublished":"2026-10-23T12:00:00.000Z","dateModified":"2026-10-23T12:00:00.000Z","keywords":"test-automation, ci-cd","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Početna","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/sr/blog/"},{"@type":"ListItem","position":3,"name":"Vizuelno regresiono testiranje: kako uhvatiti UI bagove pored kojih vaši funkcionalni testovi prolaze","item":"https://markolosic.github.io/sr/blog/visual-regression-testing-ui-bugs/"}]}]}</script>
+  <meta property="article:published_time" content="2026-10-23T12:00:00.000Z">
+  <meta property="article:modified_time" content="2026-10-23T12:00:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../assets/fonts.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../../#top" data-i18n="nav_about">O meni</a>
+      <a href="../../../#skills" data-i18n="nav_skills">Vještine</a>
+      <a href="../../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../../#experience" data-i18n="nav_exp">Iskustvo</a>
+      <a href="../../../#education" data-i18n="nav_edu">Obrazovanje</a>
+      <a href="../../../sr/blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../../#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span>Svi članci</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-10-23" data-fmt="long">23. oktobar 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h1>Vizuelno regresiono testiranje: kako uhvatiti UI bagove pored kojih vaši funkcionalni testovi prolaze</h1>
+        <p class="lead">Zašto provjere na nivou piksela hvataju greške u rasporedu koje funkcionalni testovi propuštaju, kako ih spriječiti da budu nestabilne i koji alati se zaista uklapaju u vaš pipeline.</p>
+        <div class="tags"><span>test-automation</span><span>ci-cd</span></div>
+      </header>
+      <div class="prose"><p>Funkcionalni test klikne na dugme „Checkout&quot; i provjeri da se sljedeća stranica učitala. Test prolazi. Ono što ne zna jeste da je dugme sada do pola prekriveno promo banerom koji se nakon izmjene u CSS-u pomjerio šest piksela naniže, pa bi stvaran korisnik na ekranu laptopa morao da pogađa gdje da klikne. Funkcionalni i end-to-end testovi provjeravaju da elementi postoje, da reaguju na događaje i da se prikazuju pravi podaci. Ništa od toga vam ne govori da li stranica zaista izgleda kako treba. Upravo tu rupu popunjava vizuelno regresiono testiranje, i vrijedi razumjeti i šta ono hvata i kako ga timovi čine dovoljno pouzdanim da mu se može vjerovati.</p>
+<p><img src="../../../assets/blog/visual-regression-testing-ui-bugs.jpg" alt="Ilustracija podijeljenog ekrana sa istom stranicom sa cijenama na dva tableta: lijevo cijan verzija „Baseline (functional asserts pass)&quot; prekrivena zelenim oznakama PASS; desno magenta verzija „Visual regression (pixel diff)&quot; na kojoj su pomjereni promo baner i premještena dugmad „Buy Now&quot; istaknuti pikselizovanim diff slojem i crvenom oznakom FAIL" width="1200" height="669" fetchpriority="high" decoding="async"></p>
+<h2 id="šta-zapravo-provjerava">Šta zapravo provjerava</h2>
+<p>Vizuelno regresiono testiranje napravi snimak ekrana stranice ili komponente, uporedi ga piksel po piksel (ili, sve češće, uz pomoć AI-ja) sa sačuvanom osnovnom verzijom (baseline) i označi sve što se promijenilo. Ne zna šta stranica treba da radi; zna samo kako treba da izgleda.</p>
+<p>Zamislite tim koji objavljuje redizajn stranice sa cijenama. Njihov Playwright end-to-end paket testova i dalje prolazi: dugme „Buy now&quot; postoji, može se kliknuti i u DOM-u i dalje vodi na pravi URL. Ali izmjena flexbox-a u zajedničkoj komponenti za raspored spustila je dugme dva reda niže na ekranima užim od 768px, pa se na mobilnom sada nalazi ispod liste funkcionalnosti umjesto pored cijene. Nijedna funkcionalna provjera ne pada, jer ništa nije strukturno pokvareno — dugme je i dalje tu i i dalje radi. Vizuelni diff u odnosu na mobilni baseline to odmah uhvati, jer snimak ekrana jednostavno izgleda drugačije.</p>
+<p>Minimalna vizuelna provjera u Playwright-u za tu stranicu mogla bi da izgleda ovako:</p>
+<pre><code class="lang-js">import { test, expect } from '@playwright/test';
+
+test('pricing page layout, mobile viewport', async ({ page }) =&gt; {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto('/pricing');
+
+  // Stabilize before capturing
+  await page.evaluate(() =&gt; document.fonts.ready);
+  await page.locator('[data-testid=&quot;promo-banner&quot;]').evaluate(
+    el =&gt; el.style.animation = 'none'
+  );
+
+  await expect(page).toHaveScreenshot('pricing-mobile.png', {
+    mask: [page.locator('[data-testid=&quot;live-visitor-count&quot;]')],
+    maxDiffPixelRatio: 0.01,
+  });
+});</code></pre>
+<p>Opcija <code>mask</code> zacrni element za koji se očekuje da će se mijenjati pri svakom pokretanju (brojač posjetilaca, vremenska oznaka), a <code>maxDiffPixelRatio</code> određuje koliko odstupanje u pikselima je prihvatljivo prije nego što test padne.</p>
+<h2 id="gdje-timovi-griješe-i-kako-to-popraviti">Gdje timovi griješe i kako to popraviti</h2>
+<p>Najveći razlog zbog kojeg timovi odustaju od vizuelnog testiranja nije to što je beskorisno — nego to što postane bučno. Paket testova koji pri svakom pokretanju diže lažnu uzbunu navikne ljude da ga ignorišu, čime gubi svaki smisao. Najčešći uzroci i ono što ih zaista rješava:</p>
+<ul><li><strong>Web fontovi koji se kasno učitaju</strong> pomjeraju tekst i prelamanje redova između pokretanja. Prije snimanja sačekajte <code>document.fonts.ready</code> i provjerite da se fontovi u CI-ju zaista serviraju (a ne vraćaju 404).</li><li><strong>Animacije i tranzicije</strong> budu uhvaćene usred kadra — spineri, kursori, fade efekti. Isključite CSS animacije i tranzicije u test okruženju, umjesto da se nadate da će se tajming poklopiti.</li><li><strong>Slike koje još nisu dekodirane</strong>, ili <code>srcset</code> koji pri različitim pokretanjima izabere drugi fajl, mijenjaju piksele bez ikakvog stvarnog baga. Sačekajte da slike prijave da su učitane i namjerno pokrenite lazy-loaded sadržaj prije snimanja.</li><li><strong>Dinamički sadržaj</strong> — brojači uživo, relativne vremenske oznake, nasumičan redoslijed — zahtijeva maskiranje, zamrznut sat ili test podatke sa fiksnim seed-om, a ne veći prag tolerancije.</li><li><strong>Razlike u renderovanju između platformi.</strong> Anti-aliasing, rasterizacija fontova, pa čak i širina scrollbara razlikuju se između macOS-a, Linuxa i Windowsa (klasični scrollbarovi pojedu otprilike 15px rasporeda koje macOS overlay scrollbarovi ne zauzimaju). Svaki baseline generišite u jednom kanonskom okruženju, obično istoj container slici koju koristi CI, a nikada na laptopu nekog developera.</li></ul>
+<p>Iznad svih ovih problema stoji jedna strukturna zamka: vizuelni testovi su skupi za održavanje. Svaka namjerna izmjena dizajna zahtijeva da neko pregleda i ponovo odobri gomilu diffova, a ako se taj pregled pretvori u mehaničko odobravanje („da, izgleda okej, odobri sve&quot;), baseline-ovi se postepeno udaljavaju od stvarnosti i cijela provjera postaje ukras.</p>
+<p>Alati zasnovani na AI-ju, kao što su Percy-jev klasifikator diffova ili Applitools-ovi nivoi poklapanja (match levels), smanjuju broj diffova koje čovjek mora da pregleda tako što vjerovatno namjerne izmjene označavaju odvojeno od vjerovatnih bagova. Ali ta pogodnost je tvrdnja proizvođača, a ne garancija — klasifikator koji previše olako označava šum kao „očekivan&quot; tiho će sakriti zaista nedeterministički pipeline, umjesto da vas natjera da ga popravite.</p>
+<p>Druga stvarna granica je cijena: alati koji renderuju u oblaku, poput Percy-ja i Applitools-a, naplaćuju po snimku ekrana ili po nivou paketa, što brzo raste kada pokrivate svaku stranicu na svakom breakpointu. Open-source opcije poput Playwright-ovog ugrađenog <code>toHaveScreenshot</code>, Argosa ili BackstopJS-a su besplatne, ali nude slabije renderovanje u više pretraživača i nemaju ugrađen proces za pregled izmjena.</p>
+<p>Vizuelno regresiono testiranje je takođe pogrešan alat za provjeru da li su podaci tačni, da li se neki tok uspješno završava ili da li API vraća pravi odgovor — ono vam govori samo da su se pikseli promijenili, a ne zašto, i test koji vizuelno prolazi ne govori ništa o tome da li stranica zaista funkcioniše.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ol><li><strong>Počnite sa jednim tokom sa velikim saobraćajem</strong>, a ne sa cijelim sajtom — stranicom za checkout, stranicom sa cijenama ili dashboardom koji se vidljivo i često kvari. Pokušaj da se već prvog dana snimi sve je upravo način na koji se timovi udave u diffovima i odustanu u roku od mjesec dana.</li><li><strong>Stabilizujte prije snimanja.</strong> Zamrznite sat, isključite animacije, sačekajte fontove i slike i maskirajte sve što je zaista dinamično. Determinizam popravite na izvoru, umjesto da kompenzujete povećanjem tolerancije za diff.</li><li><strong>Baseline-ove generišite u CI-ju, a ne lokalno.</strong> Renderovanje se dovoljno razlikuje između operativnih sistema i grafičkih kartica da će baseline snimljen na nečijem laptopu svima ostalima davati lažne padove.</li><li><strong>Toleranciju podesite za svaki snimak posebno, a ne globalno</strong>, i svaki pregled diffa tretirajte kao stvarnu odluku — nekoliko minuta gledanja šta se promijenilo, a ne refleksno „odobri sve&quot; samo da bi se odblokirao merge.</li></ol>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://argos-ci.com/blog/fix-flaky-visual-tests" target="_blank" rel="noopener noreferrer">How to Fix Flaky Visual Tests: Every Root Cause, Solved</a> — Argos</li><li><a href="https://argos-ci.com/blog/best-visual-regression-testing-tools" target="_blank" rel="noopener noreferrer">The 9 Best Visual Regression Testing Tools in 2026</a> — Argos</li><li><a href="https://testdino.com/blog/ai-visual-regression-testing" target="_blank" rel="noopener noreferrer">AI-Powered Visual Regression Testing: What's New in 2026</a> — TestDino</li></ul></div>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button">Kopiraj link</button>
+      <a class="btn primary" href="../../../#contact">Kontaktiraj me</a>
+    </div>
+    <section class="more-posts"><h2>Slični članci</h2><div class="post-grid">
+      <a class="post-card card glow" href="../load-testing-qa-teams-k6-thresholds/"><div class="meta"><time datetime="2026-11-20" data-fmt="short">20. nov 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Load testiranje za QA timove: šta k6 hvata, a šta prolazni prag i dalje može da sakrije</h3><p>Praktičan k6 vodič za QA timove: pisanje load testa, postavljanje pragova i zamke zbog kojih zelen dashboard može da zavara.</p></a>
+      <a class="post-card card glow" href="../accessibility-testing-automation-coverage-gap/"><div class="meta"><time datetime="2026-10-15" data-fmt="short">15. okt 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Automatsko testiranje pristupačnosti hvata samo dio problema — evo šta zatvara jaz</h3><p>Skeneri poput axe-core hvataju samo dio stvarnih problema sa pristupačnošću. Evo kako da ih razumno uvežete u CI i šta i dalje zahtijeva čovjeka.</p></a>
+      <a class="post-card card glow" href="../checkmk-synthetic-monitoring-for-qa/"><div class="meta"><time datetime="2026-10-12" data-fmt="short">12. okt 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Neka testovi rade i poslije objave: Checkmk Synthetic Monitoring za QA timove</h3><p>Kako QA timovi mogu da pretvore Robot Framework testove u stalne provjere produkcije uz Checkmk, i na koje zamke treba računati.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../../#contact" data-i18n="contact_cta">Kontaktiraj me</a>
+    <button type="button" data-consent data-i18n="cookies">Postavke kolačića</button>
+    <a href="../../../" data-i18n="back_home">Nazad na početnu ↑</a>
+  </footer>
+  <script src="../../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../../blog/common.js"></script>
+  <script src="../../../blog/post.js"></script>
+</body>
+</html>

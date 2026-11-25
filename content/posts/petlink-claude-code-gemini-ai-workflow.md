@@ -3,8 +3,8 @@ title: "Building PetLink: AI as Architect, Coder and Reviewer"
 title_sr: "Kako sam gradio PetLink: AI kao arhitekta, pisac koda i recenzent"
 date: 2026-10-02
 time: 20:00
-tags: [product-development, ai-assistants, claude-code, react-native]
-excerpt: The story behind PetLink, an all-in-one app for pet owners, and how I split the work between Claude Code for planning, Gemini for coding and Claude Code again for code review.
+tags: [ai-testing, mobile-testing]
+excerpt: How I built PetLink, an all-in-one app for pet owners, splitting planning and code review with Claude Code and implementation with Gemini.
 excerpt_sr: Priča o razvoju PetLink-a, all-in-one aplikacije za vlasnike kućnih ljubimaca, i o tome kako sam podijelio posao između Claude Code-a za planiranje, Gemini-ja za pisanje koda i ponovo Claude Code-a za code review.
 image: assets/blog/petlink-claude-code-gemini-ai-workflow.jpg
 ---

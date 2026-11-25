@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="sr" data-theme="dark" data-static-lang="sr" data-alt-url="../../../blog/claude-sonnet-5-5-gpt-6-astra-testing/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Šta Claude Sonnet 5.5 i GPT-6 Astra zaista mijenjaju u automatizaciji testiranja — Marko Lošić</title>
+  <meta name="description" content="Najnoviji modeli kompanija Anthropic i OpenAI donose jeftinije agentsko kodiranje i direktnu kontrolu grafičkog interfejsa — evo šta to znači za QA, a šta ne.">
+  <link rel="canonical" href="https://markolosic.github.io/sr/blog/claude-sonnet-5-5-gpt-6-astra-testing/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/claude-sonnet-5-5-gpt-6-astra-testing/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/claude-sonnet-5-5-gpt-6-astra-testing/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/claude-sonnet-5-5-gpt-6-astra-testing/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Šta Claude Sonnet 5.5 i GPT-6 Astra zaista mijenjaju u automatizaciji testiranja — Marko Lošić">
+  <meta property="og:description" content="Najnoviji modeli kompanija Anthropic i OpenAI donose jeftinije agentsko kodiranje i direktnu kontrolu grafičkog interfejsa — evo šta to znači za QA, a šta ne.">
+  <meta property="og:url" content="https://markolosic.github.io/sr/blog/claude-sonnet-5-5-gpt-6-astra-testing/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/claude-sonnet-5-5-gpt-6-astra-testing.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="669">
+  <meta property="og:image:alt" content="Šta Claude Sonnet 5.5 i GPT-6 Astra zaista mijenjaju u automatizaciji testiranja">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Šta Claude Sonnet 5.5 i GPT-6 Astra zaista mijenjaju u automatizaciji testiranja — Marko Lošić">
+  <meta name="twitter:description" content="Najnoviji modeli kompanija Anthropic i OpenAI donose jeftinije agentsko kodiranje i direktnu kontrolu grafičkog interfejsa — evo šta to znači za QA, a šta ne.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/claude-sonnet-5-5-gpt-6-astra-testing.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/sr/blog/claude-sonnet-5-5-gpt-6-astra-testing/#article","headline":"Šta Claude Sonnet 5.5 i GPT-6 Astra zaista mijenjaju u automatizaciji testiranja","description":"Najnoviji modeli kompanija Anthropic i OpenAI donose jeftinije agentsko kodiranje i direktnu kontrolu grafičkog interfejsa — evo šta to znači za QA, a šta ne.","image":"https://markolosic.github.io/assets/blog/claude-sonnet-5-5-gpt-6-astra-testing.jpg","url":"https://markolosic.github.io/sr/blog/claude-sonnet-5-5-gpt-6-astra-testing/","inLanguage":"sr","wordCount":1117,"articleSection":"ai-testing","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/sr/blog/claude-sonnet-5-5-gpt-6-astra-testing/"},"datePublished":"2026-09-30T18:30:00.000Z","dateModified":"2026-09-30T18:30:00.000Z","keywords":"ai-testing, test-automation","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Početna","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/sr/blog/"},{"@type":"ListItem","position":3,"name":"Šta Claude Sonnet 5.5 i GPT-6 Astra zaista mijenjaju u automatizaciji testiranja","item":"https://markolosic.github.io/sr/blog/claude-sonnet-5-5-gpt-6-astra-testing/"}]}]}</script>
+  <meta property="article:published_time" content="2026-09-30T18:30:00.000Z">
+  <meta property="article:modified_time" content="2026-09-30T18:30:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../assets/fonts.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../../#top" data-i18n="nav_about">O meni</a>
+      <a href="../../../#skills" data-i18n="nav_skills">Vještine</a>
+      <a href="../../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../../#experience" data-i18n="nav_exp">Iskustvo</a>
+      <a href="../../../#education" data-i18n="nav_edu">Obrazovanje</a>
+      <a href="../../../sr/blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../../#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span>Svi članci</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-09-30" data-fmt="long">30. septembar 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h1>Šta Claude Sonnet 5.5 i GPT-6 Astra zaista mijenjaju u automatizaciji testiranja</h1>
+        <p class="lead">Najnoviji modeli kompanija Anthropic i OpenAI donose jeftinije agentsko kodiranje i direktnu kontrolu grafičkog interfejsa — evo šta to znači za QA, a šta ne.</p>
+        <div class="tags"><span>ai-testing</span><span>test-automation</span></div>
+      </header>
+      <div class="prose"><p>Dva nova vodeća modela izašla su u istom mjesecu: Claude Sonnet 5.5 kompanije Anthropic i GPT-6 Astra kompanije OpenAI. Nijedan nije napravljen posebno za QA, ali oba mijenjaju ono što je praktično automatizovati, i to u dva različita pravca — jedan čini agentsko kodiranje i generisanje testova znatno jeftinijim, a drugi daje agentima mogućnost da direktno upravljaju grafičkim interfejsom, umjesto da samo čitaju i pišu kod. Za tim koji odlučuje gdje da uloži sljedeći napor u automatizaciju, ta razlika je bitnija od marketinškog imena bilo kog od ta dva modela.</p>
+<p><img src="../../../assets/blog/claude-sonnet-5-5-gpt-6-astra-testing.jpg" alt="Ilustracija podijeljena munjom: lijevo AI mozak i robotska ruka pored editora koda, sa oznakama za agentsko kodiranje, jeftinije i brže generisanje, trijažu nestabilnih testova i automatizovane unit testove; desno robotska ruka koja upravlja checkout interfejsom, sa panelom računarskog agenta, statusnom tablom i oznakama za istraživačko testiranje, otpornost na promjene UI-ja i izvoz Playwright skripte" width="1200" height="669" fetchpriority="high" decoding="async"></p>
+<h2 id="dva-različita-unapređenja-ne-jedno">Dva različita unapređenja, ne jedno</h2>
+<p>Glavna promjena kod Sonnet 5.5 je efikasnost, a ne nova sposobnost. Na Anthropic-ovim benchmarkovima za agentsko kodiranje skače sa otprilike 10% na preko 70% na Terminal-Bench 4.0 u poređenju sa prethodnim Sonnet 5, a prvi korisnici navode da mu treba trećina manje poziva alata i otprilike upola manje shell komandi da završi isti zadatak. Izlaz se generiše preko 30% brže, a cijena po zadatku pada za sličan procenat, uz istu cijenu po tokenu. U QA procesima to se uglavnom vidi kao promjena u cijeni i brzini: generisanje skupa testova, trijaža izvještaja o nestabilnim testovima ili agentski code review na PR-u postaju primjetno jeftiniji i brži za iteriranje, ali se ne mijenja vrsta testiranja koja je sada moguća.</p>
+<p>GPT-6 Astra je drugačija vrsta unapređenja. Njegova najistaknutija sposobnost je upravljanje računarom (computer use) — rad sa softverom kroz isti grafički interfejs koji bi koristila osoba, umjesto kroz kod ili API. OpenAI navodi rezultat od 72,6% na OSWorld 2.0, benchmarku za izvršavanje višekoračnih zadataka u stvarnim softverskim okruženjima, u odnosu na 65,7% prethodnog modela GPT-5.6. U Codex-u je dobio i mogućnost da vodi radne bilješke kroz više kontekstnih prozora na dugim zadacima, umjesto da se oslanja samo na sažimanje starog konteksta — korisno za sesiju koja obuhvata pregled zahtjeva, implementaciju i izvršavanje testova, a da se ne izgubi trag o tome šta je već provjereno. Ta kombinacija — kontrola GUI-ja plus duža radna memorija — ono je što je zaista novo za testiranje, jer upućuje na agente koji mogu da provedu pretraživač ili desktop aplikaciju kroz testni scenario onako kako to rade istraživački testeri, umjesto da samo pišu skripte nad DOM-om.</p>
+<h2 id="kako-to-izgleda-u-jednom-testnom-toku">Kako to izgleda u jednom testnom toku</h2>
+<p>Praktična promjena je prelazak sa &quot;generiši Playwright skriptu&quot; na &quot;opiši scenario i pusti agenta da direktno upravlja aplikacijom&quot;, uz mogućnost da nakon toga napravi skriptu za ponovnu upotrebu. Grubi oblik takvog toka rada:</p>
+<pre><code class="lang-python"># Illustrative — not a specific product's API
+agent = ComputerUseAgent(model=&quot;gpt-6-astra&quot;)
+
+result = agent.run_scenario(
+    goal=&quot;&quot;&quot;
+    Add two items to the cart, apply a single valid discount code,
+    complete checkout with a saved card, and confirm the order total
+    matches subtotal minus the discount. Then attempt to apply a
+    second discount code and confirm it is rejected, not stacked.
+    &quot;&quot;&quot;,
+    app_url=&quot;https://staging.example.com&quot;,
+    max_steps=40,
+)
+
+assert result.status == &quot;goal_verified&quot;
+assert result.evidence.get(&quot;stacking_rejected&quot;) is True
+# Ask the agent to emit a deterministic script from the successful run
+script = agent.export_as_playwright(result.trace)</code></pre>
+<p>Zanimljivo nije to što agent može da prokliče kroz checkout — automatizacija zasnovana na lokatorima to radi godinama. Zanimljivo je to što agent tumači ekran onako kako to radi čovjek, pa promjena rasporeda koja bi pokvarila krhki CSS selektor ne mora nužno da pokvari scenario, a isti cilj opisan prirodnim jezikom može se usmjeriti na redizajniran UI bez prepravljanja selektora. Korak <code>export_as_playwright</code> bitan je koliko i samo pokretanje: ovakvo istraživačko pokretanje nije nešto što želite stalno da ponavljate sa agentom u CI-ju, i zbog cijene i zbog istog problema &quot;orakla&quot; koji ima svaki test napisan uz pomoć AI-ja — mora se pretvoriti u nešto determinističko i pregledati prije nego što postane kapija.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Nijedan od gore navedenih rezultata nije specifičan za QA; OSWorld, Terminal-Bench i SWE-Bench Pro mjere opštu kompetenciju u kodiranju i upravljanju računarom, a ne kvalitet testova, tako da visok rezultat ne govori da li agent provjerava pravu stvar kada kaže da je cilj &quot;verifikovan&quot;. Isti problem orakla koji pogađa unit testove generisane AI-jem važi i ovdje — agent može zaključiti da je checkout scenario &quot;prošao&quot; samo zato što se pojavio ekran s potvrdom, bez ispravne provjere da je ukupan iznos dobro izračunat. Agenti za upravljanje računarom su i nedeterministički od pokretanja do pokretanja, što ih čini lošim izborom za CI kapiju koja mora pouzdano da prođe ili padne za isti ulaz; bolje odgovaraju sesijama istraživačkog testiranja i otkrivanja regresija nego blokiranju merge-a. Cijena je takođe stvarna — agentsko pokretanje od više desetina koraka nad živom aplikacijom znatno je skuplje od skriptovanog testa, pa pokretanje na svakom pull requestu za sada nema smisla. A GPT-6 Astra je izašao uz to da ga OpenAI u okviru svog preparedness okvira klasifikuje kao model sa &quot;kritičnim&quot; sajber sposobnostima, što je signal da treba pažljivo odlučiti koji pristup alatima i koje kredencijale dobija bilo koji testni agent zasnovan na njemu, umjesto da mu se podrazumijevano da širok pristup okruženju.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<p>Izaberite jedan zadatak istraživačkog testiranja ili otkrivanja regresija koji vaš tim trenutno radi ručno — smoke prolaz prije izdanja ili provjeru toka nakon redizajna — i na njemu isprobajte agenta za upravljanje računarom, umjesto da odmah pokušavate da zamijenite skriptovane CI testove. Zadržite svoje determinističke testove, zasnovane na lokatorima ili API-ju, kao stvarnu CI kapiju, a agentska pokretanja tretirajte kao način da dobijete kandidate za scenarije i skripte, ne kao samu kapiju. Nekoliko nedelja pratite trošak tokena i pokretanja po agentskoj testnoj sesiji prije nego što odlučite koliko često se isplati pokretati je. I prije nego što bilo kom testnom agentu date kredencijale ili širok pristup alatima, provjerite system card ili bezbjednosnu dokumentaciju dobavljača za taj konkretan model — klasa sposobnosti modela GPT-6 Astra razlog je da pristup ograničite promišljeno, a ne razlog da izbjegavate alat.</p>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://www.anthropic.com/claude-sonnet-5-5" target="_blank" rel="noopener noreferrer">Introducing Claude Sonnet 5.5 (Anthropic)</a></li><li><a href="https://www.helpnetsecurity.com/2026/09/29/anthropic-claude-sonnet-5-5/" target="_blank" rel="noopener noreferrer">Anthropic Claude Sonnet 5.5 gets faster without a price hike (Help Net Security)</a></li><li><a href="https://siliconangle.com/2026/09/28/anthropic-debuts-claude-sonnet-5-5-running-30-faster-than-the-previous-generation-ai-model/" target="_blank" rel="noopener noreferrer">Anthropic debuts Claude Sonnet 5.5 running 30% faster (SiliconANGLE)</a></li><li><a href="https://www.infoq.com/news/2026/09/openai-gpt6-astra/" target="_blank" rel="noopener noreferrer">OpenAI Releases GPT-6 Astra for Coding and Computer Use (InfoQ)</a></li><li><a href="https://deploymentsafety.openai.com/gpt-6-astra" target="_blank" rel="noopener noreferrer">GPT-6 Astra System Card (OpenAI Deployment Safety Hub)</a></li></ul></div>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button">Kopiraj link</button>
+      <a class="btn primary" href="../../../#contact">Kontaktiraj me</a>
+    </div>
+    <section class="more-posts"><h2>Slični članci</h2><div class="post-grid">
+      <a class="post-card card glow" href="../vision-ai-testing-image-inputs/"><div class="meta"><time datetime="2026-11-25" data-fmt="short">25. nov 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Testiranje AI funkcionalnosti koje vide: QA za ulazne slike i dokumente</h3><p>Vision AI funkcionalnosti zakazuju na dva načina koje QA fokusiran samo na tekst propušta: loše ulazne slike i samouvjerene halucinacije. Evo kako testirati oba.</p></a>
+      <a class="post-card card glow" href="../testing-rag-pipelines-retrieval-evaluation/"><div class="meta"><time datetime="2026-11-18" data-fmt="short">18. nov 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Testiranje RAG pipeline-a: zašto korak pretrage treba sopstveni skup testova</h3><p>RAG sistemi tiho otkazuju kada pretraga pogriješi. Evo kako testirati pretragu i generisanje odvojeno, uz konkretan primjer i metriku koju vrijedi pratiti.</p></a>
+      <a class="post-card card glow" href="../claude-fable-5-2-for-testing/"><div class="meta"><time datetime="2026-11-11" data-fmt="short">11. nov 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Claude Fable 5.2 za testiranje: gdje su prednosti stvarne, a gdje prestaju</h3><p>Šta Claude Fable 5.2 mijenja u QA radu: duga agentska izvršavanja, upravljanje računarom, vid i cijena, uz jasno navedena ograničenja.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../../#contact" data-i18n="contact_cta">Kontaktiraj me</a>
+    <button type="button" data-consent data-i18n="cookies">Postavke kolačića</button>
+    <a href="../../../" data-i18n="back_home">Nazad na početnu ↑</a>
+  </footer>
+  <script src="../../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../../blog/common.js"></script>
+  <script src="../../../blog/post.js"></script>
+</body>
+</html>

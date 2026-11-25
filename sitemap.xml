@@ -2,8 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://markolosic.github.io/</loc><lastmod>2026-11-25</lastmod></url>
   <url><loc>https://markolosic.github.io/blog/</loc><lastmod>2026-11-25</lastmod></url>
-  <url><loc>https://markolosic.github.io/pipeline/</loc></url>
-  <url><loc>https://markolosic.github.io/llm-testing/</loc></url>
+  <url><loc>https://markolosic.github.io/sr/blog/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://markolosic.github.io/pipeline/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://markolosic.github.io/llm-testing/</loc><lastmod>2026-11-25</lastmod></url>
   <url><loc>https://markolosic.github.io/blog/vision-ai-testing-image-inputs/</loc><lastmod>2026-11-25</lastmod></url>
   <url><loc>https://markolosic.github.io/blog/session-based-exploratory-testing/</loc><lastmod>2026-11-23</lastmod></url>
   <url><loc>https://markolosic.github.io/blog/load-testing-qa-teams-k6-thresholds/</loc><lastmod>2026-11-20</lastmod></url>
@@ -51,4 +52,51 @@
   <url><loc>https://markolosic.github.io/blog/self-healing-tests-hidden-risk/</loc><lastmod>2026-09-23</lastmod></url>
   <url><loc>https://markolosic.github.io/blog/asserting-too-early-flaky-playwright-tests/</loc><lastmod>2026-09-21</lastmod></url>
   <url><loc>https://markolosic.github.io/blog/maestro-for-web-testing/</loc><lastmod>2026-09-21</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/vision-ai-testing-image-inputs/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/session-based-exploratory-testing/</loc><lastmod>2026-11-23</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/load-testing-qa-teams-k6-thresholds/</loc><lastmod>2026-11-20</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/testing-rag-pipelines-retrieval-evaluation/</loc><lastmod>2026-11-18</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/file-upload-testing-edge-cases/</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/claude-fable-5-2-for-testing/</loc><lastmod>2026-11-11</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/test-pyramid-vs-testing-trophy/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/chaos-engineering-game-day-qa-teams/</loc><lastmod>2026-11-06</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/pairwise-combinatorial-testing/</loc><lastmod>2026-11-04</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/definition-of-done-for-qa/</loc><lastmod>2026-11-02</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/binance-6-3-billion-hack-devops-laptop/</loc><lastmod>2026-10-30</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/testing-feature-flags-targeting-and-default-bugs/</loc><lastmod>2026-10-30</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/owasp-for-qa-top10-asvs-test-cases/</loc><lastmod>2026-10-28</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/reviewing-ai-generated-test-code-anti-patterns/</loc><lastmod>2026-10-28</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/property-based-testing-automated-test-generation/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/php2shell-rce-qa-testing-gaps/</loc><lastmod>2026-10-23</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/visual-regression-testing-ui-bugs/</loc><lastmod>2026-10-23</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/testing-ai-agents-tool-calls-side-effects/</loc><lastmod>2026-10-23</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/testing-non-deterministic-ai-features/</loc><lastmod>2026-10-21</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/mutation-testing-weak-assertions/</loc><lastmod>2026-10-19</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/ai-rewriting-qa-job-description/</loc><lastmod>2026-10-18</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/pom-alternatives-flow-model-screenplay-pattern/</loc><lastmod>2026-10-17</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/testing-dst-booking-bugs/</loc><lastmod>2026-10-16</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/accessibility-testing-automation-coverage-gap/</loc><lastmod>2026-10-15</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/ai-generated-test-data-blind-spots/</loc><lastmod>2026-10-14</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/checkmk-synthetic-monitoring-for-qa/</loc><lastmod>2026-10-12</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/qa-metrics-that-matter/</loc><lastmod>2026-10-12</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/bola-tenant-isolation-testing/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/sharding-tests-github-actions/</loc><lastmod>2026-10-08</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/maestro-mobile-test-automation/</loc><lastmod>2026-10-06</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/writing-bug-reports-that-get-fixed/</loc><lastmod>2026-10-05</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/risk-based-testing-prioritization/</loc><lastmod>2026-10-04</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/petlink-claude-code-gemini-ai-workflow/</loc><lastmod>2026-10-02</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/api-contract-testing-breaking-changes/</loc><lastmod>2026-10-02</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/omarchy-linux-agentic-qa/</loc><lastmod>2026-09-30</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/claude-sonnet-5-5-gpt-6-astra-testing/</loc><lastmod>2026-09-30</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/manual-testing-mobile-apps-interruptions/</loc><lastmod>2026-09-29</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/manually-testing-chrome-edge-extensions/</loc><lastmod>2026-09-29</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/risk-based-testing-what-not-to-test/</loc><lastmod>2026-09-28</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/emulator-testing-misconceptions/</loc><lastmod>2026-09-28</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/testing-idempotency-duplicate-charges/</loc><lastmod>2026-09-28</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/testing-checkout-retry-race-conditions/</loc><lastmod>2026-09-25</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/true-north-guide-program/</loc><lastmod>2026-09-25</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/quality-starts-before-testing/</loc><lastmod>2026-09-24</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/self-healing-tests-hidden-risk/</loc><lastmod>2026-09-23</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/asserting-too-early-flaky-playwright-tests/</loc><lastmod>2026-09-21</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/maestro-for-web-testing/</loc><lastmod>2026-09-21</lastmod></url>
 </urlset>

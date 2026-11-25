@@ -3,7 +3,7 @@ title: "Manually Testing Chrome and Edge Extensions: Where the Usual Playbook Br
 title_sr: "Ručno testiranje Chrome i Edge ekstenzija: gdje uobičajeni pristup prestaje da radi"
 date: 2026-09-29
 time: 19:45
-tags: [qa, manual-testing, browser-extensions, methodology]
+tags: [manual-testing, test-strategy]
 excerpt: Why manual testing of browser extensions needs a different checklist than testing a website, and what to check on Chrome and Edge.
 excerpt_sr: Zašto ručno testiranje ekstenzija za pretraživač traži drugačiju čeklistu od testiranja web sajta, i šta provjeriti na Chrome-u i Edge-u.
 image: assets/blog/manually-testing-chrome-edge-extensions.jpg

@@ -3,7 +3,7 @@ title: "Catching Breaking API Changes Before They Reach Production With Contract
 title_sr: "Kako ugovorno testiranje hvata promjene koje lome API prije nego što stignu do produkcije"
 date: 2026-10-02
 time: 18:00
-tags: [qa, api-testing, contract-testing, microservices]
+tags: [api-testing, ci-cd, test-automation]
 excerpt: How consumer-driven contract testing catches breaking API changes between services before they hit production, with a concrete example.
 excerpt_sr: Kako ugovorno testiranje vođeno potrošačem hvata promjene koje lome API između servisa prije nego što stignu do produkcije, uz konkretan primjer.
 image: assets/blog/api-contract-testing-breaking-changes.jpg

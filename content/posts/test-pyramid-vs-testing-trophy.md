@@ -3,7 +3,7 @@ title: "Test Pyramid or Testing Trophy: Picking the Shape That Matches Your Risk
 title_sr: "Test piramida ili testing trofej: birajte oblik koji odgovara vašem riziku, a ne dijagramu"
 date: 2026-11-09
 time: 08:00
-tags: [qa, test-automation, methodology, test-strategy]
+tags: [test-strategy, test-automation]
 excerpt: The test pyramid and testing trophy give opposite advice on where to put your tests. Here's how to decide which shape actually fits your codebase.
 excerpt_sr: Test piramida i testing trofej daju suprotne savjete o tome gdje da uložite testove. Evo kako da odlučite koji oblik zaista odgovara vašem kodu.
 image: assets/blog/test-pyramid-vs-testing-trophy.jpg

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="sr" data-theme="dark" data-static-lang="sr" data-alt-url="../../../blog/claude-fable-5-2-for-testing/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Claude Fable 5.2 za testiranje: gdje su prednosti stvarne, a gdje prestaju — Marko Lošić</title>
+  <meta name="description" content="Šta Claude Fable 5.2 mijenja u QA radu: duga agentska izvršavanja, upravljanje računarom, vid i cijena, uz jasno navedena ograničenja.">
+  <link rel="canonical" href="https://markolosic.github.io/sr/blog/claude-fable-5-2-for-testing/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/claude-fable-5-2-for-testing/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/claude-fable-5-2-for-testing/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/claude-fable-5-2-for-testing/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Claude Fable 5.2 za testiranje: gdje su prednosti stvarne, a gdje prestaju — Marko Lošić">
+  <meta property="og:description" content="Šta Claude Fable 5.2 mijenja u QA radu: duga agentska izvršavanja, upravljanje računarom, vid i cijena, uz jasno navedena ograničenja.">
+  <meta property="og:url" content="https://markolosic.github.io/sr/blog/claude-fable-5-2-for-testing/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/claude-fable-5-2-for-testing.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="669">
+  <meta property="og:image:alt" content="Claude Fable 5.2 za testiranje: gdje su prednosti stvarne, a gdje prestaju">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Claude Fable 5.2 za testiranje: gdje su prednosti stvarne, a gdje prestaju — Marko Lošić">
+  <meta name="twitter:description" content="Šta Claude Fable 5.2 mijenja u QA radu: duga agentska izvršavanja, upravljanje računarom, vid i cijena, uz jasno navedena ograničenja.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/claude-fable-5-2-for-testing.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/sr/blog/claude-fable-5-2-for-testing/#article","headline":"Claude Fable 5.2 za testiranje: gdje su prednosti stvarne, a gdje prestaju","description":"Šta Claude Fable 5.2 mijenja u QA radu: duga agentska izvršavanja, upravljanje računarom, vid i cijena, uz jasno navedena ograničenja.","image":"https://markolosic.github.io/assets/blog/claude-fable-5-2-for-testing.jpg","url":"https://markolosic.github.io/sr/blog/claude-fable-5-2-for-testing/","inLanguage":"sr","wordCount":1110,"articleSection":"ai-testing","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/sr/blog/claude-fable-5-2-for-testing/"},"datePublished":"2026-11-11T18:30:00.000Z","dateModified":"2026-11-11T18:30:00.000Z","keywords":"ai-testing, test-automation","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Početna","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/sr/blog/"},{"@type":"ListItem","position":3,"name":"Claude Fable 5.2 za testiranje: gdje su prednosti stvarne, a gdje prestaju","item":"https://markolosic.github.io/sr/blog/claude-fable-5-2-for-testing/"}]}]}</script>
+  <meta property="article:published_time" content="2026-11-11T18:30:00.000Z">
+  <meta property="article:modified_time" content="2026-11-11T18:30:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../assets/fonts.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../../#top" data-i18n="nav_about">O meni</a>
+      <a href="../../../#skills" data-i18n="nav_skills">Vještine</a>
+      <a href="../../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../../#experience" data-i18n="nav_exp">Iskustvo</a>
+      <a href="../../../#education" data-i18n="nav_edu">Obrazovanje</a>
+      <a href="../../../sr/blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../../#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span>Svi članci</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-11-11" data-fmt="long">11. novembar 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h1>Claude Fable 5.2 za testiranje: gdje su prednosti stvarne, a gdje prestaju</h1>
+        <p class="lead">Šta Claude Fable 5.2 mijenja u QA radu: duga agentska izvršavanja, upravljanje računarom, vid i cijena, uz jasno navedena ograničenja.</p>
+        <div class="tags"><span>ai-testing</span><span>test-automation</span></div>
+      </header>
+      <div class="prose"><p>Svaki novi vodeći model stiže sa tabelom benchmark rezultata, a nijedan red u njoj ne kaže &quot;piše testove koji hvataju bagove&quot;. Anthropic je 9. novembra 2026. objavio Claude Fable 5.2 i predstavio ga kao svoj najsposobniji model za tehnički rad. Za QA tim korisno pitanje je uže od &quot;da li je bolji&quot;: koje zadatke testiranja mijenja, a koji ostaju jednako teški kao i prije?</p>
+<p><img src="../../../assets/blog/claude-fable-5-2-for-testing.jpg" alt="Ilustracija svjetleće neuronske mreže na lijevoj strani iz koje se granaju linije nalik strujnim kolima prema desno, pored prozora editora koda, rombova za odluke i čvorova toka, a završavaju se narandžastim kvačicama pored isprekidanih linija cilja" width="1200" height="669" fetchpriority="high" decoding="async"></p>
+<h2 id="šta-se-promijenilo-u-brojkama">Šta se promijenilo, u brojkama</h2>
+<p>Činjenice bitne za rad na testiranju, iz Anthropic-ovih materijala za lansiranje i prvih osvrta:</p>
+<ul><li><strong>Cijena:</strong> 8 dolara po milion ulaznih tokena i 40 dolara po milion izlaznih tokena, umjesto 10 i 50 dolara za Fable 5.1.</li><li><strong>Kontekst:</strong> kontekstni prozor od milion tokena i do 128 hiljada izlaznih tokena, prema navodima DataCampa i Vals AI-ja.</li><li><strong>Agentsko kodiranje:</strong> 69,9% na FrontierSWE v2 (Fable 5.1: 56,3%) i 49,1% na FrontierCode 2.0 (Fable 5.1: 32,4%), oba podatka su Anthropic-ova.</li><li><strong>Upravljanje računarom:</strong> 89,3% na OSWorld 2.1 (offline skup, djelimično), u odnosu na ranijih 83,5%.</li><li><strong>Vid:</strong> 73,4% na Chartography, benchmarku za čitanje grafikona koji se izvršava bez alata.</li></ul>
+<p>Postoji i nešto nezavisne potvrde. Vals AI je model postavio na prvo mjesto svog ukupnog indeksa, na prvo mjesto na Vibe Code Bench (93,77%) i na drugo na svom Code Migration benchmarku (83,27%). I Artificial Analysis ga je stavio na prvo mjesto svog indeksa.</p>
+<h2 id="gdje-ovo-pomaže-u-testiranju">Gdje ovo pomaže u testiranju</h2>
+<p>Nijedan od tih benchmarkova ne mjeri direktno kvalitet testova, pa je povezivanje sa QA radom zaključak, a ne mjerenje. Ovako se to uklapa:</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Sposobnost</th><th>Zadatak testiranja kojem odgovara</th><th>Dokaz</th></tr></thead>
+<tbody>
+<tr><td>Duga agentska izvršavanja u više koraka</td><td>Migracija skupa testova između frameworka, rješavanje zaostatka nestabilnih testova</td><td>Vals Code Migration, FrontierSWE v2</td></tr>
+<tr><td>Kontekst od milion tokena</td><td>Čitanje specifikacije, koda i postojećih testova zajedno radi pronalaženja rupa u pokrivenosti</td><td>Navedena veličina konteksta</td></tr>
+<tr><td>Upravljanje računarom</td><td>Istraživački prolazi kroz UI, reprodukcija baga na osnovu zapisanih koraka</td><td>OSWorld 2.1</td></tr>
+<tr><td>Vid</td><td>Pregled screenshotova, dashboarda i prikaza grafikona</td><td>Chartography</td></tr>
+<tr><td>Samoprovjera</td><td>Pokretanje testova koje sam napiše i prijavljivanje rezultata koji se ne ponavljaju</td><td>Anthropic-ov opis, ne nezavisno mjerenje</td></tr>
+</tbody>
+</table>
+</div>
+<p>Posljednji red zaslužuje bliži pogled. Anthropic tvrdi da model usput testira sopstveni rad i na dugim izvršavanjima označava rezultate koji se ne mogu ponoviti. Ako se to potvrdi na vašem kodu, rješava se poznata slabost testova koje piše AI: kod koji izgleda završeno, a nikad nije pokrenut. Ipak, to je tvrdnja proizvođača, pa je provjerite na sopstvenom repozitorijumu prije nego što se na nju oslonite.</p>
+<h2 id="konkretan-primjer-zadatak-za-migraciju-skupa-testova">Konkretan primjer: zadatak za migraciju skupa testova</h2>
+<p>Migracija skupa testova je zadatak sa najjačim nezavisnim dokazima, pa je razuman izbor za prvu probu. Zadatak koji date modelu bitniji je od samog modela. Verzija čiji se rezultat može provjeriti:</p>
+<pre><code class="lang-text">Task: migrate tests/checkout/ (38 Selenium tests) to Playwright.
+
+Rules:
+- One Playwright test per Selenium test. Keep the test names.
+- Do not change application code or weaken any assertion.
+- Run each migrated test 5 times. Report any that fail even once.
+- For each test, list assertions you could not carry over, and why.
+
+Done means: a table with test name, old result, new result (5 runs),
+and assertions changed. Stop and ask if a test seems to assert
+wrong behavior instead of fixing it.</code></pre>
+<p>Dvije linije obavljaju najveći dio posla. &quot;Do not weaken any assertion&quot; (ne slabi nijednu asertaciju) zatvara najlakši put do zelenog rezultata. Posljednja instrukcija pokriva slučaj kada je stari test u sebi sadržao bag: model koji tiho &quot;popravi&quot; test sakriva upravo nalaz koji vam je najpotrebniji.</p>
+<p>Rezultat prvo pregledajte po broju asertacija. Ako je stari skup imao 212 asertacija, a novi ima 180, tih 32 pročitajte prije svega ostalog.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p><strong>Većina brojki dolazi od proizvođača.</strong> Istaknutih 49,1% na FrontierCode zahtijeva najviši nivo napora (effort); na visokom nivou rezultat je 45,3%, otprilike isto kao jeftiniji Opus 5.5. Nezavisni rezultati se i međusobno razlikuju: Artificial Analysis je izmjerio 60% na Terminal-Bench 4.0, iza nekoliko konkurenata, dok je Vals izmjerio 65,15% i stavio ga na prvo mjesto. Na SWE-bench Multimodal Vals ga stavlja iza modela Opus 5.5 (62,29% naspram 70,21%).</p>
+<p><strong>Niža cijena ne znači da je jeftin.</strong> Artificial Analysis je izmjerio najveći trošak po zadatku od 26,50 dolara, oko 2,6 puta više nego Opus 5.5. Opus 5.5 košta upola manje po tokenu, a recenzent DataCampa ga i dalje smatra podrazumijevanim izborom za svakodnevni rad. Generisanje šablonskih unit testova na najskupljem modelu je bacanje budžeta.</p>
+<p><strong>Bezbjednosno testiranje je ograničeno.</strong> Fable 5.2 blokira pentesting i generisanje exploita, a Anthropic navodi da se označeni zahtjevi iz oblasti sajber bezbjednosti preusmjeravaju na manje sposobne modele. Neograničena varijanta, Mythos 5.2, dostupna je samo verifikovanim organizacijama. Ako vaš plan testiranja uključuje ofanzivno bezbjednosno testiranje, provjerite ovo prije nego što plan zasnujete na ovom modelu.</p>
+<p><strong>Čuvanje podataka.</strong> Fable modeli podrazumijevano zahtijevaju čuvanje podataka 30 dana radi bezbjednosnog nadzora. Ako testni podaci ili prijave bagova sadrže podatke korisnika, to je pitanje usklađenosti koje treba riješiti prvo.</p>
+<p><strong>Samoprovjera nije nezavisna provjera.</strong> Model koji provjerava sopstveni rad dijeli i sopstvene slijepe tačke. Testovi koje napiše i dalje mogu da potvrđuju trenutno ponašanje umjesto ispravnog, pa asertacije i dalje mora da pročita čovjek koji poznaje zahtjev.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ol><li>Izaberite jedan ograničen zadatak, na primjer migraciju 30 do 50 testova, i pokrenite ga sa zadatkom poput gornjeg. Zabilježite trošak, vrijeme i broj izmijenjenih asertacija.</li><li>Isti zadatak pokrenite na jeftinijem modelu. Poređenje koje je bitno je trošak po prihvaćenom testu, a ne mjesto na benchmark listi.</li><li>Raspoređujte po težini: rutinsko generisanje testova ostavite jeftinijem modelu, a Fable 5.2 sačuvajte za dug i nejasan posao, kao što je analiza uzroka nestabilnih testova ili izmjene kroz više repozitorijuma.</li><li>Prije nego što pošaljete stvarne testne podatke, provjerite uslove čuvanja podataka sa osobom zaduženom za usklađenost.</li></ol>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://www.anthropic.com/claude/fable" target="_blank" rel="noopener noreferrer">Claude Fable 5.2 product page, Anthropic</a></li><li><a href="https://www.datacamp.com/blog/claude-fable-5-2-and-mythos-5-2" target="_blank" rel="noopener noreferrer">Claude Fable 5.2 and Mythos 5.2: Our Take on the Upgrade, DataCamp</a></li><li><a href="https://the-decoder.com/claude-fable-5-2-and-mythos-5-2-cement-anthropics-ai-lead-just-before-its-ipo/" target="_blank" rel="noopener noreferrer">Claude Fable 5.2 and Mythos 5.2 cement Anthropic's AI lead just before its IPO, The Decoder</a></li><li><a href="https://dev.to/hamzaahmadaslam/claude-fable-52-benchmarks-price-and-the-first-independent-test-results-2ln4" target="_blank" rel="noopener noreferrer">Claude Fable 5.2: benchmarks, price and the first independent test results, DEV Community</a></li></ul></div>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button">Kopiraj link</button>
+      <a class="btn primary" href="../../../#contact">Kontaktiraj me</a>
+    </div>
+    <section class="more-posts"><h2>Slični članci</h2><div class="post-grid">
+      <a class="post-card card glow" href="../vision-ai-testing-image-inputs/"><div class="meta"><time datetime="2026-11-25" data-fmt="short">25. nov 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Testiranje AI funkcionalnosti koje vide: QA za ulazne slike i dokumente</h3><p>Vision AI funkcionalnosti zakazuju na dva načina koje QA fokusiran samo na tekst propušta: loše ulazne slike i samouvjerene halucinacije. Evo kako testirati oba.</p></a>
+      <a class="post-card card glow" href="../testing-rag-pipelines-retrieval-evaluation/"><div class="meta"><time datetime="2026-11-18" data-fmt="short">18. nov 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Testiranje RAG pipeline-a: zašto korak pretrage treba sopstveni skup testova</h3><p>RAG sistemi tiho otkazuju kada pretraga pogriješi. Evo kako testirati pretragu i generisanje odvojeno, uz konkretan primjer i metriku koju vrijedi pratiti.</p></a>
+      <a class="post-card card glow" href="../reviewing-ai-generated-test-code-anti-patterns/"><div class="meta"><time datetime="2026-10-28" data-fmt="short">28. okt 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Pregled testova koje je napisao AI: anti-obrasci koji promaknu na brzinu</h3><p>AI asistenti pišu testove jednako lako kao i kod, ali mnogi od tih testova prolaze a da ništa ne provjeravaju. Evo na šta treba obratiti pažnju prije nego što ih spojite.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../../#contact" data-i18n="contact_cta">Kontaktiraj me</a>
+    <button type="button" data-consent data-i18n="cookies">Postavke kolačića</button>
+    <a href="../../../" data-i18n="back_home">Nazad na početnu ↑</a>
+  </footer>
+  <script src="../../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../../blog/common.js"></script>
+  <script src="../../../blog/post.js"></script>
+</body>
+</html>

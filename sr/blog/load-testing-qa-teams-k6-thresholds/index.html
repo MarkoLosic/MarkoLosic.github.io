@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="sr" data-theme="dark" data-static-lang="sr" data-alt-url="../../../blog/load-testing-qa-teams-k6-thresholds/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Load testiranje za QA timove: šta k6 hvata, a šta prolazni prag i dalje može da sakrije — Marko Lošić</title>
+  <meta name="description" content="Praktičan k6 vodič za QA timove: pisanje load testa, postavljanje pragova i zamke zbog kojih zelen dashboard može da zavara.">
+  <link rel="canonical" href="https://markolosic.github.io/sr/blog/load-testing-qa-teams-k6-thresholds/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/load-testing-qa-teams-k6-thresholds/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/load-testing-qa-teams-k6-thresholds/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/load-testing-qa-teams-k6-thresholds/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Load testiranje za QA timove: šta k6 hvata, a šta prolazni prag i dalje može da sakrije — Marko Lošić">
+  <meta property="og:description" content="Praktičan k6 vodič za QA timove: pisanje load testa, postavljanje pragova i zamke zbog kojih zelen dashboard može da zavara.">
+  <meta property="og:url" content="https://markolosic.github.io/sr/blog/load-testing-qa-teams-k6-thresholds/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/load-testing-qa-teams-k6-thresholds.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="669">
+  <meta property="og:image:alt" content="Load testiranje za QA timove: šta k6 hvata, a šta prolazni prag i dalje može da sakrije">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Load testiranje za QA timove: šta k6 hvata, a šta prolazni prag i dalje može da sakrije — Marko Lošić">
+  <meta name="twitter:description" content="Praktičan k6 vodič za QA timove: pisanje load testa, postavljanje pragova i zamke zbog kojih zelen dashboard može da zavara.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/load-testing-qa-teams-k6-thresholds.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/sr/blog/load-testing-qa-teams-k6-thresholds/#article","headline":"Load testiranje za QA timove: šta k6 hvata, a šta prolazni prag i dalje može da sakrije","description":"Praktičan k6 vodič za QA timove: pisanje load testa, postavljanje pragova i zamke zbog kojih zelen dashboard može da zavara.","image":"https://markolosic.github.io/assets/blog/load-testing-qa-teams-k6-thresholds.jpg","url":"https://markolosic.github.io/sr/blog/load-testing-qa-teams-k6-thresholds/","inLanguage":"sr","wordCount":1217,"articleSection":"performance-testing","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/sr/blog/load-testing-qa-teams-k6-thresholds/"},"datePublished":"2026-11-20T18:30:00.000Z","dateModified":"2026-11-20T18:30:00.000Z","keywords":"performance-testing, test-automation, ci-cd","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Početna","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/sr/blog/"},{"@type":"ListItem","position":3,"name":"Load testiranje za QA timove: šta k6 hvata, a šta prolazni prag i dalje može da sakrije","item":"https://markolosic.github.io/sr/blog/load-testing-qa-teams-k6-thresholds/"}]}]}</script>
+  <meta property="article:published_time" content="2026-11-20T18:30:00.000Z">
+  <meta property="article:modified_time" content="2026-11-20T18:30:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../assets/fonts.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../../#top" data-i18n="nav_about">O meni</a>
+      <a href="../../../#skills" data-i18n="nav_skills">Vještine</a>
+      <a href="../../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../../#experience" data-i18n="nav_exp">Iskustvo</a>
+      <a href="../../../#education" data-i18n="nav_edu">Obrazovanje</a>
+      <a href="../../../sr/blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../../#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span>Svi članci</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-11-20" data-fmt="long">20. novembar 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h1>Load testiranje za QA timove: šta k6 hvata, a šta prolazni prag i dalje može da sakrije</h1>
+        <p class="lead">Praktičan k6 vodič za QA timove: pisanje load testa, postavljanje pragova i zamke zbog kojih zelen dashboard može da zavara.</p>
+        <div class="tags"><span>performance-testing</span><span>test-automation</span><span>ci-cd</span></div>
+      </header>
+      <div class="prose"><p>Funkcionalni testovi su zeleni, izdanje ide u produkciju, a prvi pravi skok saobraćaja svejedno obori checkout endpoint. Ništa u skupu testova nije bilo pogrešno — samo nijedan test nikad nije pitao šta se dešava kada petsto ljudi pogodi taj endpoint u istom trenutku umjesto jednog. To je rupa koju load testiranje popunjava, i većina QA skupova testova je i dalje ostavlja nepokrivenom, često zato što su alati nekada zahtijevali strmu krivu učenja prije nego što bi vam rekli bilo šta korisno. Grafanin k6 je postao podrazumijevana ulazna tačka za zatvaranje te rupe bez režijskog troška koji su nekada tražili JMeter ili Gatling.</p>
+<p><img src="../../../assets/blog/load-testing-qa-teams-k6-thresholds.jpg" alt="Ilustracija load testa: grafik latencije koji je ravan, a zatim skače crveno iznad isprekidane linije praga, pored grupe servera koju pogađa talas dolaznih zahtjeva" width="1200" height="669" fetchpriority="high" decoding="async"></p>
+<h2 id="zašto-ovo-zaslužuje-sopstveni-skup-testova">Zašto ovo zaslužuje sopstveni skup testova</h2>
+<p>Funkcionalni testovi provjeravaju ispravnost jedan po jedan zahtjev: za ovaj ulaz, da li je izlaz tačan. Load testiranje provjerava šta se dešava kada mnogo zahtjeva stiže istovremeno i nastavlja da stiže, i otkriva načine otkazivanja koje test sa jednim zahtjevom strukturno ne može da vidi — connection pool koji je u redu na jednom zahtjevu u sekundi, a iscrpljen na pedeset, N+1 upit koji postaje vidljiv tek pod istovremenim opterećenjem, keš koji ostaje &quot;topao&quot; u izolaciji, ali doživi stampedo kada ga mnogo klijenata promaši odjednom, rate limiter koji zapravo nikad nije podešen. Ništa od toga se ne pojavljuje u skupu testova koji šalje zahtjeve jedan za drugim.</p>
+<h2 id="prva-k6-skripta">Prva k6 skripta</h2>
+<p>k6 skripte su obični JavaScript, što je velikim dijelom razlog zašto je k6 postao uobičajen izbor za timove koji već pišu funkcionalne testove u JS-u ili TS-u — nema posebnog GUI alata, nema XML test planova za održavanje. Minimalan test protiv checkout endpointa izgleda ovako:</p>
+<pre><code class="lang-javascript">import http from 'k6/http';
+import { check, sleep } from 'k6';
+
+export const options = {
+  stages: [
+    { duration: '1m', target: 20 },  // postepeno do 20 virtuelnih korisnika
+    { duration: '3m', target: 20 },  // zadrži stabilno
+    { duration: '1m', target: 0 },   // postepeno spuštanje
+  ],
+  thresholds: {
+    http_req_duration: ['p(95)&lt;400'], // 95% zahtjeva ispod 400ms
+    http_req_failed: ['rate&lt;0.01'],   // stopa grešaka ispod 1%
+  },
+};
+
+export default function () {
+  const res = http.post(
+    'https://staging.example.com/api/checkout',
+    JSON.stringify({ cartId: 'cart_123', paymentToken: 'tok_test' }),
+    { headers: { 'Content-Type': 'application/json' } }
+  );
+
+  check(res, {
+    'status is 200': (r) =&gt; r.status === 200,
+    'order id returned': (r) =&gt; r.json('orderId') !== undefined,
+  });
+
+  sleep(1); // vrijeme razmišljanja između zahtjeva, ne petlja bez pauze
+}</code></pre>
+<p>Blok <code>thresholds</code> je dio koji ovo pretvara u nešto na čemu CI može da blokira build: ako p95 latencija ili stopa grešaka pređe granicu koju ste postavili, pokretanje pada, isto kao što neuspješna asercija obori funkcionalni test. Za pravi checkout tok obično biste modelovali više od jednog endpointa — dodavanje u korpu, primjena kupona, slanje plaćanja — svaki sa sopstvenim udjelom u saobraćaju, a tome služi k6 funkcionalnost scenarija: omogućava da kombinujete više obrazaca zahtjeva u jednom pokretanju umjesto da pišete posebne skripte za svaki endpoint. Sam k6 održava Grafana Labs, a novija izdanja su dodala browser modul koji može da pokreće pravu Chromium instancu pod opterećenjem, što je korisno kada treba da vidite kako se UI ponaša dok je backend pod stresom, a ne samo sirovu propusnost API-ja.</p>
+<h2 id="čitajte-rezultate-ne-samo-dashboard">Čitajte rezultate, ne samo dashboard</h2>
+<p>Zeleno pokretanje nije isto što i zdrav sistem. Broj koji vrijedi pratiti je p95 ili p99 latencija, a ne prosjek — prosječno vrijeme odgovora od 150ms lako sakrije &quot;rep&quot; korisnika koji čekaju četiri sekunde, a dashboard koji prikazuje samo srednju vrijednost reći će vam da je sve u redu dok značajan dio stvarnih korisnika ima loše iskustvo. Druga stvar koju vrijedi provjeriti prije nego što povjerujete brojevima je način na koji se opterećenje generiše: fiksni broj virtuelnih korisnika koji se vrte u petlji bez pauze modeluje zatvoren sistem, u kom se opterećenje automatski povlači čim server uspori, što može umanjiti probleme u poređenju sa stvarnim saobraćajem, gdje novi zahtjevi nastavljaju da stižu sopstvenim tempom bez obzira na to kako je serveru.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Load testiranje zaslužuje svoje mjesto u QA skupu testova, ali ima i sopstvene stvarne načine otkazivanja:</p>
+<ul><li><strong>Staging rijetko dovoljno liči na produkciju.</strong> Manje instance, djelić produkcionog obima podataka i niži limiti konekcija su uobičajeni, a posljedica seče u oba smjera: testovi mogu da potcijene probleme jer produkcija ima više rezerve, ili da ih precijene jer se staging guši pod opterećenjem koje produkcioni obim podataka nikad ne bi proizveo. Tretirajte rezultate sa staginga kao smjernicu, ne kao garanciju, i to eksplicitno navedite kada ih izvještavate.</li><li><strong>Test usmjeren na pogrešno okruženje.</strong> Pogrešno podešen base URL ili promjenljiva okruženja može poslati pravo opterećenje na produkciju bez ikakvog rate limita. Neka ciljni URL bude eksplicitan, zaštićen i pregledan, isto kao što biste pregledali skriptu za migraciju.</li><li><strong>Bez vremena razmišljanja.</strong> Ispaljivanje zahtjeva jedan za drugim bez pauze ne liči na način na koji stvaran korisnik klikće kroz tok, i daće brojeve propusnosti koje nijedan stvaran obrazac saobraćaja nikad neće dostići.</li><li><strong>Biranje granice prolaza/pada nakon što stignu rezultati.</strong> Ako pragovi nisu postavljeni prije pokretanja, primamljivo je opravdati koji god broj se vrati. Prag prvo postavite na osnovu stvarnog SLO-a.</li><li><strong>AI generisanje scenarija je još novo i često iza paywall-a.</strong> Nekoliko alata za load testiranje u 2026. nudi AI pomoć pri pisanju skripti ili prijedloge scenarija, ali te funkcije su često zaključane u plaćenim paketima i i dalje traže da čovjek potvrdi da generisani scenario odgovara stvarnom saobraćaju, a ne samo da se izvršava bez grešaka.</li></ul>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ul><li>Izaberite jedan kritičan tok — checkout, prijavu, pretragu — umjesto da u prvom pokušaju load testirate cijeli sajt.</li><li>Prvo pokrenite skriptu sa malim brojem virtuelnih korisnika i potvrdite da provjere prolaze prije podizanja opterećenja; load test koji je pogrešan na 1 VU je samo brže pogrešan na 100.</li><li>Pragove pišite na osnovu postojećeg SLO-a ili istorije tiketa podrške, a ne na osnovu onoga što prvo pokretanje slučajno pokaže.</li><li>Uvežite test u CI protiv staginga, pratite p95/p99 kroz vrijeme i dokumentujte poznate razlike između tog staging okruženja i produkcije, umjesto da prolazno pokretanje tretirate kao garanciju za produkciju.</li></ul>
+<p>Za testiranje otpornosti sistema izvan samih load skripti pogledaj <a href="/sr/blog/chaos-engineering-game-day-qa-teams/">Chaos engineering Game Day za QA timove</a>, <a href="/sr/blog/checkmk-synthetic-monitoring-for-qa/">Checkmk sintetički monitoring za QA</a> i <a href="/pipeline/">prikaz mog CI quality-gate pipeline-a</a>.</p>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://qaskills.sh/blog/k6-load-testing-guide-2026" target="_blank" rel="noopener noreferrer">k6 Load Testing Guide 2026: Scripts, Thresholds, and CI Setup</a></li><li><a href="https://apidog.com/blog/k6-load-testing/" target="_blank" rel="noopener noreferrer">k6 load testing: a practical guide for APIs — Apidog</a></li><li><a href="https://dev.to/1xapi/how-to-implement-api-load-testing-with-k6-in-nodejs-2026-guide-9dn" target="_blank" rel="noopener noreferrer">How to Implement API Load Testing with k6 in Node.js (2026 Guide) — DEV Community</a></li><li><a href="https://tech-insider.org/k6-vs-jmeter-vs-gatling-2026/" target="_blank" rel="noopener noreferrer">k6 vs JMeter vs Gatling: 2026 comparison — Tech Insider</a></li><li><a href="https://aiindigo.com/blog/k6-review-2026-ai-driven-performance-engineering" target="_blank" rel="noopener noreferrer">K6 Review 2026: AI-Driven Performance Engineering</a></li><li><a href="https://loadtest-qa-v1.pages.dev/blog/load-testing-mistakes/" target="_blank" rel="noopener noreferrer">7 Load Testing Mistakes That Give You False Confidence — loadtest.qa</a></li><li><a href="https://grokdatum.github.io/grokdevops-wiki/library/topics/load-testing/footguns" target="_blank" rel="noopener noreferrer">Load Testing Footguns</a></li><li><a href="https://nitinkc.github.io/GatlingLearning/theory/06-common-pitfalls" target="_blank" rel="noopener noreferrer">Common Pitfalls &amp; Best Practices — Gatling Learning</a></li><li><a href="https://loadfocus.com/blog/2026/06/performance-testing-mistakes-how-to-avoid" target="_blank" rel="noopener noreferrer">7 Common Performance Testing Mistakes (and How to Avoid Them) in 2026 — LoadFocus</a></li></ul></div>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button">Kopiraj link</button>
+      <a class="btn primary" href="../../../#contact">Kontaktiraj me</a>
+    </div>
+    <section class="more-posts"><h2>Slični članci</h2><div class="post-grid">
+      <a class="post-card card glow" href="../checkmk-synthetic-monitoring-for-qa/"><div class="meta"><time datetime="2026-10-12" data-fmt="short">12. okt 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Neka testovi rade i poslije objave: Checkmk Synthetic Monitoring za QA timove</h3><p>Kako QA timovi mogu da pretvore Robot Framework testove u stalne provjere produkcije uz Checkmk, i na koje zamke treba računati.</p></a>
+      <a class="post-card card glow" href="../chaos-engineering-game-day-qa-teams/"><div class="meta"><time datetime="2026-11-06" data-fmt="short">6. nov 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Chaos engineering za QA timove: kako zapravo izgleda game day</h3><p>Praktičan pogled na chaos engineering alate i kako organizovati game day za testiranje otpornosti, a da se on ne pretvori u ispad sistema.</p></a>
+      <a class="post-card card glow" href="../visual-regression-testing-ui-bugs/"><div class="meta"><time datetime="2026-10-23" data-fmt="short">23. okt 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Vizuelno regresiono testiranje: kako uhvatiti UI bagove pored kojih vaši funkcionalni testovi prolaze</h3><p>Zašto provjere na nivou piksela hvataju greške u rasporedu koje funkcionalni testovi propuštaju, kako ih spriječiti da budu nestabilne i koji alati se zaista uklapaju u vaš pipeline.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../../#contact" data-i18n="contact_cta">Kontaktiraj me</a>
+    <button type="button" data-consent data-i18n="cookies">Postavke kolačića</button>
+    <a href="../../../" data-i18n="back_home">Nazad na početnu ↑</a>
+  </footer>
+  <script src="../../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../../blog/common.js"></script>
+  <script src="../../../blog/post.js"></script>
+</body>
+</html>

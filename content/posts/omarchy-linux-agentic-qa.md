@@ -3,8 +3,8 @@ title: "Omarchy Linux, Explained: What It Is, Why It's Worth Trying, and a Real 
 title_sr: "Omarchy Linux ukratko: šta je, zašto vrijedi probati i jedan stvaran primjer agentskog QA-ja"
 date: 2026-09-30
 time: 19:00
-tags: [qa, tools, linux, ai-in-qa]
-excerpt: What Omarchy Linux actually is, why developers and testers like it, and how its own release process uses fleets of AI agents in VMs as a QA pattern worth stealing.
+tags: [ai-testing, ci-cd]
+excerpt: What Omarchy Linux is, why developers and testers like it, and how its release process uses fleets of AI agents in VMs as a QA pattern worth stealing.
 excerpt_sr: Šta je zapravo Omarchy Linux, zašto ga developeri i testeri vole i kako njegov proces izdavanja koristi flote AI agenata u virtuelnim mašinama — QA obrazac koji vrijedi preuzeti.
 image: assets/blog/omarchy-linux-agentic-qa.jpg
 ---

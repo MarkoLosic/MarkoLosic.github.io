@@ -3,7 +3,7 @@ title: "Claude Fable 5.2 for Testing: Where the Advantages Are Real and Where Th
 title_sr: "Claude Fable 5.2 za testiranje: gdje su prednosti stvarne, a gdje prestaju"
 date: 2026-11-11
 time: 18:30
-tags: [qa, ai-in-qa, llm-models, test-automation]
+tags: [ai-testing, test-automation]
 excerpt: What Claude Fable 5.2 changes for QA work: long agentic runs, computer use, vision and cost, with the limits spelled out.
 excerpt_sr: Šta Claude Fable 5.2 mijenja u QA radu: duga agentska izvršavanja, upravljanje računarom, vid i cijena, uz jasno navedena ograničenja.
 image: assets/blog/claude-fable-5-2-for-testing.jpg

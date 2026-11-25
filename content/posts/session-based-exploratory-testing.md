@@ -3,7 +3,7 @@ title: "Session-Based Exploratory Testing: How to Make Ad Hoc Testing Repeatable
 title_sr: "Exploratory testiranje zasnovano na sesijama: kako ad hoc testiranje učiniti ponovljivim i mjerljivim"
 date: 2026-11-23
 time: 18:30
-tags: [qa, methodology, exploratory-testing, test-strategy]
+tags: [manual-testing, test-strategy]
 excerpt: How session-based test management turns unscripted exploratory testing into something you can plan, measure, and report on, with a worked charter example.
 excerpt_sr: Kako session-based test management pretvara exploratory testiranje bez skripte u nešto što možete planirati, mjeriti i o čemu možete izvještavati, uz konkretan primjer charter-a.
 image: assets/blog/session-based-exploratory-testing.jpg
@@ -74,6 +74,9 @@ SBTM is not a replacement for regression suites or a way to avoid writing down r
 2. Run one session per charter, timeboxed, with the TBS split above tracked in whatever you already use for notes.
 3. Hold a five-minute debrief after each session and write the next charter based on what came up, rather than planning all charters in advance.
 4. After a sprint or two, look at the aggregated session metrics — findings per session, time spent on setup versus testing — and use that pattern to justify fixing environment or data issues that keep eating session time.
+
+For the strategy and reporting habits around exploratory work, see [Risk-Based Testing Prioritization](/blog/risk-based-testing-prioritization/), [The Bug Report Developers Actually Want](/blog/writing-bug-reports-that-get-fixed/), and [Definition of Done for QA](/blog/definition-of-done-for-qa/).
+
 
 ## Sources
 
@@ -150,6 +153,9 @@ SBTM nije zamjena za regresione skupove testova niti način da se izbjegne zapis
 2. Održite jednu vremenski ograničenu sesiju po charter-u, uz praćenje TBS raspodjele u čemu god već vodite bilješke.
 3. Nakon svake sesije održite petominutni debrifing i napišite sljedeći charter na osnovu onoga što se pojavilo, umjesto da sve charter-e planirate unaprijed.
 4. Nakon sprinta ili dva, pogledajte zbirne metrike sesija — nalaze po sesiji, vrijeme potrošeno na podešavanje u odnosu na testiranje — i iskoristite taj obrazac da opravdate popravku problema sa okruženjem ili podacima koji stalno jedu vrijeme sesija.
+
+Za strategiju i izvještavanje oko istraživačkog testiranja pogledaj članke [Testiranje zasnovano na riziku](/sr/blog/risk-based-testing-prioritization/), [Prijava baga kakvu developeri zaista žele](/sr/blog/writing-bug-reports-that-get-fixed/) i [Definition of Done za QA](/sr/blog/definition-of-done-for-qa/).
+
 
 ## Izvori
 

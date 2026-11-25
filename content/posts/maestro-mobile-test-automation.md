@@ -3,7 +3,7 @@ title: "Writing Reliable Mobile Test Automation with Maestro: A Practical Guide"
 title_sr: "Pouzdana automatizacija testiranja mobilnih aplikacija uz Maestro: praktični vodič"
 date: 2026-10-06
 time: 09:00
-tags: [qa, test-automation, mobile, maestro]
+tags: [maestro, mobile-testing, test-automation]
 excerpt: How Maestro's YAML flows simplify mobile E2E testing, with a working login flow example and the best practices that keep it maintainable.
 excerpt_sr: Kako Maestro YAML tokovi pojednostavljuju E2E testiranje mobilnih aplikacija, uz radni primjer login toka i dobre prakse koje ga čine održivim.
 image: assets/blog/maestro-mobile-test-automation.jpg
@@ -65,6 +65,9 @@ Auto-retrying commands reduce one category of flakiness but don't eliminate flak
 ## What to do next
 
 Install the Maestro CLI and point it at an existing debug build rather than starting with a brand-new app — you'll learn the selector quirks of your real screens faster than with a toy example. Write one smoke flow for your most business-critical path (typically login or checkout) before trying to cover edge cases. Wire `maestro test --format junit` into your existing CI pipeline so failures show up where the team already looks, instead of in a separate dashboard nobody checks. Once the smoke flow is stable for a week, extract its shared steps into a `runFlow` file before writing the next ten flows, so the suite stays maintainable rather than copy-pasted.
+
+For more on mobile QA, see [Maestro flows inside my CI pipeline](/pipeline/), [Why Maestro Deserves a Spot in Your Web Testing Toolkit](/blog/maestro-for-web-testing/), [Emulator and Simulator Testing Misconceptions](/blog/emulator-testing-misconceptions/), and [Manual Testing for Mobile Apps: Interruptions](/blog/manual-testing-mobile-apps-interruptions/).
+
 
 ## Sources
 
@@ -131,6 +134,9 @@ Komande sa automatskim ponavljanjem smanjuju jednu kategoriju nestabilnosti (fla
 ## Šta dalje
 
 Instalirajte Maestro CLI i usmjerite ga na postojeći debug build, umjesto da počinjete sa potpuno novom aplikacijom — specifičnosti selektora na vašim stvarnim ekranima naučićete brže nego na nekom primjeru za igru. Napišite jedan smoke tok za poslovno najkritičniju putanju (obično login ili checkout) prije nego što pokušate da pokrijete granične slučajeve. Povežite `maestro test --format junit` sa postojećim CI pipeline-om, kako bi se padovi prikazivali tamo gdje tim već gleda, a ne na zasebnom dashboard-u koji niko ne provjerava. Kada smoke tok bude stabilan nedjelju dana, izdvojite njegove zajedničke korake u `runFlow` fajl prije nego što napišete sljedećih deset tokova, kako bi set testova ostao održiv, a ne kopiran i nalijepljen.
+
+Za više o testiranju mobilnih aplikacija pogledaj [Maestro tokove unutar mog CI pipeline-a](/pipeline/), [Zašto Maestro zaslužuje mjesto u web testiranju](/sr/blog/maestro-for-web-testing/), [Zablude o testiranju na emulatorima i simulatorima](/sr/blog/emulator-testing-misconceptions/) i [Manuelno testiranje mobilnih aplikacija: prekidi](/sr/blog/manual-testing-mobile-apps-interruptions/).
+
 
 ## Izvori
 

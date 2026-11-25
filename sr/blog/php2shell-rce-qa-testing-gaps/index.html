@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="sr" data-theme="dark" data-static-lang="sr" data-alt-url="../../../blog/php2shell-rce-qa-testing-gaps/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PHP2Shell: kako kritični RCE u jezgru PHP-a otkriva rupe u standardnim QA praksama — Marko Lošić</title>
+  <meta name="description" content="Šta PHP2Shell ranjivosti za udaljeno izvršavanje koda otkrivaju o slijepim tačkama tipičnih paketa testova i konkretni koraci da se one zatvore.">
+  <link rel="canonical" href="https://markolosic.github.io/sr/blog/php2shell-rce-qa-testing-gaps/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/php2shell-rce-qa-testing-gaps/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/php2shell-rce-qa-testing-gaps/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/php2shell-rce-qa-testing-gaps/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="PHP2Shell: kako kritični RCE u jezgru PHP-a otkriva rupe u standardnim QA praksama — Marko Lošić">
+  <meta property="og:description" content="Šta PHP2Shell ranjivosti za udaljeno izvršavanje koda otkrivaju o slijepim tačkama tipičnih paketa testova i konkretni koraci da se one zatvore.">
+  <meta property="og:url" content="https://markolosic.github.io/sr/blog/php2shell-rce-qa-testing-gaps/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/php2shell-rce-qa-testing-gaps.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="669">
+  <meta property="og:image:alt" content="PHP2Shell: kako kritični RCE u jezgru PHP-a otkriva rupe u standardnim QA praksama">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PHP2Shell: kako kritični RCE u jezgru PHP-a otkriva rupe u standardnim QA praksama — Marko Lošić">
+  <meta name="twitter:description" content="Šta PHP2Shell ranjivosti za udaljeno izvršavanje koda otkrivaju o slijepim tačkama tipičnih paketa testova i konkretni koraci da se one zatvore.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/php2shell-rce-qa-testing-gaps.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/sr/blog/php2shell-rce-qa-testing-gaps/#article","headline":"PHP2Shell: kako kritični RCE u jezgru PHP-a otkriva rupe u standardnim QA praksama","description":"Šta PHP2Shell ranjivosti za udaljeno izvršavanje koda otkrivaju o slijepim tačkama tipičnih paketa testova i konkretni koraci da se one zatvore.","image":"https://markolosic.github.io/assets/blog/php2shell-rce-qa-testing-gaps.jpg","url":"https://markolosic.github.io/sr/blog/php2shell-rce-qa-testing-gaps/","inLanguage":"sr","wordCount":1157,"articleSection":"security-testing","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/sr/blog/php2shell-rce-qa-testing-gaps/"},"datePublished":"2026-10-23T15:00:00.000Z","dateModified":"2026-10-23T15:00:00.000Z","keywords":"security-testing, real-world-bugs","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Početna","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/sr/blog/"},{"@type":"ListItem","position":3,"name":"PHP2Shell: kako kritični RCE u jezgru PHP-a otkriva rupe u standardnim QA praksama","item":"https://markolosic.github.io/sr/blog/php2shell-rce-qa-testing-gaps/"}]}]}</script>
+  <meta property="article:published_time" content="2026-10-23T15:00:00.000Z">
+  <meta property="article:modified_time" content="2026-10-23T15:00:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../assets/fonts.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../../#top" data-i18n="nav_about">O meni</a>
+      <a href="../../../#skills" data-i18n="nav_skills">Vještine</a>
+      <a href="../../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../../#experience" data-i18n="nav_exp">Iskustvo</a>
+      <a href="../../../#education" data-i18n="nav_edu">Obrazovanje</a>
+      <a href="../../../sr/blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../../#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span>Svi članci</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-10-23" data-fmt="long">23. oktobar 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h1>PHP2Shell: kako kritični RCE u jezgru PHP-a otkriva rupe u standardnim QA praksama</h1>
+        <p class="lead">Šta PHP2Shell ranjivosti za udaljeno izvršavanje koda otkrivaju o slijepim tačkama tipičnih paketa testova i konkretni koraci da se one zatvore.</p>
+        <div class="tags"><span>security-testing</span><span>real-world-bugs</span></div>
+      </header>
+      <div class="prose"><p>Krajem 2026. godine objavljene su dvije kritične ranjivosti u jezgru PHP interpretera, označene kao CVE-2026-109618 i CVE-2026-109619, sa CVSS ocjenom 9.2. Nijedna ne zahtijeva autentifikaciju niti bilo kakvu interakciju korisnika. Obje se mogu dosegnuti HTTP zahtjevima koji izgledaju sasvim obično, a zloupotreba u stvarnom svijetu prijavljena je prije nego što je većina sajtova stigla da se zakrpi. Ono što ovaj slučaj čini vrijednim pažnje QA tima nije samo ozbiljnost — nego to što se ovi bagovi nalaze upravo na teritoriji koju većina paketa testova nikada ne pogleda: neispravan ulaz na nivou protokola i stanje koje se prenosi iz jednog zahtjeva u drugi. To je dobar povod da se zapitate šta bi vaši testovi uhvatili, a šta ne bi.</p>
+<p><img src="../../../assets/blog/php2shell-rce-qa-testing-gaps.jpg" alt="Izometrijska ilustracija serverskog ormara sa svijetlećim PHP čipom na vrhu, koji pogađaju tokovi paketa podataka „HTTP REQUEST&quot; što prolaze pored napuklog štita firewalla, okružena panelima upozorenja sa natpisima „CVSS 9.2&quot;, „RCE critical alert&quot;, „PHP2Shell&quot;, „Memory corruption&quot;, „Use-after-free&quot;, „State leak&quot;, „Malformed multipart&quot; i „Shell exploit active&quot;" width="1200" height="669" fetchpriority="high" decoding="async"></p>
+<h2 id="šta-se-zapravo-desilo">Šta se zapravo desilo</h2>
+<p>CVE-2026-109618 je problem korupcije memorije vezan za način na koji PHP parsira multipart podatke iz formi. Zahtjev bez <code>Content-Length</code> zaglavlja može da zaobiđe podešeno ograničenje <code>post_max_size</code>, može se poslati neograničen broj HTTP zaglavlja kako bi se naduvala potrošnja memorije, a <code>max_file_uploads</code> ne broji prazna polja za upload fajlova, što omogućava da strukture koje PHP pravi za njih iscrpe memoriju.</p>
+<p>CVE-2026-109619 je use-after-free: PHP workeri prate stanje po zahtjevu, poput podataka o sesiji, a pod određenim uslovima greške to stanje se ne očisti prije nego što se njegova memorija oslobodi. Za aktiviranje su potrebna dva odvojena zahtjeva — jedan koji izazove grešku (nedostatak memorije, istek vremena izvršavanja ili neuspješan upload), a zatim drugi koji izazove upozorenje tokom inicijalizacije.</p>
+<p>Istraživači iz Wiza prijavili su potvrđenu zloupotrebu na PHP 8.5 sa uključenim <code>fatal_error_backtraces</code>, a sumnja se da pogođeni kod potiče još iz PHP 5. Zakrpe su izašle u verzijama PHP 8.5.12, 8.4.27, 8.3.36 i 8.2.35; očekuje se da verzije starije od 8.2 ostanu nezakrpljene, jer su te grane na kraju životnog vijeka (end of life).</p>
+<p>Ovo nije bag na koji bi tipičan funkcionalni test slučajno naletio. On živi u procjepu između „zahtjev je uspio&quot; i „zahtjev je bio ispravno formiran&quot;, kao i u procjepu između jednog zahtjeva i sljedećeg.</p>
+<h2 id="zašto-je-ovo-slijepa-tačka-testiranja">Zašto je ovo slijepa tačka testiranja</h2>
+<p>Većina QA paketa testova izgrađena je na tri pretpostavke koje ovaj incident ruši. Prva je da je jedan zahtjev kompletna, izolovana jedinica testiranja — napišeš zahtjev, provjeriš odgovor, ideš dalje. CVE-2026-109619 se pojavljuje samo kroz <em>niz</em> zahtjeva: zahtjev koji izazove grešku, a zatim određeni drugi zahtjev. Negativni testovi koji jedan po jedan zahtjev provjeravaju „da li se ovaj loš ulaz odbija&quot; neće primijetiti da se interno stanje servera između njih nije ispravno resetovalo.</p>
+<p>Druga je da neispravan ulaz znači očigledno pogrešne vrijednosti — negativan broj tamo gdje se očekuje pozitivan, string tamo gdje pripada cijeli broj. Malo koji test plan uključuje POST zahtjev bez <code>Content-Length</code> zaglavlja, prevelik broj HTTP zaglavlja ili desetine praznih polja za upload fajlova. To su neispravnosti na nivou protokola, a ne granični slučajevi poslovne logike, i obično padaju van onoga što QA ili bezbjednosni pregledi fokusirani na proizvod uopšte pomisle da provjere.</p>
+<p>Treća je da staging okruženje u kojem se testovi pokreću dovoljno vjerno odgovara produkciji da prolaz na stagingu nešto znači i za produkciju. Ako vaš staging PHP build ima isključen <code>session.upload_progress</code>, drugačije podešen <code>max_file_uploads</code> ili ne sadrži PHP koji proizvođač isporučuje unutar nekog uređaja ili kontrolnog panela, vaši testovi će prolaziti nad metom koja nikada nije bila izložena stvarnom riziku.</p>
+<p>Evo kakvu provjeru ovaj incident opravdava da dodate — usmjerenu na hvatanje curenja stanja između zahtjeva, a ne na reprodukovanje samog exploita:</p>
+<pre><code class="lang-python">import httpx
+
+def test_error_request_does_not_poison_next_request(base_url):
+    client = httpx.Client(base_url=base_url)
+
+    # Request 1: deliberately trigger a server-side error
+    # (e.g. a payload that exceeds max_file_uploads or times out)
+    r1 = client.post(&quot;/upload&quot;, files=oversized_upload_payload())
+    assert r1.status_code in (413, 500, 504)
+
+    # Request 2: an ordinary, valid request right after
+    r2 = client.get(&quot;/account/session-check&quot;)
+    assert r2.status_code == 200
+    assert r2.json()[&quot;session_id&quot;] != r1.headers.get(&quot;leaked-session-id&quot;)</code></pre>
+<p>Ovakav test neće uhvatiti svaku varijantu use-after-free baga, ali gradi naviku da se provjerava da neuspjeh jednog zahtjeva ne može da kontaminira sljedeći — a upravo to je stvarni oblik ove klase bagova, nezavisno od ovog konkretnog CVE-a.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Pisanje testova za ovu klasu bagova ima stvarna ograničenja. Ne možete fuzzovati produkciju, a slanje zaista neispravnih zahtjeva (bez zaglavlja, sa ogromnim payload-om, sa neispravnim multipart granicama) na zajedničko staging okruženje može da ga obori i drugim timovima, pa je ovakvom testiranju potrebno sopstveno izolovano okruženje koje se može baciti nakon upotrebe.</p>
+<p>Lako je napisati i test koji prolazi iz pogrešnog razloga: ako se vaš staging <code>php.ini</code> i malo razlikuje od produkcijskog — drugačiji <code>upload_max_filesize</code>, isključen modul, zakrpa koju je distribucija backportovala i koja mijenja ponašanje bez promjene oznake verzije — zelen test vam ne govori ništa o stvarnoj meti.</p>
+<p>Uz to, prepoznavanje verzije (fingerprinting) je nepouzdano u oba smjera: proxy može da sakrije <code>X-Powered-By</code> zaglavlje, a bezbjednosne zakrpe Linux distribucije mogu stići prije nego što se promijeni upstream broj verzije, pa „mi smo na zakrpljenom PHP 8.4.27&quot; nije nešto što možete bezbjedno zaključiti samo na osnovu zaglavlja odgovora.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ol><li><strong>Pratite jezgro PHP-a, a ne samo svoje zavisnosti.</strong> Composer audit i alati poput Dependabota hvataju ranjive pakete; ne hvataju ranjiv sam PHP interpreter. Verziju PHP-a koju vaši serveri zaista pokreću (potvrđenu komandama <code>php -v</code> / <code>php-fpm -v</code> na samoj mašini, a ne zaključenu iz zaglavlja) dodajte u proces praćenja CVE-ova ili zakrpa koji već imate.</li><li><strong>Dodajte negativne testove na nivou protokola u svoj paket</strong>, i pokrećite ih u izolovanom okruženju koje se može baciti: prevelik broj zaglavlja, nedostajući <code>Content-Length</code>, neispravne multipart granice i prazna polja za upload fajlova. Tretirajte ih isto kao što već tretirate SQL injection ili XSS payload-e — kao stalni regresioni set, a ne kao jednokratni nalaz iz pentesta.</li><li><strong>Testirajte nizove zahtjeva, a ne samo pojedinačne zahtjeve</strong>, naročito oko putanja grešaka: da li neuspješan zahtjev ostavlja bilo kakvo stanje (sesije, keš, privremene fajlove) koje sljedeći zahtjev može da pročita ili ponovo iskoristi?</li><li><strong>Održavajte konfiguraciju staginga identičnom produkciji</strong> za sve što je bitno za bezbjednost — <code>php.ini</code> direktive, učitane module i tačan PHP build — i povremeno ponovo provjerite da se poklapaju, umjesto da to pretpostavljate na osnovu deployment skripte napisane prije nekoliko mjeseci.</li></ol>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://isc.sans.edu/diary.html?storyid=35447" target="_blank" rel="noopener noreferrer">Critical PHP Vulnerability (CVE-2026-109618, CVE-2026-109619)</a> — SANS Internet Storm Center</li><li><a href="https://pentest-tools.com/network-vulnerability-scanning/php2shell-scanner" target="_blank" rel="noopener noreferrer">PHP2Shell scanner for CVE-2026-109618 and CVE-2026-109619</a> — Pentest-Tools.com</li></ul></div>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button">Kopiraj link</button>
+      <a class="btn primary" href="../../../#contact">Kontaktiraj me</a>
+    </div>
+    <section class="more-posts"><h2>Slični članci</h2><div class="post-grid">
+      <a class="post-card card glow" href="../file-upload-testing-edge-cases/"><div class="meta"><time datetime="2026-11-13" data-fmt="short">13. nov 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Testiranje otpremanja fajlova: granični slučajevi pored kojih happy-path testovi samo prođu</h3><p>Zašto funkcije za otpremanje fajlova pucaju u produkciji i kako testirati ograničenja veličine, lažiranje tipa fajla, istovremena otpremanja i prekinute prenose.</p></a>
+      <a class="post-card card glow" href="../binance-6-3-billion-hack-devops-laptop/"><div class="meta"><time datetime="2026-10-30" data-fmt="short">30. okt 2026.</time><span>·</span><span>3 min čitanja</span></div><h3>Pljačka stoljeća: kako je jedan laptop koštao Binance 6,3 milijarde dolara</h3><p>Binance je u najvećoj kripto krađi u historiji izgubio oko 6,3 milijarde dolara, a ulaz je bio jedan kompromitovan laptop DevOps inženjera. Šta se desilo i šta iz toga treba ponijeti.</p></a>
+      <a class="post-card card glow" href="../bola-tenant-isolation-testing/"><div class="meta"><time datetime="2026-10-09" data-fmt="short">9. okt 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Testiranje Broken Object-Level Authorization: provjera pristupa koju većina test skupova nikad ne proba</h3><p>Zašto funkcionalni testovi redovno propuštaju bug u autorizaciji koji jednom korisniku dozvoljava da vidi ili mijenja tuđe podatke, i kako ga namjerno testirati.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../../#contact" data-i18n="contact_cta">Kontaktiraj me</a>
+    <button type="button" data-consent data-i18n="cookies">Postavke kolačića</button>
+    <a href="../../../" data-i18n="back_home">Nazad na početnu ↑</a>
+  </footer>
+  <script src="../../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../../blog/common.js"></script>
+  <script src="../../../blog/post.js"></script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="sr" data-theme="dark" data-static-lang="sr" data-alt-url="../../../blog/manually-testing-chrome-edge-extensions/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ručno testiranje Chrome i Edge ekstenzija: gdje uobičajeni pristup prestaje da radi — Marko Lošić</title>
+  <meta name="description" content="Zašto ručno testiranje ekstenzija za pretraživač traži drugačiju čeklistu od testiranja web sajta, i šta provjeriti na Chrome-u i Edge-u.">
+  <link rel="canonical" href="https://markolosic.github.io/sr/blog/manually-testing-chrome-edge-extensions/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/manually-testing-chrome-edge-extensions/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/manually-testing-chrome-edge-extensions/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/manually-testing-chrome-edge-extensions/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Ručno testiranje Chrome i Edge ekstenzija: gdje uobičajeni pristup prestaje da radi — Marko Lošić">
+  <meta property="og:description" content="Zašto ručno testiranje ekstenzija za pretraživač traži drugačiju čeklistu od testiranja web sajta, i šta provjeriti na Chrome-u i Edge-u.">
+  <meta property="og:url" content="https://markolosic.github.io/sr/blog/manually-testing-chrome-edge-extensions/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/manually-testing-chrome-edge-extensions.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="669">
+  <meta property="og:image:alt" content="Ručno testiranje Chrome i Edge ekstenzija: gdje uobičajeni pristup prestaje da radi">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ručno testiranje Chrome i Edge ekstenzija: gdje uobičajeni pristup prestaje da radi — Marko Lošić">
+  <meta name="twitter:description" content="Zašto ručno testiranje ekstenzija za pretraživač traži drugačiju čeklistu od testiranja web sajta, i šta provjeriti na Chrome-u i Edge-u.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/manually-testing-chrome-edge-extensions.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/sr/blog/manually-testing-chrome-edge-extensions/#article","headline":"Ručno testiranje Chrome i Edge ekstenzija: gdje uobičajeni pristup prestaje da radi","description":"Zašto ručno testiranje ekstenzija za pretraživač traži drugačiju čeklistu od testiranja web sajta, i šta provjeriti na Chrome-u i Edge-u.","image":"https://markolosic.github.io/assets/blog/manually-testing-chrome-edge-extensions.jpg","url":"https://markolosic.github.io/sr/blog/manually-testing-chrome-edge-extensions/","inLanguage":"sr","wordCount":1163,"articleSection":"manual-testing","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/sr/blog/manually-testing-chrome-edge-extensions/"},"datePublished":"2026-09-29T19:45:00.000Z","dateModified":"2026-09-29T19:45:00.000Z","keywords":"manual-testing, test-strategy","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Početna","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/sr/blog/"},{"@type":"ListItem","position":3,"name":"Ručno testiranje Chrome i Edge ekstenzija: gdje uobičajeni pristup prestaje da radi","item":"https://markolosic.github.io/sr/blog/manually-testing-chrome-edge-extensions/"}]}]}</script>
+  <meta property="article:published_time" content="2026-09-29T19:45:00.000Z">
+  <meta property="article:modified_time" content="2026-09-29T19:45:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../assets/fonts.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../../#top" data-i18n="nav_about">O meni</a>
+      <a href="../../../#skills" data-i18n="nav_skills">Vještine</a>
+      <a href="../../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../../#experience" data-i18n="nav_exp">Iskustvo</a>
+      <a href="../../../#education" data-i18n="nav_edu">Obrazovanje</a>
+      <a href="../../../sr/blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../../#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span>Svi članci</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-09-29" data-fmt="long">29. septembar 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h1>Ručno testiranje Chrome i Edge ekstenzija: gdje uobičajeni pristup prestaje da radi</h1>
+        <p class="lead">Zašto ručno testiranje ekstenzija za pretraživač traži drugačiju čeklistu od testiranja web sajta, i šta provjeriti na Chrome-u i Edge-u.</p>
+        <div class="tags"><span>manual-testing</span><span>test-strategy</span></div>
+      </header>
+      <div class="prose"><p>Ekstenzija za pretraživač izgleda kao mala i jednostavna stvar za ručno testiranje: instalirate je, malo kliknete, potvrdite da radi ono što treba. U praksi, ekstenzija je privilegovani kod koji radi uz sam pretraživač, sa sopstvenim načinima instalacije, sopstvenim životnim ciklusom pozadinskog procesa i — iako Chrome i Edge dijele isti engine za prikaz — sopstvenim specifičnostima na svakom od ta dva pretraživača. Tester koji pokrene isti scenario klikanja koji bi koristio na web stranici propustiće većinu onoga što zaista kvari ekstenzije u produkciji.</p>
+<p><img src="../../../assets/blog/manually-testing-chrome-edge-extensions.jpg" alt="Ilustracija Chrome i Edge prozora jedan pored drugog, sa panelima za inspekciju service workera, stanje ekstenzije, ikone ekstenzija i dijaloge za dozvole, ikonama ekstenzija u obliku slagalice, grafikonom životnog ciklusa service workera i lupom između dva pretraživača" width="1200" height="669" fetchpriority="high" decoding="async"></p>
+<h2 id="pozadinski-proces-se-ne-ponaša-kao-otvoren-tab">Pozadinski proces se ne ponaša kao otvoren tab</h2>
+<p>Od Manifest V3, pozadinska logika ekstenzije radi u service workeru umjesto u trajnoj pozadinskoj stranici, a Chrome-ova dokumentacija jasno kaže koliko agresivno se taj worker gasi: prelazi u neaktivno stanje nakon otprilike 30 sekundi bez aktivnosti, pojedinačni event handler koji traje duže od 5 minuta biva prekinut, a fetch kojem odgovor treba više od 30 sekundi takođe se prekida. Događaji, API pozivi i dugotrajne konekcije za razmjenu poruka resetuju taj sat neaktivnosti, ali sve što tiho stoji u memoriji — uključujući obične globalne varijable na koje se kod ekstenzije oslanjao — nestaje onog trenutka kada se worker ugasi.</p>
+<p>To direktno mijenja kako ručna test sesija treba da izgleda. Čest scenario greške: tester klikne na ikonu ekstenzije u traci s alatima, pokrene neku akciju, pa zastane minut da zapiše bilješku ili provjeri nešto drugo, a kada se vrati i klikne drugo dugme, ekstenzija kao da je „zaboravila&quot; prvu akciju ili izbaci grešku. Instinkt je da se to prijavi kao greška u logici. Često je zapravo riječ o service workeru koji se restartovao usred sesije i izgubio stanje koje ekstenzija uopšte nije sačuvala u <code>chrome.storage</code> ili <code>IndexedDB</code> — stvarna greška, ali drugačija nego što izgleda, i uhvatićete je pouzdano samo ako namjerno ubacite pauze u korake ručnog testa, umjesto da sve prokliknete u jednom neprekidnom naletu. Ako prije početka testiranja otvorite inspektor service workera ekstenzije sa <code>chrome://extensions</code> (ili <code>edge://extensions</code>), možete uživo pratiti kako prelazi u neaktivno stanje i restartuje se, i pročitati šta god zapiše u log kada se ponovo probudi.</p>
+<h2 id="chrome-i-edge-nisu-ista-platforma-za-ekstenzije">Chrome i Edge nisu ista platforma za ekstenzije</h2>
+<p>Edge je izgrađen na Chromium-u, a Microsoft-ovo uputstvo za portovanje kaže da su API-ji ekstenzija i ključevi manifesta „uglavnom kompatibilni na nivou koda&quot; između ta dva pretraživača — ali uglavnom nije isto što i potpuno. Edge ne implementira svaki Chrome API za ekstenzije, pa ekstenzija koja prođe svaku ručnu provjeru u Chrome-u može tiho da otkaže u Edge-u ako dotakne nešto van skupa API-ja koje Edge podržava. Microsoft-ova dokumentacija ukazuje i na manje, ali stvarne zamke za testiranje: polje <code>update_url</code> u manifestu mora se ukloniti za Edge, native messaging hostovi u <code>allowed_origins</code> trebaju Edge-ov format ID-a ekstenzije (to nije isti ID koji dodjeljuje Chrome), a lokalno testiranje na Edge-u zahtijeva sideloading raspakovane ekstenzije umjesto oslanjanja na postupak instalacije koji ste koristili za Chrome.</p>
+<p>Praktičan zaključak je da „cross-browser testiranje&quot; ekstenzije ne može da znači ponovno pokretanje Chrome test scenarija i nekoliko minuta letimičnog gledanja Edge-a. To znači poseban ručni prolaz u odnosu na Edge-ovu listu podržanih API-ja, provjeru svega što ekstenzija radi sa native messaging-om, i potvrdu da se sideload-ovani build koji testirate ponaša kao potpisani build koji bi stvarni korisnik dobio iz Edge Add-ons prodavnice.</p>
+<h2 id="matrica-načina-instalacije-raste-brže-nego-što-izgleda">Matrica načina instalacije raste brže nego što izgleda</h2>
+<p>Većina planova ručnog testiranja pokriva novu instalaciju i tu staje. Realističnija matrica izgleda ovako:</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Način instalacije</th><th>Šta provjeriti</th></tr></thead>
+<tbody>
+<tr><td>Nova instalacija, podrazumijevani profil</td><td>Osnovna funkcionalnost; dijalozi za dozvole se pojavljuju i ispravno su formulisani</td></tr>
+<tr><td>Ažuriranje sa prethodne verzije</td><td>Stari sačuvani podaci/podešavanja i dalje rade; zaostalo stanje ne izaziva pad; nove dozvole (ako ih ima) se traže, a ne podrazumijevaju tiho</td></tr>
+<tr><td>Više profila u pretraživaču</td><td>Stanje ekstenzije ne curi između profila; podešavanja po profilu se ispravno čuvaju</td></tr>
+<tr><td>Incognito / InPrivate režim</td><td>Ekstenzija se ponaša u skladu sa deklarisanom incognito dozvolom (radi, isključena je ili je ograničena, kako je predviđeno — a ne „kako god ispadne")</td></tr>
+<tr><td>Profil kojim upravljaju enterprise politike</td><td>Ekstenzija poštuje politike administratora za prinudnu instalaciju/isključivanje, umjesto da pretpostavlja običnu korisničku instalaciju</td></tr>
+</tbody>
+</table>
+</div>
+<p>Kratak primjer ručnog test slučaja za ažuriranje, napisan onako kako treba da stoji u test planu, a ne u poruci u chatu:</p>
+<pre><code>Given: instalirana je verzija v1.4 ekstenzije sa sačuvanim korisničkim podešavanjima
+When: pretraživač automatski ažurira ekstenziju na v1.5
+Then: prethodno sačuvana podešavanja se i dalje primjenjuju
+And: nijedna nova dozvola nije tiho odobrena bez vidljivog dijaloga za korisnika
+And: ikona u traci s alatima i popup se učitavaju bez greške u konzoli</code></pre>
+<p>Svaki red u toj matrici je poseban ručni prolaz, a ne varijacija koju možete usput pogledati — posebno je lako preskočiti tekst dijaloga za dozvole, jer ekstenzija „i dalje radi&quot; čak i kada je tekst pogrešan ili ga nema.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Ručno testiranje hvata ono što automatizacija propušta — zbunjujući dijalog za dozvole, pokvaren raspored popup-a, prvo pokretanje koje djeluje čudno — ali se ne skalira preko stvarnih kombinacija Chrome verzija × Edge verzija × OS × tip profila × način instalacije. Tretirajte ga kao sloj koji potvrđuje ponašanje i formulacije, a ne kao jedinu regresionu mrežu za logiku koja se često mijenja; to pripada automatizovanim provjerama. Pazite na dvije pogrešne dijagnoze: pripisivanje uspavljivanja service workera logici aplikacije, i pretpostavku da će se sideload-ovani build koji je „čisto&quot; prošao testiranje ponašati identično kada prođe potpisivanje i reviziju u prodavnici — pakovanje i mehanizam ažuriranja razlikuju se od vašeg lokalnog builda na načine koje ručno testiranje raspakovane ekstenzije neće otkriti.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ul><li>Otvorite inspektor service workera sa <code>chrome://extensions</code> ili <code>edge://extensions</code> prije svake ručne sesije i namjerno pravite pauze između koraka da bi prešao u neaktivno stanje, umjesto da sve testirate u jednom brzom prolazu.</li><li>Napravite čeklistu načina instalacije (nova instalacija, ažuriranje, više profila, incognito, enterprise politike) i prolazite je na svakoj objavi, a ne samo kod većih verzija.</li><li>Vodite kratku listu API-ja koje Edge ne podržava, a koji su relevantni za vašu ekstenziju, i ponovo je provjerite kad god dodate novu mogućnost, umjesto da pretpostavite da testirano u Chrome-u znači testirano u Edge-u.</li><li>Testirajte šta se dešava kada korisnik odbije ili kasnije opozove dozvolu usred sesije — ne samo srećan scenario u kojem je svaka dozvola odobrena unaprijed.</li></ul>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://developer.chrome.com/docs/extensions/develop/concepts/service-workers/lifecycle" target="_blank" rel="noopener noreferrer">Chrome Developers: Extension service worker lifecycle</a></li><li><a href="https://learn.microsoft.com/en-us/microsoft-edge/extensions/developer-guide/port-chrome-extension" target="_blank" rel="noopener noreferrer">Microsoft Edge Developer docs: Port a Chrome extension to Microsoft Edge</a></li><li><a href="https://learn.microsoft.com/en-us/microsoft-edge/extensions/developer-guide/api-support" target="_blank" rel="noopener noreferrer">Microsoft Edge Developer docs: Supported APIs for Microsoft Edge extensions</a></li></ul></div>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button">Kopiraj link</button>
+      <a class="btn primary" href="../../../#contact">Kontaktiraj me</a>
+    </div>
+    <section class="more-posts"><h2>Slični članci</h2><div class="post-grid">
+      <a class="post-card card glow" href="../session-based-exploratory-testing/"><div class="meta"><time datetime="2026-11-23" data-fmt="short">23. nov 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Exploratory testiranje zasnovano na sesijama: kako ad hoc testiranje učiniti ponovljivim i mjerljivim</h3><p>Kako session-based test management pretvara exploratory testiranje bez skripte u nešto što možete planirati, mjeriti i o čemu možete izvještavati, uz konkretan primjer charter-a.</p></a>
+      <a class="post-card card glow" href="../definition-of-done-for-qa/"><div class="meta"><time datetime="2026-11-02" data-fmt="short">2. nov 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Definition of Done za QA: kako se tim dogovori šta zapravo znači „testirano“</h3><p>Nejasan Definition of Done svima dozvoljava da pretpostave da je neko drugi testirao granične slučajeve. Evo kako napisati onaj koji zaista hvata bagove prije izdanja.</p></a>
+      <a class="post-card card glow" href="../writing-bug-reports-that-get-fixed/"><div class="meta"><time datetime="2026-10-05" data-fmt="short">5. okt 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Prijava greške kakvu developeri zaista žele: praktični vodič</h3><p>Praktična struktura prijave greške koju developer može da reprodukuje i popravi već iz prvog čitanja, uz primjer „prije i poslije&quot;.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../../#contact" data-i18n="contact_cta">Kontaktiraj me</a>
+    <button type="button" data-consent data-i18n="cookies">Postavke kolačića</button>
+    <a href="../../../" data-i18n="back_home">Nazad na početnu ↑</a>
+  </footer>
+  <script src="../../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../../blog/common.js"></script>
+  <script src="../../../blog/post.js"></script>
+</body>
+</html>

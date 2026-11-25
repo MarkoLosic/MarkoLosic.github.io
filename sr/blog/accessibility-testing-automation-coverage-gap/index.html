@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="sr" data-theme="dark" data-static-lang="sr" data-alt-url="../../../blog/accessibility-testing-automation-coverage-gap/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Automatsko testiranje pristupačnosti hvata samo dio problema — evo šta zatvara jaz — Marko Lošić</title>
+  <meta name="description" content="Skeneri poput axe-core hvataju samo dio stvarnih problema sa pristupačnošću. Evo kako da ih razumno uvežete u CI i šta i dalje zahtijeva čovjeka.">
+  <link rel="canonical" href="https://markolosic.github.io/sr/blog/accessibility-testing-automation-coverage-gap/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/accessibility-testing-automation-coverage-gap/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/accessibility-testing-automation-coverage-gap/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/accessibility-testing-automation-coverage-gap/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Automatsko testiranje pristupačnosti hvata samo dio problema — evo šta zatvara jaz — Marko Lošić">
+  <meta property="og:description" content="Skeneri poput axe-core hvataju samo dio stvarnih problema sa pristupačnošću. Evo kako da ih razumno uvežete u CI i šta i dalje zahtijeva čovjeka.">
+  <meta property="og:url" content="https://markolosic.github.io/sr/blog/accessibility-testing-automation-coverage-gap/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/accessibility-testing-automation-coverage-gap.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="669">
+  <meta property="og:image:alt" content="Automatsko testiranje pristupačnosti hvata samo dio problema — evo šta zatvara jaz">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Automatsko testiranje pristupačnosti hvata samo dio problema — evo šta zatvara jaz — Marko Lošić">
+  <meta name="twitter:description" content="Skeneri poput axe-core hvataju samo dio stvarnih problema sa pristupačnošću. Evo kako da ih razumno uvežete u CI i šta i dalje zahtijeva čovjeka.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/accessibility-testing-automation-coverage-gap.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/sr/blog/accessibility-testing-automation-coverage-gap/#article","headline":"Automatsko testiranje pristupačnosti hvata samo dio problema — evo šta zatvara jaz","description":"Skeneri poput axe-core hvataju samo dio stvarnih problema sa pristupačnošću. Evo kako da ih razumno uvežete u CI i šta i dalje zahtijeva čovjeka.","image":"https://markolosic.github.io/assets/blog/accessibility-testing-automation-coverage-gap.jpg","url":"https://markolosic.github.io/sr/blog/accessibility-testing-automation-coverage-gap/","inLanguage":"sr","wordCount":989,"articleSection":"manual-testing","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/sr/blog/accessibility-testing-automation-coverage-gap/"},"datePublished":"2026-10-15T00:00:00.000Z","dateModified":"2026-10-15T00:00:00.000Z","keywords":"manual-testing, test-automation, ci-cd","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Početna","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/sr/blog/"},{"@type":"ListItem","position":3,"name":"Automatsko testiranje pristupačnosti hvata samo dio problema — evo šta zatvara jaz","item":"https://markolosic.github.io/sr/blog/accessibility-testing-automation-coverage-gap/"}]}]}</script>
+  <meta property="article:published_time" content="2026-10-15T00:00:00.000Z">
+  <meta property="article:modified_time" content="2026-10-15T00:00:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../assets/fonts.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../../#top" data-i18n="nav_about">O meni</a>
+      <a href="../../../#skills" data-i18n="nav_skills">Vještine</a>
+      <a href="../../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../../#experience" data-i18n="nav_exp">Iskustvo</a>
+      <a href="../../../#education" data-i18n="nav_edu">Obrazovanje</a>
+      <a href="../../../sr/blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../../#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span>Svi članci</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-10-15" data-fmt="long">15. oktobar 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h1>Automatsko testiranje pristupačnosti hvata samo dio problema — evo šta zatvara jaz</h1>
+        <p class="lead">Skeneri poput axe-core hvataju samo dio stvarnih problema sa pristupačnošću. Evo kako da ih razumno uvežete u CI i šta i dalje zahtijeva čovjeka.</p>
+        <div class="tags"><span>manual-testing</span><span>test-automation</span><span>ci-cd</span></div>
+      </header>
+      <div class="prose"><p>Tim doda <code>axe-core</code> u svoj CI pipeline, provjere pozelene i svi prećutno pretpostave da je pristupačnost riješena. Onda stigne tiket od podrške: korisnik čitača ekrana ne može da zatvori modal, ili korisnik tastature ostane zarobljen dok tabom prolazi kroz birač datuma. Automatski testovi nisu prijavili ni jedno ni drugo, jer to po samoj prirodi ne mogu.</p>
+<p>Taj jaz nije bag u alatu. To je granica onoga što bilo koji skener može da procijeni samo na osnovu DOM-a, i vrijedi je precizno razumjeti da biste znali šta vaše zelene kvačice zaista obećavaju.</p>
+<h2 id="šta-automatski-skeneri-zaista-pokrivaju">Šta automatski skeneri zaista pokrivaju</h2>
+<p>Skeneri kao što su axe-core, WAVE, Pa11y i Lighthouse audit pristupačnosti rade na isti način: provjeravaju renderovani markup prema fiksnom skupu programskih pravila — nedostajući <code>alt</code> atributi, nedovoljan kontrast boja, polja forme bez labela, neispravni ARIA atributi, polomljena hijerarhija naslova i slični strukturni problemi.</p>
+<p>Koliko to pokriva zavisi od toga kako brojite. U odnosu na kriterijume uspjeha WCAG 2.x, često navođena procjena je da automatizacija može u potpunosti da ocijeni samo oko 30 do 40% njih. Kada se mjeri po broju problema pronađenih u stvarnim auditima, brojka izgleda bolje — Deque, tim koji održava axe-core, objavio je da su automatske provjere činile nešto više od polovine problema u njihovim podacima iz audita — jer su najčešći problemi (kontrast, nedostajuće labele, nedostajući alt tekst) baš oni koje mašine dobro provjeravaju. U oba slučaja, veliki dio onoga što je bitno ostaje nepokriven. Drugi skener malo pomaže, ali se alati mnogo više preklapaju nego što se dopunjuju.</p>
+<p>Ostatak su stvari koje mašina ne može da ocijeni bez razumijevanja namjere: da li alt tekst zaista opisuje sliku ili samo kaže „image123.png&quot;, da li se custom padajući meni ponaša kao nativni za korisnike tastature i čitača ekrana, da li fokus ide negdje smisleno nakon zatvaranja modala, da li redoslijed čitanja ima smisla kada se ukloni CSS.</p>
+<h2 id="konkretna-postavka-axe-core-u-playwright-pipeline-u">Konkretna postavka: axe-core u Playwright pipeline-u</h2>
+<p>Praktičan obrazac, koji je opisao inženjerski tim koji ga koristi u produkciji, izgleda ovako. Oni <code>@axe-core/playwright</code> umotaju u mali helper koji ograničava skeniranje na WCAG 2.1 pravila nivoa A i AA i isključuje elemente trećih strana koje ne kontrolišu (iframe-ove sa reklamama, ugrađene widget-e):</p>
+<pre><code class="lang-js">import { test } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+
+function getAxeInstance(page) {
+  return new AxeBuilder({ page })
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+    .exclude('#third-party-ad-slot');
+}
+
+test('login page accessibility scan', async ({ page }) =&gt; {
+  await page.goto('/login');
+  const results = await getAxeInstance(page).analyze();
+  await attachViolationsReport(results, 'login', 'desktop');
+});</code></pre>
+<p>Svaki test je običan Playwright test: otvori stranicu, pokreni skeniranje, sačuvaj prekršaje kao izvještaj označen stranicom i veličinom ekrana. CI korak ovo pokreće nad fiksnom listom kritičnih stranica pri svakom deploy-u na staging.</p>
+<p>Zanimljiva odluka je šta se dešava kada se prekršaji pronađu. Ovaj tim ne obara build. Njihov postojeći dug u pristupačnosti bio je prevelik da bi tvrda kapija bila održiva, pa prekršaj umjesto toga otvara ili ažurira GitHub Issue, a ispravke se trijažiraju i planiraju kao i svaki drugi bag. To je razuman početni pristup ako pristupačnost naknadno uvodite u postojeći kod — blokirajuća kapija od prvog dana obično završi tako što je frustrirani tim isključi dvije sedmice kasnije. Kada je backlog pod kontrolom, prirodan sljedeći korak je da se kapija pooštri tako da blokira nove prekršaje (dok se postojeći dug otplaćuje odvojeno).</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Najveći rizik nije to što automatsko skeniranje hvata premalo — nego to što se prolazno skeniranje tretira kao dokaz pristupačnosti, a ne kao donja granica. Timovi koji tu stanu redovno promaše:</p>
+<ul><li><strong>Tokove navigacije tastaturom</strong>: da li je svaki interaktivni element dostupan i upotrebljiv samo tastaturom, smislenim redoslijedom i sa vidljivim indikatorom fokusa. Skener može da potvrdi da element može da dobije fokus; ne može da prođe kroz vaš checkout tok sa Tab i Enter.</li><li><strong>Iskustvo sa čitačem ekrana</strong>: da li najave imaju smisla u kontekstu. Ispravno označeno dugme i dalje može biti najavljeno na zbunjujući način ako su okolni ARIA live regioni loše postavljeni.</li><li><strong>Procjenu sadržaja</strong>: alt tekst koji tehnički postoji, ali je beskoristan, ili strukturu naslova koja prolazi validaciju, ali ne odražava stvarnu hijerarhiju sadržaja.</li><li><strong>Dinamičke i custom komponente</strong>: birači datuma, combobox-ovi, drag-and-drop interfejsi i sve što je napravljeno od nule umjesto nativnih HTML kontrola su upravo mjesta gdje su automatski alati najslabiji, a ručno testiranje najvažnije.</li></ul>
+<p>Postoji i tiši rizik: automatski rezultati mogu sadržati lažno pozitivne nalaze (provjera kontrasta prijavi tekst koji je zapravo u redu na svojoj stvarnoj pozadini, zbog sloja providnosti ili pozadinske slike koju alat nije mogao da uzme u obzir). Ako se takvi nalazi nekoliko puta ignorišu, tim nauči da ignoriše alat u cjelini. Tretirajte prijavljene probleme kao polaznu tačku za pregled, ne kao automatsku presudu.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ol><li><strong>Prvo dodajte automatski skener u CI kao neblokirajući signal</strong>, ograničen na WCAG A/AA pravila, ako ga već nemate. Očekujte stvarnu, ali djelimičnu pokrivenost — ako je vaš dug značajan, tretirajte prve rezultate kao backlog, a ne kao prolaz/pad kapiju.</li><li><strong>Napravite kratku listu za ručnu provjeru najposjećenijih tokova</strong> (checkout, registracija, ključni tokovi rada): prođite kroz cijeli tok samo tastaturom, a zatim ga jednom prođite sa čitačem ekrana (VoiceOver, NVDA ili sličnim). Tako hvatate klasu bagova koje skeneri po prirodi ne mogu.</li><li><strong>Kombinujte dva skenera, ne više</strong>: axe-core plus još jedan (Lighthouse ili WAVE) donosi većinu realnog dobitka od automatizacije. Treći uglavnom dodaje šum i duple nalaze.</li><li><strong>Povremeno preispitajte kapiju</strong>: kada novi prekršaji postanu rijetki, pređite sa „otvori issue&quot; na „obori build na novim prekršajima&quot;, da dug u pristupačnosti prestane neprimjetno da raste dok se stari dug otplaćuje svojim tempom.</li></ol>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://testparty.ai/blog/automated-vs-manual-accessibility-audits-coverage" target="_blank" rel="noopener noreferrer">Automated vs. Manual Accessibility Audits: Coverage</a> — TestParty</li><li><a href="https://dev.to/subito/how-we-automate-accessibility-testing-with-playwright-and-axe-3ok5" target="_blank" rel="noopener noreferrer">How We Automate Accessibility Testing with Playwright and Axe</a> — Subito</li></ul></div>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button">Kopiraj link</button>
+      <a class="btn primary" href="../../../#contact">Kontaktiraj me</a>
+    </div>
+    <section class="more-posts"><h2>Slični članci</h2><div class="post-grid">
+      <a class="post-card card glow" href="../load-testing-qa-teams-k6-thresholds/"><div class="meta"><time datetime="2026-11-20" data-fmt="short">20. nov 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Load testiranje za QA timove: šta k6 hvata, a šta prolazni prag i dalje može da sakrije</h3><p>Praktičan k6 vodič za QA timove: pisanje load testa, postavljanje pragova i zamke zbog kojih zelen dashboard može da zavara.</p></a>
+      <a class="post-card card glow" href="../visual-regression-testing-ui-bugs/"><div class="meta"><time datetime="2026-10-23" data-fmt="short">23. okt 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Vizuelno regresiono testiranje: kako uhvatiti UI bagove pored kojih vaši funkcionalni testovi prolaze</h3><p>Zašto provjere na nivou piksela hvataju greške u rasporedu koje funkcionalni testovi propuštaju, kako ih spriječiti da budu nestabilne i koji alati se zaista uklapaju u vaš pipeline.</p></a>
+      <a class="post-card card glow" href="../checkmk-synthetic-monitoring-for-qa/"><div class="meta"><time datetime="2026-10-12" data-fmt="short">12. okt 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Neka testovi rade i poslije objave: Checkmk Synthetic Monitoring za QA timove</h3><p>Kako QA timovi mogu da pretvore Robot Framework testove u stalne provjere produkcije uz Checkmk, i na koje zamke treba računati.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../../#contact" data-i18n="contact_cta">Kontaktiraj me</a>
+    <button type="button" data-consent data-i18n="cookies">Postavke kolačića</button>
+    <a href="../../../" data-i18n="back_home">Nazad na početnu ↑</a>
+  </footer>
+  <script src="../../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../../blog/common.js"></script>
+  <script src="../../../blog/post.js"></script>
+</body>
+</html>

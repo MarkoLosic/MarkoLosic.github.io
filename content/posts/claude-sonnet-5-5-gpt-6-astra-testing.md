@@ -3,7 +3,7 @@ title: "What Claude Sonnet 5.5 and GPT-6 Astra Actually Change for Test Automati
 title_sr: "Šta Claude Sonnet 5.5 i GPT-6 Astra zaista mijenjaju u automatizaciji testiranja"
 date: 2026-09-30
 time: 18:30
-tags: [qa, ai-in-qa, test-automation, llm-models]
+tags: [ai-testing, test-automation]
 excerpt: The newest Anthropic and OpenAI models bring cheaper agentic coding and direct GUI control — here's what that means for QA, and what it doesn't.
 excerpt_sr: Najnoviji modeli kompanija Anthropic i OpenAI donose jeftinije agentsko kodiranje i direktnu kontrolu grafičkog interfejsa — evo šta to znači za QA, a šta ne.
 image: assets/blog/claude-sonnet-5-5-gpt-6-astra-testing.jpg

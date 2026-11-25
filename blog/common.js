@@ -19,7 +19,7 @@
     read_post: 'Pročitaj članak',
     min_read: 'min čitanja',
     all_posts: 'Svi članci',
-    more_posts: 'Više članaka',
+    more_posts: 'Slični članci',
     contact_cta: 'Kontaktiraj me',
     back_home: 'Nazad na početnu ↑',
     copy_link: 'Kopiraj link',
@@ -37,7 +37,7 @@
   const contentNodes = $$('[data-title-sr], [data-excerpt-sr]');
   contentNodes.forEach(n => {
     if (n.hasAttribute('data-title-sr')) {
-      const h = n.matches('h1, h2') ? n : n.querySelector('h1, h2');
+      const h = n.matches('h1, h2, h3') ? n : n.querySelector('h1, h2, h3');
       if (h) n.dataset.titleEn = h.innerHTML;
     }
     if (n.hasAttribute('data-excerpt-sr')) {
@@ -59,14 +59,16 @@
     return new Intl.DateTimeFormat(locale, opts).format(d);
   };
 
-  let lang = 'en';
+  const staticLang = root.dataset.staticLang || '';
+  const altUrl = root.dataset.altUrl || '';
+  let lang = staticLang || 'en';
   const setLang = l => {
     lang = l;
     root.lang = l === 'sr' ? 'sr' : 'en';
     i18nNodes.forEach(n => { n.innerHTML = l === 'sr' && SR[n.dataset.i18n] != null ? SR[n.dataset.i18n] : n.dataset.en; });
     phNodes.forEach(n => { const k = n.dataset.i18nPlaceholder; n.setAttribute('placeholder', l === 'sr' && SR[k] != null ? SR[k] : n.dataset.enPh); });
     contentNodes.forEach(n => {
-      const h = n.dataset.titleEn != null ? (n.matches('h1, h2') ? n : n.querySelector('h1, h2')) : null;
+      const h = n.dataset.titleEn != null ? (n.matches('h1, h2, h3') ? n : n.querySelector('h1, h2, h3')) : null;
       if (h) h.innerHTML = l === 'sr' ? n.getAttribute('data-title-sr') : n.dataset.titleEn;
       const p = n.dataset.excerptEn != null ? (n.matches('p') ? n : n.querySelector('p')) : null;
       if (p) p.innerHTML = l === 'sr' ? n.getAttribute('data-excerpt-sr') : n.dataset.excerptEn;
@@ -76,9 +78,16 @@
     save('lang', l);
   };
   const langBtn = $('#lang');
-  if (langBtn) langBtn.addEventListener('click', () => setLang(lang === 'en' ? 'sr' : 'en'));
+  if (langBtn) langBtn.addEventListener('click', () => {
+    if (staticLang === 'sr' && altUrl) {
+      save('lang', 'en');
+      location.href = altUrl;
+      return;
+    }
+    setLang(lang === 'en' ? 'sr' : 'en');
+  });
   const savedLang = load('lang');
-  if (savedLang === 'sr') setLang('sr');
+  if (!staticLang && savedLang === 'sr') setLang('sr');
 
   /* ---------- Copy link (post pages) ---------- */
   const shareBtn = $('#share');

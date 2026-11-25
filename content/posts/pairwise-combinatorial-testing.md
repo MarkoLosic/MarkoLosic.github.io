@@ -3,7 +3,7 @@ title: "Pairwise Testing: Cutting Thousands of Config Combinations Down to a Sui
 title_sr: "Pairwise testiranje: kako hiljade kombinacija konfiguracije svesti na test suite koji zaista možete da pokrenete"
 date: 2026-11-04
 time: 08:00
-tags: [qa, test-automation, test-design, methodology, combinatorial-testing]
+tags: [test-strategy, test-automation]
 excerpt: How pairwise and combinatorial testing shrink a combinatorial explosion into a small, high-coverage test suite, with a worked example and tool picks.
 excerpt_sr: Kako pairwise i kombinatorno testiranje svode kombinatornu eksploziju na mali test suite sa visokom pokrivenošću, uz razrađen primjer i preporuke alata.
 image: assets/blog/pairwise-combinatorial-testing.jpg

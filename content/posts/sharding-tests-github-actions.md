@@ -2,7 +2,7 @@
 title: Splitting a Slow Test Suite Across GitHub Actions Without Losing Signal
 title_sr: Kako podijeliti spor skup testova na GitHub Actions, a ne izgubiti signal
 date: 2026-10-08
-tags: [qa, test-automation, ci-cd, github-actions, playwright]
+tags: [playwright, ci-cd, test-automation]
 excerpt: How matrix-based test sharding in GitHub Actions actually works, a real-world speedup example, and the specific ways it can quietly hide failures.
 excerpt_sr: Kako sharding testova preko matrice u GitHub Actions zapravo radi, primjer ubrzanja iz prakse, i konkretni načini na koje može tiho da sakrije padove.
 image: assets/blog/sharding-tests-github-actions.jpg
@@ -62,12 +62,17 @@ The numbers are specific to their suite, but the pattern generalizes: naive shar
 3. **Separate flaky tests into their own job** with `continue-on-error: true`, rather than relying on blanket retries to paper over instability in the main suite; track what lands there and assign it an owner.
 4. **Move to timing-weighted sharding once equal splits stop being equal** — log per-test duration from your existing CI runs and use it to balance shards by time, not file count.
 
+See also [how my Playwright and Maestro pipeline runs on every PR](/pipeline/), [Asserting Too Early: Flaky Playwright Tests](/blog/asserting-too-early-flaky-playwright-tests/), and [Test Pyramid or Testing Trophy](/blog/test-pyramid-vs-testing-trophy/).
+
+
 ## Sources
 
 - [How We Sharded Our Test Suite for 10x Faster Runs on GitHub Actions — Gel (EdgeDB)](https://www.geldata.com/blog/how-we-sharded-our-test-suite-for-10x-faster-runs-on-github-actions)
 - [Flaky Test GitHub Actions: Detect, Quarantine, and Fix Unstable Tests — Testdino](https://testdino.com/blog/flaky-test-github-actions)
 - [Playwright GitHub Actions Setup — Currents](https://docs.currents.dev/getting-started/ci-setup/github-actions/playwright-github-actions)
+
 <!--sr-->
+
 Skup testova kojem treba četrdeset minuta nije samo neprijatnost — to je četrdeset minuta između push-a i saznanja da je nešto pokvareno, četrdeset minuta u kojima reviewer ili čeka ili merge-uje na povjerenje. Uobičajeno rješenje je da se testovi pokreću paralelno na nekoliko GitHub Actions runnera umjesto na jednom. Taj dio radi, često i dramatično dobro. Ono što se rjeđe pominje jeste koliko je lako podijeliti skup testova tako da zelena kvačica stigne brže, a da pritom više ne znači ono što je ranije značila.
 
 ## Kako sharding preko matrice zapravo dijeli posao
@@ -122,6 +127,9 @@ Brojke važe za njihov skup testova, ali obrazac se može generalizovati: naivni
 2. **Dodajte verifikacioni job** koji sabira broj testova zaista izvršenih u svim shardovima i obara build ako se ne poklapa sa ukupnim brojem — to je najjeftinija zaštita od tiho izbačenih testova.
 3. **Izdvojite nestabilne testove u poseban job** sa `continue-on-error: true`, umjesto da se oslanjate na sveopšte retry-je da prikriju nestabilnost u glavnom skupu; pratite šta tamo završi i dodijelite vlasnika.
 4. **Pređite na sharding po trajanju kad jednake podjele prestanu da budu jednake** — bilježite trajanje svakog testa iz postojećih CI pokretanja i koristite te podatke da balansirate shardove po vremenu, a ne po broju fajlova.
+
+Pogledaj i [kako moj Playwright i Maestro pipeline radi na svakom PR-u](/pipeline/), kao i članke [Preuranjene asertacije: tihi izvor nestabilnih Playwright testova](/sr/blog/asserting-too-early-flaky-playwright-tests/) i [Piramida testiranja ili Testing Trophy](/sr/blog/test-pyramid-vs-testing-trophy/).
+
 
 ## Izvori
 

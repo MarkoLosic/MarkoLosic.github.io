@@ -2,7 +2,7 @@
 title: "AI-Generated Test Data: Why It Looks Right and Still Misses the Bugs That Matter"
 title_sr: "Testni podaci generisani AI-jem: zašto izgledaju ispravno, a ipak promaše bitne bagove"
 date: 2026-10-14
-tags: [qa, ai-in-qa, test-data]
+tags: [ai-testing, test-strategy]
 excerpt: GenAI test data generation is everywhere, but trust in it at scale is low. Here's why realistic-looking data still misses the edge cases that break systems.
 excerpt_sr: Generisanje testnih podataka GenAI-jem je svuda, ali povjerenje u njega na većem obimu je nisko. Evo zašto realistični podaci i dalje promaše granične slučajeve koji ruše sisteme.
 image: assets/blog/ai-generated-test-data-blind-spots.jpg

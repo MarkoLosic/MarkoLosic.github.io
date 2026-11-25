@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="sr" data-theme="dark" data-static-lang="sr" data-alt-url="../../../blog/bola-tenant-isolation-testing/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Testiranje Broken Object-Level Authorization: provjera pristupa koju većina test skupova nikad ne proba — Marko Lošić</title>
+  <meta name="description" content="Zašto funkcionalni testovi redovno propuštaju bug u autorizaciji koji jednom korisniku dozvoljava da vidi ili mijenja tuđe podatke, i kako ga namjerno testirat…">
+  <link rel="canonical" href="https://markolosic.github.io/sr/blog/bola-tenant-isolation-testing/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/bola-tenant-isolation-testing/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/bola-tenant-isolation-testing/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/bola-tenant-isolation-testing/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Testiranje Broken Object-Level Authorization: provjera pristupa koju većina test skupova nikad ne proba — Marko Lošić">
+  <meta property="og:description" content="Zašto funkcionalni testovi redovno propuštaju bug u autorizaciji koji jednom korisniku dozvoljava da vidi ili mijenja tuđe podatke, i kako ga namjerno testirat…">
+  <meta property="og:url" content="https://markolosic.github.io/sr/blog/bola-tenant-isolation-testing/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/bola-tenant-isolation-testing.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="669">
+  <meta property="og:image:alt" content="Testiranje Broken Object-Level Authorization: provjera pristupa koju većina test skupova nikad ne proba">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Testiranje Broken Object-Level Authorization: provjera pristupa koju većina test skupova nikad ne proba — Marko Lošić">
+  <meta name="twitter:description" content="Zašto funkcionalni testovi redovno propuštaju bug u autorizaciji koji jednom korisniku dozvoljava da vidi ili mijenja tuđe podatke, i kako ga namjerno testirat…">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/bola-tenant-isolation-testing.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/sr/blog/bola-tenant-isolation-testing/#article","headline":"Testiranje Broken Object-Level Authorization: provjera pristupa koju većina test skupova nikad ne proba","description":"Zašto funkcionalni testovi redovno propuštaju bug u autorizaciji koji jednom korisniku dozvoljava da vidi ili mijenja tuđe podatke, i kako ga namjerno testirati.","image":"https://markolosic.github.io/assets/blog/bola-tenant-isolation-testing.jpg","url":"https://markolosic.github.io/sr/blog/bola-tenant-isolation-testing/","inLanguage":"sr","wordCount":1107,"articleSection":"security-testing","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/sr/blog/bola-tenant-isolation-testing/"},"datePublished":"2026-10-09T00:00:00.000Z","dateModified":"2026-10-09T00:00:00.000Z","keywords":"security-testing, api-testing, real-world-bugs","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Početna","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/sr/blog/"},{"@type":"ListItem","position":3,"name":"Testiranje Broken Object-Level Authorization: provjera pristupa koju većina test skupova nikad ne proba","item":"https://markolosic.github.io/sr/blog/bola-tenant-isolation-testing/"}]}]}</script>
+  <meta property="article:published_time" content="2026-10-09T00:00:00.000Z">
+  <meta property="article:modified_time" content="2026-10-09T00:00:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../assets/fonts.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../../#top" data-i18n="nav_about">O meni</a>
+      <a href="../../../#skills" data-i18n="nav_skills">Vještine</a>
+      <a href="../../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../../#experience" data-i18n="nav_exp">Iskustvo</a>
+      <a href="../../../#education" data-i18n="nav_edu">Obrazovanje</a>
+      <a href="../../../sr/blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../../#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span>Svi članci</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-10-09" data-fmt="long">9. oktobar 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h1>Testiranje Broken Object-Level Authorization: provjera pristupa koju većina test skupova nikad ne proba</h1>
+        <p class="lead">Zašto funkcionalni testovi redovno propuštaju bug u autorizaciji koji jednom korisniku dozvoljava da vidi ili mijenja tuđe podatke, i kako ga namjerno testirati.</p>
+        <div class="tags"><span>security-testing</span><span>api-testing</span><span>real-world-bugs</span></div>
+      </header>
+      <div class="prose"><p>Većina funkcionalnih test skupova za multi-tenant aplikaciju se uvijek prijavljuje kao samo jedan nalog. Svaki test potvrđuje da korisnik vidi svoje projekte, svoje fakture, svoje poruke. Ono što skoro nijedan ne potvrđuje jeste da taj isti korisnik <em>ne može</em> da vidi tuđe — a upravo u toj rupi živi jedan od najčešćih i najštetnijih API bugova.</p>
+<p><img src="../../../assets/blog/bola-tenant-isolation-testing.jpg" alt="Ilustracija multi-tenant API-ja: User A uspješno čita svoj task preko GET /api/tasks/4821, dok User B šalje GET i DELETE zahtjeve za isti task i probija napukli zid izolacije tenanta, označen kao BOLA ranjivost" width="1200" height="669" fetchpriority="high" decoding="async"></p>
+<p>Taj bug ima ime: Broken Object Level Authorization, ili BOLA (poznat i kao Insecure Direct Object Reference, ili IDOR). Nalazi se na vrhu OWASP API Security Top 10 liste, a javlja se kad god server provjeri da je zahtjev autentifikovan, ali ne i da onaj ko ga šalje zaista posjeduje traženi objekat. Rješenje zvuči trivijalno kad se izgovori naglas — &quot;provjeri vlasništvo prije nego što vratiš objekat&quot; — i upravo zato i dalje stiže u produkciju: ništa u uobičajenom funkcionalnom testiranju nikad ne izazove taj otkaz.</p>
+<h2 id="kako-to-izgleda-u-praksi">Kako to izgleda u praksi</h2>
+<p>Zamislite tim koji pravi SaaS proizvod za upravljanje projektima. Task se nalazi na endpoint-u poput <code>GET /api/tasks/4821</code>. Endpoint ispravno zahtijeva validan session token, pa se anonimni zahtjev odbija. QA test skup se prijavi kao test korisnik, kreira task, učita ga, izmijeni ga, obriše ga — svaki od tih testova prolazi i funkcionalnost ide u produkciju. Niko nije napisao test koji se prijavi kao <em>drugi</em> korisnik i zatraži task <code>4821</code> po ID-ju. Ako endpoint povuče task direktno iz baze po ID-ju, a ne provjeri i da li se tenant tog taska poklapa sa tenantom pozivaoca, taj drugi korisnik dobije tuđi task, kompletan, sa odgovorom 200.</p>
+<p>Ovo nije hipotetički scenario. Istraživanje APIsec Labs-a, koje je analiziralo 84 potvrđene BOLA prijave podnesene preko HackerOne-a između 2021. i 2026. godine, pokazalo je da su bugovi direktne reference na objekat poput ovog, zajedno sa srodnim obrascem u kojem napadač izvrši akciju koja mijenja stanje tuđeg objekta, činili skoro četiri od pet analiziranih slučajeva. Isto istraživanje je pokazalo da su zahtjevi koji mijenjaju podatke — izmjene, brisanja, promjene stanja — činili skoro polovinu svih prijavljenih slučajeva. To je važno, jer test skup koji samo čita podatke (a takav ima većina timova) pokriva samo manju polovinu problema. Stvarni incidenti imaju isti oblik: Nextcloud API za postavljanje statusa odsutnosti vraćao je privatne podatke drugog korisnika kad se u zahtjevu zamijeni korisničko ime, a Mozilla endpoint za brisanje naloga prihvatao je email adresu žrtve u okviru napadačeve validne sesije, jer sesija nikad nije bila vezana za nalog koji se briše.</p>
+<h2 id="test-koji-ovo-zaista-provjerava">Test koji ovo zaista provjerava</h2>
+<p>Za testiranje BOLA-e ne treba novi alat — treba drugi nalog. Svaki test koji čita, mijenja ili briše objekat identifikovan ID-jem treba da se pokrene jednom kao vlasnik objekta (očekuje se uspjeh) i jednom kao drugi, nepovezan nalog (očekuje se odbijanje sa 403 ili 404, nikad 200).</p>
+<pre><code class="lang-python">def test_cannot_read_another_tenants_task(owner_client, other_client):
+    task = owner_client.post(&quot;/api/tasks&quot;, json={&quot;title&quot;: &quot;Renew contract&quot;}).json()
+    task_id = task[&quot;id&quot;]
+
+    # Vlasnik može da pročita svoj task.
+    assert owner_client.get(f&quot;/api/tasks/{task_id}&quot;).status_code == 200
+
+    # Drugi, autentifikovani korisnik ne smije.
+    resp = other_client.get(f&quot;/api/tasks/{task_id}&quot;)
+    assert resp.status_code in (403, 404)
+
+def test_cannot_delete_another_tenants_task(owner_client, other_client):
+    task = owner_client.post(&quot;/api/tasks&quot;, json={&quot;title&quot;: &quot;Renew contract&quot;}).json()
+    task_id = task[&quot;id&quot;]
+
+    resp = other_client.delete(f&quot;/api/tasks/{task_id}&quot;)
+    assert resp.status_code in (403, 404)
+
+    # Task mora i dalje da postoji za svog stvarnog vlasnika.
+    assert owner_client.get(f&quot;/api/tasks/{task_id}&quot;).status_code == 200</code></pre>
+<p>Koristan način da se ovo skalira, bez ručnog pisanja za svaki endpoint, jeste mala matrica: svaki endpoint koji prima ID objekta, ukršten sa čitanjem, izmjenom i brisanjem, ukršten sa &quot;isti vlasnik&quot; i &quot;drugi vlasnik&quot;. Generišite slučajeve između naloga iz istih fixture-a koje već koristite za happy-path testove, tako da se provjera vlasništva izvrši svuda gdje se ID objekta pojavljuje — uključujući sporedne rute poput <code>/api/projects/{id}/tasks/{task_id}</code>, koje je lako zaboraviti kad je glavna ruta <code>/api/tasks/{id}</code> već pokrivena.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Par navika ovdje stvara lažnu sigurnost. Prelazak sa sekvencijalnih numeričkih ID-jeva na UUID-jeve djeluje kao da rješava problem, ali samo uklanja lak put za nabrajanje (enumeration) — ne pomaže ništa ako se ID i dalje negdje vraća korisniku (u URL-u, export fajlu, webhook payload-u), a server i dalje preskače provjeru vlasništva. APIsec istraživanje eksplicitno kaže da je to ublažavanje, a ne rješenje.</p>
+<p>Testiranje samo &quot;očiglednog&quot; vlasnika i jasno nepovezanog napadača takođe propušta stvaran dio slučajeva. U istom skupu podataka, otprilike jedan od osam potvrđenih BOLA bugova bio je vertikalan, a ne horizontalan — običan korisnik koji djeluje nad objektom koji pripada adminu, kao kad je Nextcloud korisnik sa običnim privilegijama mogao da obriše adminovu konfiguraciju storage-a. Matrica testova napravljena samo oko &quot;dva ravnopravna korisnika&quot; to neće uhvatiti; potrebna joj je i dimenzija uloga.</p>
+<p>Automatski sigurnosni skeneri su ovdje slabija zaštitna mreža nego što većina timova misli, jer je vlasništvo nad objektom koncept poslovne logike, a ne obrazac koji generički skener može da zaključi iz oblika API-ja — mora se upisati u test kao &quot;ovaj ID pripada ovom nalogu&quot;, a to može da napiše samo tim koji razumije model podataka. Lako je preskočiti i stanja životnog ciklusa objekta: objekat koji je arhiviran, soft-delete-ovan ili deaktiviran ponekad izgubi provjeru autorizacije zajedno sa svojim vidljivim statusom, što je posebna rupa koju vrijedi namjerno testirati umjesto pretpostavke da ista provjera i dalje važi.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<p>Izaberite tri ili četiri endpoint-a sa najviše saobraćaja koji vraćaju objekat po ID-ju i ove sedmice svakom dodajte par testova isti vlasnik/drugi vlasnik — i za čitanje i za zahtjev koji mijenja podatke, ne samo za čitanje. Proširite test fixture-e tako da svaki skup koji kreira test korisnika po defaultu kreira i drugog, nepovezanog, kako bi testiranje između naloga bilo jeftino dodati svuda. Pored horizontalnih, dodajte barem jedan vertikalni slučaj (korisnik sa običnom ulogom pokušava pristup objektu koji pripada adminu). I na kraju, provjerite kuda vam cure ID-jevi objekata: ako se neki pojavljuju u export fajlovima, webhook payload-ima ili linkovima za dijeljenje, to je razlog da i tamo testirate provjeru vlasništva, a ne razlog da pretpostavite da UUID-jevi to već pokrivaju.</p>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://labs.apisec.ai/research/articles/bola-object-level-auth-analysis" target="_blank" rel="noopener noreferrer">What 100+ BOLA Reports Taught Us About Where Object-Level Authorization Actually Fails</a>, APIsec Labs</li><li><a href="http://www.indusface.com/learning/owasp-api-top-10-broken-object-level-authorization/" target="_blank" rel="noopener noreferrer">OWASP API Top 10: Broken Object Level Authorization</a>, Indusface</li></ul></div>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button">Kopiraj link</button>
+      <a class="btn primary" href="../../../#contact">Kontaktiraj me</a>
+    </div>
+    <section class="more-posts"><h2>Slični članci</h2><div class="post-grid">
+      <a class="post-card card glow" href="../file-upload-testing-edge-cases/"><div class="meta"><time datetime="2026-11-13" data-fmt="short">13. nov 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Testiranje otpremanja fajlova: granični slučajevi pored kojih happy-path testovi samo prođu</h3><p>Zašto funkcije za otpremanje fajlova pucaju u produkciji i kako testirati ograničenja veličine, lažiranje tipa fajla, istovremena otpremanja i prekinute prenose.</p></a>
+      <a class="post-card card glow" href="../binance-6-3-billion-hack-devops-laptop/"><div class="meta"><time datetime="2026-10-30" data-fmt="short">30. okt 2026.</time><span>·</span><span>3 min čitanja</span></div><h3>Pljačka stoljeća: kako je jedan laptop koštao Binance 6,3 milijarde dolara</h3><p>Binance je u najvećoj kripto krađi u historiji izgubio oko 6,3 milijarde dolara, a ulaz je bio jedan kompromitovan laptop DevOps inženjera. Šta se desilo i šta iz toga treba ponijeti.</p></a>
+      <a class="post-card card glow" href="../php2shell-rce-qa-testing-gaps/"><div class="meta"><time datetime="2026-10-23" data-fmt="short">23. okt 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>PHP2Shell: kako kritični RCE u jezgru PHP-a otkriva rupe u standardnim QA praksama</h3><p>Šta PHP2Shell ranjivosti za udaljeno izvršavanje koda otkrivaju o slijepim tačkama tipičnih paketa testova i konkretni koraci da se one zatvore.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../../#contact" data-i18n="contact_cta">Kontaktiraj me</a>
+    <button type="button" data-consent data-i18n="cookies">Postavke kolačića</button>
+    <a href="../../../" data-i18n="back_home">Nazad na početnu ↑</a>
+  </footer>
+  <script src="../../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../../blog/common.js"></script>
+  <script src="../../../blog/post.js"></script>
+</body>
+</html>

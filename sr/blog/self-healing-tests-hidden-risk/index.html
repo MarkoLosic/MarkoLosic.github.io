@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="sr" data-theme="dark" data-static-lang="sr" data-alt-url="../../../blog/self-healing-tests-hidden-risk/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Samoispravljajući testovi: šta zaista rješavaju, a šta tiho pokvare — Marko Lošić</title>
+  <meta name="description" content="Alati za samoispravljanje testova automatski krpe pokvarene selektore, ali mogu i sakriti baš one greške koje vaš skup testova treba da uhvati. Evo kako ih kor…">
+  <link rel="canonical" href="https://markolosic.github.io/sr/blog/self-healing-tests-hidden-risk/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/self-healing-tests-hidden-risk/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/self-healing-tests-hidden-risk/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/self-healing-tests-hidden-risk/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Samoispravljajući testovi: šta zaista rješavaju, a šta tiho pokvare — Marko Lošić">
+  <meta property="og:description" content="Alati za samoispravljanje testova automatski krpe pokvarene selektore, ali mogu i sakriti baš one greške koje vaš skup testova treba da uhvati. Evo kako ih kor…">
+  <meta property="og:url" content="https://markolosic.github.io/sr/blog/self-healing-tests-hidden-risk/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/self-healing-tests-hidden-risk.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="654">
+  <meta property="og:image:alt" content="Samoispravljajući testovi: šta zaista rješavaju, a šta tiho pokvare">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Samoispravljajući testovi: šta zaista rješavaju, a šta tiho pokvare — Marko Lošić">
+  <meta name="twitter:description" content="Alati za samoispravljanje testova automatski krpe pokvarene selektore, ali mogu i sakriti baš one greške koje vaš skup testova treba da uhvati. Evo kako ih kor…">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/self-healing-tests-hidden-risk.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/sr/blog/self-healing-tests-hidden-risk/#article","headline":"Samoispravljajući testovi: šta zaista rješavaju, a šta tiho pokvare","description":"Alati za samoispravljanje testova automatski krpe pokvarene selektore, ali mogu i sakriti baš one greške koje vaš skup testova treba da uhvati. Evo kako ih koristiti na siguran način.","image":"https://markolosic.github.io/assets/blog/self-healing-tests-hidden-risk.jpg","url":"https://markolosic.github.io/sr/blog/self-healing-tests-hidden-risk/","inLanguage":"sr","wordCount":991,"articleSection":"ai-testing","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/sr/blog/self-healing-tests-hidden-risk/"},"datePublished":"2026-09-23T00:00:00.000Z","dateModified":"2026-09-23T00:00:00.000Z","keywords":"ai-testing, test-automation","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Početna","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/sr/blog/"},{"@type":"ListItem","position":3,"name":"Samoispravljajući testovi: šta zaista rješavaju, a šta tiho pokvare","item":"https://markolosic.github.io/sr/blog/self-healing-tests-hidden-risk/"}]}]}</script>
+  <meta property="article:published_time" content="2026-09-23T00:00:00.000Z">
+  <meta property="article:modified_time" content="2026-09-23T00:00:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../assets/fonts.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../../#top" data-i18n="nav_about">O meni</a>
+      <a href="../../../#skills" data-i18n="nav_skills">Vještine</a>
+      <a href="../../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../../#experience" data-i18n="nav_exp">Iskustvo</a>
+      <a href="../../../#education" data-i18n="nav_edu">Obrazovanje</a>
+      <a href="../../../sr/blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../../#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span>Svi članci</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-09-23" data-fmt="long">23. septembar 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h1>Samoispravljajući testovi: šta zaista rješavaju, a šta tiho pokvare</h1>
+        <p class="lead">Alati za samoispravljanje testova automatski krpe pokvarene selektore, ali mogu i sakriti baš one greške koje vaš skup testova treba da uhvati. Evo kako ih koristiti na siguran način.</p>
+        <div class="tags"><span>ai-testing</span><span>test-automation</span></div>
+      </header>
+      <div class="prose"><p><code>id</code> dugmeta se promijeni tokom rutinskog refaktorisanja, desetak end-to-end testova pocrveni, i neko u timu provede popodne mijenjajući selektore koji nemaju nikakve veze sa funkcionalnošću koja se zapravo testira. To je &quot;porez na održavanje&quot; koji alati za &quot;samoispravljanje&quot; (self-healing) testova obećavaju da će ukinuti: kad se lokator pokvari, alat pronađe element na neki drugi način i test nastavlja da radi. To zaista štedi vrijeme, ali mijenja i šta prolazak testa uopšte znači, a tu promjenu je lako previdjeti dok vas ne košta produkcionog incidenta.</p>
+<h2 id="šta-alati-za-samoispravljanje-zapravo-rade">Šta alati za samoispravljanje zapravo rade</h2>
+<p>&quot;Self-healing&quot; nije jedna tehnika. Većina alata na tržištu kombinuje nekoliko užih mehanizama, od kojih je svaki usmjeren na drugu vrstu kvara:</p>
+<ul><li><strong>Ispravljanje selektora</strong> – kad se DOM promijeni, alat upoređuje strukturu stranice i bira novi lokator (drugi atribut, obližnji sidreni element, izmijenjen tekst) umjesto da odmah padne.</li><li><strong>Ispravljanje tajminga</strong> – umjesto fiksnog <code>wait(2000)</code>, alat prati mrežne pozive i DOM promjene i čeka da se stranica zaista smiri.</li><li><strong>Ispravljanje podataka</strong> – istekle sesije, zastarjeli tokeni ili neažurni fixture-i se automatski osvježe prije nego što test padne zbog nečega što nema veze sa funkcionalnošću koja se testira.</li><li><strong>Vizuelno ispravljanje i ispravljanje interakcije</strong> – poređenje prikazanog rezultata uz ignorisanje nebitnog piksel-šuma, ili ubacivanje koraka koji nedostaje (npr. otvaranje skupljenog menija) koji originalna skripta nije predvidjela.</li></ul>
+<p>Promjene selektora dobijaju najviše pažnje jer su najvidljiviji tip kvara, ali u praksi čine manjinu ukupnih kvarova testova — pregledi iz industrije, od dobavljača u ovoj oblasti, procjenjuju da kvarovi vezani za selektore čine manje od trećine svih nestabilnih ili pokvarenih pokretanja, dok problemi s tajmingom čine sličan ili veći udio. To je bitno, jer alat koji ispravlja samo selektore rješava manji dio vašeg problema s održavanjem nego što marketing sugeriše.</p>
+<p>Evo pojednostavljenog primjera kako &quot;ispravljajuća&quot; (healing) strategija za lokatore izgleda u praksi, korišćenjem lanca rezervnih opcija umjesto jednog krhkog selektora:</p>
+<pre><code class="lang-javascript">// Instead of a single point of failure:
+await page.locator('#submit-btn-v2').click();
+
+// A resilient (and healable) approach tries multiple signals:
+const submitButton = page.locator(
+  '#submit-btn-v2, [data-testid=&quot;submit&quot;], button:has-text(&quot;Submit&quot;)'
+);
+await submitButton.first().click();</code></pre>
+<p>Alat za samoispravljanje automatizuje proces pronalaženja te druge ili treće opcije nakon što prva otkaže, a zatim — zavisno od alata — ili sam izmijeni skriptu testa ili samo zabilježi da je do ispravljanja došlo i nastavi dalje.</p>
+<h2 id="dio-koji-dobavljači-ne-ističu">Dio koji dobavljači ne ističu</h2>
+<p>Rizik nije u tome što alati za samoispravljanje povremeno pogriješe. Rizik je u tome što ne mogu da razlikuju &quot;dugme se pomjerilo zbog bezopasnog refaktorisanja&quot; od &quot;dugme se pomjerilo jer je neko ubacio bug&quot;. Oba slučaja izgledaju identično algoritmu za poklapanje lokatora: očekivani element nije tamo gdje test očekuje. Ako je posao alata da test ostane zelen, on će podjednako rado prekriti oba slučaja — jedan tim koji istražuje ovaj problem to je nazvao &quot;tihim erozijom pokrivenosti&quot; (silent coverage erosion).</p>
+<p>Studija slučaja fokusirana na upravljanje (governance), koja pokriva otprilike godinu dana produkcione upotrebe u jednoj finansijskoj kompaniji, konkretno ilustruje taj kompromis. Statički skup testova bez samoispravljanja koštao je oko 180 sati održavanja mjesečno, a i dalje je propustio 12 grešaka neotkriveno. Uključivanje samoispravljanja bez ikakvog nadzora smanjilo je održavanje na oko 99 sati mjesečno, ali se broj prikrivenih grešaka otprilike učetvorostručio u poređenju sa statičkim skupom. Dodavanje sloja upravljanja — kapija za ljudski pregled promjena koje dotiču kritične tokove, i obavezan zapis svakog prihvaćenog ili odbijenog automatskog ispravka — spustilo je održavanje na oko 58 sati mjesečno, uz presretanje velike većine lažnih pozitivnih rezultata prije nego što bi stigli do produkcije.</p>
+<p><img src="../../../assets/blog/self-healing-tests-hidden-risk.jpg" alt="Poređenje nenadgledanog samoispravljanja i nadgledanog samoispravljanja sa kapijama za ljudski pregled, koje pokazuje pad sati održavanja u oba slučaja, ali oštar rast prikrivenih grešaka bez nadzora" width="1200" height="654" fetchpriority="high" decoding="async"></p>
+<p>Pouka nije &quot;nemojte koristiti samoispravljanje&quot;, nego da nenadgledano samoispravljanje mijenja vidljiv posao održavanja za nevidljiv kvalitetni rizik, a ta nevidljiva vrsta je mnogo skuplja kad izađe na vidjelo.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>Alati za samoispravljanje testova nisu zamjena za dobru higijenu lokatora, i imaju stvarna ograničenja koja vrijedi znati prije nego što ih usvojite:</p>
+<p>Rješavaju samo simptome koje vaš skup testova već proizvodi. Ako vaši testovi ranije nisu pokrivali neki tok, samoispravljanje neće dodati pokrivenost — samo će produžiti život postojećoj, možda tankoj, pokrivenosti bez održavanja.</p>
+<p>Najviše se muče baš tamo gdje je to najbitnije: u regulisanim ili visokorizičnim tokovima (plaćanja, promjene naloga, koraci osjetljivi na usklađenost), automatski &quot;ispravljen&quot; test koji tiho prestane da provjerava pravu stvar gori je od testa koji glasno padne, jer niko ne istražuje zelen pipeline.</p>
+<p>Mogu stvoriti lažan osjećaj sigurnosti oko nestabilnosti. Test koji i dalje prolazi zato što alat stalno pronalazi <em>nešto</em> za klik nije nužno više testirao pravu stvar — možda klikće na pogrešan element koji je i sam slučajno klikljiv.</p>
+<p>Zahtijevaju reviziju, ne samo usvajanje. Većina timova koji na ovome nastradaju preskoči korak periodičnog pregleda šta je automatski ispravljeno i zašto, tretirajući &quot;i dalje zeleno&quot; kao dovoljan dokaz da je sve u redu.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<p>Uključite samoispravljanje selektivno, ne za cio skup testova odjednom, počevši od nisko-rizičnih dijelova UI-ja sa čestim promjenama, gdje je pomjeranje selektora učestalo, a cijena propuštene regresije niska.</p>
+<p>Zahtijevajte da vaš alat (ili omotač oko njega) bilježi svaki automatski ispravak sa diff-om onoga što je promijenjeno, i pregledajte taj zapis nedeljno, a ne samo kad nešto pukne u produkciji.</p>
+<p>Zadržite kapije za ljudsko odobrenje na svemu što dotiče plaćanje, autentikaciju ili tokove kritične za usklađenost — neka alat predloži ispravak, ali neka ga ne spaja bez nadzora za te testove.</p>
+<p>Pratite &quot;broj automatski ispravljenih testova nedeljno&quot; kao zasebnu metriku uz stopu prolaska. Rastući broj ispravki na istim testovima često je znak osnovne nestabilnosti koja zaslužuje pravo rješenje, a ne još zakrpa.</p>
+<h2 id="izvori">Izvori</h2>
+<ul><li>The 6 Types of AI Self-Healing in Test Automation | QA Wolf</li><li>The Hidden Risk in Self-Healing Test Automation: A Governance Blueprint for Digital Banking | SD Times</li><li>What is self-healing test automation? A guide | Tricentis</li></ul></div>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button">Kopiraj link</button>
+      <a class="btn primary" href="../../../#contact">Kontaktiraj me</a>
+    </div>
+    <section class="more-posts"><h2>Slični članci</h2><div class="post-grid">
+      <a class="post-card card glow" href="../vision-ai-testing-image-inputs/"><div class="meta"><time datetime="2026-11-25" data-fmt="short">25. nov 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Testiranje AI funkcionalnosti koje vide: QA za ulazne slike i dokumente</h3><p>Vision AI funkcionalnosti zakazuju na dva načina koje QA fokusiran samo na tekst propušta: loše ulazne slike i samouvjerene halucinacije. Evo kako testirati oba.</p></a>
+      <a class="post-card card glow" href="../testing-rag-pipelines-retrieval-evaluation/"><div class="meta"><time datetime="2026-11-18" data-fmt="short">18. nov 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Testiranje RAG pipeline-a: zašto korak pretrage treba sopstveni skup testova</h3><p>RAG sistemi tiho otkazuju kada pretraga pogriješi. Evo kako testirati pretragu i generisanje odvojeno, uz konkretan primjer i metriku koju vrijedi pratiti.</p></a>
+      <a class="post-card card glow" href="../claude-fable-5-2-for-testing/"><div class="meta"><time datetime="2026-11-11" data-fmt="short">11. nov 2026.</time><span>·</span><span>6 min čitanja</span></div><h3>Claude Fable 5.2 za testiranje: gdje su prednosti stvarne, a gdje prestaju</h3><p>Šta Claude Fable 5.2 mijenja u QA radu: duga agentska izvršavanja, upravljanje računarom, vid i cijena, uz jasno navedena ograničenja.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../../#contact" data-i18n="contact_cta">Kontaktiraj me</a>
+    <button type="button" data-consent data-i18n="cookies">Postavke kolačića</button>
+    <a href="../../../" data-i18n="back_home">Nazad na početnu ↑</a>
+  </footer>
+  <script src="../../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../../blog/common.js"></script>
+  <script src="../../../blog/post.js"></script>
+</body>
+</html>

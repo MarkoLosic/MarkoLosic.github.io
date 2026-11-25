@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="sr" data-theme="dark" data-static-lang="sr" data-alt-url="../../../blog/qa-metrics-that-matter/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QA metrike koje zaista predviđaju kvalitet (i one koje ne predviđaju) — Marko Lošić</title>
+  <meta name="description" content="Procenat prolaznosti i broj testova djeluju umirujuće, ali malo govore o kvalitetu. Evo šta pratiti umjesto toga i kako to čitati.">
+  <link rel="canonical" href="https://markolosic.github.io/sr/blog/qa-metrics-that-matter/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/qa-metrics-that-matter/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/qa-metrics-that-matter/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/qa-metrics-that-matter/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="QA metrike koje zaista predviđaju kvalitet (i one koje ne predviđaju) — Marko Lošić">
+  <meta property="og:description" content="Procenat prolaznosti i broj testova djeluju umirujuće, ali malo govore o kvalitetu. Evo šta pratiti umjesto toga i kako to čitati.">
+  <meta property="og:url" content="https://markolosic.github.io/sr/blog/qa-metrics-that-matter/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/qa-metrics-that-matter.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="669">
+  <meta property="og:image:alt" content="QA metrike koje zaista predviđaju kvalitet (i one koje ne predviđaju)">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="QA metrike koje zaista predviđaju kvalitet (i one koje ne predviđaju) — Marko Lošić">
+  <meta name="twitter:description" content="Procenat prolaznosti i broj testova djeluju umirujuće, ali malo govore o kvalitetu. Evo šta pratiti umjesto toga i kako to čitati.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/qa-metrics-that-matter.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/sr/blog/qa-metrics-that-matter/#article","headline":"QA metrike koje zaista predviđaju kvalitet (i one koje ne predviđaju)","description":"Procenat prolaznosti i broj testova djeluju umirujuće, ali malo govore o kvalitetu. Evo šta pratiti umjesto toga i kako to čitati.","image":"https://markolosic.github.io/assets/blog/qa-metrics-that-matter.jpg","url":"https://markolosic.github.io/sr/blog/qa-metrics-that-matter/","inLanguage":"sr","wordCount":1171,"articleSection":"test-strategy","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/sr/blog/qa-metrics-that-matter/"},"datePublished":"2026-10-12T00:00:00.000Z","dateModified":"2026-10-12T00:00:00.000Z","keywords":"test-strategy","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Početna","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/sr/blog/"},{"@type":"ListItem","position":3,"name":"QA metrike koje zaista predviđaju kvalitet (i one koje ne predviđaju)","item":"https://markolosic.github.io/sr/blog/qa-metrics-that-matter/"}]}]}</script>
+  <meta property="article:published_time" content="2026-10-12T00:00:00.000Z">
+  <meta property="article:modified_time" content="2026-10-12T00:00:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../assets/fonts.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../../#top" data-i18n="nav_about">O meni</a>
+      <a href="../../../#skills" data-i18n="nav_skills">Vještine</a>
+      <a href="../../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../../#experience" data-i18n="nav_exp">Iskustvo</a>
+      <a href="../../../#education" data-i18n="nav_edu">Obrazovanje</a>
+      <a href="../../../sr/blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../../#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span>Svi članci</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-10-12" data-fmt="long">12. oktobar 2026.</time><span>·</span><span>6 min čitanja</span></div>
+        <h1>QA metrike koje zaista predviđaju kvalitet (i one koje ne predviđaju)</h1>
+        <p class="lead">Procenat prolaznosti i broj testova djeluju umirujuće, ali malo govore o kvalitetu. Evo šta pratiti umjesto toga i kako to čitati.</p>
+        <div class="tags"><span>test-strategy</span></div>
+      </header>
+      <div class="prose"><p>Dashboard koji pokazuje &quot;1.842 testa, 98% prolazi&quot; izgleda kao dokaz da je proizvod zdrav. Obično nije. Timovi mogu da dostignu takve brojke dok isporučuju pokvaren checkout flow, jer metrika opisuje test skup, a ne proizvod. Razlika između &quot;naši testovi izgledaju dobro&quot; i &quot;naš proizvod je dobar&quot; je mjesto gdje živi mnogo incidenata koji su se mogli izbjeći, i vrijedi biti konkretan oko toga koje brojke tu razliku zatvaraju, a koje samo djeluju umirujuće.</p>
+<p><img src="../../../assets/blog/qa-metrics-that-matter.jpg" alt="Ilustracija QA dashboard-a na kojem veliki zeleni &quot;misleading pass rate: 98%&quot; stoji pored crvenog grafikona sa natpisom &quot;actual escaped bug rate: 15% increasing&quot;, dok tim pokazuje na panel &quot;bug reported by user&quot;" width="1200" height="669" fetchpriority="high" decoding="async"></p>
+<h2 id="zašto-pass-rate-nije-dobar-glavni-pokazatelj">Zašto pass rate nije dobar glavni pokazatelj</h2>
+<p>Pass rate (procenat testova koji prolaze) je popularan jer je to jedan broj koji se kreće ka čistih 100%. Problem je u onome što skriva. Skup od 100 testova u kojem padne jedan test koji pokriva ključnu funkcionalnost ima pass rate od 99%, a proizvod možda nije spreman za isporuku. Skup od 1.000 testova u kojem 200 njih udari u isti taj bug ima pass rate od 80% za potpuno isti problem u pozadini. Steve Rowe, bivši test lead u Microsoftu, to je jasno rekao u često citiranom postu na svom Microsoft blogu: pass rate miješa broj testova sa ozbiljnošću onoga što su pronašli, a ispod 100% uopšte prestaje da razlikuje &quot;u redu&quot; od &quot;nije u redu&quot;.</p>
+<p>Pored toga, reaguje na pogrešan pritisak. Ako je cilj &quot;95% prolazi do petka&quot;, tim može da stigne do toga brisanjem flaky testova, razbijanjem jednog strogog testa na nekoliko blažih ili preskakanjem teških slučajeva umjesto popravljanja proizvoda. Ništa od toga ne čini softver boljim, ali grafikon ide gore i desno.</p>
+<p>Isti problem se javlja i sa brojem testova i procentom automatizacije. Rastući broj testova može da znači bolju pokrivenost, ili godine dupliranih, zastarjelih testova koje niko nije obrisao. &quot;Procenat automatizovanih flow-ova&quot; može da znači da automatizacija radi pravi posao, ili krhke skripte koje se preskaču kad god smetaju. Nijedan od ta dva broja ne kaže koje je od toga, pa nijedan ne pripada na vrh dashboard-a o kvalitetu.</p>
+<h2 id="šta-pratiti-umjesto-toga-escaped-defects">Šta pratiti umjesto toga: escaped defects</h2>
+<p>Metrika koja zaista odgovara na pitanje &quot;da li testiranje radi&quot; je escaped defect rate: udio bugova koji su stigli do korisnika umjesto da budu uhvaćeni prije izdanja.</p>
+<pre><code>escape rate = escaped bugs / (escaped bugs + bugs caught pre-release)</code></pre>
+<p>Ako je tim u QA-u uhvatio 100 bugova, a korisnici su nakon izdanja prijavili još 10, escape rate je 10 / 110, otprilike 9%. Taj broj je uporediv od izdanja do izdanja na način na koji pass rate nikad nije, jer se mjeri u odnosu na ono do čega vam je zaista stalo, defekte koje je doživio korisnik, a ne u odnosu na veličinu ili oblik test skupa.</p>
+<p>Konkretan primjer: zamislite tim koji svake dvije sedmice isporučuje izmjenu cijena. Tri izdanja zaredom pass rate stoji na stabilnih 97% i niko ne diže uzbunu. Ali escape rate u istom periodu puže sa 4% na 9% pa na 15%, jer granični slučaj u zaokruživanju valuta stalno promakne, a tiketi podrške to svaki put potvrde. Pass rate je rekao &quot;ništa se nije promijenilo&quot;. Escape rate je rekao &quot;testiranje gubi teren&quot;, i rekao je to dovoljno rano da se reaguje, dodavanjem regresionog skupa posvećenog zaokruživanju, umjesto čekanja na četvrti talas žalbi.</p>
+<p>Ni escape rate nije bez problema. Zavisi od toga koliko se pouzdano bugovi nakon izdanja prijavljuju i povezuju sa izdanjem, pa iza njega mora da stoji određena disciplina u podršci ili praćenju incidenata, a po definiciji kasni, jer za bug koji je pobjegao saznate tek nakon izdanja. Uparite ga i sa signalom koji gleda unaprijed: vremenom potrebnim da se regresija otkrije nakon što je uvedena, što pokazuje koliko brzo bi pipeline uhvatio sljedeću, a ne samo prošlu.</p>
+<h2 id="ostale-brojke-koje-vrijedi-pratiti-i-kako-ih-čitati">Ostale brojke koje vrijedi pratiti, i kako ih čitati</h2>
+<p>Nekoliko drugih metrika zaslužuje svoje mjesto, ali samo uz odgovarajuću napomenu:</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Metrika</th><th>Za šta je dobra</th><th>Šta propušta</th></tr></thead>
+<tbody>
+<tr><td>Escaped defect rate</td><td>Da li testiranje hvata ono što je bitno, kroz vrijeme</td><td>Kasni za izdanjem danima ili sedmicama; traži uredno povezivanje bugova sa izdanjima</td></tr>
+<tr><td>Flaky test rate</td><td>Da li se signalu test skupa uopšte može vjerovati</td><td>Ne govori ništa direktno o kvalitetu proizvoda</td></tr>
+<tr><td>Prosječno vrijeme do otkrivanja regresije</td><td>Koliko brzo bi pipeline uhvatio sljedeći pravi bug</td><td>Zahtijeva namjerno ubačenu ili istorijsku regresiju za mjerenje</td></tr>
+<tr><td>Raspodjela ozbiljnosti defekata</td><td>Da li trud ide ka bugovima koji su bitni</td><td>Oznake ozbiljnosti su subjektivne i lako se izigravaju</td></tr>
+</tbody>
+</table>
+</div>
+<p>Primijetite da nijedna od ovih nije &quot;broj testova&quot; ili &quot;procenat koji prolazi&quot;. Te dvije se stalno pojavljuju na dashboard-ima zato što ih je lako izračunati i uvijek negdje trenduju, a ne zato što išta predviđaju o proizvodu.</p>
+<h2 id="zamke-i-ograničenja">Zamke i ograničenja</h2>
+<p>QA vođen metrikama ima svoje načine da pođe po zlu. Svaka metrika po kojoj se tim ocjenjuje vremenom će se optimizovati direktno, umjesto onoga što bi trebalo da predstavlja: ako se dovoljno uporno juri escape rate, testeri će početi da reklasifikuju bugove nakon izdanja kao &quot;postojeće od ranije&quot; ili &quot;granični slučaj&quot; da bi broj ostao nizak. Metrike takođe ne zamjenjuju procjenu šta je zaista rizično u datom izdanju; tihi refaktor payment putanje zaslužuje više pažnje nego što bi same brojke sugerisale, bez obzira koliko je dobar bio escape rate prošlog kvartala. I ništa od ovoga ne radi bez pristojne discipline u praćenju bugova. Ako se defekti ne bilježe dosljedno, ne označavaju prema tome gdje su pronađeni i ne povezuju sa izdanjem, escape rate je samo nagađanje obučeno u broj. Na kraju, metrike su zakašnjeli pogled na efikasnost testiranja tima, a ne zamjena za eksplorativno testiranje ili pregled onoga što test skup uopšte ne pokriva.</p>
+<h2 id="šta-dalje">Šta dalje</h2>
+<ol><li>Uzmite posljednja tri do šest izdanja i izračunajte escaped defect rate, makar i grubo, iz postojećih podataka u bug trackeru. Ako niko to ne može da uradi bez ručnog prolaska kroz tikete, to je prva rupa koju treba zakrpiti.</li><li>Prestanite da prijavljujete goli broj testova ili procenat automatizacije kao signal kvaliteta na standupima ili dashboard-ima; ako su uopšte korisni, zadržite ih kao metrike kapaciteta, a ne kvaliteta.</li><li>Na svaki dashboard dodajte flaky test rate pored pass rate-a. Test skup ne može da vam kaže ništa pouzdano o proizvodu ako se ne zna koliko je sam stabilan.</li><li>Izaberite jednu kategoriju ozbiljnosti, na primjer defekte u payment ili auth putanji, i pratite escape rate posebno za nju. Jedan zbirni broj preko svih nivoa ozbiljnosti uvijek će uprosječiti baš onaj dio koji je zaista bitan.</li></ol>
+<h2 id="izvori">Izvori</h2>
+<ul><li><a href="https://learn.microsoft.com/ja-jp/archive/blogs/steverowe/pass-rates-dont-matter" target="_blank" rel="noopener noreferrer">Pass rates don't matter</a>, Steve Rowe</li><li><a href="https://www.ministryoftesting.com/software-testing-glossary/bug-escape-rate" target="_blank" rel="noopener noreferrer">Bug escape rate</a>, Ministry of Testing glossary</li><li><a href="https://dzone.com/articles/7-useless-test-metrics" target="_blank" rel="noopener noreferrer">7 Useless Test Metrics</a>, DZone</li><li><a href="https://docs.aws.amazon.com/wellarchitected/latest/devops-guidance/metrics-for-functional-testing.html" target="_blank" rel="noopener noreferrer">Metrics for functional testing</a>, AWS Well-Architected DevOps Guidance</li></ul></div>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button">Kopiraj link</button>
+      <a class="btn primary" href="../../../#contact">Kontaktiraj me</a>
+    </div>
+    <section class="more-posts"><h2>Slični članci</h2><div class="post-grid">
+      <a class="post-card card glow" href="../session-based-exploratory-testing/"><div class="meta"><time datetime="2026-11-23" data-fmt="short">23. nov 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Exploratory testiranje zasnovano na sesijama: kako ad hoc testiranje učiniti ponovljivim i mjerljivim</h3><p>Kako session-based test management pretvara exploratory testiranje bez skripte u nešto što možete planirati, mjeriti i o čemu možete izvještavati, uz konkretan primjer charter-a.</p></a>
+      <a class="post-card card glow" href="../test-pyramid-vs-testing-trophy/"><div class="meta"><time datetime="2026-11-09" data-fmt="short">9. nov 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Test piramida ili testing trofej: birajte oblik koji odgovara vašem riziku, a ne dijagramu</h3><p>Test piramida i testing trofej daju suprotne savjete o tome gdje da uložite testove. Evo kako da odlučite koji oblik zaista odgovara vašem kodu.</p></a>
+      <a class="post-card card glow" href="../chaos-engineering-game-day-qa-teams/"><div class="meta"><time datetime="2026-11-06" data-fmt="short">6. nov 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Chaos engineering za QA timove: kako zapravo izgleda game day</h3><p>Praktičan pogled na chaos engineering alate i kako organizovati game day za testiranje otpornosti, a da se on ne pretvori u ispad sistema.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../../#contact" data-i18n="contact_cta">Kontaktiraj me</a>
+    <button type="button" data-consent data-i18n="cookies">Postavke kolačića</button>
+    <a href="../../../" data-i18n="back_home">Nazad na početnu ↑</a>
+  </footer>
+  <script src="../../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../../blog/common.js"></script>
+  <script src="../../../blog/post.js"></script>
+</body>
+</html>

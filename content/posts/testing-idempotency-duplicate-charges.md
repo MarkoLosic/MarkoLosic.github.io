@@ -2,7 +2,7 @@
 title: "Testing Idempotency: How to Catch Duplicate-Charge Bugs Before Your Users Do"
 title_sr: "Testiranje idempotentnosti: kako uhvatiti duple naplate prije korisnika"
 date: 2026-09-28
-tags: [qa, real-world-testing, fintech, api-testing]
+tags: [api-testing, real-world-bugs]
 excerpt: A practical walkthrough of testing idempotency keys in payment and checkout flows, with concrete test cases for catching duplicate charges.
 excerpt_sr: Praktičan vodič kroz testiranje idempotency ključeva u tokovima plaćanja i checkout-a, sa konkretnim test slučajevima za hvatanje duplih naplata.
 image: assets/blog/testing-idempotency-duplicate-charges.jpg
@@ -71,12 +71,17 @@ Finally, this kind of testing has a real cost. Concurrent test harnesses and pro
 
 Start by listing every state-changing endpoint in your system that involves money, inventory, or account state, and confirm which ones currently support idempotency keys at all — many teams find gaps here immediately. For the ones that do, write a concurrent-duplicate-request test like the one above and check the downstream ledger, not just the response code. Add a test for key reuse with a changed payload, since silent overwrites are a common and dangerous bug. Finally, put at least one of these tests in your regression suite permanently — idempotency protections are exactly the kind of thing a routine refactor, cache change, or new message queue can quietly break months later.
 
+Related API and reliability checks: [Testing Checkout Retry Race Conditions](/blog/testing-checkout-retry-race-conditions/), [API Contract Testing](/blog/api-contract-testing-breaking-changes/), and [Testing for BOLA](/blog/bola-tenant-isolation-testing/).
+
+
 ## Sources
 
 - [Designing robust and predictable APIs with idempotency — Stripe Engineering](https://stripe.com/blog/idempotency)
 - [How to Check Idempotency and Duplicates of Requests in Web Applications — Software Testing Magazine](https://www.softwaretestingmagazine.com/knowledge/how-to-check-idempotency-and-duplicates-of-requests-in-web-applications/)
 - [The Idempotency-Key HTTP Header Field — IETF Internet-Draft](https://www.ietf.org/archive/id/draft-ietf-httpapi-idempotency-key-header-07.html)
+
 <!--sr-->
+
 Kupcu tokom checkout-a na dvije sekunde pukne mobilna veza. Aplikacija, sasvim ispravno, ponovo šalje zahtjev za plaćanje. Negdje na serveru prvi zahtjev je zapravo prošao bez problema — izgubio se samo odgovor. Sada za jednu narudžbu postoje dvije naplate. Ovo je jedan od najčešćih načina na koje fintech i e-commerce sistemi gube povjerenje kupaca, a rijetko ga uzrokuje neispravan payment gateway. Uzrokuje ga logika ponovnih pokušaja koja nikada nije testirana protiv upravo onih kvarova zbog kojih je napravljena.
 
 ![Ilustracija checkout ekrana kojem pukne veza i koji šalje dva zahtjeva za plaćanje sa istim idempotency ključem kroz idempotency gateway, koji do servera i knjige transakcija u bazi propušta samo jednu naplatu](assets/blog/testing-idempotency-duplicate-charges.jpg)
@@ -140,6 +145,9 @@ Na kraju, ovakvo testiranje ima stvaran trošak. Test okruženja za istovremene 
 ## Šta dalje
 
 Počnite tako što ćete popisati svaki endpoint u sistemu koji mijenja stanje, a tiče se novca, zaliha ili stanja naloga, i provjerite koji od njih uopšte podržavaju idempotency ključeve — mnogi timovi tu odmah nađu rupe. Za one koji ih podržavaju, napišite test sa istovremenim duplim zahtjevima poput gornjeg i provjerite ledger nizvodno, a ne samo statusni kod. Dodajte test za ponovnu upotrebu ključa sa izmijenjenim payloadom, jer je tiho prepisivanje česta i opasna greška. Na kraju, stavite bar jedan od ovih testova trajno u regresioni skup — zaštite idempotentnosti su upravo ona vrsta stvari koju rutinski refaktoring, izmjena keša ili novi message queue mogu tiho da pokvare mjesecima kasnije.
+
+Povezane API provjere i testiranje pouzdanosti: [Testiranje race condition-a kod ponovljenog plaćanja](/sr/blog/testing-checkout-retry-race-conditions/), [API contract testiranje](/sr/blog/api-contract-testing-breaking-changes/) i [Testiranje BOLA propusta](/sr/blog/bola-tenant-isolation-testing/).
+
 
 ## Izvori
 
