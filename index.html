@@ -76,7 +76,21 @@
         "url": "https://markolosic.github.io/",
         "image": "https://markolosic.github.io/assets/marko.jpg",
         "sameAs": ["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/", "https://github.com/MarkoLosic"],
-        "knowsAbout": ["Test automation", "Playwright", "Cypress", "Maestro", "C#", ".NET", "JavaScript", "TypeScript", "Exploratory testing", "Cross-browser testing", "Bug reporting", "Lighthouse", "YAML", "Page Object Model", "CI/CD", "GitHub Actions", "Jenkins", "Docker", "REST API testing", "Postman", "LLM testing", "Mobile app testing", "AI model testing", "Mobile app development", "Manual testing", "Oracle APEX", "SQL", "PL/SQL"]
+        "knowsAbout": ["Test automation", "Playwright", "Cypress", "Maestro", "C#", ".NET", "JavaScript", "TypeScript", "Exploratory testing", "Cross-browser testing", "Bug reporting", "Lighthouse", "YAML", "Page Object Model", "CI/CD", "GitHub Actions", "Jenkins", "Docker", "REST API testing", "Postman", "LLM testing", "Mobile app testing", "AI model testing", "Mobile app development", "React Native", "Supabase", "Manual testing", "Oracle APEX", "SQL", "PL/SQL"]
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://markolosic.github.io/#petlink",
+        "name": "PetLink",
+        "description": "Free pet care app for dog and cat owners: digital health record, vaccine reminders, lost-pet alerts with a live map, NFC smart collar, adoption listings and an AI chat.",
+        "operatingSystem": "Android",
+        "applicationCategory": "LifestyleApplication",
+        "inLanguage": ["sr", "hr", "bs", "en"],
+        "url": "https://play.google.com/store/apps/details?id=com.markolosic.petlink",
+        "sameAs": ["https://markolosic.github.io/petlink-web/"],
+        "image": "https://markolosic.github.io/assets/blog/petlink-pet-care-app.jpg",
+        "author": { "@id": "https://markolosic.github.io/#person" },
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
       }
     ]
   }
@@ -96,6 +110,7 @@
       <a href="#skills" data-i18n="nav_skills">Skills</a>
       <a href="#ai" data-i18n="nav_ai">AI</a>
       <a href="#experience" data-i18n="nav_exp">Experience</a>
+      <a href="#projects" data-i18n="nav_proj">Projects</a>
       <a href="#education" data-i18n="nav_edu">Education</a>
       <a href="blog/" data-i18n="nav_blog">Blog</a>
       <a href="#contact" data-i18n="nav_contact">Contact</a>
@@ -178,7 +193,7 @@
       <div class="about-grid">
         <div class="about-text reveal">
           <p data-i18n="about_p1">QA Engineer with 6+ years of experience in manual and automated testing of web applications, mobile applications and browser extensions, across SaaS creator platforms, e-commerce and product analytics. I build test suites in Playwright (with earlier Cypress experience), write test plans and cases, and work closely with cross-functional teams to ship reliable software.</p>
-          <p data-i18n="about_p2">I'm also an Oracle APEX developer with SQL and PL/SQL experience, I test AI models, and I create mobile applications — so I understand products from the database to the device, not only from the browser down. My route into QA went through technical support, retail and teaching, which shaped how I think about users and how clearly I communicate a defect.</p>
+          <p data-i18n="about_p2">I'm also an Oracle APEX developer with SQL and PL/SQL experience, I test AI models, and I build my own mobile apps — most recently <a class="inline-link" href="#projects">PetLink</a>, a pet care app now live on Google Play — so I understand products from the database to the device, not only from the browser down. My route into QA went through technical support, retail and teaching, which shaped how I think about users and how clearly I communicate a defect.</p>
         </div>
         <ul class="highlights reveal">
           <li><span class="hl-ic"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h3v1h-3zM3 1h3v1h-3zM2 2h3v1h-3zM1 3h7v1h-7zM4 4h3v1h-3zM3 5h3v1h-3zM2 6h2v1h-2zM1 7h1v1h-1z"/></svg></span><div><b data-i18n="hl1_t">Automation that pays off</b><p data-i18n="hl1_d">Playwright and Maestro suites that make the QA process faster and more reliable.</p></div></li>
@@ -208,14 +223,14 @@
         <article class="card glow reveal">
           <h3><span class="ic"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M1 0h7v1h-7zM1 1h1v1h-1zM7 1h1v1h-1zM1 2h1v1h-1zM7 2h1v1h-1zM1 3h1v1h-1zM7 3h1v1h-1zM1 4h1v1h-1zM7 4h1v1h-1zM1 5h1v1h-1zM7 5h1v1h-1zM1 6h7v1h-7zM1 7h3v1h-3zM5 7h3v1h-3zM1 8h7v1h-7z"/></svg></span><span data-i18n="sk5">Mobile apps</span></h3>
           <p class="mini lede" data-i18n="sk5_d">I automate mobile app flows with Maestro and build mobile apps of my own, which shows me where apps tend to break.</p>
-          <div class="chips accent"><span>Maestro</span></div>
-          <div class="chips"><span data-i18n="c_mobile2">Mobile app testing</span><span data-i18n="c_mdev">Mobile app development</span></div>
+          <div class="chips accent"><span>Maestro</span><span>React Native</span><span>Supabase</span></div>
+          <div class="chips"><span data-i18n="c_mobile2">Mobile app testing</span><span data-i18n="c_mdev">Mobile app development</span><span data-i18n="c_release">Android app release (Google Play)</span><span data-i18n="c_native">NFC, push notifications, location-based features</span></div>
         </article>
         <article class="card glow reveal">
           <h3><span class="ic"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h7v1h-7zM0 2h1v1h-1zM8 2h1v1h-1zM0 3h1v1h-1zM2 3h2v1h-2zM5 3h2v1h-2zM8 3h1v1h-1zM0 4h1v1h-1zM8 4h1v1h-1zM0 5h1v1h-1zM3 5h3v1h-3zM8 5h1v1h-1zM0 6h1v1h-1zM8 6h1v1h-1zM1 7h7v1h-7z"/></svg></span><span data-i18n="sk6">AI model testing</span></h3>
           <p class="mini lede" data-i18n="sk6_d">Local LLMs checked for correctness, consistency and safety against expected answers I work out from the data.</p>
           <div class="chips accent2"><span data-i18n="c_ai">AI model testing</span><span data-i18n="c_llm">Local LLMs</span></div>
-          <div class="chips"><span data-i18n="c_aiq">Output quality checks</span><span data-i18n="c_aie">Edge-case testing</span></div>
+          <div class="chips"><span data-i18n="c_aiq">Output quality checks</span><span data-i18n="c_aie">Edge-case testing</span><span data-i18n="c_llmint">LLM integration (DeepSeek)</span></div>
         </article>
         <article class="card glow reveal">
           <h3><span class="ic"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M1 0h7v1h-7zM0 1h1v1h-1zM8 1h1v1h-1zM1 2h7v1h-7zM0 3h1v1h-1zM8 3h1v1h-1zM1 4h7v1h-7zM0 5h1v1h-1zM8 5h1v1h-1zM1 6h7v1h-7z"/></svg></span><span data-i18n="sk3">Development</span></h3>
@@ -315,6 +330,30 @@
           <span class="when-s">May 2014 – May 2018</span>
           <h4 data-i18n="e3_role">Technical Support Agent</h4><p class="place">Telemach · Banja Luka</p>
           <p data-i18n="e3_d">Supported internet and EON application users with troubleshooting, and led a team of 8 support agents.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- PROJECTS: things I built. Each project is one <article class="project">; add more inside .projects. -->
+    <section id="projects" class="wrap section">
+      <div class="sec-head reveal"><span class="eyebrow"><span class="sec-num" aria-hidden="true"></span><span data-i18n="nav_proj">Projects</span></span><h2 data-i18n="proj_h">Things I built, not just tested.</h2></div>
+      <div class="projects">
+        <article class="project card glow reveal">
+          <div class="project-vis">
+            <img src="assets/blog/petlink-pet-care-app.jpg" alt="PetLink features around a dog and a cat: pet health record, vaccination calendar with a reminder, lost-pet map, chat, adoption card and NFC collar tag" width="1600" height="893" loading="lazy" decoding="async">
+          </div>
+          <div class="project-body">
+            <span class="case-n"><span data-i18n="p1_n">Android app · live on Google Play</span> · 2026</span>
+            <h3 data-i18n="p1_t">PetLink — pet care app for Android</h3>
+            <p data-i18n="p1_d">A free app for dog and cat owners: digital health record, vaccine reminders, lost-pet alerts with a live map, an NFC smart collar, adoption listings and an AI chat. The idea and the testing are mine; the code was generated with Gemini and Claude, each reviewing the other's work. Available in 4 languages.</p>
+            <div class="chips tiny"><span>Android</span><span>Google Play</span><span>React Native</span><span>Supabase</span><span>DeepSeek AI</span><span>NFC</span><span data-i18n="p1_push">Push notifications</span><span data-i18n="p1_lang">4 languages</span></div>
+            <div class="project-cta">
+              <a class="btn primary" href="https://play.google.com/store/apps/details?id=com.markolosic.petlink" target="_blank" rel="noopener"><span data-i18n="p1_play">Get it on Google Play</span>
+                <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M5 1h1v1h-1zM6 2h1v1h-1zM7 3h1v1h-1zM0 4h9v1h-9zM7 5h1v1h-1zM6 6h1v1h-1zM5 7h1v1h-1z"/></svg></a>
+              <a class="btn ghost" href="https://markolosic.github.io/petlink-web/" target="_blank" rel="noopener"><span data-i18n="p1_web">Product page</span></a>
+              <a class="job-more" href="blog/petlink-pet-care-app/"><span data-i18n="p1_story">Read the story</span> →</a>
+            </div>
+          </div>
         </article>
       </div>
     </section>

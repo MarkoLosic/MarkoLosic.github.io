@@ -14,7 +14,7 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   :root { --ink: #1d1d1b; --muted: #5d5d58; --accent: #2f6b4f; --rule: #dcdbd4; --paper: #fbfaf6; }
   html, body { width: 210mm; height: 297mm; }
-  body { font: 400 8.6pt/1.33 "Avenir Next", "Helvetica Neue", sans-serif; color: var(--ink); background: var(--paper); -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 8mm 14mm 3mm; }
+  body { font: 400 8.4pt/1.3 "Avenir Next", "Helvetica Neue", sans-serif; color: var(--ink); background: var(--paper); -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 7mm 14mm 2mm; }
   a { color: inherit; text-decoration: none; }
   header { display: flex; justify-content: space-between; align-items: flex-start; gap: 6mm; }
   .photo { flex: none; width: 24mm; height: 24mm; object-fit: cover; border-radius: 3mm; }
@@ -22,7 +22,7 @@
   .role { margin: 2mm 0 2mm; font: 600 9.4pt "Helvetica Neue", Helvetica, sans-serif; color: var(--accent); }
   .contact { color: var(--muted); }
   .contact a { color: var(--accent); }
-  h2 { font: 600 8.8pt "Helvetica Neue", Helvetica, sans-serif; color: var(--accent); margin: 2.2mm 0 1.1mm; border-bottom: 1px solid var(--rule); padding-bottom: 1mm; }
+  h2 { font: 600 8.8pt "Helvetica Neue", Helvetica, sans-serif; color: var(--accent); margin: 1.9mm 0 1mm; border-bottom: 1px solid var(--rule); padding-bottom: 1mm; }
   .summary { color: #33332f; margin-top: 2.5mm; }
   .nums { margin-top: 1.6mm; }
   .nums b { color: var(--accent); }
@@ -64,7 +64,7 @@
   <p><b>CI/CD and tooling:</b> Jenkins, GitHub Actions, Docker, Git, Bitbucket, Lighthouse audits · Windows, Linux, macOS</p>
   <p><b>AI:</b> LLM testing, prompt-based evaluation with validation tables, AI-assisted test design</p>
   <p><b>Collaboration:</b> Jira, Figma, Agile, Scrum</p>
-  <p><b>Development:</b> Oracle APEX, SQL, PL/SQL</p>
+  <p><b>Development:</b> Oracle APEX, SQL, PL/SQL · React Native, Supabase, Android release on Google Play, LLM integration</p>
 </div>
 
 <h2>EXPERIENCE</h2>
@@ -91,10 +91,20 @@
   <p class="tools">Cypress · TypeScript · Oracle APEX · SQL · PL/SQL</p>
 </div>
 
+<h2>PROJECTS</h2>
+<div class="job">
+  <div class="job-head"><h3>PetLink — Android app for pet owners</h3><span class="when">2026</span></div>
+  <p class="org">Personal project · <a href="https://play.google.com/store/apps/details?id=com.markolosic.petlink">Live on Google Play</a> · <a href="https://markolosic.github.io/petlink-web/">markolosic.github.io/petlink-web</a> <span class="org2">· React Native · Supabase · DeepSeek · Gemini · Claude</span></p>
+  <ul class="b">
+    <li>Conceived, tested and released a free pet care app: health record, vaccine reminders, lost-pet alerts with a live map, NFC collar, adoption and an AI chat. Code generated with Gemini and Claude, each reviewing the other's; I defined and verified every feature.</li>
+    <li>Owned quality end to end: risk-based test plan, NFC, push and location on real devices, 4-language UI, privacy and account deletion, LLM answer checks, Play listing.</li>
+  </ul>
+</div>
+
 <h2>EARLIER EXPERIENCE</h2>
 <div class="early">
   <div class="job-head"><span><b>Category Manager</b> <span class="org2">· Tropic, Banja Luka</span></span><span class="when">May 2019 – Jan 2020</span></div>
-  <p>Managed the technical and electrical product category: product selection, pricing, inventory and supplier negotiations, backed by market research.</p>
+  <p>Managed the technical and electrical category: product selection, pricing, inventory and supplier negotiations.</p>
 </div>
 <div class="early">
   <div class="job-head"><span><b>School Teacher</b> <span class="org2">· OŠ Grahovo, Bosansko Grahovo</span></span><span class="when">May 2018 – May 2019</span></div>
@@ -105,17 +115,16 @@
   <p>Supported internet and EON application users with troubleshooting, and led a team of 8 support agents.</p>
 </div>
 
-<h2>EDUCATION, TRAINING AND LANGUAGES</h2>
+<h2>EDUCATION, TRAINING, LANGUAGES AND INTERESTS</h2>
 <div class="rows">
   <p><b>University of Banja Luka</b> · Bachelor's degree, Elementary School Teacher · 2012 – 2019</p>
-  <p><b>True North program</b> · Completed the training, then worked as a program trainer, running sessions for teams: hands-on experience in communication and training people</p>
-  <p><b>English</b> · C1 (Advanced), used daily</p>
+  <p><b>True North program</b> · Completed the training, then worked as a program trainer running sessions for teams</p>
+  <p><b>English</b> · C1 (Advanced), used daily · <b>Interests:</b> marathon running, photography, guitar, hiking and camping</p>
 </div>
 
 <h2>WRITING</h2>
-<p class="posts">Writes about test automation and QA at <a href="https://markolosic.github.io/blog/">markolosic.github.io/blog</a> (35+ articles), e.g. <a href="https://markolosic.github.io/blog/asserting-too-early-flaky-playwright-tests/">flaky Playwright tests</a>, <a href="https://markolosic.github.io/blog/testing-idempotency-duplicate-charges/">testing idempotency</a> and <a href="https://markolosic.github.io/blog/risk-based-testing-prioritization/">risk-based testing</a>.</p>
-
-<h2>INTERESTS</h2>
-<p>Marathon running, photography, guitar, hiking and camping.</p>
+<div class="rows">
+  <p class="posts">Writes about QA at <a href="https://markolosic.github.io/blog/">markolosic.github.io/blog</a> (35+ articles), e.g. <a href="https://markolosic.github.io/blog/asserting-too-early-flaky-playwright-tests/">flaky Playwright tests</a>, <a href="https://markolosic.github.io/blog/testing-idempotency-duplicate-charges/">idempotency</a> and <a href="https://markolosic.github.io/blog/risk-based-testing-prioritization/">risk-based testing</a>.</p>
+</div>
 </body>
 </html>

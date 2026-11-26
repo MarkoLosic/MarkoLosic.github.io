@@ -665,6 +665,7 @@ Contact: markolosic1993@gmail.com
 - [Website](${SITE}/): portfolio, skills and experience
 - [How I ship reliable software](${SITE}/pipeline/): interactive walkthrough of the QA pipeline (Playwright with C# in Docker on every PR, Maestro, quality gate)
 - [Testing local LLMs](${SITE}/llm-testing/): case study of manually testing a locally hosted Llama 3 model for product analytics: 100 expert prompts, every answer graded in a validation table for correctness, consistency and safety; the table now serves as the regression set after every model or prompt change
+- [PetLink on Google Play](https://play.google.com/store/apps/details?id=com.markolosic.petlink): personal project, a free Android pet care app (health record, vaccine reminders, lost-pet alerts with a live map, NFC collar, adoption, AI chat on DeepSeek); my idea and testing, code generated with Gemini and Claude reviewing each other; React Native + Supabase. Story: ${SITE}/blog/petlink-pet-care-app/
 - [LinkedIn](https://www.linkedin.com/in/markološić/)
 - [GitHub](https://github.com/MarkoLosic)
 
@@ -689,6 +690,7 @@ ${latestTen.map(p => `- [${p.title}](${SITE}/blog/${p.slug}/): ${p.excerpt}`).jo
 - CV (text): ${SITE}/cv.txt
 - Case Study — QA Pipeline: ${SITE}/pipeline/
 - Case Study — Testing Local LLMs: ${SITE}/llm-testing/
+- Project — PetLink (Android app on Google Play): https://play.google.com/store/apps/details?id=com.markolosic.petlink
 - Blog (EN): ${SITE}/blog/
 - Blog (SR): ${SITE}/sr/blog/
 - RSS: ${SITE}/rss.xml
