@@ -79,7 +79,7 @@ Writes about test automation and QA at https://markolosic.github.io/blog/ (35+ a
 - CI/CD and tooling: Jenkins, GitHub Actions, Docker, Git, Bitbucket, Lighthouse (performance and accessibility audits)
 - AI: LLM testing (correctness, consistency, safety), prompt-based evaluation with validation tables, AI-assisted test design and automation
 - Collaboration: Jira, Figma, Agile, Scrum
-- Development: Oracle APEX, SQL, PL/SQL, mobile app development (React Native, Supabase, Android release on Google Play, NFC, push notifications, location-based features), LLM integration (DeepSeek)
+- Development: Oracle APEX, SQL, PL/SQL (including software built for the day-to-day work of the NGO Plavi Telefon, Banja Luka), mobile app development (React Native, Supabase, Android release on Google Play, NFC, push notifications, location-based features), LLM integration (DeepSeek)
 - Operating systems: Windows, Linux, macOS
 
 ## Education

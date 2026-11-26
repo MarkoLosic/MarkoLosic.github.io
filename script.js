@@ -49,7 +49,7 @@
     sk1_d: 'Ručno, istraživačko i automatizovano testiranje web aplikacija, mobilnih aplikacija i ekstenzija za pretraživač. Test planove i slučajeve pišem iz zahtjeva, a istraživačkim testiranjem pokrivam ono što skripte propuste.',
     sk2_d: 'Playwright (C#) uz Page Object Model za testove u pretraživaču, ranije Cypress (TypeScript), Maestro za mobilne tokove, Postman za REST API-je, a Jenkins ili GitHub Actions za pokretanje testova u Docker-u.',
     sk6_d: 'Lokalne LLM-ove provjeravam po tačnosti, dosljednosti i bezbjednosti, u odnosu na očekivane odgovore koje utvrđujem iz podataka.',
-    sk3_d: 'Aplikacije zasnovane na bazi podataka u Oracle APEX-u, uz SQL i PL/SQL za provjeru podataka i praćenje grešaka do sloja baze.',
+    sk3_d: 'Aplikacije zasnovane na bazi podataka u Oracle APEX-u, uz SQL i PL/SQL za provjeru podataka i praćenje grešaka do sloja baze. Istom tehnologijom sam razvio i softver za rad NVO Plavi Telefon u Banjoj Luci.',
     sk4_d: 'Radim unutar Agile i Scrum timova, rano ukazujem na rizike dok su ispravke još jeftine i pišem prijave grešaka koje programer može odmah reprodukovati. Iskustvo u podršci, prosvjeti i trgovini pomaže mi da probleme objasnim tehničkim i netehničkim ljudima.',
    
     tn_more: 'Pročitaj više →',
