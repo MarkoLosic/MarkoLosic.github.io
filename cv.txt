@@ -41,7 +41,24 @@ Jan 2020 – Jun 2022
 
 Tools: Cypress, TypeScript, Oracle APEX, SQL, PL/SQL
 
-### Earlier experience
+## Projects
+
+### PetLink — Android app for pet owners (personal project)
+2026 · Google Play: https://play.google.com/store/apps/details?id=com.markolosic.petlink · Product page: https://markolosic.github.io/petlink-web/
+
+- Conceived, tested and released a free pet care app: digital health record, vaccine reminders, lost-pet alerts with a live map, NFC smart collar, adoption listings and an AI chat on a DeepSeek model trained for pet care.
+- AI-assisted development: code generated with Gemini and Claude, each model reviewing the other's code; I defined every feature and verified it on real devices.
+- Owned quality end to end: risk-based test planning, testing NFC, push and location on real devices, 4-language UI checks (SR, HR, BS, EN), privacy and account-deletion flows, and LLM answer evaluation for the AI chat; handled the Google Play listing, data safety form and privacy policy.
+
+Stack: React Native, Supabase, DeepSeek (LLM), Gemini, Claude, NFC, push notifications
+
+### učiteljskidnevnik.online — web portal for class teachers (personal project)
+2026 · https://učiteljskidnevnik.online/
+
+- Before QA I taught first grade, and decided to contribute to teaching and the teaching process: a portal that helps teachers, parents and children work through the primary school curriculum.
+- 1,436 daily lesson plans for grades 1–5 under both curricula in Bosnia and Herzegovina (Republika Srpska and FBiH), tasks differentiated on three levels, printable A4 worksheets and colouring pages, and educational games for children; export to e-Dnevnik and Word, Latin ↔ Cyrillic.
+
+## Earlier experience
 
 - Category Manager, Tropic, Banja Luka (May 2019 – Jan 2020): managed the technical and electrical product category: product selection, pricing, inventory and supplier negotiations, backed by market research.
 - School Teacher, OŠ Grahovo, Bosansko Grahovo (May 2018 – May 2019): planned and delivered engaging lessons for first-grade students, which built my skills in explaining things clearly and teaching people.
@@ -62,7 +79,7 @@ Writes about test automation and QA at https://markolosic.github.io/blog/ (35+ a
 - CI/CD and tooling: Jenkins, GitHub Actions, Docker, Git, Bitbucket, Lighthouse (performance and accessibility audits)
 - AI: LLM testing (correctness, consistency, safety), prompt-based evaluation with validation tables, AI-assisted test design and automation
 - Collaboration: Jira, Figma, Agile, Scrum
-- Development: Oracle APEX, SQL, PL/SQL, mobile app development
+- Development: Oracle APEX, SQL, PL/SQL (including software built for the day-to-day work of the NGO Plavi Telefon, Banja Luka), mobile app development (React Native, Supabase, Android release on Google Play, NFC, push notifications, location-based features), LLM integration (DeepSeek)
 - Operating systems: Windows, Linux, macOS
 
 ## Education
