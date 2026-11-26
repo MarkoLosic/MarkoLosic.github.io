@@ -10,7 +10,14 @@
 - Blog (SR): https://markolosic.github.io/sr/blog/
 - RSS: https://markolosic.github.io/rss.xml
 
-## All Blog Articles (47)
+## All Blog Articles (48)
+
+### PetLink: The Pet Care App I Built and Tested End to End
+- URL (EN): https://markolosic.github.io/blog/petlink-pet-care-app/
+- URL (SR): https://markolosic.github.io/sr/blog/petlink-pet-care-app/
+- Date: 2026-11-26
+- Tags: mobile-testing, test-strategy
+- Summary: Why I built PetLink, an Android app for dog and cat owners, how Gemini and Claude wrote and reviewed its React Native and Supabase code, and what testing my own product taught me.
 
 ### Testing AI Features That See: QA for Image and Document Inputs
 - URL (EN): https://markolosic.github.io/blog/vision-ai-testing-image-inputs/
@@ -236,12 +243,12 @@
 - Tags: test-strategy
 - Summary: A practical walkthrough of risk-based testing: how to score features by likelihood and impact, and use that to decide what gets tested before a deadline.
 
-### Building PetLink: AI as Architect, Coder and Reviewer
+### Building PetLink: Two AI Models Writing and Reviewing Each Other's Code
 - URL (EN): https://markolosic.github.io/blog/petlink-claude-code-gemini-ai-workflow/
 - URL (SR): https://markolosic.github.io/sr/blog/petlink-claude-code-gemini-ai-workflow/
 - Date: 2026-10-02
 - Tags: ai-testing, mobile-testing
-- Summary: How I built PetLink, an all-in-one app for pet owners, splitting planning and code review with Claude Code and implementation with Gemini.
+- Summary: How I built PetLink, an all-in-one app for pet owners: my idea and my checks, with Gemini and Claude generating the code and reviewing each other's work.
 
 ### Catching Breaking API Changes Before They Reach Production With Contract Testing
 - URL (EN): https://markolosic.github.io/blog/api-contract-testing-breaking-changes/

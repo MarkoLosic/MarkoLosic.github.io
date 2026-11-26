@@ -1,5 +1,18 @@
 [
   {
+    "slug": "petlink-pet-care-app",
+    "title": "PetLink: The Pet Care App I Built and Tested End to End",
+    "titleSr": "PetLink: aplikacija za brigu o ljubimcima koju sam napravio i testirao od početka do kraja",
+    "excerpt": "Why I built PetLink, an Android app for dog and cat owners, how Gemini and Claude wrote and reviewed its React Native and Supabase code, and what testing my own product taught me.",
+    "excerptSr": "Zašto sam napravio PetLink, Android aplikaciju za vlasnike pasa i mačaka, kako su Gemini i Claude pisali i pregledali njen React Native i Supabase kod, i šta me naučilo testiranje sopstvenog proizvoda.",
+    "tags": [
+      "mobile-testing",
+      "test-strategy"
+    ],
+    "date": "2026-11-26",
+    "readingTime": 6
+  },
+  {
     "slug": "vision-ai-testing-image-inputs",
     "title": "Testing AI Features That See: QA for Image and Document Inputs",
     "titleSr": "Testiranje AI funkcionalnosti koje vide: QA za ulazne slike i dokumente",
@@ -424,16 +437,16 @@
   },
   {
     "slug": "petlink-claude-code-gemini-ai-workflow",
-    "title": "Building PetLink: AI as Architect, Coder and Reviewer",
-    "titleSr": "Kako sam gradio PetLink: AI kao arhitekta, pisac koda i recenzent",
-    "excerpt": "How I built PetLink, an all-in-one app for pet owners, splitting planning and code review with Claude Code and implementation with Gemini.",
-    "excerptSr": "Priča o razvoju PetLink-a, all-in-one aplikacije za vlasnike kućnih ljubimaca, i o tome kako sam podijelio posao između Claude Code-a za planiranje, Gemini-ja za pisanje koda i ponovo Claude Code-a za code review.",
+    "title": "Building PetLink: Two AI Models Writing and Reviewing Each Other's Code",
+    "titleSr": "Kako sam gradio PetLink: dva AI modela koji pišu i pregledaju kod jedan drugome",
+    "excerpt": "How I built PetLink, an all-in-one app for pet owners: my idea and my checks, with Gemini and Claude generating the code and reviewing each other's work.",
+    "excerptSr": "Priča o razvoju PetLink-a, all-in-one aplikacije za vlasnike kućnih ljubimaca: ideja i provjera su moje, a Gemini i Claude su generisali kod i pregledali ga jedan drugome.",
     "tags": [
       "ai-testing",
       "mobile-testing"
     ],
     "date": "2026-10-02",
-    "readingTime": 6
+    "readingTime": 7
   },
   {
     "slug": "api-contract-testing-breaking-changes",

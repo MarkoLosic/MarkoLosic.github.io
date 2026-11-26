@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="sr" data-theme="dark" data-static-lang="sr" data-alt-url="../../../blog/petlink-pet-care-app/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PetLink: aplikacija za brigu o ljubimcima koju sam napravio i testirao od početka do kraja — Marko Lošić</title>
+  <meta name="description" content="Zašto sam napravio PetLink, Android aplikaciju za vlasnike pasa i mačaka, kako su Gemini i Claude pisali i pregledali njen React Native i Supabase kod, i šta m…">
+  <link rel="canonical" href="https://markolosic.github.io/sr/blog/petlink-pet-care-app/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/petlink-pet-care-app/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/petlink-pet-care-app/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/petlink-pet-care-app/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="PetLink: aplikacija za brigu o ljubimcima koju sam napravio i testirao od početka do kraja — Marko Lošić">
+  <meta property="og:description" content="Zašto sam napravio PetLink, Android aplikaciju za vlasnike pasa i mačaka, kako su Gemini i Claude pisali i pregledali njen React Native i Supabase kod, i šta m…">
+  <meta property="og:url" content="https://markolosic.github.io/sr/blog/petlink-pet-care-app/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/petlink-pet-care-app.jpg">
+  <meta property="og:image:width" content="1600">
+  <meta property="og:image:height" content="893">
+  <meta property="og:image:alt" content="PetLink: aplikacija za brigu o ljubimcima koju sam napravio i testirao od početka do kraja">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PetLink: aplikacija za brigu o ljubimcima koju sam napravio i testirao od početka do kraja — Marko Lošić">
+  <meta name="twitter:description" content="Zašto sam napravio PetLink, Android aplikaciju za vlasnike pasa i mačaka, kako su Gemini i Claude pisali i pregledali njen React Native i Supabase kod, i šta m…">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/petlink-pet-care-app.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/sr/blog/petlink-pet-care-app/#article","headline":"PetLink: aplikacija za brigu o ljubimcima koju sam napravio i testirao od početka do kraja","description":"Zašto sam napravio PetLink, Android aplikaciju za vlasnike pasa i mačaka, kako su Gemini i Claude pisali i pregledali njen React Native i Supabase kod, i šta me naučilo testiranje sopstvenog proizvoda.","image":"https://markolosic.github.io/assets/blog/petlink-pet-care-app.jpg","url":"https://markolosic.github.io/sr/blog/petlink-pet-care-app/","inLanguage":"sr","wordCount":1063,"articleSection":"mobile-testing","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/sr/blog/petlink-pet-care-app/"},"datePublished":"2026-11-26T20:00:00.000Z","dateModified":"2026-11-26T20:00:00.000Z","keywords":"mobile-testing, test-strategy","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Početna","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/sr/blog/"},{"@type":"ListItem","position":3,"name":"PetLink: aplikacija za brigu o ljubimcima koju sam napravio i testirao od početka do kraja","item":"https://markolosic.github.io/sr/blog/petlink-pet-care-app/"}]}]}</script>
+  <meta property="article:published_time" content="2026-11-26T20:00:00.000Z">
+  <meta property="article:modified_time" content="2026-11-26T20:00:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../assets/fonts.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="../../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../../#top" data-i18n="nav_about">O meni</a>
+      <a href="../../../#skills" data-i18n="nav_skills">Vještine</a>
+      <a href="../../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../../#experience" data-i18n="nav_exp">Iskustvo</a>
+      <a href="../../../#education" data-i18n="nav_edu">Obrazovanje</a>
+      <a href="../../../sr/blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../../#contact" data-i18n="nav_contact">Kontakt</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span>Svi članci</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-11-26" data-fmt="long">26. novembar 2026.</time><span>·</span><span>5 min čitanja</span></div>
+        <h1>PetLink: aplikacija za brigu o ljubimcima koju sam napravio i testirao od početka do kraja</h1>
+        <p class="lead">Zašto sam napravio PetLink, Android aplikaciju za vlasnike pasa i mačaka, kako su Gemini i Claude pisali i pregledali njen React Native i Supabase kod, i šta me naučilo testiranje sopstvenog proizvoda.</p>
+        <div class="tags"><span>mobile-testing</span><span>test-strategy</span></div>
+      </header>
+      <div class="prose"><p>Dane provodim lomeći tuđi softver. Ovog puta sam objavio svoj: PetLink je sada dostupan na Google Play-u.</p>
+<p><img src="../../../assets/blog/petlink-pet-care-app.jpg" alt="PetLink funkcije oko psa i mačke: zdravstveni karton ljubimca sa listom provjera, kalendar vakcinacije sa podsjetnikom, mapa za nestale ljubimce sa oznakom lokacije, poruka u četu, kartica za udomljavanje i NFC privjesak za ogrlicu" width="1600" height="893" fetchpriority="high" decoding="async"></p>
+<p>Svaki vlasnik psa ili mačke zna kako to ide. Knjižica vakcinacije je negdje u fioci, datum tretmana protiv parazita živi u tvojoj glavi, a kad ljubimac nestane, jedini alati su Facebook grupe i papirni plakati. PetLink sve to stavlja na jedno mjesto: zdravstveni karton, podsjetnike, upozorenja za nestale ljubimce, udomljavanje i savjete za njegu. Besplatan je, nema reklama i radi na srpskom, hrvatskom, bosanskom i engleskom.</p>
+<p>👉 <strong><a href="https://play.google.com/store/apps/details?id=com.markolosic.petlink" target="_blank" rel="noopener noreferrer">Preuzmi PetLink na Google Play-u</a></strong> · <a href="https://markolosic.github.io/petlink-web/" target="_blank" rel="noopener noreferrer">Stranica proizvoda</a></p>
+<h2 id="šta-petlink-radi">Šta PetLink radi</h2>
+<ul><li><strong>Digitalni e-Karton.</strong> Profil za svakog ljubimca sa rasom, datumom rođenja, brojem mikročipa, vakcinama, zaštitom od parazita i istorijom bolesti. Dokumenti od veterinara se otpremaju i čuvaju uz profil, vidljivi samo vlasniku.</li><li><strong>Pametni podsjetnici.</strong> Aplikacija izračuna kad je na redu sljedeća vakcina ili tretman protiv parazita, obavijesti te prije nego što istekne i može da doda datum u kalendar telefona. Tu je i planer obaveza sa zadacima koji se ponavljaju.</li><li><strong>Pet Alert.</strong> Prijavi nestalog ljubimca jednim dodirom. Korisnici u krugu od 10 km dobijaju push obavještenje, upozorenje se pojavljuje na zajedničkoj mapi, a svako može da prijavi da je vidio ljubimca, pozove ili pošalje poruku vlasniku. Svako upozorenje ima svoj grupni čet, a aplikacija pravi plakat za štampu sa fotografijom ljubimca i QR kodom.</li><li><strong>NFC pametna ogrlica.</strong> Upiši profil ljubimca na NFC tag na ogrlici. Ko god pronađe ljubimca, prisloni telefon na tag i dobije link da te kontaktira. Na samom tagu nema ličnih podataka.</li><li><strong>Udomljavanje.</strong> Pregledaj oglase za pse i mačke uz filtere, objavi svoj oglas, piši vlasnicima i prijavi neprimjerene oglase.</li><li><strong>Love Match.</strong> Pronađi partnera za parenje u blizini, provjeri podatke o rasi i zdravlju i dopisuj se kad se poklopite.</li><li><strong>AI čet.</strong> Pitaj o ishrani, ponašanju, njezi ili simptomima i dobij odgovore prilagođene vrsti, rasi, starosti i polu tvog ljubimca. To je pomoćnik, ne veterinar, i aplikacija to jasno kaže. Pet pitanja dnevno je besplatno.</li></ul>
+<h2 id="kako-je-napravljen">Kako je napravljen</h2>
+<p>Ideja za PetLink je moja, kao i provjera: odluka šta svaka funkcionalnost treba da radi i testiranje da li to zaista radi. Većina koda je napisana uz pomoć AI-ja. Za generisanje koda sam koristio <strong>Gemini i Claude</strong>, a oni su <strong>pregledali kod jedan drugome</strong>: ono što je jedan napisao, drugi je provjeravao na bugove, propuštene edge case-ove i nekonzistentnosti sa ostatkom aplikacije. Drugi model koji čita kod uhvati stvari za koje je prvi slijep, ali nijedan od njih ne odlučuje kad je nešto gotovo. Taj dio je ostao na meni.</p>
+<p>Tehnologija ispod toga:</p>
+<ul><li><strong>React Native za mobilnu aplikaciju.</strong> Jedna JavaScript/TypeScript baza koda za cijelu aplikaciju, iste komponente na svim ekranima i otvorena vrata za iOS verziju bez prepisivanja. Nativne funkcije poput NFC-a, push obavještenja, lokacije, kamere i sinhronizacije sa kalendarom povezane su preko React Native modula.</li><li><strong>Supabase za backend.</strong> Supabase pokriva prijavu (email, Google i Apple), PostgreSQL bazu sa profilima ljubimaca, zdravstvenim kartonima, upozorenjima i oglasima za udomljavanje, kao i skladište za fotografije i veterinarske dokumente. Kad je sve u jednom servisu, manje je koda koji samo spaja dijelove i manje mjesta gdje nešto može da pukne.</li><li><strong>DeepSeek model iza AI četa.</strong> AI čet u aplikaciji radi na DeepSeek modelu istreniranom za pitanja o brizi za ljubimce. Svako pitanje se šalje zajedno sa vrstom, rasom, starošću i polom ljubimca, tako da odgovor odgovara baš tvojoj životinji, a ne nekom opštem savjetu, a kad simptomi zvuče ozbiljno, upućuje korisnika veterinaru.</li></ul>
+<p>Više o radu sa AI-jem na kodu sam pisao u članku <a href="/blog/petlink-claude-code-gemini-ai-workflow/">Kako sam gradio PetLink: dva AI modela koji pišu i pregledaju kod jedan drugome</a>.</p>
+<h2 id="pravljenje-iz-ugla-qa-inženjera">Pravljenje iz ugla QA inženjera</h2>
+<p>Kad praviš proizvod, drugačije gledaš na kvalitet. Na poslu dobijem funkcionalnost, specifikaciju i rok. Na PetLink-u sam ja bio i osoba koja odlučuje šta znači &quot;gotovo&quot;. Nekoliko stvari se izdvojilo:</p>
+<ul><li><strong>Rizik odlučuje gdje idu testovi.</strong> Pogrešan datum na podsjetniku je neprijatan. Pet Alert koji ne stigne ni do koga u blizini je pravi promašaj. Tokovi lokacije, obavještenja i upozorenja dobili su najviše vremena za testiranje, uključujući loš GPS, odbijene dozvole i telefone koji su bili uspavani ili offline.</li><li><strong>Pravi uređaji su bolji od emulatora.</strong> NFC, push obavještenja i kamera se iskreno ponašaju samo na fizičkim telefonima, pa su te funkcije testirane na pravim Android uređajima, ne samo u emulatoru.</li><li><strong>Četiri jezika znače četiri puta više grešaka u rasporedu.</strong> Tekstovi na srpskom, hrvatskom i bosanskom su duži od engleskih, i tekst koji staje na engleskom može da bude odsječen na bosanskom. Svaki ekran je provjeren na svakom jeziku i u tamnom režimu.</li><li><strong>Privatnost je takođe test slučaj.</strong> Zdravstveni kartoni su podrazumijevano privatni, NFC tag čuva samo link, korisnici mogu da blokiraju druge korisnike, a nalog može trajno da se obriše iz same aplikacije. Svaku od tih stvari sam tretirao kao zahtjev sa sopstvenim provjerama, a ne kao fusnotu u politici privatnosti.</li><li><strong>AI odgovorima trebaju zaštitne ograde.</strong> Asistenta sam testirao kao što na poslu testiram LLM-ove: skup stvarnih pitanja vlasnika, provjerenih na tačnost, ton i to da li korisnika šalje veterinaru kad simptomi zvuče ozbiljno.</li></ul>
+<h2 id="šta-sam-naučio">Šta sam naučio</h2>
+<ol><li><strong>Obim je najteži bug.</strong> Svaka ideja za funkcionalnost zvuči malo dok ne napišeš test slučajeve za nju. Pisanje kriterijuma prihvatanja unaprijed je spriječilo da PetLink raste unedogled.</li><li><strong>Prvi korisnici nađu bugove koje tvoji testovi nisu zamislili.</strong> Prvi testeri su koristili aplikaciju na načine koje nikad nisam planirao, i te povratne informacije su oblikovale izdanje više od bilo koje liste provjera.</li><li><strong>I stranica u prodavnici zaslužuje QA.</strong> Snimci ekrana, opisi, prevodi i obrazac o bezbjednosti podataka su dio proizvoda. Korisnici ih vide prije nego što vide ijedan ekran.</li></ol>
+<h2 id="šta-slijedi">Šta slijedi</h2>
+<p>PetLink je danas na Android-u, a React Native baza koda drži iOS verziju nadohvat ruke. Ako imaš psa ili mačku, volio bih da ga probaš i kažeš mi šta se pokvarilo. To mi je najdraža vrsta povratne informacije.</p>
+<p>👉 <strong><a href="https://play.google.com/store/apps/details?id=com.markolosic.petlink" target="_blank" rel="noopener noreferrer">Preuzmi PetLink na Google Play-u</a></strong></p>
+<p>Pitanja, ideje ili prijave bugova: <a href="mailto:markolosic1993@gmail.com">markolosic1993@gmail.com</a>.</p>
+<h3 id="povezani-članci">Povezani članci</h3>
+<ul><li><a href="/blog/session-based-exploratory-testing/">Sesijsko istraživačko testiranje</a></li><li><a href="/blog/vision-ai-testing-image-inputs/">Testiranje AI funkcionalnosti koje vide</a></li><li><a href="/llm-testing/">Testiranje lokalnog Llama 3 modela</a></li></ul></div>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button">Kopiraj link</button>
+      <a class="btn primary" href="../../../#contact">Kontaktiraj me</a>
+    </div>
+    <section class="more-posts"><h2>Slični članci</h2><div class="post-grid">
+      <a class="post-card card glow" href="../session-based-exploratory-testing/"><div class="meta"><time datetime="2026-11-23" data-fmt="short">23. nov 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Exploratory testiranje zasnovano na sesijama: kako ad hoc testiranje učiniti ponovljivim i mjerljivim</h3><p>Kako session-based test management pretvara exploratory testiranje bez skripte u nešto što možete planirati, mjeriti i o čemu možete izvještavati, uz konkretan primjer charter-a.</p></a>
+      <a class="post-card card glow" href="../test-pyramid-vs-testing-trophy/"><div class="meta"><time datetime="2026-11-09" data-fmt="short">9. nov 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Test piramida ili testing trofej: birajte oblik koji odgovara vašem riziku, a ne dijagramu</h3><p>Test piramida i testing trofej daju suprotne savjete o tome gdje da uložite testove. Evo kako da odlučite koji oblik zaista odgovara vašem kodu.</p></a>
+      <a class="post-card card glow" href="../chaos-engineering-game-day-qa-teams/"><div class="meta"><time datetime="2026-11-06" data-fmt="short">6. nov 2026.</time><span>·</span><span>5 min čitanja</span></div><h3>Chaos engineering za QA timove: kako zapravo izgleda game day</h3><p>Praktičan pogled na chaos engineering alate i kako organizovati game day za testiranje otpornosti, a da se on ne pretvori u ispad sistema.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../../#contact" data-i18n="contact_cta">Kontaktiraj me</a>
+    <button type="button" data-consent data-i18n="cookies">Postavke kolačića</button>
+    <a href="../../../" data-i18n="back_home">Nazad na početnu ↑</a>
+  </footer>
+  <script src="../../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../../blog/common.js"></script>
+  <script src="../../../blog/post.js"></script>
+</body>
+</html>

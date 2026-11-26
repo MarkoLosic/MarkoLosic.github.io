@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://markolosic.github.io/</loc><lastmod>2026-11-25</lastmod></url>
-  <url><loc>https://markolosic.github.io/blog/</loc><lastmod>2026-11-25</lastmod></url>
-  <url><loc>https://markolosic.github.io/sr/blog/</loc><lastmod>2026-11-25</lastmod></url>
-  <url><loc>https://markolosic.github.io/pipeline/</loc><lastmod>2026-11-25</lastmod></url>
-  <url><loc>https://markolosic.github.io/llm-testing/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://markolosic.github.io/</loc><lastmod>2026-11-26</lastmod></url>
+  <url><loc>https://markolosic.github.io/blog/</loc><lastmod>2026-11-26</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/</loc><lastmod>2026-11-26</lastmod></url>
+  <url><loc>https://markolosic.github.io/pipeline/</loc><lastmod>2026-11-26</lastmod></url>
+  <url><loc>https://markolosic.github.io/llm-testing/</loc><lastmod>2026-11-26</lastmod></url>
+  <url><loc>https://markolosic.github.io/blog/petlink-pet-care-app/</loc><lastmod>2026-11-26</lastmod></url>
   <url><loc>https://markolosic.github.io/blog/vision-ai-testing-image-inputs/</loc><lastmod>2026-11-25</lastmod></url>
   <url><loc>https://markolosic.github.io/blog/session-based-exploratory-testing/</loc><lastmod>2026-11-23</lastmod></url>
   <url><loc>https://markolosic.github.io/blog/load-testing-qa-teams-k6-thresholds/</loc><lastmod>2026-11-20</lastmod></url>
@@ -37,7 +38,7 @@
   <url><loc>https://markolosic.github.io/blog/maestro-mobile-test-automation/</loc><lastmod>2026-10-06</lastmod></url>
   <url><loc>https://markolosic.github.io/blog/writing-bug-reports-that-get-fixed/</loc><lastmod>2026-10-05</lastmod></url>
   <url><loc>https://markolosic.github.io/blog/risk-based-testing-prioritization/</loc><lastmod>2026-10-04</lastmod></url>
-  <url><loc>https://markolosic.github.io/blog/petlink-claude-code-gemini-ai-workflow/</loc><lastmod>2026-10-02</lastmod></url>
+  <url><loc>https://markolosic.github.io/blog/petlink-claude-code-gemini-ai-workflow/</loc><lastmod>2026-11-26</lastmod></url>
   <url><loc>https://markolosic.github.io/blog/api-contract-testing-breaking-changes/</loc><lastmod>2026-10-02</lastmod></url>
   <url><loc>https://markolosic.github.io/blog/omarchy-linux-agentic-qa/</loc><lastmod>2026-09-30</lastmod></url>
   <url><loc>https://markolosic.github.io/blog/claude-sonnet-5-5-gpt-6-astra-testing/</loc><lastmod>2026-09-30</lastmod></url>
@@ -52,6 +53,7 @@
   <url><loc>https://markolosic.github.io/blog/self-healing-tests-hidden-risk/</loc><lastmod>2026-09-23</lastmod></url>
   <url><loc>https://markolosic.github.io/blog/asserting-too-early-flaky-playwright-tests/</loc><lastmod>2026-09-21</lastmod></url>
   <url><loc>https://markolosic.github.io/blog/maestro-for-web-testing/</loc><lastmod>2026-09-21</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/petlink-pet-care-app/</loc><lastmod>2026-11-26</lastmod></url>
   <url><loc>https://markolosic.github.io/sr/blog/vision-ai-testing-image-inputs/</loc><lastmod>2026-11-25</lastmod></url>
   <url><loc>https://markolosic.github.io/sr/blog/session-based-exploratory-testing/</loc><lastmod>2026-11-23</lastmod></url>
   <url><loc>https://markolosic.github.io/sr/blog/load-testing-qa-teams-k6-thresholds/</loc><lastmod>2026-11-20</lastmod></url>
@@ -84,7 +86,7 @@
   <url><loc>https://markolosic.github.io/sr/blog/maestro-mobile-test-automation/</loc><lastmod>2026-10-06</lastmod></url>
   <url><loc>https://markolosic.github.io/sr/blog/writing-bug-reports-that-get-fixed/</loc><lastmod>2026-10-05</lastmod></url>
   <url><loc>https://markolosic.github.io/sr/blog/risk-based-testing-prioritization/</loc><lastmod>2026-10-04</lastmod></url>
-  <url><loc>https://markolosic.github.io/sr/blog/petlink-claude-code-gemini-ai-workflow/</loc><lastmod>2026-10-02</lastmod></url>
+  <url><loc>https://markolosic.github.io/sr/blog/petlink-claude-code-gemini-ai-workflow/</loc><lastmod>2026-11-26</lastmod></url>
   <url><loc>https://markolosic.github.io/sr/blog/api-contract-testing-breaking-changes/</loc><lastmod>2026-10-02</lastmod></url>
   <url><loc>https://markolosic.github.io/sr/blog/omarchy-linux-agentic-qa/</loc><lastmod>2026-09-30</lastmod></url>
   <url><loc>https://markolosic.github.io/sr/blog/claude-sonnet-5-5-gpt-6-astra-testing/</loc><lastmod>2026-09-30</lastmod></url>
