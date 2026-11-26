@@ -6,6 +6,8 @@
 - CV (text): https://markolosic.github.io/cv.txt
 - Case Study — QA Pipeline: https://markolosic.github.io/pipeline/
 - Case Study — Testing Local LLMs: https://markolosic.github.io/llm-testing/
+- Project — PetLink (Android app on Google Play): https://play.google.com/store/apps/details?id=com.markolosic.petlink
+- Project — učiteljskidnevnik.online (portal for class teachers, grades 1–5, BiH): https://učiteljskidnevnik.online/
 - Blog (EN): https://markolosic.github.io/blog/
 - Blog (SR): https://markolosic.github.io/sr/blog/
 - RSS: https://markolosic.github.io/rss.xml
