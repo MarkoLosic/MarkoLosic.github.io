@@ -52,6 +52,12 @@ Tools: Cypress, TypeScript, Oracle APEX, SQL, PL/SQL
 
 Stack: React Native, Supabase, DeepSeek (LLM), Gemini, Claude, NFC, push notifications
 
+### učiteljskidnevnik.online — web portal for class teachers (personal project)
+2026 · https://učiteljskidnevnik.online/
+
+- Before QA I taught first grade, and decided to contribute to teaching and the teaching process: a portal that helps teachers, parents and children work through the primary school curriculum.
+- 1,436 daily lesson plans for grades 1–5 under both curricula in Bosnia and Herzegovina (Republika Srpska and FBiH), tasks differentiated on three levels, printable A4 worksheets and colouring pages, and educational games for children; export to e-Dnevnik and Word, Latin ↔ Cyrillic.
+
 ## Earlier experience
 
 - Category Manager, Tropic, Banja Luka (May 2019 – Jan 2020): managed the technical and electrical product category: product selection, pricing, inventory and supplier negotiations, backed by market research.
