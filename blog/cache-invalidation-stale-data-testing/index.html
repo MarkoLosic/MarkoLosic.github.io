@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-alt-url="../../sr/blog/cache-invalidation-stale-data-testing/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Why Does a Website Sometimes Show the Old Price? A Plain-English Guide to Caching Bugs — Marko Lošić</title>
+  <meta name="description" content="A simple explanation of why websites sometimes show outdated information, and how testers catch these bugs before users do.">
+  <link rel="canonical" href="https://markolosic.github.io/blog/cache-invalidation-stale-data-testing/">
+  <link rel="alternate" hreflang="en" href="https://markolosic.github.io/blog/cache-invalidation-stale-data-testing/">
+  <link rel="alternate" hreflang="sr" href="https://markolosic.github.io/sr/blog/cache-invalidation-stale-data-testing/">
+  <link rel="alternate" hreflang="x-default" href="https://markolosic.github.io/blog/cache-invalidation-stale-data-testing/">
+  <meta name="author" content="Marko Lošić">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07090d">
+  <meta property="og:site_name" content="Marko Lošić">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="sr_RS">
+  <meta property="og:title" content="Why Does a Website Sometimes Show the Old Price? A Plain-English Guide to Caching Bugs — Marko Lošić">
+  <meta property="og:description" content="A simple explanation of why websites sometimes show outdated information, and how testers catch these bugs before users do.">
+  <meta property="og:url" content="https://markolosic.github.io/blog/cache-invalidation-stale-data-testing/">
+  <meta property="og:image" content="https://markolosic.github.io/assets/blog/cache-invalidation-stale-data-testing.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="670">
+  <meta property="og:image:alt" content="Why Does a Website Sometimes Show the Old Price? A Plain-English Guide to Caching Bugs">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Why Does a Website Sometimes Show the Old Price? A Plain-English Guide to Caching Bugs — Marko Lošić">
+  <meta name="twitter:description" content="A simple explanation of why websites sometimes show outdated information, and how testers catch these bugs before users do.">
+  <meta name="twitter:image" content="https://markolosic.github.io/assets/blog/cache-invalidation-stale-data-testing.jpg">
+  <link rel="alternate" type="application/rss+xml" title="Marko Lošić — Blog" href="https://markolosic.github.io/rss.xml">
+  <link rel="alternate" type="text/markdown" title="Marko Lošić — LLMs.txt" href="https://markolosic.github.io/llms.txt">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://markolosic.github.io/blog/cache-invalidation-stale-data-testing/#article","headline":"Why Does a Website Sometimes Show the Old Price? A Plain-English Guide to Caching Bugs","description":"A simple explanation of why websites sometimes show outdated information, and how testers catch these bugs before users do.","image":"https://markolosic.github.io/assets/blog/cache-invalidation-stale-data-testing.jpg","url":"https://markolosic.github.io/blog/cache-invalidation-stale-data-testing/","inLanguage":"en","wordCount":948,"articleSection":"real-world-bugs","mainEntityOfPage":{"@type":"WebPage","@id":"https://markolosic.github.io/blog/cache-invalidation-stale-data-testing/"},"datePublished":"2026-11-27T09:00:00.000Z","dateModified":"2026-11-27T09:00:00.000Z","keywords":"real-world-bugs, test-strategy","author":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]},"publisher":{"@type":"Person","@id":"https://markolosic.github.io/#person","name":"Marko Lošić","jobTitle":"QA Engineer","url":"https://markolosic.github.io/","image":"https://markolosic.github.io/assets/marko.jpg","sameAs":["https://www.linkedin.com/in/markolo%C5%A1i%C4%87/","https://github.com/MarkoLosic"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://markolosic.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://markolosic.github.io/blog/"},{"@type":"ListItem","position":3,"name":"Why Does a Website Sometimes Show the Old Price? A Plain-English Guide to Caching Bugs","item":"https://markolosic.github.io/blog/cache-invalidation-stale-data-testing/"}]}]}</script>
+  <meta property="article:published_time" content="2026-11-27T09:00:00.000Z">
+  <meta property="article:modified_time" content="2026-11-27T09:00:00.000Z">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13' shape-rendering='crispEdges'%3E%3Crect width='13' height='13' rx='3' fill='%2307090d'/%3E%3Cpath d='M10 3h1v1h-1zM9 4h2v1h-2zM2 5h1v1h-1zM8 5h2v1h-2zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h2v1h-2zM6 7h2v1h-2zM4 8h3v1h-3zM5 9h1v1h-1z' fill='%2334d399'/%3E%3C/svg%3E">
+  <link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/fonts.css">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../../blog/blog.css">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="../../" aria-label="Marko Lošić — home">
+      <span class="brand-mark"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 1h1v1h-1zM7 2h2v1h-2zM0 3h1v1h-1zM6 3h2v1h-2zM0 4h2v1h-2zM5 4h2v1h-2zM1 5h2v1h-2zM4 5h2v1h-2zM2 6h3v1h-3zM3 7h1v1h-1z"/></svg></span>
+      <span class="brand-name">Marko&nbsp;Lošić</span>
+    </a>
+    <nav class="links" id="links" aria-label="Primary">
+      <a href="../../#top" data-i18n="nav_about">About</a>
+      <a href="../../#skills" data-i18n="nav_skills">Skills</a>
+      <a href="../../#ai" data-i18n="nav_ai">AI</a>
+      <a href="../../#experience" data-i18n="nav_exp">Experience</a>
+      <a href="../../#education" data-i18n="nav_edu">Education</a>
+      <a href="../../blog/" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="../../#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="pill-btn" id="lang" type="button" aria-label="Switch language">
+        <span data-lang-label="en">EN</span><span class="sep">/</span><span data-lang-label="sr">SR</span>
+      </button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle light / dark theme">
+        <svg class="px i-moon" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 0h4v1h-4zM2 1h2v1h-2zM1 2h2v1h-2zM1 3h2v1h-2zM1 4h2v1h-2zM1 5h2v1h-2zM8 5h1v1h-1zM2 6h2v1h-2zM7 6h2v1h-2zM3 7h5v1h-5z"/></svg>
+        <svg class="px i-sun" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M4 0h1v1h-1zM1 1h1v1h-1zM7 1h1v1h-1zM3 2h3v1h-3zM2 3h5v1h-5zM0 4h1v1h-1zM2 4h5v1h-5zM8 4h1v1h-1zM2 5h5v1h-5zM3 6h3v1h-3zM1 7h1v1h-1zM7 7h1v1h-1zM4 8h1v1h-1z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Menu" aria-expanded="false">
+        <svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M0 1h9v1h-9zM0 4h9v1h-9zM0 7h9v1h-9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap post-wrap">
+    <a class="back" href="../"><svg class="px" viewBox="0 0 9 9" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 1h1v1h-1zM2 2h1v1h-1zM1 3h1v1h-1zM0 4h9v1h-9zM1 5h1v1h-1zM2 6h1v1h-1zM3 7h1v1h-1z"/></svg> <span data-i18n="all_posts">All posts</span></a>
+    <article>
+      <header class="post-head">
+        <div class="meta"><time datetime="2026-11-27" data-fmt="long">27 November 2026</time><span>·</span><span>5 <span data-i18n="min_read">min read</span></span></div>
+        <h1 data-title-sr="Zašto sajt ponekad prikazuje staru cijenu? Jednostavno objašnjenje keš bugova">Why Does a Website Sometimes Show the Old Price? A Plain-English Guide to Caching Bugs</h1>
+        <p class="lead" data-excerpt-sr="Jednostavno objašnjenje zašto sajtovi ponekad prikazuju zastarjele informacije i kako testeri hvataju ove bugove prije korisnika.">A simple explanation of why websites sometimes show outdated information, and how testers catch these bugs before users do.</p>
+        <div class="tags"><span>real-world-bugs</span><span>test-strategy</span></div>
+      </header>
+      <div class="prose"><p>You check a product page and it says $40. You buy it, and at checkout it suddenly charges $35, because the store lowered the price an hour ago. Nobody did anything wrong — the website just hadn't &quot;caught up&quot; yet. This kind of glitch has a name in software: a caching bug. It's one of the most common, most annoying, and most avoidable problems in modern websites and apps, and it's a good example of why testing software is harder than it looks.</p>
+<p><img src="../../assets/blog/cache-invalidation-stale-data-testing.jpg" alt="A browser showing a product page with a $40 sticky note covering the real $35 price, connected by dashed lines to two server stacks and a database" width="1200" height="670" fetchpriority="high" decoding="async"></p>
+<h2 id="what-caching-actually-means">What &quot;caching&quot; actually means</h2>
+<p>Imagine every time you wanted to know today's weather, you had to call the national weather service directly. That would be slow, and if a million people called at once, the phone lines would melt down. So instead, your weather app checks once, writes the answer on a sticky note, and shows you the sticky note the next ten times you ask — instead of calling again each time.</p>
+<p>That sticky note is a cache. Websites do the same thing with almost everything: product prices, your profile picture, search results, news articles. Instead of asking the main database every single time (which would be slow and expensive), they save a quick copy and hand that out instead.</p>
+<p>The problem starts when the real answer changes but nobody updates the sticky note. The weather service says it's raining now, but your app is still showing yesterday's sunny forecast, because it never bothered to check again.</p>
+<h2 id="why-one-sticky-note-isn-t-the-whole-story">Why one sticky note isn't the whole story</h2>
+<p>Here's where it gets trickier: a modern website usually has several sticky notes, not just one, stacked in different places between you and the real database:</p>
+<ul><li>One copy sits on <strong>your own phone or browser</strong>.</li><li>Another copy sits at a <strong>delivery center near your city</strong> (companies use these so pages load fast no matter where you are).</li><li>Another copy sits on the <strong>company's own servers</strong>.</li></ul>
+<p>Each of these copies gets refreshed on its own schedule, with no guarantee the others get the memo at the same time. So when a company updates a price, it's entirely possible that:</p>
+<ul><li>The internal dashboard shows the new price immediately (because it skips all the sticky notes and talks straight to the database).</li><li>Someone in another city still sees the old price for the next ten minutes, because the copy sitting near them hasn't been told to refresh yet.</li><li>Someone using the mobile app sees a different, even older price, because the app checks a different sticky note that nobody remembered to update at all.</li></ul>
+<p>To the team, the bug looks fixed — the one copy they happened to check was correct. To the customer stuck looking at an old price, it very much isn't.</p>
+<h2 id="a-related-trap-the-note-on-the-wrong-note">A related trap: the &quot;note on the wrong note&quot;</h2>
+<p>Sometimes the sticky notes themselves get mislabeled. Picture a filing system where one clerk labels folders &quot;Customer - Smith&quot; and another clerk, working from a slightly different instruction sheet, labels the same folders &quot;Customer - Smith - English version.&quot; When the first clerk is told &quot;delete the old Smith file,&quot; they delete their own label just fine — but the second clerk's folder, with the slightly different label, never gets touched. From the outside, it looks like nothing was deleted at all, because somewhere there's still a folder with Smith's old information sitting untouched.</p>
+<p>This happens in software constantly: the part of the system that writes new data builds its &quot;label&quot; slightly differently than the part that reads data back, and the two quietly drift apart over months of small changes. Nobody notices until a customer reports seeing information that should have been gone.</p>
+<h2 id="why-this-is-hard-to-test-and-why-it-isn-t-anyone-s-fault">Why this is hard to test (and why it isn't anyone's fault)</h2>
+<p>Testers sometimes check a single sticky note, see the &quot;it's fixed&quot; update show up, and sign off — without knowing there are five other sticky notes elsewhere that never got checked at all. It's not laziness; most testing environments used during development don't even include all those extra copies, so the bug is often physically impossible to spot until it reaches real users in the real world with the real setup.</p>
+<p>There's also a case where showing slightly old information on purpose is completely fine. Many systems are designed to show a slightly outdated version for a few seconds while quietly fetching the new one in the background — a deliberate trade so the page loads instantly instead of making you wait. That's not a bug; that's a reasonable design choice. The real bug is when &quot;slightly outdated&quot; turns into &quot;outdated for an hour because nothing ever refreshed it.&quot;</p>
+<h2 id="what-this-means-for-you-as-a-reader">What this means for you as a reader</h2>
+<p>If you ever see a website showing something that seems wrong — an old price, a changed setting that didn't stick, information that should have updated but didn't — a simple refresh sometimes fixes it instantly, because it forces your own device to throw away its sticky note and ask again. If refreshing doesn't help, that's a sign the problem lives further upstream, in one of the other copies you can't personally clear — which is exactly the kind of thing worth reporting to the company rather than assuming you did something wrong.</p>
+<p>For teams building these systems, the fix isn't more cleverness — it's being honest about how many separate copies actually exist, testing all of them together rather than just the easiest one to check, and deliberately deciding how &quot;slightly outdated&quot; is allowed to be before it counts as broken.</p></div>
+      <template id="prose-sr"><p>Otvoriš stranicu proizvoda i piše $40. Kupiš ga, a na plaćanju ti odjednom naplati $35, jer je prodavnica spustila cijenu prije sat vremena. Niko nije ništa pogriješio — sajt jednostavno još nije &quot;sustigao&quot; promjenu. Ovakva greška u softveru ima ime: keš bug. To je jedan od najčešćih, najdosadnijih i najlakše izbježnih problema u modernim sajtovima i aplikacijama, i dobar primjer zašto je testiranje softvera teže nego što izgleda.</p>
+<p><img src="../../assets/blog/cache-invalidation-stale-data-testing.jpg" alt="Pregledač sa stranicom proizvoda na kojoj ceduljica sa cijenom od $40 prekriva stvarnu cijenu od $35, povezan isprekidanim linijama sa dva servera i bazom podataka" width="1200" height="670" fetchpriority="high" decoding="async"></p>
+<h2 id="šta-zapravo-znači-keširanje">Šta zapravo znači &quot;keširanje&quot;</h2>
+<p>Zamisli da svaki put kad želiš da znaš današnju prognozu moraš direktno da zoveš državni hidrometeorološki zavod. To bi bilo sporo, a kad bi milion ljudi zvalo u isto vrijeme, telefonske linije bi se zagušile. Zato tvoja aplikacija za vrijeme provjeri jednom, zapiše odgovor na ceduljicu i narednih deset puta kad pitaš pokaže ti tu ceduljicu — umjesto da svaki put ponovo zove.</p>
+<p>Ta ceduljica je keš. Sajtovi isto rade sa skoro svime: cijenama proizvoda, tvojom profilnom slikom, rezultatima pretrage, vijestima. Umjesto da svaki put pitaju glavnu bazu podataka (što bi bilo sporo i skupo), sačuvaju brzu kopiju i daju nju.</p>
+<p>Problem počinje kad se pravi odgovor promijeni, a niko ne ažurira ceduljicu. Zavod kaže da sad pada kiša, ali tvoja aplikacija i dalje prikazuje jučerašnju sunčanu prognozu, jer se nije potrudila da ponovo provjeri.</p>
+<h2 id="zašto-jedna-ceduljica-nije-cijela-priča">Zašto jedna ceduljica nije cijela priča</h2>
+<p>Tu postaje komplikovanije: moderan sajt obično nema jednu, nego nekoliko ceduljica, raspoređenih na različitim mjestima između tebe i prave baze podataka:</p>
+<ul><li>Jedna kopija stoji na <strong>tvom telefonu ili pregledaču</strong>.</li><li>Druga kopija stoji u <strong>distributivnom centru blizu tvog grada</strong> (kompanije ih koriste da bi se stranice brzo učitavale bez obzira gdje se nalaziš).</li><li>Treća kopija stoji na <strong>serverima same kompanije</strong>.</li></ul>
+<p>Svaka od ovih kopija se osvježava po svom rasporedu, bez garancije da će i ostale dobiti obavještenje u isto vrijeme. Zato je, kad kompanija promijeni cijenu, sasvim moguće da:</p>
+<ul><li>Interni dashboard odmah prikaže novu cijenu (jer preskače sve ceduljice i pita direktno bazu).</li><li>Neko u drugom gradu još deset minuta vidi staru cijenu, jer kopiji blizu njega još niko nije rekao da se osvježi.</li><li>Neko u mobilnoj aplikaciji vidi drugačiju, još stariju cijenu, jer aplikacija čita drugu ceduljicu koju se niko nije sjetio da ažurira.</li></ul>
+<p>Timu bug izgleda popravljeno — jedina kopija koju su slučajno provjerili je bila tačna. Kupcu koji gleda staru cijenu, nikako nije.</p>
+<h2 id="srodna-zamka-pogrešna-etiketa">Srodna zamka: &quot;pogrešna etiketa&quot;</h2>
+<p>Ponekad same ceduljice dobiju pogrešnu etiketu. Zamisli arhivu u kojoj jedan službenik označava fascikle sa &quot;Kupac - Petrović&quot;, a drugi, koji radi po malo drugačijem uputstvu, iste fascikle označava sa &quot;Kupac - Petrović - engleska verzija&quot;. Kad prvom službeniku kažu &quot;obriši staru Petrovićevu fasciklu&quot;, on bez problema obriše svoju — ali fascikla drugog službenika, sa malo drugačijom etiketom, ostaje netaknuta. Spolja izgleda kao da ništa nije obrisano, jer negdje i dalje stoji fascikla sa Petrovićevim starim podacima.</p>
+<p>Ovo se u softveru dešava stalno: dio sistema koji upisuje nove podatke pravi svoju &quot;etiketu&quot; malo drugačije od dijela koji te podatke čita, i ta dva dijela se tiho razilaze kroz mjesece sitnih izmjena. Niko to ne primijeti dok kupac ne prijavi da vidi podatke koji je trebalo da nestanu.</p>
+<h2 id="zašto-je-ovo-teško-testirati-i-zašto-to-nije-ničija-krivica">Zašto je ovo teško testirati (i zašto to nije ničija krivica)</h2>
+<p>Testeri ponekad provjere jednu ceduljicu, vide da se &quot;popravljeno&quot; pojavilo i odobre — ne znajući da negdje postoji još pet ceduljica koje niko nije ni pogledao. To nije lijenost; većina testnih okruženja koja se koriste tokom razvoja uopšte nema sve te dodatne kopije, pa je bug često fizički nemoguće uočiti dok ne stigne do pravih korisnika, u pravom svijetu, sa pravom postavkom.</p>
+<p>Postoji i slučaj kad je namjerno prikazivanje malo starijih podataka sasvim u redu. Mnogi sistemi su napravljeni tako da nekoliko sekundi prikazuju malo zastarjelu verziju dok u pozadini tiho preuzimaju novu — svjesna razmjena da bi se stranica učitala odmah umjesto da čekaš. To nije bug; to je razumna dizajnerska odluka. Pravi bug je kad &quot;malo zastarjelo&quot; postane &quot;zastarjelo sat vremena jer ništa nikad nije osvježeno&quot;.</p>
+<h2 id="šta-ovo-znači-za-tebe-kao-čitaoca">Šta ovo znači za tebe kao čitaoca</h2>
+<p>Ako ikad vidiš da sajt prikazuje nešto što ne izgleda kako treba — staru cijenu, promijenjeno podešavanje koje se nije sačuvalo, informaciju koja je trebalo da se ažurira, a nije — običan refresh ponekad to odmah popravi, jer natjera tvoj uređaj da baci svoju ceduljicu i pita ponovo. Ako refresh ne pomogne, to je znak da je problem dalje u lancu, u nekoj od kopija koje ti ne možeš da očistiš — a to je upravo ono što vrijedi prijaviti kompaniji, umjesto da misliš da si ti nešto pogriješio.</p>
+<p>Za timove koji prave ovakve sisteme, rješenje nije veća domišljatost — nego iskrenost o tome koliko odvojenih kopija zaista postoji, testiranje svih njih zajedno umjesto samo one koju je najlakše provjeriti, i svjesna odluka koliko &quot;malo zastarjelo&quot; smije da bude prije nego što se računa kao greška.</p></template>
+    </article>
+    <div class="post-end">
+      <button class="btn ghost" id="share" type="button" data-i18n="copy_link">Copy link</button>
+      <a class="btn primary" href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    </div>
+    <section class="more-posts"><h2 data-i18n="more_posts">Related posts</h2><div class="post-grid">
+      <a class="post-card card glow" href="../testing-feature-flags-targeting-and-default-bugs/" data-title-sr="Testiranje feature flagova: bagovi koji se kriju iza prekidača" data-excerpt-sr="Testiranje feature flagova obično se završava na uključeno/isključeno. Pravi bagovi žive u pravilima targetiranja, podrazumijevanim vrijednostima i onome što se desi kada flag servis prestane da odgovara."><div class="meta"><time datetime="2026-10-30" data-fmt="short">30 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h3>Testing Feature Flags: The Bugs That Hide Behind the Switch</h3><p>Feature flag testing usually stops at on/off. The real bugs live in targeting rules, default values, and what happens when the flag service goes dark.</p></a>
+      <a class="post-card card glow" href="../testing-dst-booking-bugs/" data-title-sr="Testiranje kroz pomjeranje sata: bagovi u zakazivanju koji se javljaju samo dva puta godišnje" data-excerpt-sr="Zašto funkcije zakazivanja i rezervacija pucaju oko prelaska na ljetnje i zimsko računanje vremena i kako napisati testove koji to zaista hvataju."><div class="meta"><time datetime="2026-10-16" data-fmt="short">16 Oct 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h3>Testing Across Daylight Saving Time: The Booking Bugs That Only Show Up Twice a Year</h3><p>Why scheduling and booking features break around DST transitions, and how to write tests that actually catch it.</p></a>
+      <a class="post-card card glow" href="../petlink-pet-care-app/" data-title-sr="PetLink: aplikacija za brigu o ljubimcima koju sam napravio i testirao od početka do kraja" data-excerpt-sr="Zašto sam napravio PetLink, Android aplikaciju za vlasnike pasa i mačaka, kako su Gemini i Claude pisali i pregledali njen React Native i Supabase kod, i šta me naučilo testiranje sopstvenog proizvoda."><div class="meta"><time datetime="2026-11-26" data-fmt="short">26 Nov 2026</time><span>·</span><span>6 <span data-i18n="min_read">min read</span></span></div><h3>PetLink: The Pet Care App I Built and Tested End to End</h3><p>Why I built PetLink, an Android app for dog and cat owners, how Gemini and Claude wrote and reviewed its React Native and Supabase code, and what testing my own product taught me.</p></a></div></section>
+  </main>
+  <footer class="footer wrap">
+    <span>© <span id="year">2026</span> Marko Lošić</span>
+    <a href="../../#contact" data-i18n="contact_cta">Get in touch</a>
+    <button type="button" data-consent data-i18n="cookies">Cookie settings</button>
+    <a href="../../" data-i18n="back_home">Back to home ↑</a>
+  </footer>
+  <script src="../../js/consent.js" data-ga="G-TP2Z3K3Z94"></script>
+  <script src="../../blog/common.js"></script>
+  <script src="../post.js"></script>
+</body>
+</html>

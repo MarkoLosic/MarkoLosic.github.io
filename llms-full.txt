@@ -12,7 +12,14 @@
 - Blog (SR): https://markolosic.github.io/sr/blog/
 - RSS: https://markolosic.github.io/rss.xml
 
-## All Blog Articles (48)
+## All Blog Articles (49)
+
+### Why Does a Website Sometimes Show the Old Price? A Plain-English Guide to Caching Bugs
+- URL (EN): https://markolosic.github.io/blog/cache-invalidation-stale-data-testing/
+- URL (SR): https://markolosic.github.io/sr/blog/cache-invalidation-stale-data-testing/
+- Date: 2026-11-27
+- Tags: real-world-bugs, test-strategy
+- Summary: A simple explanation of why websites sometimes show outdated information, and how testers catch these bugs before users do.
 
 ### PetLink: The Pet Care App I Built and Tested End to End
 - URL (EN): https://markolosic.github.io/blog/petlink-pet-care-app/

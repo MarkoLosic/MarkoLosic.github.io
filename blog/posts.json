@@ -1,5 +1,18 @@
 [
   {
+    "slug": "cache-invalidation-stale-data-testing",
+    "title": "Why Does a Website Sometimes Show the Old Price? A Plain-English Guide to Caching Bugs",
+    "titleSr": "Zašto sajt ponekad prikazuje staru cijenu? Jednostavno objašnjenje keš bugova",
+    "excerpt": "A simple explanation of why websites sometimes show outdated information, and how testers catch these bugs before users do.",
+    "excerptSr": "Jednostavno objašnjenje zašto sajtovi ponekad prikazuju zastarjele informacije i kako testeri hvataju ove bugove prije korisnika.",
+    "tags": [
+      "real-world-bugs",
+      "test-strategy"
+    ],
+    "date": "2026-11-27",
+    "readingTime": 5
+  },
+  {
     "slug": "petlink-pet-care-app",
     "title": "PetLink: The Pet Care App I Built and Tested End to End",
     "titleSr": "PetLink: aplikacija za brigu o ljubimcima koju sam napravio i testirao od početka do kraja",

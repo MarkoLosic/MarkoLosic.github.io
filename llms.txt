@@ -21,15 +21,16 @@ Contact: markolosic1993@gmail.com
 - [LinkedIn](https://www.linkedin.com/in/markološić/)
 - [GitHub](https://github.com/MarkoLosic)
 
-## Blog (48 articles in English and Serbian)
+## Blog (49 articles in English and Serbian)
 
-- [Blog (English)](https://markolosic.github.io/blog/): 48 articles on QA, test automation, mobile and AI testing
-- [Blog (Serbian)](https://markolosic.github.io/sr/blog/): 48 articles in Serbian
+- [Blog (English)](https://markolosic.github.io/blog/): 49 articles on QA, test automation, mobile and AI testing
+- [Blog (Serbian)](https://markolosic.github.io/sr/blog/): 49 articles in Serbian
 - [Full article index for LLMs](https://markolosic.github.io/llms-full.txt): complete catalog with summaries and tags
 - [RSS](https://markolosic.github.io/rss.xml)
 
 ### Latest Articles
 
+- [Why Does a Website Sometimes Show the Old Price? A Plain-English Guide to Caching Bugs](https://markolosic.github.io/blog/cache-invalidation-stale-data-testing/): A simple explanation of why websites sometimes show outdated information, and how testers catch these bugs before users do.
 - [PetLink: The Pet Care App I Built and Tested End to End](https://markolosic.github.io/blog/petlink-pet-care-app/): Why I built PetLink, an Android app for dog and cat owners, how Gemini and Claude wrote and reviewed its React Native and Supabase code, and what testing my own product taught me.
 - [Testing AI Features That See: QA for Image and Document Inputs](https://markolosic.github.io/blog/vision-ai-testing-image-inputs/): Vision AI features fail in two ways text-only QA misses: bad input images and confident hallucinations. Here's how to test for both.
 - [Session-Based Exploratory Testing: How to Make Ad Hoc Testing Repeatable and Reportable](https://markolosic.github.io/blog/session-based-exploratory-testing/): How session-based test management turns unscripted exploratory testing into something you can plan, measure, and report on, with a worked charter example.
@@ -39,4 +40,3 @@ Contact: markolosic1993@gmail.com
 - [Claude Fable 5.2 for Testing: Where the Advantages Are Real and Where They Stop](https://markolosic.github.io/blog/claude-fable-5-2-for-testing/): What Claude Fable 5.2 changes for QA work: long agentic runs, computer use, vision and cost, with the limits spelled out.
 - [Test Pyramid or Testing Trophy: Picking the Shape That Matches Your Risk, Not the Diagram](https://markolosic.github.io/blog/test-pyramid-vs-testing-trophy/): The test pyramid and testing trophy give opposite advice on where to put your tests. Here's how to decide which shape actually fits your codebase.
 - [Chaos Engineering for QA Teams: What a Game Day Actually Looks Like](https://markolosic.github.io/blog/chaos-engineering-game-day-qa-teams/): A practical look at chaos engineering tools and how to run a resilience game day without turning it into an outage.
-- [Pairwise Testing: Cutting Thousands of Config Combinations Down to a Suite You Can Actually Run](https://markolosic.github.io/blog/pairwise-combinatorial-testing/): How pairwise and combinatorial testing shrink a combinatorial explosion into a small, high-coverage test suite, with a worked example and tool picks.
